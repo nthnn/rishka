@@ -590,6 +590,22 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_IO_READCH:
             return (uint64_t) rishka_syscall_io_readch();
 
+        case RISHKA_SC_IO_READLINE:
+            return (uint64_t) rishka_syscall_io_readline();
+
+        case RISHKA_SC_SYS_DELAY_MS: {
+            uint64_t u = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+            rishka_syscall_sys_delay(u);
+
+            break;
+        }
+
+        case RISHKA_SC_SYS_MICROS:
+            return (uint64_t) rishka_syscall_sys_micros();
+
+        case RISHKA_SC_SYS_MILLIS:
+            return (uint64_t) rishka_syscall_sys_millis();
+
         case RISHKA_SC_SYS_EXIT: {
             int code = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
             rishka_syscall_sys_exit(vm, code);
