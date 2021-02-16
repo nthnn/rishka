@@ -182,6 +182,10 @@ rune IO::readch() {
     return (rune) rishka_sc_0(RISHKA_SC_IO_READCH);
 }
 
+string IO::readline() {
+    return (string) rishka_sc_0(RISHKA_SC_IO_READLINE);
+}
+
 void Sys::exit(i32 code) {
     rishka_sc_1(RISHKA_SC_SYS_EXIT, (i64) code);
 }
