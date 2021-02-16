@@ -26,6 +26,7 @@ public:
     static void printn(i64 number);
     static void printd(double number);
     static rune readch();
+    static string readline();
 };
 
 #endif
