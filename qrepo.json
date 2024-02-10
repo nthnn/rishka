@@ -1,0 +1,17 @@
+{
+	"name": "rishka-sdk",
+	"author": "nthnn",
+	"version": "v0.0.1",
+	"description": "RISC-V virtual runtime in C/C++ SDK made for ESP32-WROVER with PSRAM.",
+	"git": "https://github.com/rishka-esp32/rishka-sdk.git",
+	"scripts": {
+		"compile": [
+			"riscv64-unknown-elf-gcc -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,scripts/link.ld -O2 -o dist/{{1}}.out -Isdk sdk/librishka.c examples/{{1}}.c scripts/launcher.s",
+			"riscv64-unknown-elf-objcopy -O binary dist/{{1}}.out dist/{{1}}.bin",
+			"rm dist/{{1}}.out"
+		],
+		"clean": [
+			"rm -rf dist"
+		]
+	}
+}
