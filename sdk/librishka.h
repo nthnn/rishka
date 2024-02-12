@@ -40,12 +40,24 @@ typedef unsigned long int   u64;
 typedef u32                 usize;
 typedef void*               any;
 
-void io_prints(string text);
-void io_printn(i64 number);
-void io_printf(float number);
-rune io_readch();
+#define F(str) ((char*) str)
 
-void sys_exit(i32 code);
-any sys_memset(any dest, i32 c, usize n);
+class IO {
+public:
+    static void prints(const string text);
+    static void printn(i64 number);
+    static void printd(double number);
+    static rune readch();
+};
+
+class Sys {
+public:
+    static void exit(i32 code);
+};
+
+class Memory {
+public:
+    static any set(any dest, i32 c, usize n);
+};
 
 #endif
