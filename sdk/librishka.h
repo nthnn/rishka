@@ -24,10 +24,27 @@
 #ifndef LIBRISHKA_H
 #define LIBRISHKA_H
 
-void io_prints(char* arg0);
-void io_printn(long arg0);
-char io_readch();
+typedef char                rune;
+typedef char*               string;
 
-void* sys_memset(void* arg0, int arg1, unsigned int arg2);
+typedef signed char         i8;
+typedef signed short int    i16;
+typedef signed int          i32;
+typedef signed long int     i64;
+
+typedef unsigned char       u8;
+typedef unsigned short int  u16;
+typedef unsigned int        u32;
+typedef unsigned long int   u64;
+
+typedef u32                 usize;
+typedef void*               any;
+
+void io_prints(string text);
+void io_printn(i64 number);
+rune io_readch();
+
+void sys_exit(i32 code);
+any sys_memset(any dest, i32 c, usize n);
 
 #endif

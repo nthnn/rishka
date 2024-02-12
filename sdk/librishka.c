@@ -116,43 +116,57 @@ enum rishka_syscall {
     RISHKA_SC_SPI_TRANSFER
 };
 
-#define RISHKA_SC_0(ID) \
-    register long a0 asm("a0") = 0; \
-    register long scid asm("a7") = ID; \
-    asm volatile ("scall" : "+r"(a0) : "r"(scid))
+static inline long rishka_sc_0(int scallid) {
+    register long a0 asm("a0") = 0;
+    register long scid asm("a7") = scallid;
 
-#define RISHKA_SC_1(ID) \
-    register long a0 asm("a0") = (long) arg0; \
-    register long scid asm("a7") = ID; \
-    asm volatile ("scall" : "+r"(a0) : "r"(scid))
+    asm volatile ("scall" : "+r"(a0) : "r"(scid));    
+    return a0;
+}
 
-#define RISHKA_SC_2(ID) \
-    register long a0 asm("a0") = (long) arg0; \
-    register long a1 asm("a1") = (long) arg1; \
-    register long scid asm("a7") = ID; \
-    asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(scid))
+static inline long rishka_sc_1(int scallid, long arg0) {
+    register long a0 asm("a0") = arg0;
+    register long scid asm("a7") = scallid;
 
-#define RISHKA_SC_3(ID) \
-    register long a0 asm("a0") = (long) arg0; \
-    register long a1 asm("a1") = (long) arg1; \
-    register long a2 asm("a2") = (long) arg2; \
-    register long scid asm("a7") = ID; \
-    asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(a2), "r"(scid))
+    asm volatile ("scall" : "+r"(a0) : "r"(scid));
+    return a0;
+}
+
+static inline long rishka_sc_2(int scallid, long arg0, long arg1) {
+    register long a0 asm("a0") = arg0;
+    register long a1 asm("a1") = arg1;
+    register long scid asm("a7") = scallid;
+
+    asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(scid));
+    return a0;
+}
+
+static inline long rishka_sc_3(int scallid, long arg0, long arg1, long arg2) {
+    register long a0 asm("a0") = arg0;
+    register long a1 asm("a1") = arg1;
+    register long a2 asm("a2") = arg2;
+    register long scid asm("a7") = scallid;
+
+    asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(a2), "r"(scid));
+    return a0;
+}
 
 void io_prints(char* arg0) {
-    RISHKA_SC_1(RISHKA_SC_IO_PRINTS);
+    rishka_sc_1(RISHKA_SC_IO_PRINTS, (long) arg0);
 }
 
 void io_printn(long arg0) {
-    RISHKA_SC_1(RISHKA_SC_IO_PRINTN);
+    rishka_sc_1(RISHKA_SC_IO_PRINTN, (long) arg0);
 }
 
 char io_readch() {
-    RISHKA_SC_0(RISHKA_SC_IO_READCH);
-    return (char) a0;
+    return (char) rishka_sc_0(RISHKA_SC_IO_READCH);
+}
+
+void sys_exit(int code) {
+    rishka_sc_1(RISHKA_SC_SYS_EXIT, (long) code);
 }
 
 void* sys_memset(void* arg0, int arg1, unsigned int arg2) {
-    RISHKA_SC_3(RISHKA_SC_MEM_SET);
-    return (void*) a0;
+    return (void*) rishka_sc_3(RISHKA_SC_MEM_SET, (long) arg0, (long) arg1, (long) arg2);
 }
