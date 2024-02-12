@@ -6,7 +6,7 @@
 	"git": "https://github.com/rishka-esp32/rishka-sdk.git",
 	"scripts": {
 		"compile": [
-			"riscv64-unknown-elf-gcc -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,scripts/link.ld -O2 -o dist/{{1}}.out -Isdk sdk/librishka.c examples/{{1}}.c scripts/launcher.s",
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,scripts/link.ld -O2 -o dist/{{1}}.out -Isdk sdk/librishka.cpp examples/{{1}}.cpp scripts/launcher.s",
 			"riscv64-unknown-elf-objcopy -O binary dist/{{1}}.out dist/{{1}}.bin",
 			"rm dist/{{1}}.out"
 		],
