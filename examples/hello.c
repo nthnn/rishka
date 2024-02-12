@@ -28,6 +28,9 @@ int main() {
         io_prints("Hello, world! [");
         io_printn(i);
         io_prints("]\n");
+
+        if(i == 5)
+            sys_exit(0);
     }
 
     return 0;
