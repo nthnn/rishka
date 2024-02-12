@@ -42,6 +42,7 @@ typedef void*               any;
 
 void io_prints(string text);
 void io_printn(i64 number);
+void io_printf(float number);
 rune io_readch();
 
 void sys_exit(i32 code);
