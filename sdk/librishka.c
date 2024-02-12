@@ -24,8 +24,9 @@
 #include "librishka.h"
 
 enum rishka_syscall {
-    RISHKA_SC_IO_PRINTS,
-    RISHKA_SC_IO_PRINTN,
+    RISHKA_SC_IO_PRi32S,
+    RISHKA_SC_IO_PRi32N,
+    RISHKA_SC_IO_PRi32F,
     RISHKA_SC_IO_READCH,
     RISHKA_SC_IO_READLINE,
 
@@ -53,17 +54,17 @@ enum rishka_syscall {
     RISHKA_SC_GPIO_ANALOG_WRITE_RES,
     RISHKA_SC_GPIO_ANALOG_REF,
     RISHKA_SC_GPIO_PULSE_IN,
-    RISHKA_SC_GPIO_PULSE_IN_LONG,
+    RISHKA_SC_GPIO_PULSE_IN_i64,
     RISHKA_SC_GPIO_SHIFT_IN,
     RISHKA_SC_GPIO_SHIFT_OUT,
     RISHKA_SC_GPIO_TONE,
     RISHKA_SC_GPIO_NO_TONE,
 
-    RISHKA_SC_INT_ENABLE,
-    RISHKA_SC_INT_DISABLE,
-    RISHKA_SC_INT_ATTACH,
-    RISHKA_SC_INT_DETACH,
-    RISHKA_SC_INT_DIGITAL_PIN,
+    RISHKA_SC_i32_ENABLE,
+    RISHKA_SC_i32_DISABLE,
+    RISHKA_SC_i32_ATTACH,
+    RISHKA_SC_i32_DETACH,
+    RISHKA_SC_i32_DIGITAL_PIN,
 
     RISHKA_SC_FS_MKDIR,
     RISHKA_SC_FS_RMDIR,
@@ -112,61 +113,85 @@ enum rishka_syscall {
     RISHKA_SC_SPI_SET_BIT_ORDER,
     RISHKA_SC_SPI_SET_CLOCK_DIV,
     RISHKA_SC_SPI_DATA_MODE,
-    RISHKA_SC_SPI_USE_INT,
+    RISHKA_SC_SPI_USE_i32,
     RISHKA_SC_SPI_TRANSFER
 };
 
-static inline long rishka_sc_0(int scallid) {
-    register long a0 asm("a0") = 0;
-    register long scid asm("a7") = scallid;
+static i64 float_to_i64(float f) {
+    union {
+        float input;
+        i64 output;
+    } data;
+
+    data.input = f;
+    return data.output;
+}
+
+static float i64_to_float(i64 l) {
+    union {
+        float output;
+        i64 input;
+    } data;
+
+    data.input = l;
+    return data.output;
+}
+
+static inline i64 rishka_sc_0(i32 scallid) {
+    register i64 a0 asm("a0") = 0;
+    register i64 scid asm("a7") = scallid;
 
     asm volatile ("scall" : "+r"(a0) : "r"(scid));    
     return a0;
 }
 
-static inline long rishka_sc_1(int scallid, long arg0) {
-    register long a0 asm("a0") = arg0;
-    register long scid asm("a7") = scallid;
+static inline i64 rishka_sc_1(i32 scallid, i64 arg0) {
+    register i64 a0 asm("a0") = arg0;
+    register i64 scid asm("a7") = scallid;
 
     asm volatile ("scall" : "+r"(a0) : "r"(scid));
     return a0;
 }
 
-static inline long rishka_sc_2(int scallid, long arg0, long arg1) {
-    register long a0 asm("a0") = arg0;
-    register long a1 asm("a1") = arg1;
-    register long scid asm("a7") = scallid;
+static inline i64 rishka_sc_2(i32 scallid, i64 arg0, i64 arg1) {
+    register i64 a0 asm("a0") = arg0;
+    register i64 a1 asm("a1") = arg1;
+    register i64 scid asm("a7") = scallid;
 
     asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(scid));
     return a0;
 }
 
-static inline long rishka_sc_3(int scallid, long arg0, long arg1, long arg2) {
-    register long a0 asm("a0") = arg0;
-    register long a1 asm("a1") = arg1;
-    register long a2 asm("a2") = arg2;
-    register long scid asm("a7") = scallid;
+static inline i64 rishka_sc_3(i32 scallid, i64 arg0, i64 arg1, i64 arg2) {
+    register i64 a0 asm("a0") = arg0;
+    register i64 a1 asm("a1") = arg1;
+    register i64 a2 asm("a2") = arg2;
+    register i64 scid asm("a7") = scallid;
 
     asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(a2), "r"(scid));
     return a0;
 }
 
-void io_prints(char* arg0) {
-    rishka_sc_1(RISHKA_SC_IO_PRINTS, (long) arg0);
+void io_prints(string text) {
+    rishka_sc_1(RISHKA_SC_IO_PRi32S, (i64) text);
 }
 
-void io_printn(long arg0) {
-    rishka_sc_1(RISHKA_SC_IO_PRINTN, (long) arg0);
+void io_printn(i64 number) {
+    rishka_sc_1(RISHKA_SC_IO_PRi32N, (i64) number);
 }
 
-char io_readch() {
-    return (char) rishka_sc_0(RISHKA_SC_IO_READCH);
+void io_printf(float number) {
+    rishka_sc_1(RISHKA_SC_IO_PRi32F, float_to_i64(number));
 }
 
-void sys_exit(int code) {
-    rishka_sc_1(RISHKA_SC_SYS_EXIT, (long) code);
+rune io_readch() {
+    return (rune) rishka_sc_0(RISHKA_SC_IO_READCH);
 }
 
-void* sys_memset(void* arg0, int arg1, unsigned int arg2) {
-    return (void*) rishka_sc_3(RISHKA_SC_MEM_SET, (long) arg0, (long) arg1, (long) arg2);
+void sys_exit(i32 code) {
+    rishka_sc_1(RISHKA_SC_SYS_EXIT, (i64) code);
+}
+
+any sys_memset(void* dest, i32 c, u32 n) {
+    return (any) rishka_sc_3(RISHKA_SC_MEM_SET, (i64) dest, (i64) c, (i64) n);
 }
