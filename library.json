@@ -1,0 +1,28 @@
+{
+    "name": "Rishka",
+    "version": "1.0.0",
+    "description": "RISC-V virtual runtime in C/C++ made for ESP32-WROVER with PSRAM.",
+    "keywords": [
+        "RISC-V",
+        "virtual runtime",
+        "ESP32-WROVER",
+        "PSRAM"
+    ],
+    "homepage": "https://github.com/rishka-esp32/rishka",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rishka-esp32/rishka.git"
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Nathanne Isip",
+            "email": "nathanneisip@gmail.com",
+            "maintainer": true
+        }
+    ],
+    "frameworks": "arduino",
+    "platforms": [
+        "espressif32"
+    ]
+}
