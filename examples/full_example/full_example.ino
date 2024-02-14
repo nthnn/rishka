@@ -28,6 +28,7 @@ void setup() {
 
     rishka_vm_loadfile("/hello.bin");
     rishka_vm_run(0, NULL);
+    rishka_vm_reset();
 }
 
 void loop() {
