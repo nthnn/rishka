@@ -26,7 +26,7 @@ void setup() {
         while(true);
     }
 
-    File file = SD.open(file_name);
+    File file = SD.open("/hello.bin");
     if(!file)
       rishka_panic("Failed to open file.");
 
