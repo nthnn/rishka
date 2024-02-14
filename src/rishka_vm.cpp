@@ -547,10 +547,12 @@ void rishka_vm_execute(uint32_t inst) {
     vm->pc = (vm->pc + 4);
 }
 
-void rishka_vm_loadfile(const char* file_name) {
+bool rishka_vm_loadfile(const char* file_name) {
     File file = SD.open(file_name);
-    if(!file)
-      rishka_panic("Failed to open file.");
+    if(!file) {
+        file.close();
+        return false;
+    }
 
     rishka_virtual_machine* vm = &riscvm_machine;
     file.read(&(((rishka_u8_arrptr*) & vm->memory)->a).v[4096], file.size());
@@ -558,6 +560,8 @@ void rishka_vm_loadfile(const char* file_name) {
 
     (((rishka_u64_arrptr*) & vm->registers)->a).v[2] = RISHKA_VM_STACK_SIZE;
     vm->pc = 4096;
+
+    return true;
 }
 
 uint32_t rishka_vm_fetch(rishka_virtual_machine* vm) {
