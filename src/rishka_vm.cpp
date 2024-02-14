@@ -607,3 +607,19 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
 
     return 0;
 }
+
+void rishka_vm_reset() {
+    rishka_virtual_machine* vm = &riscvm_machine;
+
+    vm->running = false;
+    vm->argv = NULL;
+    vm->argc = 0;
+    vm->pc = 0;
+    vm->exitcode = 0;
+
+    for(uint8_t i = 0; i < 31; i++)
+        vm->registers[i] = 0;
+
+    for(int i = 0; i < RISHKA_VM_STACK_SIZE; i++)
+        vm->memory[i] = 0;
+}
