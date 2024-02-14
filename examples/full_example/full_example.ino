@@ -26,7 +26,13 @@ void setup() {
         while(true);
     }
 
-    rishka_vm_loadfile("/hello.bin");
+    File file = SD.open(file_name);
+    if(!file)
+      rishka_panic("Failed to open file.");
+
+    if(!rishka_vm_loadfile(file))
+        rishka_panic("Failed to load specified file.");
+
     rishka_vm_run(0, NULL);
     rishka_vm_reset();
 }
