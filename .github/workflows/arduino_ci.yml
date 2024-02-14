@@ -31,4 +31,4 @@ jobs:
         run: python3 -m pip install serial
 
       - name: Build Arduino library
-        run: arduino-cli compile --fqbn esp32:esp32:esp32-poe-iso --library src --build-path build examples/full_example/full_example.ino
+        run: arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/full_example/full_example.ino
