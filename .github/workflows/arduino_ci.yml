@@ -1,0 +1,34 @@
+name: Arduino CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Chocolatey (Windows package manager)
+        run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+      - name: Install Arduino CLI (Windows)
+        run: choco install arduino-cli -y
+
+      - name: Arduino ESP32 Platform Installation
+        run: arduino-cli core install esp32:esp32
+
+      - name: Install Python serial library
+        run: python3 -m pip install serial
+
+      - name: Build Arduino library
+        run: arduino-cli compile --fqbn esp32:esp32:esp32-poe-iso --library src --build-path build examples/full_example/full_example.ino
