@@ -118,7 +118,11 @@ void rishka_syscall_io_prints(char* arg);
 void rishka_syscall_io_prints(int64_t arg);
 void rishka_syscall_io_printd(double arg);
 char rishka_syscall_io_readch();
+char* rishka_syscal_io_readline();
 
+void rishka_syscall_sys_delay(unsigned long ms);
+unsigned long rishka_syscall_sys_micros();
+unsigned long rishka_syscall_sys_millis();
 void rishka_syscall_sys_exit(rishka_virtual_machine* vm, int code);
 
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm);

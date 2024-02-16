@@ -35,10 +35,10 @@ typedef struct {
 
 static rishka_virtual_machine riscvm_machine;
 
-void rishka_vm_run(int argc, char** argv);
-bool rishka_vm_loadfile(const char* file_name);
-void rishka_vm_execute(uint32_t inst);
-void rishka_vm_reset();
+void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv);
+bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name);
+void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst);
+void rishka_vm_reset(rishka_virtual_machine* vm);
 
 uint32_t rishka_vm_fetch(rishka_virtual_machine* vm);
 uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code);
