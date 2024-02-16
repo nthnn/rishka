@@ -39,7 +39,7 @@ char rishka_syscall_io_readch() {
 }
 
 char* rishka_syscal_io_readline() {
-    return Serial.readLine().c_str();
+    return (char*) Serial.readString().c_str();
 }
 
 void rishka_syscall_sys_delay(unsigned long ms) {

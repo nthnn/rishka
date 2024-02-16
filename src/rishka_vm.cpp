@@ -29,7 +29,7 @@ void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
     vm->argv = argv;
 
     while(vm->running)
-        rishka_vm_execute(rishka_vm_fetch(vm));
+        rishka_vm_execute(vm, rishka_vm_fetch(vm));
 }
 
 void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
