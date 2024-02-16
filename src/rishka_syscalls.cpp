@@ -38,6 +38,25 @@ char rishka_syscall_io_readch() {
     return (char) Serial.read();
 }
 
+char* rishka_syscal_io_readline() {
+    return Serial.readLine().c_str();
+}
+
+void rishka_syscall_sys_delay(unsigned long ms) {
+    delay(ms);
+}
+
+unsigned long rishka_syscall_sys_micros() {
+    return micros();
+}
+
+unsigned long rishka_syscall_sys_millis() {
+    return millis();
+}
+
+void rishka_syscall_sys_delay(unsigned long ms);
+unsigned long rishka_syscall_sys_micros();
+unsigned long rishka_syscall_sys_millis();
 void rishka_syscall_sys_exit(rishka_virtual_machine* vm, int code) {
     vm->running = false;
     vm->exitcode = code;

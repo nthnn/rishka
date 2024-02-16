@@ -23,8 +23,7 @@
 #include <rishka_vm.h>
 #include <rishka_vm_helper.h>
 
-void rishka_vm_run(int argc, char** argv) {
-    rishka_virtual_machine* vm = &riscvm_machine;
+void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
     vm->running = true;
     vm->argc = argc;
     vm->argv = argv;
@@ -33,9 +32,7 @@ void rishka_vm_run(int argc, char** argv) {
         rishka_vm_execute(rishka_vm_fetch(vm));
 }
 
-void rishka_vm_execute(uint32_t inst) {
-    rishka_virtual_machine* vm = &riscvm_machine;
-
+void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
     uint32_t opcode = ((inst >> 0) & 127);
     uint32_t rd = ((inst >> 7) & 31),
         rs1 = ((inst >> 15) & 31),
@@ -547,14 +544,13 @@ void rishka_vm_execute(uint32_t inst) {
     vm->pc = (vm->pc + 4);
 }
 
-bool rishka_vm_loadfile(const char* file_name) {
+bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name) {
     File file = SD.open(file_name);
     if(!file) {
         file.close();
         return false;
     }
 
-    rishka_virtual_machine* vm = &riscvm_machine;
     file.read(&(((rishka_u8_arrptr*) & vm->memory)->a).v[4096], file.size());
     file.close();
 
@@ -612,9 +608,7 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
     return 0;
 }
 
-void rishka_vm_reset() {
-    rishka_virtual_machine* vm = &riscvm_machine;
-
+void rishka_vm_reset(rishka_virtual_machine* vm) {
     vm->running = false;
     vm->argv = NULL;
     vm->argc = 0;
