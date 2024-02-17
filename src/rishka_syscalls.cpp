@@ -27,10 +27,12 @@ void rishka_syscall_io_prints(char* arg) {
 
 void rishka_syscall_io_prints(int64_t arg) {
     Serial.print(arg);
+    Serial.flush();
 }
 
 void rishka_syscall_io_printd(double arg) {
     Serial.print(arg);
+    Serial.flush();
 }
 
 char rishka_syscall_io_readch() {
