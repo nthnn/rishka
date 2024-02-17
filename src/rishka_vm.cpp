@@ -551,13 +551,16 @@ bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name) {
         return false;
     }
 
-    file.read(&(((rishka_u8_arrptr*) & vm->memory)->a).v[4096], file.size());
-    file.close();
+    if(file.read(&(((rishka_u8_arrptr*) &vm->memory)->a).v[4096], file.size())) {
+        file.close();
 
-    (((rishka_u64_arrptr*) & vm->registers)->a).v[2] = RISHKA_VM_STACK_SIZE;
-    vm->pc = 4096;
+        (((rishka_u64_arrptr*) &vm->registers)->a).v[2] = RISHKA_VM_STACK_SIZE;
+        vm->pc = 4096;
 
-    return true;
+        return true;
+    }
+
+    return false;
 }
 
 uint32_t rishka_vm_fetch(rishka_virtual_machine* vm) {
