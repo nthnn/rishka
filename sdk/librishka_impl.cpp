@@ -186,6 +186,18 @@ string IO::readline() {
     return (string) rishka_sc_0(RISHKA_SC_IO_READLINE);
 }
 
+void Sys::delay(u64 ms) {
+    rishka_sc_1(RISHKA_SC_SYS_DELAY_MS, (long) ms);
+}
+
+u64 Sys::micros() {
+    return (u64) rishka_sc_0(RISHKA_SC_SYS_MICROS);
+}
+
+u64 Sys::millis() {
+    return (u64) rishka_sc_0(RISHKA_SC_SYS_MILLIS);
+}
+
 void Sys::exit(i32 code) {
     rishka_sc_1(RISHKA_SC_SYS_EXIT, (i64) code);
 }

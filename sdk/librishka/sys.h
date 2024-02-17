@@ -22,6 +22,9 @@
 
 class Sys {
 public:
+    static void delay(u64 ms);
+    static u64 micros();
+    static u64 millis();
     static void exit(i32 code);
 };
 
