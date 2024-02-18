@@ -35,5 +35,6 @@ typedef u32                 usize;
 typedef void*               any;
 
 #define F(str) ((char*) str)
+#define nil ((void*) 0)
 
 #endif
