@@ -22,6 +22,6 @@
 #include <SD.h>
 #include <SPI.h>
 
-#define  RISHKA_VM_STACK_SIZE 65536U
+#define  RISHKA_VM_STACK_SIZE 32768U
 
 #endif
