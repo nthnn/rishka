@@ -26,6 +26,7 @@ void setup() {
         while(true);
     }
 
+    rishka_vm_initialize(&rishka_vm);
     Serial.print("> ");
 }
 
@@ -36,13 +37,13 @@ void loop() {
     String input = Serial.readString();
     Serial.print(input);
 
-    if(!rishka_vm_loadfile(&riscvm_machine, input.c_str())) {
+    if(!rishka_vm_loadfile(&rishka_vm, input.c_str())) {
         Serial.println("Failed to load specified file: " + input);
         return;
     }
 
-    rishka_vm_run(&riscvm_machine, 0, NULL);
-    rishka_vm_reset(&riscvm_machine);
+    rishka_vm_run(&rishka_vm, 0, NULL);
+    rishka_vm_reset(&rishka_vm);
 
     Serial.print("> ");
 }
