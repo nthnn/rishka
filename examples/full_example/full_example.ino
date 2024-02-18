@@ -26,11 +26,12 @@ void setup() {
         while(true);
     }
 
-    if(!rishka_vm_loadfile(&riscvm_machine, "/hello.bin"))
+    rishka_vm_initialize(&rishka_vm);
+    if(!rishka_vm_loadfile(&rishka_vm, "/hello.bin"))
         rishka_panic("Failed to load specified file.");
 
-    rishka_vm_run(&riscvm_machine, 0, NULL);
-    rishka_vm_reset(&riscvm_machine);
+    rishka_vm_run(&rishka_vm, 0, NULL);
+    rishka_vm_reset(&rishka_vm);
 }
 
 void loop() {
