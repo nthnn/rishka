@@ -18,14 +18,17 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Install Arduino CLI and RISC-V GNU toolchain
-        run: sudo apt install arduino-cli gcc-riscv64-unknown-elf
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
 
-      - name: Arduino ESP32 Platform Installation
-        run: arduino-cli core install esp32:esp32
+      - name: Install RISC-V GNU toolchain
+        run: sudo apt install arduino-cli gcc-riscv64-unknown-elf
 
       - name: Install Python serial library
         run: python3 -m pip install serial
+
+      - name: Arduino ESP32 Platform Installation
+        run: arduino-cli core install esp32:esp32
 
       - name: Build Arduino library
         run: |
