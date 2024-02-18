@@ -17,20 +17,27 @@
 
 #include <rishka_syscalls.h>
 #include <rishka_types.h>
+#include <rishka_util.h>
 #include <rishka_vm.h>
 #include <rishka_vm_helper.h>
 
-void rishka_syscall_io_prints(char* arg) {
+void rishka_syscall_io_prints(rishka_virtual_machine* vm) {
+    char* arg = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+
     Serial.print(arg != NULL ? arg : "(null)");
     Serial.flush();
 }
 
-void rishka_syscall_io_prints(int64_t arg) {
+void rishka_syscall_io_printn(rishka_virtual_machine* vm) {
+    int64_t arg = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+
     Serial.print(arg);
     Serial.flush();
 }
 
-void rishka_syscall_io_printd(double arg) {
+void rishka_syscall_io_printd(rishka_virtual_machine* vm) {
+    double arg = rishka_long_to_double((((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+
     Serial.print(arg);
     Serial.flush();
 }
@@ -44,7 +51,8 @@ char* rishka_syscall_io_readline() {
     return (char*) Serial.readString().c_str();
 }
 
-void rishka_syscall_sys_delay(unsigned long ms) {
+void rishka_syscall_sys_delay(rishka_virtual_machine* vm) {
+    uint64_t ms = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     delay(ms);
 }
 
@@ -71,7 +79,9 @@ int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm) {
     return rishka_child_vm.exitcode;
 }
 
-void rishka_syscall_sys_exit(rishka_virtual_machine* vm, int code) {
+void rishka_syscall_sys_exit(rishka_virtual_machine* vm) {
+    int code = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+
     vm->running = false;
     vm->exitcode = code;
 }

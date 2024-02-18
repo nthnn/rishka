@@ -577,26 +577,17 @@ uint32_t rishka_vm_fetch(rishka_virtual_machine* vm) {
 
 uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
     switch(code) {
-        case RISHKA_SC_IO_PRINTS: {
-            char* s = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
-            rishka_syscall_io_prints(s);
-
+        case RISHKA_SC_IO_PRINTS:
+            rishka_syscall_io_prints(vm);
             break;
-        }
 
-        case RISHKA_SC_IO_PRINTN: {
-            int64_t i = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-            rishka_syscall_io_prints(i);
-
+        case RISHKA_SC_IO_PRINTN:
+            rishka_syscall_io_printn(vm);
             break;
-        }
 
-        case RISHKA_SC_IO_PRINTD: {
-            double d = rishka_long_to_double((((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
-            rishka_syscall_io_printd(d);
-
+        case RISHKA_SC_IO_PRINTD:
+            rishka_syscall_io_printd(vm);
             break;
-        }
 
         case RISHKA_SC_IO_READCH:
             return (uint64_t) rishka_syscall_io_readch();
@@ -604,12 +595,9 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_IO_READLINE:
             return (uint64_t) rishka_syscall_io_readline();
 
-        case RISHKA_SC_SYS_DELAY_MS: {
-            uint64_t u = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-            rishka_syscall_sys_delay(u);
-
+        case RISHKA_SC_SYS_DELAY_MS:
+            rishka_syscall_sys_delay(vm);
             break;
-        }
 
         case RISHKA_SC_SYS_MICROS:
             return (uint64_t) rishka_syscall_sys_micros();
@@ -620,12 +608,9 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_SYS_SHELLEXEC:
             return (uint64_t) rishka_syscall_sys_shellexec(vm);
 
-        case RISHKA_SC_SYS_EXIT: {
-            int code = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-            rishka_syscall_sys_exit(vm, code);
-
+        case RISHKA_SC_SYS_EXIT:
+            rishka_syscall_sys_exit(vm);
             break;
-        }
 
         case RISHKA_SC_MEM_SET:
             return (uint64_t) rishka_syscall_mem_set(vm);

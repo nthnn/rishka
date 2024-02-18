@@ -114,17 +114,17 @@ enum rishka_syscall {
     RISHKA_SC_SPI_TRANSFER
 };
 
-void rishka_syscall_io_prints(char* arg);
-void rishka_syscall_io_prints(int64_t arg);
-void rishka_syscall_io_printd(double arg);
+void rishka_syscall_io_prints(rishka_virtual_machine* vm);
+void rishka_syscall_io_printn(rishka_virtual_machine* vm);
+void rishka_syscall_io_printd(rishka_virtual_machine* vm);
 char rishka_syscall_io_readch();
 char* rishka_syscall_io_readline();
 
-void rishka_syscall_sys_delay(unsigned long ms);
+void rishka_syscall_sys_delay(rishka_virtual_machine* vm);
 unsigned long rishka_syscall_sys_micros();
 unsigned long rishka_syscall_sys_millis();
 int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm);
-void rishka_syscall_sys_exit(rishka_virtual_machine* vm, int code);
+void rishka_syscall_sys_exit(rishka_virtual_machine* vm);
 
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm);
 
