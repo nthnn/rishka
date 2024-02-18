@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -18,11 +18,8 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Install Chocolatey (Windows package manager)
-        run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-      - name: Install Arduino CLI (Windows)
-        run: choco install arduino-cli -y
+      - name: Install Arduino CLI and RISC-V GNU toolchain
+        run: sudo apt install arduino-cli gcc-riscv64-unknown-elf
 
       - name: Arduino ESP32 Platform Installation
         run: arduino-cli core install esp32:esp32
@@ -31,5 +28,6 @@ jobs:
         run: python3 -m pip install serial
 
       - name: Build Arduino library
-        run: arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/full_example/full_example.ino
-        run: arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/shell_example/shell_example.ino
+        run: |
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/full_example/full_example.ino
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/shell_example/shell_example.ino
