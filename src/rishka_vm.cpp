@@ -23,6 +23,14 @@
 #include <rishka_vm.h>
 #include <rishka_vm_helper.h>
 
+void rishka_vm_initialize(rishka_virtual_machine* vm) {
+    vm->running = false;
+    vm->argv = NULL;
+    vm->argc = 0;
+    vm->pc = 0;
+    vm->exitcode = 0;
+}
+
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
     vm->running = true;
     vm->argc = argc;
@@ -608,6 +616,9 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
 
         case RISHKA_SC_SYS_MILLIS:
             return (uint64_t) rishka_syscall_sys_millis();
+
+        case RISHKA_SC_SYS_SHELLEXEC:
+            return (uint64_t) rishka_syscall_sys_shellexec(vm);
 
         case RISHKA_SC_SYS_EXIT: {
             int code = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
