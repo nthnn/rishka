@@ -25,6 +25,7 @@ public:
     static void delay(u64 ms);
     static u64 micros();
     static u64 millis();
+    static i32 shellexec(string program, i32 argc, string* argv);
     static void exit(i32 code);
 };
 
