@@ -56,6 +56,21 @@ unsigned long rishka_syscall_sys_millis() {
     return millis();
 }
 
+int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm) {
+    char* program = (char*) rishka_vm_getptr(parent_vm, (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[10]);
+    int argc = (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[11];
+    char** argv = (char**) rishka_vm_getptr(parent_vm, (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[12]);
+
+    rishka_vm_initialize(&rishka_child_vm);
+    if(!rishka_vm_loadfile(&rishka_child_vm, program))
+        return -1;
+
+    rishka_vm_run(&rishka_child_vm, argc, argv);
+    rishka_vm_reset(&rishka_child_vm);
+    
+    return rishka_child_vm.exitcode;
+}
+
 void rishka_syscall_sys_exit(rishka_virtual_machine* vm, int code) {
     vm->running = false;
     vm->exitcode = code;
