@@ -25,7 +25,7 @@ jobs:
         run: sudo apt install gcc-riscv64-unknown-elf
 
       - name: Install Python serial library
-        run: python3 -m pip install serial
+        run: python3 -m pip install pyserial
 
       - name: Arduino ESP32 Platform Installation
         run: arduino-cli core install esp32:esp32
