@@ -1,5 +1,5 @@
 /* 
- * This file is part of the Rishka SDK distribution (https://github.com/rishka-esp32/rishka-sdk).
+ * This file is part of the Rishka distribution (https://github.com/rishka-esp32/rishka-sdk).
  * Copyright (c) 2024 Nathanne Isip.
  * 
  * This program is free software: you can redistribute it and/or modify  
