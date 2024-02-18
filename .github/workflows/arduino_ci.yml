@@ -22,7 +22,7 @@ jobs:
         uses: arduino/setup-arduino-cli@v1
 
       - name: Install RISC-V GNU toolchain
-        run: sudo apt install arduino-cli gcc-riscv64-unknown-elf
+        run: sudo apt install gcc-riscv64-unknown-elf
 
       - name: Install Python serial library
         run: python3 -m pip install serial
