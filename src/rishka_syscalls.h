@@ -111,7 +111,9 @@ enum rishka_syscall {
     RISHKA_SC_SPI_SET_CLOCK_DIV,
     RISHKA_SC_SPI_DATA_MODE,
     RISHKA_SC_SPI_USE_INT,
-    RISHKA_SC_SPI_TRANSFER
+    RISHKA_SC_SPI_TRANSFER,
+
+    RISHKA_SC_RT_STRPASS
 };
 
 void rishka_syscall_io_prints(rishka_virtual_machine* vm);
@@ -125,7 +127,13 @@ unsigned long rishka_syscall_sys_micros();
 unsigned long rishka_syscall_sys_millis();
 int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm);
 void rishka_syscall_sys_exit(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_sys_infos(rishka_virtual_machine* vm);
+long rishka_syscall_sys_infon(rishka_virtual_machine* vm);
+long rishka_syscall_sys_random();
 
+void rishka_syscall_mem_alloc(rishka_virtual_machine* vm);
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm);
+
+char rishka_syscall_rt_strpass();
 
 #endif
