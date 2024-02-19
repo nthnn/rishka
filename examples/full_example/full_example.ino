@@ -28,7 +28,7 @@ void setup() {
 
     rishka_vm_initialize(&rishka_vm);
     if(!rishka_vm_loadfile(&rishka_vm, "/hello.bin"))
-        rishka_panic("Failed to load specified file.", rishka_vm);
+        rishka_panic("Failed to load specified file.", &rishka_vm);
 
     rishka_vm_run(&rishka_vm, 0, NULL);
     rishka_vm_reset(&rishka_vm);
