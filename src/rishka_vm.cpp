@@ -612,8 +612,25 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             rishka_syscall_sys_exit(vm);
             break;
 
+        case RISHKA_SC_SYS_INFOS:
+            return (uint64_t) rishka_syscall_sys_infos(vm);
+
+        case RISHKA_SC_SYS_INFON:
+            return (uint64_t) rishka_syscall_sys_infon(vm);
+
+        case RISHKA_SC_SYS_RANDOM:
+            return (uint64_t) rishka_syscall_sys_random();
+
+        case RISHKA_SC_MEM_ALLOC: {
+            rishka_syscall_mem_alloc(vm);
+            break;
+        }
+
         case RISHKA_SC_MEM_SET:
             return (uint64_t) rishka_syscall_mem_set(vm);
+
+        case RISHKA_SC_RT_STRPASS:
+            return (uint64_t) rishka_syscall_rt_strpass();
 
         default:
             rishka_panic("Invalid system call.");
