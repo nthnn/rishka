@@ -15,25 +15,47 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This example demonstrates the usage of Rishka virtual machine
+ * to load and execute a specific binary file ("/hello.bin") stored
+ * on an SD card. It initializes serial communication, SD card,
+ * Rishka VM, loads the binary file, executes it, and then resets
+ * the VM. After setup, it enters an idle loop.
+ */
+
 #include <rishka.h>
 
 void setup() {
+    // Begin serial communication at 115200 baud rate
     Serial.begin(115200);
+    // Wait until serial connection is established
     while(!Serial);
 
+    // Initialize SD card on pin 5
     if(!SD.begin(5)) {
+        // If SD card initialization fails,
+        // print error message and halt execution
         Serial.println("Failed to initialize SD card.");
         while(true);
     }
 
+    // Initialize Rishka virtual machine
     rishka_vm_initialize(&rishka_vm);
+
+    // Attempt to load specified file ("/hello.bin")
+    // into Rishka virtual machine
     if(!rishka_vm_loadfile(&rishka_vm, "/hello.bin"))
+        // If loading file fails, print error
+        // message and halt execution
         rishka_panic("Failed to load specified file.", &rishka_vm);
 
+    // Run loaded program on Rishka virtual machine
     rishka_vm_run(&rishka_vm, 0, NULL);
+    // Reset Rishka virtual machine for next execution
     rishka_vm_reset(&rishka_vm);
 }
 
 void loop() {
+    // Delay execution to avoid busy-waiting
     vTaskDelay(10);
 }
