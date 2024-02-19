@@ -20,6 +20,30 @@
 
 #include <librishka/types.h>
 
+typedef enum {
+    SYSINFO_CHIPCORES,
+    SYSINFO_CHIP_REV,
+    SYSINFO_CPU_FREQ,
+    SYSINFO_CYCLE_COUNT,
+    SYSINFO_EFUSE_MAC,
+    SYSINFO_FLASH_MODE,
+    SYSINFO_FLASH_SPEED,
+    SYSINFO_FREE_HEAP,
+    SYSINFO_FREE_PSRAM,
+    SYSINFO_HEAP_SIZE,
+    SYSINFO_MAX_ALLOC_HEAP,
+    SYSINFO_MIN_FREE_HEAP,
+    SYSINFO_MIN_FREE_PSRAM,
+    SYSINFO_PSRAM_SIZE,
+    SYSINFO_TEMP_VAL
+} sysinfon_t;
+
+typedef enum {
+    SYSINFO_CHIPMODEL,
+    SYSINFO_SDK_VERSION,
+    SYSINFO_SKETCH_MD5
+} sysinfos_t;
+
 class Sys {
 public:
     static void delay(u64 ms);
@@ -27,6 +51,8 @@ public:
     static u64 millis();
     static i32 shellexec(string program, i32 argc, string* argv);
     static void exit(i32 code);
+    static string info_str(sysinfos_t key);
+    static i64 info_num(sysinfon_t key);
 };
 
 #endif

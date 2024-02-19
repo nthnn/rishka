@@ -22,6 +22,7 @@
 
 class Memory {
 public:
+    static void alloc(any dest, usize size);
     static any set(any dest, i32 c, usize n);
 };
 

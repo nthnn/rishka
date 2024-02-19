@@ -108,10 +108,12 @@ enum rishka_syscall {
     RISHKA_SC_SPI_SET_CLOCK_DIV,
     RISHKA_SC_SPI_DATA_MODE,
     RISHKA_SC_SPI_USE_INT,
-    RISHKA_SC_SPI_TRANSFER
+    RISHKA_SC_SPI_TRANSFER,
+
+    RISHKA_SC_RT_STRPASS
 };
 
-long long int double_to_long(double d) {
+static inline long long int double_to_long(double d) {
     union {
         double input;
         long long int output;
@@ -121,7 +123,7 @@ long long int double_to_long(double d) {
     return data.output;
 }
 
-double long_to_float(long long int l) {
+static inline double long_to_float(long long int l) {
     union {
         double output;
         long long int input;
@@ -166,6 +168,21 @@ static inline i64 rishka_sc_3(i32 scallid, i64 arg0, i64 arg1, i64 arg2) {
     return a0;
 }
 
+static inline rune rt_strpass() {
+    return (rune) rishka_sc_0(RISHKA_SC_RT_STRPASS);    
+}
+
+static inline string get_rt_string(u32 len) {
+    string str;
+    Memory::alloc(str, len + 1);
+
+    for(u32 i = 0; i < len; i++)
+        str[i] = rt_strpass();
+
+    str[len] = '\0';
+    return str;
+}
+
 void IO::prints(const string text) {
     rishka_sc_1(RISHKA_SC_IO_PRINTS, (i64) text);
 }
@@ -204,6 +221,19 @@ i32 Sys::shellexec(string program, i32 argc, string* argv) {
 
 void Sys::exit(i32 code) {
     rishka_sc_1(RISHKA_SC_SYS_EXIT, (i64) code);
+}
+
+string Sys::info_str(sysinfos_t key) {
+    u32 len = rishka_sc_1(RISHKA_SC_SYS_INFOS, (i64) key);
+    return get_rt_string(len);
+}
+
+i64 Sys::info_num(sysinfon_t key) {
+    return (i64) rishka_sc_1(RISHKA_SC_SYS_INFON, (i64) key);
+}
+
+void Memory::alloc(any dest, usize size) {
+    rishka_sc_2(RISHKA_SC_MEM_ALLOC, (i64) dest, (i64) size);
 }
 
 any Memory::set(void* dest, i32 c, u32 n) {
