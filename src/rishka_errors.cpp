@@ -28,12 +28,12 @@ void rishka_perror(const char* msg, uintptr_t len, bool flush) {
     }
 }
 
-void rishka_panic(const char* message) {
+void rishka_panic(const char* message, rishka_virtual_machine* vm) {
     size_t len = strlen(message);
 
     if(len > 0)
         rishka_perror(message, len, true);
 
-    while(true)
-        vTaskDelay(10);
+    vm->running = false;
+    vm->exitcode = -1;
 }

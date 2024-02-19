@@ -19,8 +19,9 @@
 #define RISHKA_ERRORS_H
 
 #include <rishka_commons.h>
+#include <rishka_vm.h>
 
 void rishka_perror(const char* msg, uintptr_t len, bool flush);
-void rishka_panic(const char* message);
+void rishka_panic(const char* message, rishka_virtual_machine* vm);
 
 #endif
