@@ -1,9 +1,6 @@
 name: Rust Build CI
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
@@ -16,6 +13,6 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-
-      - name: 'rishka-cc' cargo build
+        
+      - name: rishka-cc cargo build
         run: cd tools/rishka-cc && cargo build --release
