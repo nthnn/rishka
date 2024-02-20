@@ -3,7 +3,7 @@
     <h1 align="center">Rishka</h1>
 </p>
 
-![Arduino CI](https://github.com/nthnn/rishka/actions/workflows/arduino_ci.yml/badge.svg) ![Arduino Lint](https://github.com/nthnn/rishka/actions/workflows/arduino_lint.yml/badge.svg) ![GitHub repo size](https://img.shields.io/github/repo-size/nthnn/rishka?logo=git&label=Repository%20Size)
+![Arduino CI](https://github.com/nthnn/rishka/actions/workflows/arduino_ci.yml/badge.svg) ![Arduino Lint](https://github.com/nthnn/rishka/actions/workflows/arduino_lint.yml/badge.svg) ![Rust Build CI](https://github.com/nthnn/rishka/actions/workflows/rust_ci.yml/badge.svg) ![GitHub repo size](https://img.shields.io/github/repo-size/nthnn/rishka?logo=git&label=Repository%20Size)
 
 Rishka is a RISC-V virtual runtime in C/C++ made for ESP32-WROVER with PSRAM specifically developed as kernel for [Jessy OS](https://github.com/nthnn/Jessy-OS).
 
