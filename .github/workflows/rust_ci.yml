@@ -16,10 +16,5 @@ jobs:
         with:
           toolchain: stable
 
-      - uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --all-features
-
       - name: 'rishka-cc' cargo build
         run: cd tools/rishka-cc && cargo build --release
