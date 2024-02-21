@@ -17,7 +17,9 @@
 
 extern crate clap;
 
+use crate::banner;
 use clap::*;
+use std::process::exit;
 
 pub struct Options {
     pub flags:  String,
@@ -47,6 +49,14 @@ fn parse_args() -> ArgMatches {
 
 pub fn get_args() -> Options {
     let argv: ArgMatches = parse_args();
+    match argv.get_occurrences::<String>("file") {
+        Some(_)=> {},
+        None=> {
+            banner::print_usage();
+            exit(0);
+        }
+    };
+
     let files_vec: Vec<Vec<&String>> = argv.get_occurrences("file")
         .unwrap()
         .map(Iterator::collect)

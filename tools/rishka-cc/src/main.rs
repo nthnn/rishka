@@ -18,6 +18,7 @@
 extern crate colored;
 
 mod args;
+mod banner;
 mod env;
 mod io;
 mod process;
@@ -57,11 +58,10 @@ fn compile_task(argv: Options, envvars: RishkaEnv) {
 }
 
 fn main() {
+    let mut argv: Options = args::get_args();
     process::check_req_deps();
 
     let envvars: RishkaEnv = env::check_req_env();
-    let mut argv: Options = args::get_args();
-
     if argv.output == "" {
         argv.output = "a".to_string();
     }
