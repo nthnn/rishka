@@ -23,6 +23,9 @@
 class Memory {
 public:
     static void alloc(any dest, usize size);
+    static void calloc(any dest, usize num, usize size);
+    static void realloc(any dest, any ptr, usize size);
+    static void free(any ptr);
     static any set(any dest, i32 c, usize n);
 };
 
