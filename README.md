@@ -29,6 +29,56 @@ git clone --depth 1 https://github.com/nthnn/rishka.git
 
 ### Compiling Examples
 
+#### Using `rishka-cc` tool
+
+To use `rishka-cc`, you can get it from the release page if available or compile it yourself by typing the following on your terminal. Just make sure you have installed Rust compiler and Cargo package manager on your system.
+
+```bash
+cargo build --release
+```
+
+Before using `rishka-cc`, you must configure two (2) environment variables, as shown below.
+
+```bash
+export RISHKA_LIBPATH=<path to sdk library folder>
+export RISHKA_SCRIPTS=<path to scripts folder>
+```
+
+The `RISHKA_LIBPATH` must be a folder where the `librishka.h` header file is located, while the `RISHKA_SCRIPTS` should be a folder where both `launch.s` and the `link.ld` files are located. For example, assuming Rishka was moved to the libraries folder on Arduino IDE:
+
+```bash
+export RISHKA_LIBPATH=/Arduino/libraries/rishka/sdk
+export RISHKA_SCRIPTS=/Arduino/libraries/rishka/scripts
+```
+
+If no problems occured and was configured as instructed, you can now seamlessly use the `rishka-cc`.
+
+```
+_______________________________________________
+  ______ _____ _______ _     _ _     _ _______
+ |_____/   |   |______ |_____| |____/  |_____|
+ |    \_ __|__ ______| |     | |    \_ |     |
+
+      Rishka Compiler for Compiler v0.0.1
+_______________________________________________
+
+Rishka compiler tool for generating binaries.
+
+Usage:
+  rishka-cc [options] <files...>
+
+Options:
+  --flags, -f   Flags to be passed on the gcc
+                compilation process.
+  --output, -o  Output file name of the compiled
+                binary (shouldn't end with .bin)
+
+For more details see:
+  https://github.com/nthnn/rishka
+```
+
+#### Manually Compiling
+
 To compile SDK examples provided with Rishka, follow these steps:
 
 1. If you haven't already, install Qrepo by following the instructions available [here](https://github.com/nthnn/Qrepo).
