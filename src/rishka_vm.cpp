@@ -621,10 +621,21 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_SYS_RANDOM:
             return (uint64_t) rishka_syscall_sys_random();
 
-        case RISHKA_SC_MEM_ALLOC: {
+        case RISHKA_SC_MEM_ALLOC:
             rishka_syscall_mem_alloc(vm);
             break;
-        }
+
+        case RISHKA_SC_MEM_CALLOC:
+            rishka_syscall_mem_calloc(vm);
+            break;
+
+        case RISHKA_SC_MEM_REALLOC:
+            rishka_syscall_mem_realloc(vm);
+            break;
+
+        case RISHKA_SC_MEM_FREE:
+            rishka_syscall_mem_free(vm);
+            break;
 
         case RISHKA_SC_MEM_SET:
             return (uint64_t) rishka_syscall_mem_set(vm);
