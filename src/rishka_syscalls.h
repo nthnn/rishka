@@ -132,6 +132,9 @@ long rishka_syscall_sys_infon(rishka_virtual_machine* vm);
 long rishka_syscall_sys_random();
 
 void rishka_syscall_mem_alloc(rishka_virtual_machine* vm);
+void rishka_syscall_mem_calloc(rishka_virtual_machine* vm);
+void rishka_syscall_mem_realloc(rishka_virtual_machine* vm);
+void rishka_syscall_mem_free(rishka_virtual_machine* vm);
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();

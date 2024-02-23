@@ -220,6 +220,27 @@ void rishka_syscall_mem_alloc(rishka_virtual_machine* vm) {
     dest = ps_malloc(size);
 }
 
+void rishka_syscall_mem_calloc(rishka_virtual_machine* vm) {
+    void* dest = rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    size_t num = (((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    size_t size = (((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    dest = calloc(num, size);
+}
+
+void rishka_syscall_mem_realloc(rishka_virtual_machine* vm) {
+    void* dest = rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    void* ptr = rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+    size_t size = (((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    dest = realloc(ptr, size);
+}
+
+void rishka_syscall_mem_free(rishka_virtual_machine* vm) {
+    void* ptr = rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    free(ptr);
+}
+
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm) {
     void* dest = rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
     uint64_t val = (((rishka_u64_arrptr*) & vm->registers)->a).v[11];
