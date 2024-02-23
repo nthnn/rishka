@@ -236,6 +236,18 @@ void Memory::alloc(any dest, usize size) {
     rishka_sc_2(RISHKA_SC_MEM_ALLOC, (i64) dest, (i64) size);
 }
 
+void Memory::calloc(any dest, usize num, usize size) {
+    rishka_sc_3(RISHKA_SC_MEM_CALLOC, (i64) dest, (i64) num, (i64) size);
+}
+
+void Memory::realloc(any dest, any ptr, usize size) {
+    rishka_sc_3(RISHKA_SC_MEM_REALLOC, (i64) dest, (i64) ptr, (i64) size);
+}
+
+void Memory::free(any ptr) {
+    rishka_sc_1(RISHKA_SC_MEM_FREE, (i64) ptr);
+}
+
 any Memory::set(void* dest, i32 c, u32 n) {
     return (any) rishka_sc_3(RISHKA_SC_MEM_SET, (i64) dest, (i64) c, (i64) n);
 }
