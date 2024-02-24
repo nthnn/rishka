@@ -55,7 +55,6 @@ enum rishka_syscall {
     RISHKA_SC_INT_DISABLE,
     RISHKA_SC_INT_ATTACH,
     RISHKA_SC_INT_DETACH,
-    RISHKA_SC_INT_DIGITAL_PIN,
 
     RISHKA_SC_FS_MKDIR,
     RISHKA_SC_FS_RMDIR,
@@ -302,4 +301,20 @@ void Gpio::tone(u8 pin, u32 frequency, u64 duration) {
 
 void Gpio::no_tone(u8 pin) {
     rishka_sc_1(RISHKA_SC_GPIO_NO_TONE, (i64) pin);
+}
+
+void Int::enable() {
+    rishka_sc_0(RISHKA_SC_INT_ENABLE);
+}
+
+void Int::disable() {
+    rishka_sc_0(RISHKA_SC_INT_DISABLE);
+}
+
+void Int::attach(u8 pin, void (*callback)(void), int_mode_t mode) {
+    rishka_sc_3(RISHKA_SC_INT_ATTACH, (i64) pin, (i64) callback, (i64) mode);
+}
+
+void Int::detach(u8 pin) {
+    rishka_sc_1(RISHKA_SC_INT_DETACH, (i64) pin);
 }
