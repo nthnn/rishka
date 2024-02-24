@@ -14,18 +14,5 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install RISC-V GNU toolchain
-        run: sudo apt install gcc-riscv64-unknown-elf
-        
       - name: rishka-cc cargo build
         run: cd tools/rishka-cc && cargo build --release
-
-      - name: Compiling Examples
-        run: |
-          export RISHKA_LIBPATH=./sdk
-          export RISHKA_SCRIPTS=./scripts
-          cd tools/rishka-cc && cargo run -- ../../examples/sdk/blink.cpp --output blink
-          cd tools/rishka-cc && cargo run -- ../../examples/sdk/delay.cpp --output delay
-          cd tools/rishka-cc && cargo run -- ../../examples/sdk/hello.cpp --output hello
-          cd tools/rishka-cc && cargo run -- ../../examples/sdk/shell.cpp --output shell
-          cd tools/rishka-cc && cargo run -- ../../examples/sdk/sysinfo.cpp --output sysinfo

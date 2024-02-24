@@ -1,0 +1,28 @@
+name: SDK Build CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.2'
+
+      - name: Install Qrepo
+        run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/nthnn/Qrepo/master/support/install.sh)"
+
+      - name: Install RISC-V GNU toolchain
+        run: sudo apt install gcc-riscv64-unknown-elf
+
+      - name: Example Build
+      - run: |
+          qrepo run compile examples/sdk/blink.cpp --output blink
+          qrepo run compile examples/sdk/delay.cpp --output delay
+          qrepo run compile examples/sdk/hello.cpp --output hello
+          qrepo run compile examples/sdk/shell.cpp --output shell
+          qrepo run compile examples/sdk/sysinfo.cpp --output sysinfo
