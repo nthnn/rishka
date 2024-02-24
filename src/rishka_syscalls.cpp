@@ -249,6 +249,37 @@ void* rishka_syscall_mem_set(rishka_virtual_machine* vm) {
     return memset(dest, (int) val, (size_t) len);
 }
 
+void rishka_syscall_gpio_pinmode(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t mode = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    pinMode(pin, mode);
+}
+
+bool rishka_syscall_gpio_digitalread(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return digitalRead(pin);
+}
+
+void rishka_syscall_gpio_digitalwrite(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    bool value = (bool)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    digitalWrite(pin, value);
+}
+
+int rishka_syscall_gpio_analogread(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return analogRead(pin);
+}
+
+void rishka_syscall_gpio_analogwrite(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t value = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    analogWrite(pin, value);
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }

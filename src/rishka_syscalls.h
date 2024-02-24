@@ -47,7 +47,6 @@ enum rishka_syscall {
     RISHKA_SC_GPIO_DIGITAL_WRITE,
     RISHKA_SC_GPIO_ANALOG_READ,
     RISHKA_SC_GPIO_ANALOG_WRITE,
-    RISHKA_SC_GPIO_ANALOG_REF,
     RISHKA_SC_GPIO_PULSE_IN,
     RISHKA_SC_GPIO_PULSE_IN_LONG,
     RISHKA_SC_GPIO_SHIFT_IN,
@@ -134,6 +133,12 @@ void rishka_syscall_mem_calloc(rishka_virtual_machine* vm);
 void rishka_syscall_mem_realloc(rishka_virtual_machine* vm);
 void rishka_syscall_mem_free(rishka_virtual_machine* vm);
 void* rishka_syscall_mem_set(rishka_virtual_machine* vm);
+
+void rishka_syscall_gpio_pinmode(rishka_virtual_machine* vm);
+bool rishka_syscall_gpio_digitalread(rishka_virtual_machine* vm);
+void rishka_syscall_gpio_digitalwrite(rishka_virtual_machine* vm);
+int rishka_syscall_gpio_analogread(rishka_virtual_machine* vm);
+void rishka_syscall_gpio_analogwrite(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();
 
