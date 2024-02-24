@@ -658,6 +658,27 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             rishka_syscall_gpio_analogwrite(vm);
             break;
 
+        case RISHKA_SC_GPIO_PULSE_IN:
+            return rishka_syscall_gpio_pulse_in(vm);
+
+        case RISHKA_SC_GPIO_PULSE_IN_LONG:
+            return rishka_syscall_gpio_pulse_in_long(vm);
+
+        case RISHKA_SC_GPIO_SHIFT_IN:
+            return rishka_syscall_gpio_shift_in(vm);
+
+        case RISHKA_SC_GPIO_SHIFT_OUT:
+            rishka_syscall_gpio_shift_out(vm);
+            break;
+
+        case RISHKA_SC_GPIO_TONE:
+            rishka_syscall_gpio_tone(vm);
+            break;
+
+        case RISHKA_SC_GPIO_NO_TONE:
+            rishka_syscall_gpio_no_tone(vm);
+            break;
+
         case RISHKA_SC_RT_STRPASS:
             return (uint64_t) rishka_syscall_rt_strpass();
 
