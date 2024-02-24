@@ -139,6 +139,12 @@ bool rishka_syscall_gpio_digitalread(rishka_virtual_machine* vm);
 void rishka_syscall_gpio_digitalwrite(rishka_virtual_machine* vm);
 int rishka_syscall_gpio_analogread(rishka_virtual_machine* vm);
 void rishka_syscall_gpio_analogwrite(rishka_virtual_machine* vm);
+uint64_t rishka_syscall_gpio_pulse_in(rishka_virtual_machine* vm);
+uint64_t rishka_syscall_gpio_pulse_in_long(rishka_virtual_machine* vm);
+uint8_t rishka_syscall_gpio_shift_in(rishka_virtual_machine* vm);
+void rishka_syscall_gpio_shift_out(rishka_virtual_machine* vm);
+void rishka_syscall_gpio_tone(rishka_virtual_machine* vm);
+void rishka_syscall_gpio_no_tone(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();
 

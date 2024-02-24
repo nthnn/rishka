@@ -280,6 +280,52 @@ void rishka_syscall_gpio_analogwrite(rishka_virtual_machine* vm) {
     analogWrite(pin, value);
 }
 
+uint64_t rishka_syscall_gpio_pulse_in(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t state = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint64_t timeout = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    return pulseIn(pin, state, timeout);
+}
+
+uint64_t rishka_syscall_gpio_pulse_in_long(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t state = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint64_t timeout = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    return pulseInLong(pin, state, timeout);
+}
+
+uint8_t rishka_syscall_gpio_shift_in(rishka_virtual_machine* vm) {
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t clock = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint8_t bit_order = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    return shiftIn(data, clock, bit_order);
+}
+
+void rishka_syscall_gpio_shift_out(rishka_virtual_machine* vm) {
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t clock = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint8_t bit_order = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+    uint8_t value = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[13];
+
+    shiftOut(data, clock, bit_order, value);
+}
+
+void rishka_syscall_gpio_tone(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint32_t frequency = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint64_t duration = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+
+    tone(pin, frequency, duration);
+}
+
+void rishka_syscall_gpio_no_tone(rishka_virtual_machine* vm) {
+    uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    noTone(pin);
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }
