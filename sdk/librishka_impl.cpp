@@ -44,7 +44,6 @@ enum rishka_syscall {
     RISHKA_SC_GPIO_DIGITAL_WRITE,
     RISHKA_SC_GPIO_ANALOG_READ,
     RISHKA_SC_GPIO_ANALOG_WRITE,
-    RISHKA_SC_GPIO_ANALOG_REF,
     RISHKA_SC_GPIO_PULSE_IN,
     RISHKA_SC_GPIO_PULSE_IN_i64,
     RISHKA_SC_GPIO_SHIFT_IN,
@@ -246,6 +245,26 @@ void Memory::free(any ptr) {
     rishka_sc_1(RISHKA_SC_MEM_FREE, (i64) ptr);
 }
 
-any Memory::set(void* dest, i32 c, u32 n) {
+any Memory::set(any dest, i32 c, u32 n) {
     return (any) rishka_sc_3(RISHKA_SC_MEM_SET, (i64) dest, (i64) c, (i64) n);
+}
+
+void Gpio::pin_mode(u8 pin, gpio_pin_mode_t mode) {
+    rishka_sc_2(RISHKA_SC_GPIO_PIN_MODE, (i64) pin, (i64) mode);
+}
+
+i32 Gpio::digital_read(u8 pin) {
+    return (i32) rishka_sc_1(RISHKA_SC_GPIO_DIGITAL_READ, (i64) pin);
+}
+
+void Gpio::digital_write(u8 pin, gpio_mode_t mode) {
+    rishka_sc_2(RISHKA_SC_GPIO_DIGITAL_WRITE, (i64) pin, (i64) mode);
+}
+
+i32 Gpio::analog_read(u8 pin) {
+    return (i32) rishka_sc_1(RISHKA_SC_GPIO_ANALOG_READ, (i64) pin);
+}
+
+void Gpio::analog_write(u8 pin, u8 value) {
+    rishka_sc_2(RISHKA_SC_GPIO_ANALOG_WRITE, (i64) pin, (i64) value);
 }
