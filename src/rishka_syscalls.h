@@ -58,7 +58,6 @@ enum rishka_syscall {
     RISHKA_SC_INT_DISABLE,
     RISHKA_SC_INT_ATTACH,
     RISHKA_SC_INT_DETACH,
-    RISHKA_SC_INT_DIGITAL_PIN,
 
     RISHKA_SC_FS_MKDIR,
     RISHKA_SC_FS_RMDIR,
@@ -145,6 +144,11 @@ uint8_t rishka_syscall_gpio_shift_in(rishka_virtual_machine* vm);
 void rishka_syscall_gpio_shift_out(rishka_virtual_machine* vm);
 void rishka_syscall_gpio_tone(rishka_virtual_machine* vm);
 void rishka_syscall_gpio_no_tone(rishka_virtual_machine* vm);
+
+void rishka_syscall_int_enable();
+void rishka_syscall_int_disable();
+void rishka_syscall_int_attach(rishka_virtual_machine* vm);
+void rishka_syscall_int_detach(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();
 

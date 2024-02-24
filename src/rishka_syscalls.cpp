@@ -326,6 +326,27 @@ void rishka_syscall_gpio_no_tone(rishka_virtual_machine* vm) {
     noTone(pin);
 }
 
+void rishka_syscall_int_enable() {
+    interrupts();
+}
+
+void rishka_syscall_int_disable() {
+    noInterrupts();
+}
+
+void rishka_syscall_int_attach(rishka_virtual_machine* vm) {
+    uint8_t num = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    void (*ptr)(void) = (void (*)(void))rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+    int mode = (int)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    attachInterrupt(num, ptr, mode);
+}
+
+void rishka_syscall_int_detach(rishka_virtual_machine* vm) {
+    uint8_t num = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    detachInterrupt(num);
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }
