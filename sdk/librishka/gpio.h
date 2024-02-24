@@ -40,6 +40,15 @@ public:
 
     static i32 analog_read(u8 pin);
     static void analog_write(u8 pin, u8 value);
+
+    static u64 pulse_in(u8 pin, u8 state, u64 timeout);
+    static u64 pulse_in_long(u8 pin, u8 state, u64 timeout);
+
+    static u8 shift_in(u8 data, u8 clock, u8 bit_order);
+    static void shift_out(u8 data, u8 clock, u8 bit_order, u8 value);
+
+    static void tone(u8 pin, u32 frequency, u64 duration);
+    static void no_tone(u8 pin);
 };
 
 #endif

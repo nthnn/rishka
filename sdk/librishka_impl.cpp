@@ -45,7 +45,7 @@ enum rishka_syscall {
     RISHKA_SC_GPIO_ANALOG_READ,
     RISHKA_SC_GPIO_ANALOG_WRITE,
     RISHKA_SC_GPIO_PULSE_IN,
-    RISHKA_SC_GPIO_PULSE_IN_i64,
+    RISHKA_SC_GPIO_PULSE_IN_LONG,
     RISHKA_SC_GPIO_SHIFT_IN,
     RISHKA_SC_GPIO_SHIFT_OUT,
     RISHKA_SC_GPIO_TONE,
@@ -165,6 +165,17 @@ static inline i64 rishka_sc_3(i32 scallid, i64 arg0, i64 arg1, i64 arg2) {
     return a0;
 }
 
+static inline i64 rishka_sc_4(i32 scallid, i64 arg0, i64 arg1, i64 arg2, i64 arg3) {
+    register i64 a0 asm("a0") = arg0;
+    register i64 a1 asm("a1") = arg1;
+    register i64 a2 asm("a2") = arg2;
+    register i64 a3 asm("a3") = arg3;
+    register i64 scid asm("a7") = scallid;
+
+    asm volatile ("scall" : "+r"(a0) : "r"(a1), "r"(a2), "r"(a3), "r"(scid));
+    return a0;
+}
+
 static inline rune rt_strpass() {
     return (rune) rishka_sc_0(RISHKA_SC_RT_STRPASS);    
 }
@@ -267,4 +278,28 @@ i32 Gpio::analog_read(u8 pin) {
 
 void Gpio::analog_write(u8 pin, u8 value) {
     rishka_sc_2(RISHKA_SC_GPIO_ANALOG_WRITE, (i64) pin, (i64) value);
+}
+
+u64 Gpio::pulse_in(u8 pin, u8 state, u64 timeout) {
+    return (u64) rishka_sc_3(RISHKA_SC_GPIO_PULSE_IN, (i64) pin, (i64) state, (i64) timeout);
+}
+
+u64 Gpio::pulse_in_long(u8 pin, u8 state, u64 timeout) {
+    return (u64) rishka_sc_3(RISHKA_SC_GPIO_PULSE_IN_LONG, (i64) pin, (i64) state, (i64) timeout);
+}
+
+u8 Gpio::shift_in(u8 data, u8 clock, u8 bit_order) {
+    return (u8) rishka_sc_3(RISHKA_SC_GPIO_SHIFT_IN, (i64) data, (i64) clock, (i64) bit_order);
+}
+
+void Gpio::shift_out(u8 data, u8 clock, u8 bit_order, u8 value) {
+    rishka_sc_4(RISHKA_SC_GPIO_SHIFT_OUT, (i64) data, (i64) clock, (i64) bit_order, (i64) value);
+}
+
+void Gpio::tone(u8 pin, u32 frequency, u64 duration) {
+    rishka_sc_3(RISHKA_SC_GPIO_TONE, (i64) pin, (i64) frequency, (i64) duration);
+}
+
+void Gpio::no_tone(u8 pin) {
+    rishka_sc_1(RISHKA_SC_GPIO_NO_TONE, (i64) pin);
 }
