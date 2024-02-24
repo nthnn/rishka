@@ -37,4 +37,7 @@ typedef void*               any;
 #define F(str) ((char*) str)
 #define nil ((void*) 0)
 
+#define false 0
+#define true 1
+
 #endif
