@@ -22,8 +22,8 @@ jobs:
 
       - name: Compiling Examples
         run: |
-          export RISHKA_LIBPATH=sdk
-          export RISHKA_SCRIPTS=scripts
+          export RISHKA_LIBPATH=./sdk
+          export RISHKA_SCRIPTS=./scripts
           cd tools/rishka-cc && cargo run -- ../../examples/sdk/blink.cpp --output blink
           cd tools/rishka-cc && cargo run -- ../../examples/sdk/delay.cpp --output delay
           cd tools/rishka-cc && cargo run -- ../../examples/sdk/hello.cpp --output hello
