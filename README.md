@@ -69,29 +69,9 @@ export RISHKA_SCRIPTS=/Arduino/libraries/rishka/scripts
 
 If no problems occured and was configured as instructed, you can now seamlessly use the `rishka-cc`.
 
-```
-_______________________________________________
-  ______ _____ _______ _     _ _     _ _______
- |_____/   |   |______ |_____| |____/  |_____|
- |    \_ __|__ ______| |     | |    \_ |     |
-
-      Rishka Compiler for Compiler v0.0.1
-_______________________________________________
-
-Rishka compiler tool for generating binaries.
-
-Usage:
-  rishka-cc [options] <files...>
-
-Options:
-  --flags, -f   Flags to be passed on the gcc
-                compilation process.
-  --output, -o  Output file name of the compiled
-                binary (shouldn't end with .bin)
-
-For more details see:
-  https://github.com/nthnn/rishka
-```
+<p align="center">
+  <img src="assets/rishka-cc.png" width="90%" />
+</p>
 
 #### Manually Compiling
 
