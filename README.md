@@ -47,6 +47,12 @@ To use `rishka-cc`, you can get it from the release page if available or compile
 cargo build --release
 ```
 
+Alternatively, you can install the `rishka-cc` tool by typing the following below on your system terminal:
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nthnn/rishka/main/support/install_rishka_cc.sh)"
+```
+
 Before using `rishka-cc`, you must configure two (2) environment variables, as shown below.
 
 ```bash
