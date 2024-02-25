@@ -33,9 +33,6 @@ typedef struct {
     uint8_t memory[RISHKA_VM_STACK_SIZE];
 } rishka_virtual_machine;
 
-static rishka_virtual_machine rishka_vm;
-static rishka_virtual_machine rishka_child_vm;
-
 void rishka_vm_initialize(rishka_virtual_machine* vm);
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv);
 bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name);

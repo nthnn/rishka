@@ -103,6 +103,8 @@ unsigned long rishka_syscall_sys_millis() {
 }
 
 int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm) {
+    static rishka_virtual_machine rishka_child_vm;
+
     char* program = (char*) rishka_vm_getptr(parent_vm, (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[10]);
     int argc = (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[11];
     char** argv = (char**) rishka_vm_getptr(parent_vm, (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[12]);
