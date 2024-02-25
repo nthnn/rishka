@@ -26,7 +26,7 @@ typedef enum {
     INT_RISING = 0x3
 } int_mode_t;
 
-class Int {
+class Int final {
 public:
     static void enable();
     static void disable();

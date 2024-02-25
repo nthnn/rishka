@@ -31,7 +31,7 @@ typedef enum {
     GPIO_HIGH = 0x1
 } gpio_mode_t;
 
-class Gpio {
+class Gpio final {
 public:
     static void pin_mode(u8 pin, gpio_pin_mode_t mode);
 

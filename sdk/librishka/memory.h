@@ -20,7 +20,7 @@
 
 #include <librishka/types.h>
 
-class Memory {
+class Memory final {
 public:
     static void alloc(any dest, usize size);
     static void calloc(any dest, usize num, usize size);

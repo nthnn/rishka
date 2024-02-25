@@ -44,7 +44,7 @@ typedef enum {
     SYSINFO_SKETCH_MD5
 } sysinfos_t;
 
-class Sys {
+class Sys final {
 public:
     static void delay(u64 ms);
     static u64 micros();

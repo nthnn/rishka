@@ -20,7 +20,7 @@
 
 #include <librishka/types.h>
 
-class IO {
+class IO final {
 public:
     static void prints(const string text);
     static void printn(i64 number);
