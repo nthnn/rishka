@@ -40,8 +40,13 @@ void setup() {
         while(true);
     }
 
-    // Initialize Rishka virtual machine
-    rishka_vm_initialize(&vm);
+    if(!psramInit()) {
+        // If PSRAM initialization fails,
+        // print error message and halt execution
+        Serial.println("Cannot initialize PSRAM.");
+        while(true);
+    }
+
     // Print prompt
     Serial.print("> ");
 }
@@ -55,6 +60,9 @@ void loop() {
     String input = Serial.readString();
     // Echo input back to serial port
     Serial.print(input);
+
+    // Initialize Rishka virtual machine
+    rishka_vm_initialize(&vm);
 
     // Attempt to load specified file into Rishka virtual machine
     if(!rishka_vm_loadfile(&vm, input.c_str())) {
