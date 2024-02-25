@@ -25,6 +25,8 @@
 
 #include <rishka.h>
 
+rishka_virtual_machine vm;
+
 void setup() {
     // Begin serial communication at 115200 baud rate
     Serial.begin(115200);
@@ -40,19 +42,19 @@ void setup() {
     }
 
     // Initialize Rishka virtual machine
-    rishka_vm_initialize(&rishka_vm);
+    rishka_vm_initialize(&vm);
 
     // Attempt to load specified file ("/hello.bin")
     // into Rishka virtual machine
-    if(!rishka_vm_loadfile(&rishka_vm, "/hello.bin"))
+    if(!rishka_vm_loadfile(&vm, "/hello.bin"))
         // If loading file fails, print error
         // message and halt execution
-        rishka_panic("Failed to load specified file.", &rishka_vm);
+        rishka_panic("Failed to load specified file.", &vm);
 
     // Run loaded program on Rishka virtual machine
-    rishka_vm_run(&rishka_vm, 0, NULL);
+    rishka_vm_run(&vm, 0, NULL);
     // Reset Rishka virtual machine for next execution
-    rishka_vm_reset(&rishka_vm);
+    rishka_vm_reset(&vm);
 }
 
 void loop() {
