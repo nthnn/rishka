@@ -25,6 +25,9 @@
 
 #include <rishka.h>
 
+// Create a Rishka VM
+rishka_virtual_machine vm;
+
 void setup() {
     // Begin serial communication at 115200 baud rate
     Serial.begin(115200);
@@ -46,8 +49,6 @@ void setup() {
         while(true);
     }
 
-    // Create a Rishka VM
-    rishka_virtual_machine vm;
     // Initialize Rishka virtual machine
     rishka_vm_initialize(&vm);
 
