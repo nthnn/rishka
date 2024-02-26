@@ -20,8 +20,10 @@ extern crate colored;
 use crate::args::Options;
 use crate::env::RishkaEnv;
 use colored::Colorize;
+use std::io::Read;
 use std::process::Command;
 use std::process::exit;
+use std::process::Stdio;
 
 fn test_process(name: &str) -> bool {
     match Command::new(name).arg("--version").output() {
@@ -40,8 +42,9 @@ fn check_dep(dep: &str) {
     }
 }
 
-pub fn run_riscv64_gpp(options: &Options, cc_env: RishkaEnv) -> bool {
-    match Command::new("riscv64-unknown-elf-g++")
+pub fn run_riscv64_gpp(options: &Options, cc_env: RishkaEnv) -> (bool, String) {
+    let mut binding = Command::new("riscv64-unknown-elf-g++");
+    let command = binding
         .arg("-march=rv64im")
         .arg("-mabi=lp64")
         .arg("-nostdlib")
@@ -51,10 +54,26 @@ pub fn run_riscv64_gpp(options: &Options, cc_env: RishkaEnv) -> bool {
         .arg(format!("-o{}.out", options.output))
         .arg(format!("{}/librishka_impl.cpp", cc_env.library))
         .arg(format!("{}/launcher.s", cc_env.scripts))
-        .arg(options.files.join(" "))
-        .output() {
-        Ok(proc)=> proc.status.success(),
-        Err(_)=> false
+        .arg(options.files.join(" "));
+
+    match command.output() {
+        Ok(proc)=> {
+            let stat = proc.status.success();
+            let mut stderr: String = String::new();
+
+            if !stat {
+                command.stderr(Stdio::piped())
+                    .spawn()
+                    .unwrap()
+                    .stderr
+                    .unwrap()
+                    .read_to_string(&mut stderr)
+                    .unwrap();
+            }
+
+            (stat, stderr)
+        },
+        Err(_)=> (false, "".to_string())
     }
 }
 

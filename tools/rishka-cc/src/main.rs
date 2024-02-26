@@ -30,8 +30,11 @@ use std::process::exit;
 
 fn compile_task(argv: Options, envvars: RishkaEnv) {
     print!("{} ELF binary from sources... ", "Building".blue().bold());
-    if !process::run_riscv64_gpp(&argv, envvars) {
+
+    let (compiled, err) = process::run_riscv64_gpp(&argv, envvars);
+    if !compiled {
         println!("something went {}.", "wrong".red().bold());
+        println!("{}", err);
         exit(0);
     }
     else {
