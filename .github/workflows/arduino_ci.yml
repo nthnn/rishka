@@ -27,7 +27,11 @@ jobs:
       - name: Arduino ESP32 Platform Installation
         run: arduino-cli core install esp32:esp32
 
+      - name: Download Arduino Dependencies
+        run: |
+          git clone https://github.com/nkaaf/Arduino-List.git
+
       - name: Build Arduino library
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/full_example/full_example.ino
-          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library src --build-path build examples/shell_example/shell_example.ino
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library Arduino-List --library src --build-path build examples/full_example/full_example.ino
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library Arduino-List --library src --build-path build examples/shell_example/shell_example.ino
