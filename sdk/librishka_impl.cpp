@@ -58,7 +58,7 @@ enum rishka_syscall {
 
     RISHKA_SC_FS_MKDIR,
     RISHKA_SC_FS_RMDIR,
-    RISHKA_SC_FS_LSDIR,
+    RISHKA_SC_FS_DELETE,
     RISHKA_SC_FS_EXISTS,
     RISHKA_SC_FS_ISFILE,
     RISHKA_SC_FS_ISDIR,
@@ -106,7 +106,8 @@ enum rishka_syscall {
     RISHKA_SC_SPI_USE_INT,
     RISHKA_SC_SPI_TRANSFER,
 
-    RISHKA_SC_RT_STRPASS
+    RISHKA_SC_RT_STRPASS,
+    RISHKA_SC_RT_YIELD
 };
 
 static inline long long int double_to_long(double d) {
