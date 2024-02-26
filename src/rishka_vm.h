@@ -19,6 +19,7 @@
 #define RISHKA_VM_H
 
 #include <rishka_commons.h>
+#include <SD.h>
 
 typedef struct {
     bool running;
@@ -31,6 +32,8 @@ typedef struct {
 
     uint64_t registers[32];
     uint8_t memory[RISHKA_VM_STACK_SIZE];
+
+    File** file_handles;
 } rishka_virtual_machine;
 
 void rishka_vm_initialize(rishka_virtual_machine* vm);

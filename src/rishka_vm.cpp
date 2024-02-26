@@ -29,6 +29,8 @@ void rishka_vm_initialize(rishka_virtual_machine* vm) {
     vm->argc = 0;
     vm->pc = 0;
     vm->exitcode = 0;
+
+    vm->file_handles = (File**)ps_malloc(sizeof(File*) * 255);
 }
 
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
@@ -695,6 +697,57 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             rishka_syscall_int_detach(vm);
             break;
 
+        case RISHKA_SC_FS_MKDIR:
+            return rishka_syscall_fs_mkdir(vm);
+
+        case RISHKA_SC_FS_RMDIR:
+            return rishka_syscall_fs_rmdir(vm);
+
+        case RISHKA_SC_FS_DELETE:
+            return rishka_syscall_fs_delete(vm);
+
+        case RISHKA_SC_FS_EXISTS:
+            return rishka_syscall_fs_exists(vm);
+
+        case RISHKA_SC_FS_ISFILE:
+            return rishka_syscall_fs_isfile(vm);
+
+        case RISHKA_SC_FS_ISDIR:
+            return rishka_syscall_fs_isdir(vm);
+
+        case RISHKA_SC_FS_OPEN:
+            return rishka_syscall_fs_open(vm);
+
+        case RISHKA_SC_FS_CLOSE:
+            rishka_syscall_fs_close(vm);
+            break;
+
+        case RISHKA_SC_FS_AVAILABLE:
+            return rishka_syscall_fs_available(vm);
+
+        case RISHKA_SC_FS_FLUSH:
+            rishka_syscall_fs_flush(vm);
+            break;
+
+        case RISHKA_SC_FS_PEEK:
+            return rishka_syscall_fs_peek(vm);
+
+        case RISHKA_SC_FS_SEEK:
+            return rishka_syscall_fs_seek(vm);
+
+        case RISHKA_SC_FS_SIZE:
+            return rishka_syscall_fs_size(vm);
+
+        case RISHKA_SC_FS_READ:
+            return rishka_syscall_fs_read(vm);
+
+        case RISHKA_SC_FS_WRITE:
+            rishka_syscall_fs_write(vm);
+            break;
+
+        case RISHKA_SC_FS_NEXT:
+            return rishka_syscall_fs_next(vm);
+
         case RISHKA_SC_RT_STRPASS:
             return (uint64_t) rishka_syscall_rt_strpass();
 
@@ -718,4 +771,6 @@ void rishka_vm_reset(rishka_virtual_machine* vm) {
 
     for(int i = 0; i < RISHKA_VM_STACK_SIZE; i++)
         vm->memory[i] = 0;
+
+    free(vm->file_handles);
 }
