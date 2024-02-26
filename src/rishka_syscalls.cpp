@@ -17,6 +17,7 @@
 
 #include <bootloader_random.h>
 #include <Esp.h>
+#include <SD.h>
 
 #include <rishka_syscalls.h>
 #include <rishka_types.h>
@@ -347,6 +348,111 @@ void rishka_syscall_int_attach(rishka_virtual_machine* vm) {
 void rishka_syscall_int_detach(rishka_virtual_machine* vm) {
     uint8_t num = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     detachInterrupt(num);
+}
+
+bool rishka_syscall_fs_mkdir(rishka_virtual_machine* vm) {
+    char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    return SD.mkdir(path);
+}
+
+bool rishka_syscall_fs_rmdir(rishka_virtual_machine* vm) {
+    char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    return SD.rmdir(path);
+}
+
+bool rishka_syscall_fs_delete(rishka_virtual_machine* vm) {
+    char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    return SD.remove(path);
+}
+
+bool rishka_syscall_fs_exists(rishka_virtual_machine* vm) {
+    char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    return SD.exists(path);
+}
+
+bool rishka_syscall_fs_isfile(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return !vm->file_handles[handle]->isDirectory();
+}
+
+bool rishka_syscall_fs_isdir(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle]->isDirectory();
+}
+
+uint8_t rishka_syscall_fs_open(rishka_virtual_machine* vm) {
+    char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    char* mode = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+
+    uint8_t idx = 0;
+    for(uint8_t i = 0; i < 255; i++)
+        if(vm->file_handles[i] == NULL)
+            idx = i;
+
+    File file = SD.open(path, mode);
+    vm->file_handles[idx] = &file;
+    return idx;
+}
+
+void rishka_syscall_fs_close(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    vm->file_handles[handle]->close();
+
+    free(vm->file_handles[handle]);
+    vm->file_handles[handle] = NULL;
+}
+
+int rishka_syscall_fs_available(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle]->available();
+}
+
+void rishka_syscall_fs_flush(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    vm->file_handles[handle]->flush();
+}
+
+int rishka_syscall_fs_peek(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle]->peek();
+}
+
+bool rishka_syscall_fs_seek(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint32_t pos = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->file_handles[handle]->seek(pos);
+}
+
+uint32_t rishka_syscall_fs_size(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle]->size();
+}
+
+int rishka_syscall_fs_read(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle]->read();
+}
+
+size_t rishka_syscall_fs_write(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->file_handles[handle]->write(data);
+}
+
+uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    char* mode = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+
+    uint8_t idx = 0;
+    for(uint8_t i = 0; i < 255; i++)
+        if(vm->file_handles[i] == NULL)
+            idx = i;
+
+    File file = vm->file_handles[handle]->openNextFile(mode);
+    vm->file_handles[idx] = &file;
+    return idx;
 }
 
 char rishka_syscall_rt_strpass() {

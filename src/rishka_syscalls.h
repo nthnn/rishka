@@ -61,7 +61,7 @@ enum rishka_syscall {
 
     RISHKA_SC_FS_MKDIR,
     RISHKA_SC_FS_RMDIR,
-    RISHKA_SC_FS_LSDIR,
+    RISHKA_SC_FS_DELETE,
     RISHKA_SC_FS_EXISTS,
     RISHKA_SC_FS_ISFILE,
     RISHKA_SC_FS_ISDIR,
@@ -109,7 +109,8 @@ enum rishka_syscall {
     RISHKA_SC_SPI_USE_INT,
     RISHKA_SC_SPI_TRANSFER,
 
-    RISHKA_SC_RT_STRPASS
+    RISHKA_SC_RT_STRPASS,
+    RISHKA_SC_RT_YIELD
 };
 
 void rishka_syscall_io_prints(rishka_virtual_machine* vm);
@@ -150,6 +151,24 @@ void rishka_syscall_int_disable();
 void rishka_syscall_int_attach(rishka_virtual_machine* vm);
 void rishka_syscall_int_detach(rishka_virtual_machine* vm);
 
+bool rishka_syscall_fs_mkdir(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_rmdir(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_delete(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_exists(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_isfile(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_isdir(rishka_virtual_machine* vm);
+uint8_t rishka_syscall_fs_open(rishka_virtual_machine* vm);
+void rishka_syscall_fs_close(rishka_virtual_machine* vm);
+int rishka_syscall_fs_available(rishka_virtual_machine* vm);
+void rishka_syscall_fs_flush(rishka_virtual_machine* vm);
+int rishka_syscall_fs_peek(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_seek(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_fs_size(rishka_virtual_machine* vm);
+int rishka_syscall_fs_read(rishka_virtual_machine* vm);
+size_t rishka_syscall_fs_write(rishka_virtual_machine* vm);
+uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm);
+
 char rishka_syscall_rt_strpass();
+void rishka_syscall_rt_yield();
 
 #endif
