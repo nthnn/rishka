@@ -372,73 +372,66 @@ bool rishka_syscall_fs_exists(rishka_virtual_machine* vm) {
 
 bool rishka_syscall_fs_isfile(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return !vm->file_handles[handle]->isDirectory();
+    return !vm->file_handles[handle].isDirectory();
 }
 
 bool rishka_syscall_fs_isdir(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return vm->file_handles[handle]->isDirectory();
+    return vm->file_handles[handle].isDirectory();
 }
 
 uint8_t rishka_syscall_fs_open(rishka_virtual_machine* vm) {
     char* path = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
     char* mode = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
 
-    uint8_t idx = 0;
-    for(uint8_t i = 0; i < 255; i++)
-        if(vm->file_handles[i] == NULL)
-            idx = i;
-
-    File file = SD.open(path, mode);
-    vm->file_handles[idx] = &file;
-    return idx;
+    vm->file_handles.add(SD.open(path, mode));
+    return vm->file_handles.getSize() - 1;
 }
 
 void rishka_syscall_fs_close(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    vm->file_handles[handle]->close();
 
-    free(vm->file_handles[handle]);
-    vm->file_handles[handle] = NULL;
+    vm->file_handles[handle].close();
+    vm->file_handles.remove(handle);
 }
 
 int rishka_syscall_fs_available(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return vm->file_handles[handle]->available();
+    return vm->file_handles[handle].available();
 }
 
 void rishka_syscall_fs_flush(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    vm->file_handles[handle]->flush();
+    vm->file_handles[handle].flush();
 }
 
 int rishka_syscall_fs_peek(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return vm->file_handles[handle]->peek();
+    return vm->file_handles[handle].peek();
 }
 
 bool rishka_syscall_fs_seek(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     uint32_t pos = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
 
-    return vm->file_handles[handle]->seek(pos);
+    return vm->file_handles[handle].seek(pos);
 }
 
 uint32_t rishka_syscall_fs_size(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return vm->file_handles[handle]->size();
+    return vm->file_handles[handle].size();
 }
 
 int rishka_syscall_fs_read(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    return vm->file_handles[handle]->read();
+    return vm->file_handles[handle].read();
 }
 
 size_t rishka_syscall_fs_write(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    char* data = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
 
-    return vm->file_handles[handle]->write(data);
+    return vm->file_handles[handle].print(data);
 }
 
 uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
@@ -450,9 +443,9 @@ uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
         if(vm->file_handles[i] == NULL)
             idx = i;
 
-    File file = vm->file_handles[handle]->openNextFile(mode);
-    vm->file_handles[idx] = &file;
-    return idx;
+    File file = vm->file_handles[handle].openNextFile(mode);
+    vm->file_handles.add(file);
+    return vm->file_handles.getSize();
 }
 
 char rishka_syscall_rt_strpass() {
