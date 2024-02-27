@@ -29,8 +29,6 @@ void rishka_vm_initialize(rishka_virtual_machine* vm) {
     vm->argc = 0;
     vm->pc = 0;
     vm->exitcode = 0;
-
-    vm->file_handles = (File**)ps_malloc(sizeof(File*) * 255);
 }
 
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
@@ -766,11 +764,11 @@ void rishka_vm_reset(rishka_virtual_machine* vm) {
     vm->pc = 0;
     vm->exitcode = 0;
 
-    for(uint8_t i = 0; i < 31; i++)
+    for(uint8_t i = 0; i < 32; i++)
         vm->registers[i] = 0;
 
     for(int i = 0; i < RISHKA_VM_STACK_SIZE; i++)
         vm->memory[i] = 0;
 
-    free(vm->file_handles);
+    vm->file_handles.clear();
 }
