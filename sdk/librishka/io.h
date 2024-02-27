@@ -22,9 +22,10 @@
 
 class IO final {
 public:
-    static void prints(const string text);
-    static void printn(i64 number);
-    static void printd(double number);
+    static void print(const string text);
+    static void print(i64 number);
+    static void print(double number);
+
     static rune readch();
     static string readline();
 };
