@@ -17,11 +17,11 @@
 
 #include <librishka.h>
 
-int main() {
-    for(int i = 0; i < 10; i++) {
-        IO::prints(F("Hello! ["));
-        IO::printn(Sys::millis());
-        IO::prints(F("]\n"));
+i32 main() {
+    for(i32 i = 0; i < 10; i++) {
+        IO::print(F("Hello! ["));
+        IO::print((i64) Sys::millis());
+        IO::print(F("]\n"));
 
         Sys::delay(1000);
     }

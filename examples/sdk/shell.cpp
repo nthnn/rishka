@@ -17,12 +17,12 @@
 
 #include <librishka.h>
 
-int main() {
-    int exitcode = Sys::shellexec(F("/hello.bin"), 0, (char**) nil);
+i32 main() {
+    i32 exitcode = Sys::shellexec(F("/hello.bin"), 0, (char**) nil);
 
-    IO::prints(F("Exit code: "));
-    IO::printn(exitcode);
-    IO::prints(F("\n"));
+    IO::print(F("Exit code: "));
+    IO::print((i64) exitcode);
+    IO::print(F("\n"));
 
     return 0;
 }

@@ -17,26 +17,26 @@
 
 #include <librishka.h>
 
-int main() {
-    IO::prints(F("Chip Model: "));
-    IO::prints(Sys::info_str(SYSINFO_CHIPMODEL));
-    IO::prints(F("\n"));
+i32 main() {
+    IO::print(F("Chip Model: "));
+    IO::print(Sys::info_str(SYSINFO_CHIPMODEL));
+    IO::print(F("\n"));
 
-    IO::prints(F("SDK Version: "));
-    IO::prints(Sys::info_str(SYSINFO_SDK_VERSION));
-    IO::prints(F("\n"));
+    IO::print(F("SDK Version: "));
+    IO::print(Sys::info_str(SYSINFO_SDK_VERSION));
+    IO::print(F("\n"));
 
-    IO::prints(F("Sketch MD5: "));
-    IO::prints(Sys::info_str(SYSINFO_SKETCH_MD5));
-    IO::prints(F("\n"));
+    IO::print(F("Sketch MD5: "));
+    IO::print(Sys::info_str(SYSINFO_SKETCH_MD5));
+    IO::print(F("\n"));
 
-    IO::prints(F("PSRAM size: "));
-    IO::printn(Sys::info_num(SYSINFO_PSRAM_SIZE));
-    IO::prints(F("\n"));
+    IO::print(F("PSRAM size: "));
+    IO::print(Sys::info_num(SYSINFO_PSRAM_SIZE));
+    IO::print(F("\n"));
 
-    IO::prints(F("CPU Frequency: "));
-    IO::printn(Sys::info_num(SYSINFO_CPU_FREQ));
-    IO::prints(F(" Mhz\n"));
+    IO::print(F("CPU Frequency: "));
+    IO::print(Sys::info_num(SYSINFO_CPU_FREQ));
+    IO::print(F(" Mhz\n"));
 
     return 0;
 }
