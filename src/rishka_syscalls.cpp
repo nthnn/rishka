@@ -532,6 +532,18 @@ void rishka_syscall_fs_rewind(rishka_virtual_machine* vm) {
     vm->file_handles[handle].rewindDirectory();
 }
 
+int rishka_syscall_arg_count(rishka_virtual_machine* vm) {
+    return vm->argc;
+}
+
+uint32_t rishka_syscall_arg_value(rishka_virtual_machine* vm) {
+    uint8_t index = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    char* argv = vm->argv[index];
+
+    change_rt_strpass(argv);
+    return strlen(argv);
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }

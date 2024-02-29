@@ -181,6 +181,9 @@ bool rishka_syscall_fs_seekdir(rishka_virtual_machine* vm);
 uint32_t rishka_syscall_fs_next_name(rishka_virtual_machine* vm);
 void rishka_syscall_fs_rewind(rishka_virtual_machine* vm);
 
+int rishka_syscall_arg_count(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_arg_value(rishka_virtual_machine* vm);
+
 char rishka_syscall_rt_strpass();
 void rishka_syscall_rt_yield();
 
