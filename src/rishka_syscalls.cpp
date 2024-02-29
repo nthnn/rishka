@@ -50,7 +50,13 @@ enum rishka_espinfo_n {
     RISHKA_ESPINFO_MIN_FREE_HEAP,
     RISHKA_ESPINFO_MIN_FREE_PSRAM,
     RISHKA_ESPINFO_PSRAM_SIZE,
-    RISHKA_ESPINFO_TEMP_VAL
+    RISHKA_ESPINFO_TEMP_VAL,
+    RISHKA_ESPINFO_CARD_TYPE,
+    RISHKA_ESPINFO_CARD_SIZE,
+    RISHKA_ESPINFO_NUM_SECTORS,
+    RISHKA_ESPINFO_SECTOR_SIZE,
+    RISHKA_ESPINFO_TOTAL_STORAGE,
+    RISHKA_ESPINFO_USED_STORAGE
 };
 
 enum rishka_espinfo_s {
@@ -201,6 +207,24 @@ long rishka_syscall_sys_infon(rishka_virtual_machine* vm) {
 
         case RISHKA_ESPINFO_TEMP_VAL:
             return temprature_sens_read();
+
+        case RISHKA_ESPINFO_CARD_TYPE:
+            return SD.cardType();
+
+        case RISHKA_ESPINFO_CARD_SIZE:
+            return SD.cardSize();
+
+        case RISHKA_ESPINFO_NUM_SECTORS:
+            return SD.numSectors();
+
+        case RISHKA_ESPINFO_SECTOR_SIZE:
+            return SD.sectorSize();
+
+        case RISHKA_ESPINFO_TOTAL_STORAGE:
+            return SD.totalBytes();
+
+        case RISHKA_ESPINFO_USED_STORAGE:
+            return SD.usedBytes();
     }
 
     return 0;
