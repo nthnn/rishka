@@ -18,6 +18,7 @@
 #ifndef LIBRISHKA_H
 #define LIBRISHKA_H
 
+#include <librishka/args.h>
 #include <librishka/fs.h>
 #include <librishka/gpio.h>
 #include <librishka/int.h>
