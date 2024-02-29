@@ -19,12 +19,12 @@
 
 void create_file();
 void read_file();
+void delete_file();
 
 i32 main() {
     create_file();
     read_file();
 
-    FS::remove(F("/test.txt"));
     return 0;
 }
 
@@ -54,4 +54,8 @@ void read_file() {
 
     IO::print(contents);
     IO::print(F("\r\n"));
+}
+
+void delete_file() {
+    FS::remove(F("/test.txt"));
 }
