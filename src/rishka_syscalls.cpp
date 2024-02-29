@@ -476,6 +476,38 @@ uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
     return vm->file_handles.getSize();
 }
 
+bool rishka_syscall_fs_bufsize(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    size_t size = (size_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->file_handles[handle].setBufferSize(size);
+}
+
+uint64_t rishka_syscall_fs_lastwrite(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return (uint64_t) vm->file_handles[handle].getLastWrite();
+}
+
+bool rishka_syscall_fs_seekdir(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint64_t position = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->file_handles[handle].seekDir(position);
+}
+
+uint32_t rishka_syscall_fs_next_name(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    char* name = (char*) vm->file_handles[handle].getNextFileName().c_str();
+
+    change_rt_strpass(name);
+    return strlen(name);
+}
+
+void rishka_syscall_fs_rewind(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    vm->file_handles[handle].rewindDirectory();
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }

@@ -590,7 +590,7 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             break;
 
         case RISHKA_SC_IO_READCH:
-            return (uint64_t) rishka_syscall_io_readch();
+            return rishka_syscall_io_readch();
 
         case RISHKA_SC_IO_READLINE:
             return (uint64_t) rishka_syscall_io_readline();
@@ -600,26 +600,26 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             break;
 
         case RISHKA_SC_SYS_MICROS:
-            return (uint64_t) rishka_syscall_sys_micros();
+            return rishka_syscall_sys_micros();
 
         case RISHKA_SC_SYS_MILLIS:
-            return (uint64_t) rishka_syscall_sys_millis();
+            return rishka_syscall_sys_millis();
 
         case RISHKA_SC_SYS_SHELLEXEC:
-            return (uint64_t) rishka_syscall_sys_shellexec(vm);
+            return rishka_syscall_sys_shellexec(vm);
 
         case RISHKA_SC_SYS_EXIT:
             rishka_syscall_sys_exit(vm);
             break;
 
         case RISHKA_SC_SYS_INFOS:
-            return (uint64_t) rishka_syscall_sys_infos(vm);
+            return rishka_syscall_sys_infos(vm);
 
         case RISHKA_SC_SYS_INFON:
-            return (uint64_t) rishka_syscall_sys_infon(vm);
+            return rishka_syscall_sys_infon(vm);
 
         case RISHKA_SC_SYS_RANDOM:
-            return (uint64_t) rishka_syscall_sys_random();
+            return rishka_syscall_sys_random();
 
         case RISHKA_SC_MEM_ALLOC:
             rishka_syscall_mem_alloc(vm);
@@ -759,8 +759,24 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_FS_NEXT:
             return rishka_syscall_fs_next(vm);
 
+        case RISHKA_SC_FS_BUFSIZE:
+            return rishka_syscall_fs_bufsize(vm);
+
+        case RISHKA_SC_FS_LASTWRITE:
+            return rishka_syscall_fs_lastwrite(vm);
+
+        case RISHKA_SC_FS_SEEKDIR:
+            return rishka_syscall_fs_seekdir(vm);
+
+        case RISHKA_SC_FS_NEXT_NAME:
+            return rishka_syscall_fs_next_name(vm);
+
+        case RISHKA_SC_FS_REWIND:
+            rishka_syscall_fs_rewind(vm);
+            break;
+
         case RISHKA_SC_RT_STRPASS:
-            return (uint64_t) rishka_syscall_rt_strpass();
+            return rishka_syscall_rt_strpass();
 
         default:
             rishka_panic("Invalid system call.", vm);

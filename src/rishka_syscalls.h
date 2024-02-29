@@ -79,6 +79,11 @@ enum rishka_syscall {
     RISHKA_SC_FS_PATH,
     RISHKA_SC_FS_NAME,
     RISHKA_SC_FS_NEXT,
+    RISHKA_SC_FS_BUFSIZE,
+    RISHKA_SC_FS_LASTWRITE,
+    RISHKA_SC_FS_SEEKDIR,
+    RISHKA_SC_FS_NEXT_NAME,
+    RISHKA_SC_FS_REWIND,
 
     RISHKA_SC_ARG_COUNT,
     RISHKA_SC_ARG_STR,
@@ -175,6 +180,11 @@ size_t rishka_syscall_fs_position(rishka_virtual_machine* vm);
 uint32_t rishka_syscall_fs_path(rishka_virtual_machine* vm);
 uint32_t rishka_syscall_fs_name(rishka_virtual_machine* vm);
 uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_bufsize(rishka_virtual_machine* vm);
+uint64_t rishka_syscall_fs_lastwrite(rishka_virtual_machine* vm);
+bool rishka_syscall_fs_seekdir(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_fs_next_name(rishka_virtual_machine* vm);
+void rishka_syscall_fs_rewind(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();
 void rishka_syscall_rt_yield();
