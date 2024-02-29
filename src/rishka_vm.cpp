@@ -775,6 +775,12 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             rishka_syscall_fs_rewind(vm);
             break;
 
+        case RISHKA_SC_ARG_COUNT:
+            return rishka_syscall_arg_count(vm);
+
+        case RISHKA_SC_ARG_STR:
+            return rishka_syscall_arg_value(vm);
+
         case RISHKA_SC_RT_STRPASS:
             return rishka_syscall_rt_strpass();
 
