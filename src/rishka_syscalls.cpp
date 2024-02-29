@@ -427,7 +427,14 @@ int rishka_syscall_fs_read(rishka_virtual_machine* vm) {
     return vm->file_handles[handle].read();
 }
 
-size_t rishka_syscall_fs_write(rishka_virtual_machine* vm) {
+size_t rishka_syscall_fs_writeb(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->file_handles[handle].write(data);
+}
+
+size_t rishka_syscall_fs_writes(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     char* data = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
 
