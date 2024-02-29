@@ -75,6 +75,9 @@ enum rishka_syscall {
     RISHKA_SC_FS_READ,
     RISHKA_SC_FS_WRITEB,
     RISHKA_SC_FS_WRITES,
+    RISHKA_SC_FS_POS,
+    RISHKA_SC_FS_PATH,
+    RISHKA_SC_FS_NAME,
     RISHKA_SC_FS_NEXT,
 
     RISHKA_SC_ARG_COUNT,
@@ -168,6 +171,9 @@ uint32_t rishka_syscall_fs_size(rishka_virtual_machine* vm);
 int rishka_syscall_fs_read(rishka_virtual_machine* vm);
 size_t rishka_syscall_fs_writeb(rishka_virtual_machine* vm);
 size_t rishka_syscall_fs_writes(rishka_virtual_machine* vm);
+size_t rishka_syscall_fs_position(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_fs_path(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_fs_name(rishka_virtual_machine* vm);
 uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm);
 
 char rishka_syscall_rt_strpass();

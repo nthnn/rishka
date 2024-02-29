@@ -441,6 +441,27 @@ size_t rishka_syscall_fs_writes(rishka_virtual_machine* vm) {
     return vm->file_handles[handle].print(data);
 }
 
+size_t rishka_syscall_fs_position(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return vm->file_handles[handle].position();
+}
+
+uint32_t rishka_syscall_fs_path(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    char* path = (char*) vm->file_handles[handle].path();
+
+    change_rt_strpass(path);
+    return strlen(path);
+}
+
+uint32_t rishka_syscall_fs_name(rishka_virtual_machine* vm) {
+    uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    char* name = (char*) vm->file_handles[handle].name();
+
+    change_rt_strpass(name);
+    return strlen(name);
+}
+
 uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     char* mode = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);

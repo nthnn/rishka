@@ -747,6 +747,15 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             rishka_syscall_fs_writes(vm);
             break;
 
+        case RISHKA_SC_FS_POS:
+            return rishka_syscall_fs_position(vm);
+
+        case RISHKA_SC_FS_PATH:
+            return rishka_syscall_fs_path(vm);
+
+        case RISHKA_SC_FS_NAME:
+            return rishka_syscall_fs_name(vm);
+
         case RISHKA_SC_FS_NEXT:
             return rishka_syscall_fs_next(vm);
 
