@@ -18,7 +18,10 @@ public:
 
     i32 available();
     i32 peek();
+    u64 lastwrite();
+    bool bufsize(usize size);
     bool seek(u32 pos);
+    bool seek_dir(u64 position);
 
     usize size();
     usize position();
@@ -31,9 +34,11 @@ public:
     string name();
 
     File next(string mode);
+    string next_name();
 
     void flush();
     void close();
+    void rewind();
 };
 
 class FS final {

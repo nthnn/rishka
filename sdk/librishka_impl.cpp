@@ -76,6 +76,11 @@ enum rishka_syscall {
     RISHKA_SC_FS_PATH,
     RISHKA_SC_FS_NAME,
     RISHKA_SC_FS_NEXT,
+    RISHKA_SC_FS_BUFSIZE,
+    RISHKA_SC_FS_LASTWRITE,
+    RISHKA_SC_FS_SEEKDIR,
+    RISHKA_SC_FS_NEXT_NAME,
+    RISHKA_SC_FS_REWIND,
 
     RISHKA_SC_ARG_COUNT,
     RISHKA_SC_ARG_STR,
@@ -390,6 +395,26 @@ void File::flush() {
 
 void File::close() {
     rishka_sc_1(RISHKA_SC_FS_CLOSE, (i64) this->handle);
+}
+
+bool File::bufsize(usize size) {
+    return (bool) rishka_sc_2(RISHKA_SC_FS_BUFSIZE, (i64) this->handle, (i64) size);
+}
+
+u64 File::lastwrite() {
+    return (u64) rishka_sc_1(RISHKA_SC_FS_LASTWRITE, (i64) this->handle);
+}
+
+bool File::seek_dir(u64 position) {
+    return (bool) rishka_sc_2(RISHKA_SC_FS_SEEKDIR, (i64) this->handle, (i64) position);
+}
+
+string File::next_name() {
+    return get_rt_string(rishka_sc_1(RISHKA_SC_FS_NEXT_NAME, (i64) this->handle));
+}
+
+void File::rewind() {
+    rishka_sc_1(RISHKA_SC_FS_REWIND, (i64) this->handle);
 }
 
 bool FS::mkdir(const char* path) {
