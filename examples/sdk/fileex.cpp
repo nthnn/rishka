@@ -30,6 +30,11 @@ i32 main() {
 
 void create_file() {
     File file = File::open(F("/test.txt"), F("w"));
+
+    IO::print(F("Writing to file: "));
+    IO::print(file.name());
+    IO::print(F("\r\n"));
+
     file.write(F("Hello, world!"));
     file.close();
 }
@@ -37,6 +42,10 @@ void create_file() {
 void read_file() {
     File file = File::open(F("/test.txt"), F("r"));
     rune contents[file.size()];
+
+    IO::print(F("Reading from file: "));
+    IO::print(file.name());
+    IO::print(F("\r\n"));
 
     i32 data, idx = 0;
     while((data = file.read()) != -1)
