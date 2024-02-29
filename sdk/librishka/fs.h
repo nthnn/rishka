@@ -22,6 +22,7 @@ public:
     usize size();
 
     i32 read();
+    void write(u8 data);
     void write(string data);
 
     File next(string mode);

@@ -70,7 +70,8 @@ enum rishka_syscall {
     RISHKA_SC_FS_SEEK,
     RISHKA_SC_FS_SIZE,
     RISHKA_SC_FS_READ,
-    RISHKA_SC_FS_WRITE,
+    RISHKA_SC_FS_WRITEB,
+    RISHKA_SC_FS_WRITES,
     RISHKA_SC_FS_NEXT,
 
     RISHKA_SC_ARG_COUNT,
@@ -356,8 +357,12 @@ i32 File::read() {
     return (i32) rishka_sc_1(RISHKA_SC_FS_READ, (i64) this->handle);
 }
 
+void File::write(u8 data) {
+    rishka_sc_2(RISHKA_SC_FS_WRITEB, (i64) this->handle, (i64) data);
+}
+
 void File::write(string data) {
-    rishka_sc_2(RISHKA_SC_FS_WRITE, (i64) this->handle, (i64) data);
+    rishka_sc_2(RISHKA_SC_FS_WRITES, (i64) this->handle, (i64) data);
 }
 
 File File::next(string mode) {
@@ -372,18 +377,18 @@ void File::close() {
     rishka_sc_1(RISHKA_SC_FS_CLOSE, (i64) this->handle);
 }
 
-bool mkdir(const char* path) {
+bool FS::mkdir(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_MKDIR, (i64) path);
 }
 
-bool rmdir(const char* path) {
+bool FS::rmdir(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_RMDIR, (i64) path);
 }
 
-bool remove(const char* path) {
+bool FS::remove(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_DELETE, (i64) path);
 }
 
-bool exists(const char* path) {
+bool FS::exists(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_EXISTS, (i64) path);
 }
