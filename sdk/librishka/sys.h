@@ -45,6 +45,14 @@ typedef enum {
 } sysinfon_t;
 
 typedef enum {
+    SD_CARD_NONE,
+    SD_CARD_MMC,
+    SD_CARD_SD,
+    SD_CARD_SDHC,
+    SD_CARD_UNKNOWN
+} sdcard_t;
+
+typedef enum {
     SYSINFO_CHIPMODEL,
     SYSINFO_SDK_VERSION,
     SYSINFO_SKETCH_MD5
