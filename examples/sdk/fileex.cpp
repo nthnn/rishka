@@ -24,6 +24,7 @@ i32 main() {
     create_file();
     read_file();
 
+    FS::remove(F("/test.txt"));
     return 0;
 }
 
