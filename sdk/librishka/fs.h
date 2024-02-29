@@ -19,11 +19,16 @@ public:
     i32 available();
     i32 peek();
     bool seek(u32 pos);
+
     usize size();
+    usize position();
 
     i32 read();
     void write(u8 data);
     void write(string data);
+
+    string path();
+    string name();
 
     File next(string mode);
 

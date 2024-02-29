@@ -72,6 +72,9 @@ enum rishka_syscall {
     RISHKA_SC_FS_READ,
     RISHKA_SC_FS_WRITEB,
     RISHKA_SC_FS_WRITES,
+    RISHKA_SC_FS_POS,
+    RISHKA_SC_FS_PATH,
+    RISHKA_SC_FS_NAME,
     RISHKA_SC_FS_NEXT,
 
     RISHKA_SC_ARG_COUNT,
@@ -353,6 +356,10 @@ usize File::size() {
     return (usize) rishka_sc_1(RISHKA_SC_FS_SIZE, (i64) this->handle);
 }
 
+usize File::position() {
+    return (usize) rishka_sc_1(RISHKA_SC_FS_POS, (i64) this->handle);
+}
+
 i32 File::read() {
     return (i32) rishka_sc_1(RISHKA_SC_FS_READ, (i64) this->handle);
 }
@@ -363,6 +370,14 @@ void File::write(u8 data) {
 
 void File::write(string data) {
     rishka_sc_2(RISHKA_SC_FS_WRITES, (i64) this->handle, (i64) data);
+}
+
+string File::path() {
+    return get_rt_string(rishka_sc_1(RISHKA_SC_FS_PATH, (i64) this->handle));
+}
+
+string File::name() {
+    return get_rt_string(rishka_sc_1(RISHKA_SC_FS_PATH, (i64) this->handle));
 }
 
 File File::next(string mode) {
