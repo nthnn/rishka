@@ -202,10 +202,10 @@ int rishka_syscall_i2c_available(rishka_virtual_machine* vm);
 void rishka_syscall_i2c_flush();
 void rishka_syscall_i2c_on_receive(rishka_virtual_machine* vm);
 void rishka_syscall_i2c_on_request(rishka_virtual_machine* vm);
-uint16_t rishka_syscall_i2c_get_timeout(rishka_virtual_machine* vm);
+uint16_t rishka_syscall_i2c_get_timeout();
 void rishka_syscall_i2c_set_timeout(rishka_virtual_machine* vm);
 bool rishka_syscall_i2c_set_clock(rishka_virtual_machine* vm);
-uint32_t rishka_syscall_i2c_get_clock(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_i2c_get_clock();
 bool rishka_syscall_i2c_pins(rishka_virtual_machine* vm);
 size_t rishka_syscall_i2c_bufsize(rishka_virtual_machine* vm);
 
