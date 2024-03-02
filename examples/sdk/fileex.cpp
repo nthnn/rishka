@@ -24,6 +24,7 @@ void delete_file();
 i32 main() {
     create_file();
     read_file();
+    delete_file();
 
     return 0;
 }
