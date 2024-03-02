@@ -125,8 +125,8 @@ enum rishka_syscall {
 void rishka_syscall_io_prints(rishka_virtual_machine* vm);
 void rishka_syscall_io_printn(rishka_virtual_machine* vm);
 void rishka_syscall_io_printd(rishka_virtual_machine* vm);
-char rishka_syscall_io_readch();
-size_t rishka_syscall_io_readline();
+char rishka_syscall_io_readch(rishka_virtual_machine* vm);
+size_t rishka_syscall_io_readline(rishka_virtual_machine* vm);
 
 void rishka_syscall_sys_delay(rishka_virtual_machine* vm);
 unsigned long rishka_syscall_sys_micros();

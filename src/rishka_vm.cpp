@@ -592,10 +592,10 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             break;
 
         case RISHKA_SC_IO_READCH:
-            return rishka_syscall_io_readch();
+            return rishka_syscall_io_readch(vm);
 
         case RISHKA_SC_IO_READLINE:
-            return (uint64_t) rishka_syscall_io_readline();
+            return rishka_syscall_io_readline(vm);
 
         case RISHKA_SC_SYS_DELAY_MS:
             rishka_syscall_sys_delay(vm);

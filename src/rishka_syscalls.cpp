@@ -76,25 +76,25 @@ void change_rt_strpass(char* data) {
 
 void rishka_syscall_io_prints(rishka_virtual_machine* vm) {
     char* arg = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
-    Serial.print(arg != NULL ? arg : "(null)");
+    vm->stream->print(arg != NULL ? arg : "(null)");
 }
 
 void rishka_syscall_io_printn(rishka_virtual_machine* vm) {
     int64_t arg = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    Serial.print(arg);
+    vm->stream->print(arg);
 }
 
 void rishka_syscall_io_printd(rishka_virtual_machine* vm) {
     double arg = rishka_long_to_double((((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
-    Serial.print(arg);
+    vm->stream->print(arg);
 }
 
-char rishka_syscall_io_readch() {
-    return (char) Serial.read();
+char rishka_syscall_io_readch(rishka_virtual_machine* vm) {
+    return (char) vm->stream->read();
 }
 
-size_t rishka_syscall_io_readline() {
-    char* input = (char*) Serial.readString().c_str();
+size_t rishka_syscall_io_readline(rishka_virtual_machine* vm) {
+    char* input = (char*) vm->stream->readString().c_str();
     change_rt_strpass(input);
 
     return strlen(input);
