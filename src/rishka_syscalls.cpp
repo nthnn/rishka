@@ -18,6 +18,7 @@
 #include <bootloader_random.h>
 #include <Esp.h>
 #include <SD.h>
+#include <Wire.h>
 
 #include <rishka_syscalls.h>
 #include <rishka_types.h>
@@ -542,6 +543,103 @@ uint32_t rishka_syscall_arg_value(rishka_virtual_machine* vm) {
 
     change_rt_strpass(argv);
     return strlen(argv);
+}
+
+bool rishka_syscall_i2c_begin(rishka_virtual_machine* vm) {
+    uint8_t address = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return Wire.begin(address);
+}
+
+bool rishka_syscall_i2c_end(rishka_virtual_machine* vm) {
+    return Wire.end();
+}
+
+void rishka_syscall_i2c_begin_transmission(rishka_virtual_machine* vm) {
+    uint8_t address = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return Wire.beginTransmission(address);
+}
+
+uint8_t rishka_syscall_i2c_end_transmission(rishka_virtual_machine* vm) {
+    bool stop_bit = (bool)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return Wire.endTransmission(stop_bit);
+}
+
+size_t rishka_syscall_i2c_write(rishka_virtual_machine* vm) {
+    uint8_t* data = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    size_t size = (size_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return Wire.write(data, size);
+}
+
+size_t rishka_syscall_i2c_slave_write(rishka_virtual_machine* vm) {
+    uint8_t* data = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    size_t size = (size_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return Wire.slaveWrite(data, size);
+}
+
+int rishka_syscall_i2c_read(rishka_virtual_machine* vm) {
+    return Wire.read();
+}
+
+int rishka_syscall_i2c_peek(rishka_virtual_machine* vm) {
+    return Wire.peek();
+}
+
+size_t rishka_syscall_i2c_request(rishka_virtual_machine* vm) {
+    uint8_t address = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    size_t size = (size_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    bool stop_bit = (bool)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    return Wire.requestFrom(address, size, stop_bit);
+}
+
+int rishka_syscall_i2c_available(rishka_virtual_machine* vm) {
+    return Wire.available();
+}
+
+void rishka_syscall_i2c_flush(rishka_virtual_machine* vm) {
+    Wire.flush();
+}
+
+void rishka_syscall_i2c_on_receive(rishka_virtual_machine* vm) {
+    void(*callback)(int) = (void(*)(int)) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    Wire.onReceive(callback);
+}
+
+void rishka_syscall_i2c_on_request(rishka_virtual_machine* vm) {
+    void(*callback)(void) = (void(*)(void)) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    Wire.onRequest(callback);
+}
+
+uint16_t rishka_syscall_i2c_get_timeout(rishka_virtual_machine* vm) {
+    return Wire.getTimeout();
+}
+
+void rishka_syscall_i2c_set_timeout(rishka_virtual_machine* vm) {
+    uint16_t timeout = (uint16_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    Wire.setTimeout(timeout);
+}
+
+bool rishka_syscall_i2c_set_clock(rishka_virtual_machine* vm) {
+    uint32_t clock = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return Wire.setClock(clock);
+}
+
+uint32_t rishka_syscall_i2c_get_clock(rishka_virtual_machine* vm) {
+    return Wire.getClock();
+}
+
+bool rishka_syscall_i2c_pins(rishka_virtual_machine* vm) {
+    uint8_t sda = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t scl = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return Wire.setPins(sda, scl);
+}
+
+size_t rishka_syscall_i2c_bufsize(rishka_virtual_machine* vm) {
+    size_t size = (size_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return Wire.setBufferSize(size);
 }
 
 char rishka_syscall_rt_strpass() {

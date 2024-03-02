@@ -189,6 +189,26 @@ void rishka_syscall_fs_rewind(rishka_virtual_machine* vm);
 int rishka_syscall_arg_count(rishka_virtual_machine* vm);
 uint32_t rishka_syscall_arg_value(rishka_virtual_machine* vm);
 
+bool rishka_syscall_i2c_begin(rishka_virtual_machine* vm);
+bool rishka_syscall_i2c_end(rishka_virtual_machine* vm);
+void rishka_syscall_i2c_begin_transmission(rishka_virtual_machine* vm);
+uint8_t rishka_syscall_i2c_end_transmission(rishka_virtual_machine* vm);
+size_t rishka_syscall_i2c_write(rishka_virtual_machine* vm);
+size_t rishka_syscall_i2c_slave_write(rishka_virtual_machine* vm);
+int rishka_syscall_i2c_read(rishka_virtual_machine* vm);
+int rishka_syscall_i2c_peek(rishka_virtual_machine* vm);
+size_t rishka_syscall_i2c_request(rishka_virtual_machine* vm);
+int rishka_syscall_i2c_available(rishka_virtual_machine* vm);
+void rishka_syscall_i2c_flush(rishka_virtual_machine* vm);
+void rishka_syscall_i2c_on_receive(rishka_virtual_machine* vm);
+void rishka_syscall_i2c_on_request(rishka_virtual_machine* vm);
+uint16_t rishka_syscall_i2c_get_timeout(rishka_virtual_machine* vm);
+void rishka_syscall_i2c_set_timeout(rishka_virtual_machine* vm);
+bool rishka_syscall_i2c_set_clock(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_i2c_get_clock(rishka_virtual_machine* vm);
+bool rishka_syscall_i2c_pins(rishka_virtual_machine* vm);
+size_t rishka_syscall_i2c_bufsize(rishka_virtual_machine* vm);
+
 char rishka_syscall_rt_strpass();
 void rishka_syscall_rt_yield();
 
