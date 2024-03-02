@@ -598,7 +598,7 @@ int rishka_syscall_i2c_available(rishka_virtual_machine* vm) {
     return Wire.available();
 }
 
-void rishka_syscall_i2c_flush(rishka_virtual_machine* vm) {
+void rishka_syscall_i2c_flush() {
     Wire.flush();
 }
 
