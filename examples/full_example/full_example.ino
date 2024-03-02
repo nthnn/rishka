@@ -50,7 +50,7 @@ void setup() {
     }
 
     // Initialize Rishka virtual machine
-    rishka_vm_initialize(&vm);
+    rishka_vm_initialize(&vm, &Serial);
 
     // Attempt to load specified file ("/hello.bin")
     // into Rishka virtual machine

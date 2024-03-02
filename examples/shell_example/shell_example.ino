@@ -62,7 +62,7 @@ void loop() {
     Serial.print(input);
 
     // Initialize Rishka virtual machine
-    rishka_vm_initialize(&vm);
+    rishka_vm_initialize(&vm, &Serial);
 
     // Attempt to load specified file into Rishka virtual machine
     if(!rishka_vm_loadfile(&vm, input.c_str())) {
