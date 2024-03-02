@@ -34,10 +34,11 @@ typedef struct {
     uint64_t registers[32];
     uint8_t memory[RISHKA_VM_STACK_SIZE];
 
+    Stream* stream;
     List<File> file_handles;
 } rishka_virtual_machine;
 
-void rishka_vm_initialize(rishka_virtual_machine* vm);
+void rishka_vm_initialize(rishka_virtual_machine* vm, Stream* stream);
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv);
 bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name);
 void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst);

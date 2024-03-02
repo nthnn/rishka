@@ -23,12 +23,14 @@
 #include <rishka_vm.h>
 #include <rishka_vm_helper.h>
 
-void rishka_vm_initialize(rishka_virtual_machine* vm) {
+void rishka_vm_initialize(rishka_virtual_machine* vm, Stream* stream) {
     vm->running = false;
     vm->argv = NULL;
     vm->argc = 0;
     vm->pc = 0;
     vm->exitcode = 0;
+
+    vm->stream = stream;
 }
 
 void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {

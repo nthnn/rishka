@@ -120,7 +120,7 @@ int rishka_syscall_sys_shellexec(rishka_virtual_machine* parent_vm) {
     int argc = (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[11];
     char** argv = (char**) rishka_vm_getptr(parent_vm, (((rishka_u64_arrptr*) & parent_vm->registers)->a).v[12]);
 
-    rishka_vm_initialize(&rishka_child_vm);
+    rishka_vm_initialize(&rishka_child_vm, parent_vm->stream);
     if(!rishka_vm_loadfile(&rishka_child_vm, program))
         return -1;
 
