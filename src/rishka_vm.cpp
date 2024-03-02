@@ -781,6 +781,68 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_ARG_STR:
             return rishka_syscall_arg_value(vm);
 
+        case RISHKA_SC_I2C_BEGIN:
+            return rishka_syscall_i2c_begin(vm);
+
+        case RISHKA_SC_I2C_END:
+            return rishka_syscall_i2c_end(vm);
+
+        case RISHKA_SC_I2C_BEGIN_TRANSMISSION:
+            rishka_syscall_i2c_begin_transmission(vm);
+            break;
+
+        case RISHKA_SC_I2C_END_TRANSMISSION:
+            return rishka_syscall_i2c_end_transmission(vm);
+
+        case RISHKA_SC_I2C_WRITE:
+            return rishka_syscall_i2c_write(vm);
+
+        case RISHKA_SC_I2C_SLAVE_WRITE:
+            return rishka_syscall_i2c_slave_write(vm);
+
+        case RISHKA_SC_I2C_READ:
+            return rishka_syscall_i2c_read(vm);
+
+        case RISHKA_SC_I2C_PEEK:
+            return rishka_syscall_i2c_peek(vm);
+
+        case RISHKA_SC_I2C_REQUEST:
+            return rishka_syscall_i2c_request(vm);
+
+        case RISHKA_SC_I2C_AVAILABLE:
+            return rishka_syscall_i2c_available(vm);
+
+        case RISHKA_SC_I2C_FLUSH:
+            rishka_syscall_i2c_flush();
+            break;
+
+        case RISHKA_SC_I2C_ON_RECEIVE:
+            rishka_syscall_i2c_on_receive(vm);
+            break;
+        
+        case RISHKA_SC_I2C_ON_REQUEST:
+            rishka_syscall_i2c_on_request(vm);
+            break;
+
+        case RISHKA_SC_I2C_GET_TIMEOUT:
+            return rishka_syscall_i2c_get_timeout();
+
+        case RISHKA_SC_I2C_SET_TIMEOUT:
+            rishka_syscall_i2c_set_timeout(vm);
+            break;
+
+        case RISHKA_SC_I2C_SET_CLOCK:
+            return rishka_syscall_i2c_set_clock(vm);
+
+        case RISHKA_SC_I2C_GET_CLOCK:
+            return rishka_syscall_i2c_get_clock();
+
+        case RISHKA_SC_I2C_PINS:
+            return rishka_syscall_i2c_pins(vm);
+
+        case RISHKA_SC_I2C_BUFSIZE:
+            return rishka_syscall_i2c_bufsize(vm);
+
         case RISHKA_SC_RT_STRPASS:
             return rishka_syscall_rt_strpass();
 
