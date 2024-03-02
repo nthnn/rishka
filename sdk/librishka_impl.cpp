@@ -227,6 +227,34 @@ string IO::readline() {
     return get_rt_string((u32) rishka_sc_0(RISHKA_SC_IO_READLINE));
 }
 
+i32 IO::read() {
+    return (i32) rishka_sc_0(RISHKA_SC_IO_READ);
+}
+
+i32 IO::available() {
+    return (i32) rishka_sc_0(RISHKA_SC_IO_AVAILABLE);
+}
+
+i32 IO::peek() {
+    return (i32) rishka_sc_0(RISHKA_SC_IO_PEEK);
+}
+
+bool IO::find(string target, usize size) {
+    return (bool) rishka_sc_2(RISHKA_SC_IO_FIND, (i64) target, (i64) size);
+}
+
+bool IO::find_until(string target, string terminator) {
+    return (bool) rishka_sc_2(RISHKA_SC_IO_FIND_UNTIL, (i64) target, (i64) terminator);
+}
+
+void IO::set_timeout(u64 timeout) {
+    rishka_sc_1(RISHKA_SC_IO_SET_TIMEOUT, (i64) timeout);
+}
+
+u64 IO::get_timeout() {
+    return (u64) rishka_sc_0(RISHKA_SC_IO_GET_TIMEOUT);
+}
+
 void Sys::delay(u64 ms) {
     rishka_sc_1(RISHKA_SC_SYS_DELAY_MS, (long) ms);
 }

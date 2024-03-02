@@ -26,6 +26,16 @@ public:
     static void print(i64 number);
     static void print(double number);
 
+    static i32 read();
+    static i32 available();
+    static i32 peek();
+
+    static bool find(string target, usize size);
+    static bool find_until(string target, string terminator);
+
+    static void set_timeout(u64 timeout);
+    static u64 get_timeout();
+
     static rune readch();
     static string readline();
 };
