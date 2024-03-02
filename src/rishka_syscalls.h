@@ -134,6 +134,13 @@ void rishka_syscall_io_printn(rishka_virtual_machine* vm);
 void rishka_syscall_io_printd(rishka_virtual_machine* vm);
 char rishka_syscall_io_readch(rishka_virtual_machine* vm);
 size_t rishka_syscall_io_readline(rishka_virtual_machine* vm);
+int rishka_syscall_io_read(rishka_virtual_machine* vm);
+int rishka_syscall_io_available(rishka_virtual_machine* vm);
+int rishka_syscall_io_peek(rishka_virtual_machine* vm);
+bool rishka_syscall_io_find(rishka_virtual_machine* vm);
+bool rishka_syscall_io_find_until(rishka_virtual_machine* vm);
+void rishka_syscall_io_set_timeout(rishka_virtual_machine* vm);
+uint64_t rishka_syscall_io_get_timeout(rishka_virtual_machine* vm);
 
 void rishka_syscall_sys_delay(rishka_virtual_machine* vm);
 unsigned long rishka_syscall_sys_micros();

@@ -100,6 +100,41 @@ size_t rishka_syscall_io_readline(rishka_virtual_machine* vm) {
     return strlen(input);
 }
 
+int rishka_syscall_io_read(rishka_virtual_machine* vm) {
+    return vm->stream->read();
+}
+
+int rishka_syscall_io_available(rishka_virtual_machine* vm) {
+    return vm->stream->available();
+}
+
+int rishka_syscall_io_peek(rishka_virtual_machine* vm) {
+    return vm->stream->peek();
+}
+
+bool rishka_syscall_io_find(rishka_virtual_machine* vm) {
+    char* target = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    size_t length = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    return vm->stream->find(target, length);
+}
+
+bool rishka_syscall_io_find_until(rishka_virtual_machine* vm) {
+    char* target = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    char* terminator = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+
+    return vm->stream->findUntil(target, terminator);
+}
+
+void rishka_syscall_io_set_timeout(rishka_virtual_machine* vm) {
+    uint64_t timeout = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    vm->stream->setTimeout(timeout);
+}
+
+uint64_t rishka_syscall_io_get_timeout(rishka_virtual_machine* vm) {
+    return vm->stream->getTimeout();
+}
+
 void rishka_syscall_sys_delay(rishka_virtual_machine* vm) {
     uint64_t ms = (uint64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     delay(ms);

@@ -597,6 +597,28 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_IO_READLINE:
             return rishka_syscall_io_readline(vm);
 
+        case RISHKA_SC_IO_READ:
+            return rishka_syscall_io_read(vm);
+
+        case RISHKA_SC_IO_AVAILABLE:
+            return rishka_syscall_io_available(vm);
+
+        case RISHKA_SC_IO_PEEK:
+            return rishka_syscall_io_peek(vm);
+
+        case RISHKA_SC_IO_FIND:
+            return rishka_syscall_io_find(vm);
+
+        case RISHKA_SC_IO_FIND_UNTIL:
+            return rishka_syscall_io_find_until(vm);
+
+        case RISHKA_SC_IO_SET_TIMEOUT:
+            rishka_syscall_io_set_timeout(vm);
+            break;
+
+        case RISHKA_SC_IO_GET_TIMEOUT:
+            return rishka_syscall_io_get_timeout(vm);
+
         case RISHKA_SC_SYS_DELAY_MS:
             rishka_syscall_sys_delay(vm);
             break;
