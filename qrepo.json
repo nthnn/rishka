@@ -5,8 +5,13 @@
 	"description": "RISC-V virtual runtime in C/C++ SDK made for ESP32-WROVER with PSRAM.",
 	"git": "https://github.com/rishka-esp32/rishka-sdk.git",
 	"scripts": {
-		"compile": [
+		"linux:compile": [
 			"mkdir -p dist",
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,scripts/link.ld -O2 -o dist/{{2}}.out -Isdk sdk/librishka_impl.cpp {{1}} scripts/launcher.s",
+			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
+			"rm dist/{{2}}.out"
+		],
+		"windows:compile": [
 			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,scripts/link.ld -O2 -o dist/{{2}}.out -Isdk sdk/librishka_impl.cpp {{1}} scripts/launcher.s",
 			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
 			"rm dist/{{2}}.out"

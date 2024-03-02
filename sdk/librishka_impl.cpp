@@ -217,7 +217,7 @@ rune IO::readch() {
 }
 
 string IO::readline() {
-    return (string) rishka_sc_0(RISHKA_SC_IO_READLINE);
+    return get_rt_string((u32) rishka_sc_0(RISHKA_SC_IO_READLINE));
 }
 
 void Sys::delay(u64 ms) {

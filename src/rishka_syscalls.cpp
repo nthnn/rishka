@@ -93,8 +93,11 @@ char rishka_syscall_io_readch() {
     return (char) Serial.read();
 }
 
-char* rishka_syscall_io_readline() {
-    return (char*) Serial.readString().c_str();
+size_t rishka_syscall_io_readline() {
+    char* input = (char*) Serial.readString().c_str();
+    change_rt_strpass(input);
+
+    return strlen(input);
 }
 
 void rishka_syscall_sys_delay(rishka_virtual_machine* vm) {
