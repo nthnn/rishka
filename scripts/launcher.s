@@ -33,5 +33,5 @@ _exit:
     sw      a5,-20(s0)
     lw      a5,-20(s0)
     mv      a0,a5
-    li      a7,9
+    li      a7,16
     scall
