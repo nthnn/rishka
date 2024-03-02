@@ -21,6 +21,7 @@
 #include <librishka/args.h>
 #include <librishka/fs.h>
 #include <librishka/gpio.h>
+#include <librishka/i2c.h>
 #include <librishka/int.h>
 #include <librishka/io.h>
 #include <librishka/memory.h>
