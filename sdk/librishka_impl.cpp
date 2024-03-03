@@ -563,3 +563,87 @@ bool I2C::set_clock(u32 clock) {
 u32 I2C::get_clock() {
     return (u32) rishka_sc_0(RISHKA_SC_I2C_GET_CLOCK);
 }
+
+void SPI::begin(u8 sck, u8 miso, u8 mosi, u8 ss) {
+    rishka_sc_4(RISHKA_SC_SPI_BEGIN, (i64) sck, (i64) miso, (i64) mosi, (i64) ss);
+}
+
+void SPI::end() {
+    rishka_sc_0(RISHKA_SC_SPI_END);
+}
+
+void SPI::begin_transaction(u8 clock, u8 bit_order, u8 data_mode) {
+    rishka_sc_3(RISHKA_SC_SPI_BEGIN_TRANSACTION, (i64) clock, (i64) bit_order, (i64) data_mode);
+}
+
+void SPI::end_transaction() {
+    rishka_sc_0(RISHKA_SC_SPI_END_TRANSACTION);
+}
+
+u8 SPI::transfer8(u8 data) {
+    return (u8) rishka_sc_1(RISHKA_SC_SPI_TRANSFER8, (i64) data);
+}
+
+u16 SPI::transfer16(u16 data) {
+    return (u16) rishka_sc_1(RISHKA_SC_SPI_TRANSFER16, (i64) data);
+}
+
+u32 SPI::transfer32(u32 data) {
+    return (u32) rishka_sc_1(RISHKA_SC_SPI_TRANSFER32, (i64) data);
+}
+
+void SPI::transfer_bytes(u8* data, u8* out, u32 size) {
+    rishka_sc_3(RISHKA_SC_SPI_TRANSFER_BYTES, (i64) data, (i64) out, (i64) size);
+}
+
+void SPI::transfer_bits(u32 data, u32* out, u8 bits) {
+    rishka_sc_3(RISHKA_SC_SPI_TRANSFER_BITS, (i64) data, (i64) out, (i64) bits);
+}
+
+void SPI::set_hwcs(bool use) {
+    rishka_sc_1(RISHKA_SC_SPI_SET_HWCS, (i64) use);
+}
+
+void SPI::set_bit_order(u8 bit_order) {
+    rishka_sc_1(RISHKA_SC_SPI_SET_BIT_ORDER, (i64) bit_order);
+}
+
+void SPI::set_data_mode(u8 data_mode) {
+    rishka_sc_1(RISHKA_SC_SPI_SET_DATA_MODE, (i64) data_mode);
+}
+
+void SPI::set_frequency(u32 frequency) {
+    rishka_sc_1(RISHKA_SC_SPI_SET_FREQ, (i64) frequency);
+}
+
+void SPI::set_clock_div(u32 clock_div) {
+    rishka_sc_1(RISHKA_SC_SPI_SET_CLOCK_DIV, (i64) clock_div);
+}
+
+u32 SPI::get_clock_div() {
+    return (u32) rishka_sc_0(RISHKA_SC_SPI_GET_CLOCK_DIV);
+}
+
+void SPI::write8(u8 data) {
+    rishka_sc_1(RISHKA_SC_SPI_WRITE8, (i64) data);
+}
+
+void SPI::write16(u16 data) {
+    rishka_sc_1(RISHKA_SC_SPI_WRITE16, (i64) data);
+}
+
+void SPI::write32(u32 data) {
+    rishka_sc_1(RISHKA_SC_SPI_WRITE32, (i64) data);
+}
+
+void SPI::write_bytes(u8* data, u32 size) {
+    rishka_sc_2(RISHKA_SC_SPI_WRITE_BYTES, (i64) data, (i64) size);
+}
+
+void SPI::write_pixels(void* data, u32 size) {
+    rishka_sc_2(RISHKA_SC_SPI_WRITE_PIXELS, (i64) data, (i64) size);
+}
+
+void SPI::write_pattern(u8* data, u8 size, u32 pattern) {
+    rishka_sc_3(RISHKA_SC_SPI_WRITE_PATTERN, (i64) data, (i64) size, (i64) pattern);
+}
