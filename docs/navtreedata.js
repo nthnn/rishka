@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "librishka", "index.html", [
+  [ "Rishka", "index.html", [
     [ "Rishka SDK", "index.html", null ],
     [ "Runtime System Calls", "md_misc_2system__calls.html", [
       [ "Under The Hood", "md_misc_2system__calls.html#autotoc_md10", null ],
