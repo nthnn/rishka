@@ -25,6 +25,7 @@
 #include <librishka/int.h>
 #include <librishka/io.h>
 #include <librishka/memory.h>
+#include <librishka/spi.h>
 #include <librishka/sys.h>
 #include <librishka/types.h>
 
