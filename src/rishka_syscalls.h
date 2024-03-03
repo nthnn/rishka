@@ -235,6 +235,28 @@ uint32_t rishka_syscall_i2c_get_clock();
 bool rishka_syscall_i2c_pins(rishka_virtual_machine* vm);
 size_t rishka_syscall_i2c_bufsize(rishka_virtual_machine* vm);
 
+void rishka_syscall_spi_begin(rishka_virtual_machine* vm);
+void rishka_syscall_spi_end();
+void rishka_syscall_spi_begin_transaction(rishka_virtual_machine* vm);
+void rishka_syscall_spi_end_transaction();
+uint8_t rishka_syscall_spi_transfer8(rishka_virtual_machine* vm);
+uint16_t rishka_syscall_spi_transfer16(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_spi_transfer32(rishka_virtual_machine* vm);
+void rishka_syscall_spi_transfer_bytes(rishka_virtual_machine* vm);
+void rishka_syscall_spi_transfer_bits(rishka_virtual_machine* vm);
+void rishka_syscall_spi_set_hwcs(rishka_virtual_machine* vm);
+void rishka_syscall_spi_set_bit_order(rishka_virtual_machine* vm);
+void rishka_syscall_spi_set_data_mode(rishka_virtual_machine* vm);
+void rishka_syscall_spi_set_frequency(rishka_virtual_machine* vm);
+void rishka_syscall_spi_set_clock_div(rishka_virtual_machine* vm);
+uint32_t rishka_syscall_spi_get_clock_div();
+void rishka_syscall_spi_write8(rishka_virtual_machine* vm);
+void rishka_syscall_spi_write16(rishka_virtual_machine* vm);
+void rishka_syscall_spi_write32(rishka_virtual_machine* vm);
+void rishka_syscall_spi_write_bytes(rishka_virtual_machine* vm);
+void rishka_syscall_spi_write_pixels(rishka_virtual_machine* vm);
+void rishka_syscall_spi_write_pattern(rishka_virtual_machine* vm);
+
 char rishka_syscall_rt_strpass();
 void rishka_syscall_rt_yield();
 

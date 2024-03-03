@@ -680,6 +680,128 @@ size_t rishka_syscall_i2c_bufsize(rishka_virtual_machine* vm) {
     return Wire.setBufferSize(size);
 }
 
+void rishka_syscall_spi_begin(rishka_virtual_machine* vm) {
+    uint8_t sck = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t miso = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint8_t mosi = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+    uint8_t ss = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[13];
+
+    SPI.begin(sck, miso, mosi, ss);
+}
+
+void rishka_syscall_spi_end() {
+    SPI.end();
+}
+
+void rishka_syscall_spi_begin_transaction(rishka_virtual_machine* vm) {
+    uint8_t clock = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint8_t bit_order = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint8_t data_mode = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    SPI.beginTransaction(SPISettings(clock, bit_order, data_mode));
+}
+
+void rishka_syscall_spi_end_transaction() {
+    SPI.endTransaction();
+}
+
+uint8_t rishka_syscall_spi_transfer8(rishka_virtual_machine* vm) {
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return SPI.transfer(data);
+}
+
+uint16_t rishka_syscall_spi_transfer16(rishka_virtual_machine* vm) {
+    uint16_t data = (uint16_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return SPI.transfer16(data);
+}
+
+uint32_t rishka_syscall_spi_transfer32(rishka_virtual_machine* vm) {
+    uint32_t data = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    return SPI.transfer32(data);
+}
+
+void rishka_syscall_spi_transfer_bytes(rishka_virtual_machine* vm) {
+    uint8_t* data = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    uint8_t* out = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+    uint32_t size = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    SPI.transferBytes(data, out, size);
+}
+
+void rishka_syscall_spi_transfer_bits(rishka_virtual_machine* vm) {
+    uint32_t data = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    uint32_t* out = (uint32_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
+    uint8_t bits = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    SPI.transferBits(data, out, bits);
+}
+
+void rishka_syscall_spi_set_hwcs(rishka_virtual_machine* vm) {
+    bool use = (bool)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.setHwCs(use);
+}
+
+void rishka_syscall_spi_set_bit_order(rishka_virtual_machine* vm) {
+    uint8_t bit_order = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.setBitOrder(bit_order);
+}
+
+void rishka_syscall_spi_set_data_mode(rishka_virtual_machine* vm) {
+    uint8_t data_mode = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.setDataMode(data_mode);
+}
+
+void rishka_syscall_spi_set_frequency(rishka_virtual_machine* vm) {
+    uint32_t frequency = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.setFrequency(frequency);
+}
+
+void rishka_syscall_spi_set_clock_div(rishka_virtual_machine* vm) {
+    uint32_t clock_div = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.setClockDivider(clock_div);
+}
+
+uint32_t rishka_syscall_spi_get_clock_div() {
+    return SPI.getClockDivider();
+}
+
+void rishka_syscall_spi_write8(rishka_virtual_machine* vm) {
+    uint8_t data = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.write(data);
+}
+
+void rishka_syscall_spi_write16(rishka_virtual_machine* vm) {
+    uint16_t data = (uint16_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.write16(data);
+}
+
+void rishka_syscall_spi_write32(rishka_virtual_machine* vm) {
+    uint32_t data = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
+    SPI.write32(data);
+}
+
+void rishka_syscall_spi_write_bytes(rishka_virtual_machine* vm) {
+    uint8_t* data = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    uint32_t size = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    SPI.writeBytes(data, size);
+}
+
+void rishka_syscall_spi_write_pixels(rishka_virtual_machine* vm) {
+    void* data = (void*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    uint32_t size = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+
+    SPI.writePixels(data, size);
+}
+
+void rishka_syscall_spi_write_pattern(rishka_virtual_machine* vm) {
+    uint8_t* data = (uint8_t*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[10]);
+    uint8_t size = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint32_t repeat = (uint32_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[12];
+
+    SPI.writePattern(data, size, repeat);
+}
+
 char rishka_syscall_rt_strpass() {
     return strpass_data.charAt(strpass_idx++);
 }
