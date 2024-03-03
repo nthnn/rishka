@@ -2,8 +2,6 @@
 
 @tableofcontents
 
-## Under The Hood
-
 Rishka system calls provide a mechanism for user-level applications to request services or functionality from the underlying operating system (Jessy OS) running on the ESP32-WROVER microcontroller. Through these system calls, applications can request various services, functionalities, or access to system resources that are otherwise restricted from user-level code. This includes operations such as file I/O, memory management, device control, and system information retrieval. By leveraging system calls, applications can harness the full capabilities of the operating system while maintaining a clear separation between user-level and kernel-level code, ensuring system integrity, security, and reliability.
 
 1. **Invocation**
@@ -40,9 +38,45 @@ The Rishka virtual runtime kernel provides an extensive array of system calls, o
 
 The below table is a comprehensive listing with details of the diverse range of system calls available within the Rishka kernel. Note that this is subject to changes since Rishka is still underdevelopment.
 
-| Address (A7) | Name        | A0              | A1        | A2        | A3        | Implementation       |
-|--------------|-------------|-----------------|-----------|-----------|-----------|----------------------|
-| 0x00         | PRINTS      | (string) text   |           |           |           | IO::print(string)    |
-| 0x01         | PRINTN      | (i64) number    |           |           |           | IO::print(i64)       |
-| 0x02         | PRINTD      | (double) number |           |           |           | IO::print(double)    |
-| 0x03         | READCH      |                 |           |           |           | IO::readch()         |
+| Address `A7` | Name                | `A0`               | `A1`                | `A2`             | `A3`              | Implementation        |
+|--------------|---------------------|--------------------|---------------------|------------------|-------------------|-----------------------|
+| 0x0000       | PRINTS              | (string) text      |                     |                  |                   | IO::print(string)     |
+| 0x0001       | PRINTN              | (i64) number       |                     |                  |                   | IO::print(i64)        |
+| 0x0002       | PRINTD              | (double) number    |                     |                  |                   | IO::print(double)     |
+| 0x0003       | READCH              |                    |                     |                  |                   | IO::readch()          |
+| 0x0004       | READLINE            |                    |                     |                  |                   | IO::readline()        |
+| 0x0005       | READ                |                    |                     |                  |                   | IO::read()            |
+| 0x0006       | AVAILABLE           |                    |                     |                  |                   | IO::available()       |
+| 0x0007       | PEEK                |                    |                     |                  |                   | IO::peek()            |
+| 0x0008       | FIND                | (string) target    | (usize) size        |                  |                   | IO::find()            |
+| 0x0009       | FIND_UNTIL          | (string) target    | (string) terminator |                  |                   | IO::find_until()      |
+| 0x000a       | SET_TIMEOUT         | (u64) timeout      |                     |                  |                   | IO::set_timeout()     |
+| 0x000b       | GET_TIMEOUT         |                    |                     |                  |                   | IO::get_timeout()     |
+| 0x000c       | DELAY_MS            | (u64) ms           |                     |                  |                   | Sys::delay()          |
+| 0x000d       | MICROS              |                    |                     |                  |                   | Sys::micros()         |
+| 0x000e       | MILLIS              |                    |                     |                  |                   | Sys::millis()         |
+| 0x000f       | SHELLEXEC           | (string) program   | (i32) argc          | (string*) argv   |                   | Sys::shellexec()      |
+| 0x0010       | EXIT                | (i32) code         |                     |                  |                   | Sys::exit()           |
+| 0x0011       | INFOS               | (sysinfos_t) key   |                     |                  |                   | Sys::info_str()       |
+| 0x0012       | INFON               | (sysinfon_t) key   |                     |                  |                   | Sys::info_num()       |
+| 0x0013       | RANDOM              |                    |                     |                  |                   | Sys::random()         |
+| 0x0014       | ALLOC               | (any) dest         | (usize) size        |                  |                   | Memory::alloc()       |
+| 0x0015       | CALLOC              | (any) dest         | (usize) num         | (usize) size     |                   | Memory::calloc()      |
+| 0x0016       | REALLOC             | (any) dest         | (any) ptr           | (usize) size     |                   | Memory::realloc()     |
+| 0x0017       | FREE                | (any) ptr          |                     |                  |                   | Memory::free()        |
+| 0x0018       | MEMSET              | (any) dest         | (i32) count         | (u32) n          |                   | Memory::set()         |
+| 0x0019       | PIN_MODE            | (u8) pin           | (gpio_pin_mode_t) m |                  |                   | Gpio::pin_mode()      |
+| 0x001a       | DIGITAL_READ        | (u8) pin           |                     |                  |                   | Gpio::digital_read()  |
+| 0x001b       | DIGITAL_WRITE       | (u8) pin           | (gpio_mode_t) mode  |                  |                   | Gpio::digital_write() |
+| 0x001c       | ANALOG_READ         | (u8) pin           |                     |                  |                   | Gpio::analog_read()   |
+| 0x001d       | ANALOG_WRITE        | (u8) pin           | (u8) value          |                  |                   | Gpio::analog_write()  |
+| 0x001e       | PULSE_IN            | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in()      |
+| 0x001f       | PULSE_IN_LONG       | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in_long() |
+| 0x0020       | SHIFT_IN            | (u8) data          | (u8) clock          | (u8) bit_order   |                   | Gpio::shift_in()      |
+| 0x0021       | SHIFT_OUT           | (u8) data          | (u8) clock          | (u8) bit_order   | (u8) value        | Gpio::shift_out()     |
+| 0x0022       | TONE                | (u8) pin           | (u32) frequency     | (u64) duration   |                   | Gpio::tone()          |
+| 0x0023       | NO_TONE             | (u8) pin           |                     |                  |                   | Gpio::no_tone()       |
+| 0x0024       | INT_ENABLE          |                    |                     |                  |                   | Int::enable()         |
+| 0x0025       | INT_DISABLE         |                    |                     |                  |                   | Int::disable()        |
+| 0x0026       | INT_ATTACH          | (u8) pin           | void (*callback)()  | (int_mode_t) m   |                   | Int::attach()         |
+| 0x0027       | INT_DETACH          | (u8) pin           |                     |                  |                   | Int::detach()         |
