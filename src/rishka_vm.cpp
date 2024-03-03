@@ -867,6 +867,86 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
         case RISHKA_SC_I2C_BUFSIZE:
             return rishka_syscall_i2c_bufsize(vm);
 
+        case RISHKA_SC_SPI_BEGIN:
+            rishka_syscall_spi_begin(vm);
+            break;
+
+        case RISHKA_SC_SPI_END:
+            rishka_syscall_spi_end();
+            break;
+
+        case RISHKA_SC_SPI_BEGIN_TRANSACTION:
+            rishka_syscall_spi_begin_transaction(vm);
+            break;
+
+        case RISHKA_SC_SPI_END_TRANSACTION:
+            rishka_syscall_spi_end_transaction();
+            break;
+
+        case RISHKA_SC_SPI_TRANSFER8:
+            return rishka_syscall_spi_transfer8(vm);
+
+        case RISHKA_SC_SPI_TRANSFER16:
+            return rishka_syscall_spi_transfer16(vm);
+
+        case RISHKA_SC_SPI_TRANSFER32:
+            return rishka_syscall_spi_transfer32(vm);
+
+        case RISHKA_SC_SPI_TRANSFER_BYTES:
+            rishka_syscall_spi_transfer_bytes(vm);
+            break;
+
+        case RISHKA_SC_SPI_TRANSFER_BITS:
+            rishka_syscall_spi_transfer_bits(vm);
+            break;
+
+        case RISHKA_SC_SPI_SET_HWCS:
+            rishka_syscall_spi_set_hwcs(vm);
+            break;
+
+        case RISHKA_SC_SPI_SET_BIT_ORDER:
+            rishka_syscall_spi_set_bit_order(vm);
+            break;
+
+        case RISHKA_SC_SPI_SET_DATA_MODE:
+            rishka_syscall_spi_set_data_mode(vm);
+            break;
+
+        case RISHKA_SC_SPI_SET_FREQ:
+            rishka_syscall_spi_set_frequency(vm);
+            break;
+
+        case RISHKA_SC_SPI_SET_CLOCK_DIV:
+            rishka_syscall_spi_set_clock_div(vm);
+            break;
+
+        case RISHKA_SC_SPI_GET_CLOCK_DIV:
+            return rishka_syscall_spi_get_clock_div();
+
+        case RISHKA_SC_SPI_WRITE8:
+            rishka_syscall_spi_write8(vm);
+            break;
+
+        case RISHKA_SC_SPI_WRITE16:
+            rishka_syscall_spi_write16(vm);
+            break;
+
+        case RISHKA_SC_SPI_WRITE32:
+            rishka_syscall_spi_write32(vm);
+            break;
+
+        case RISHKA_SC_SPI_WRITE_BYTES:
+            rishka_syscall_spi_write_bytes(vm);
+            break;
+
+        case RISHKA_SC_SPI_WRITE_PIXELS:
+            rishka_syscall_spi_write_pixels(vm);
+            break;
+
+        case RISHKA_SC_SPI_WRITE_PATTERN:
+            rishka_syscall_spi_write_pattern(vm);
+            break;
+
         case RISHKA_SC_RT_STRPASS:
             return rishka_syscall_rt_strpass();
 
