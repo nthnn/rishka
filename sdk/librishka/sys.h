@@ -166,6 +166,19 @@ public:
      * @return The system information as a numeric value.
      */
     static i64 info_num(sysinfon_t key);
+
+    /**
+     * @brief Generate a random integer value.
+     *
+     * The random() function generates a pseudo-random integer value
+     * within the range supported by the underlying hardware's random number generator.
+     * The generated random value is suitable for various applications such as
+     * cryptographic operations, simulation, and randomization tasks.
+     *
+     * @return A pseudo-random integer value within the supported range.
+     *
+     */
+    static i64 random();
 };
 
 #endif /* LIBRISHKA_SYS_H */

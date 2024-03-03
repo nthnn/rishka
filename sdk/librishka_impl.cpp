@@ -296,6 +296,10 @@ i64 Sys::info_num(sysinfon_t key) {
     return (i64) rishka_sc_1(RISHKA_SC_SYS_INFON, (i64) key);
 }
 
+i64 Sys::random() {
+    return (i64) rishka_sc_0(RISHKA_SC_SYS_RANDOM);
+}
+
 void Memory::alloc(any dest, usize size) {
     rishka_sc_2(RISHKA_SC_MEM_ALLOC, (i64) dest, (i64) size);
 }
