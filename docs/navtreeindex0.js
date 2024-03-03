@@ -72,6 +72,8 @@ var NAVTREEINDEX0 =
 "librishka_8h.html":[4,0,0,1],
 "librishka_8h_source.html":[4,0,0,1],
 "md_misc_2system__calls.html":[1],
+"md_misc_2system__calls.html#autotoc_md10":[1,0],
+"md_misc_2system__calls.html#autotoc_md11":[1,1],
 "memory_8h.html":[4,0,0,0,6],
 "memory_8h_source.html":[4,0,0,0,6],
 "pages.html":[],

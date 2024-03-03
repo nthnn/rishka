@@ -11,5 +11,6 @@ var searchData=
   ['rishka_20sdk_8',['Rishka SDK',['../group___rishka___s_d_k.html',1,'Rishka SDK'],['../index.html',1,'Rishka SDK']]],
   ['rishka_20vm_9',['Rishka VM',['../index.html#autotoc_md2',1,'']]],
   ['rmdir_10',['rmdir',['../class_f_s.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]],
-  ['rune_11',['rune',['../types_8h.html#a405b10d09d9298aac12e28a2e92c4641',1,'types.h']]]
+  ['rune_11',['rune',['../types_8h.html#a405b10d09d9298aac12e28a2e92c4641',1,'types.h']]],
+  ['runtime_20system_20calls_12',['Runtime System Calls',['../md_misc_2system__calls.html',1,'']]]
 ];

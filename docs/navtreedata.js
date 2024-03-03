@@ -26,7 +26,10 @@ var NAVTREE =
 [
   [ "librishka", "index.html", [
     [ "Rishka SDK", "index.html", null ],
-    [ "System Calls", "md_misc_2system__calls.html", null ],
+    [ "Runtime System Calls", "md_misc_2system__calls.html", [
+      [ "Under The Hood", "md_misc_2system__calls.html#autotoc_md10", null ],
+      [ "Complete List of System Calls", "md_misc_2system__calls.html#autotoc_md11", null ]
+    ] ],
     [ "Topics", "topics.html", "topics" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

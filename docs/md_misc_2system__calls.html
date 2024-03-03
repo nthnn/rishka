@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>librishka: System Calls</title>
+<title>librishka: Runtime System Calls</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,10 +92,57 @@ $(function(){initNavTree('md_misc_2system__calls.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">System Calls</div></div>
+  <div class="headertitle"><div class="title">Runtime System Calls</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#autotoc_md10">Under The Hood</a></li>
+<li class="level1"><a href="#autotoc_md11">Complete List of System Calls</a></li>
+</ul>
+</div>
 <div class="textblock"><p><a class="anchor" id="autotoc_md9"></a></p>
+<h1><a class="anchor" id="autotoc_md10"></a>
+Under The Hood</h1>
+<p>Rishka system calls provide a mechanism for user-level applications to request services or functionality from the underlying operating system (Jessy OS) running on the ESP32-WROVER microcontroller. Through these system calls, applications can request various services, functionalities, or access to system resources that are otherwise restricted from user-level code. This includes operations such as file I/O, memory management, device control, and system information retrieval. By leveraging system calls, applications can harness the full capabilities of the operating system while maintaining a clear separation between user-level and kernel-level code, ensuring system integrity, security, and reliability.</p>
+<ol type="1">
+<li><p class="startli"><b>Invocation</b></p>
+<p class="startli">User-level applications on the ESP32-WROVER microcontroller can request privileged operations or access system-level functionality through system calls. These requests are made by the application directly to the underlying operating system, Jessy OS. Rather than executing system calls directly, applications rely on an abstraction layer provided by the Rishka SDK to facilitate communication with the operating system.</p>
+</li>
+<li><p class="startli"><b>Arguments</b></p>
+<p class="startli">When invoking a system call, the user-level application provides any necessary parameters or data to the operating system. These parameters convey important information to the system call handler, enabling it to perform the requested operation. The specific arguments required for each system call depend on the nature of the operation being requested and are documented in the Rishka SDK.</p>
+</li>
+<li><p class="startli"><b>Registers</b></p>
+<p class="startli">Before initiating a system call, the user-level application prepares the arguments and system call identifier according to the RISC-V calling convention. This convention dictates the usage of specific registers to pass function arguments and system call identifiers to the operating system. By adhering to this convention, applications ensure that the operating system can correctly interpret and process the provided information.</p>
+</li>
+<li><p class="startli"><b>Triggering the System Call</b></p>
+<p class="startli">Once the necessary arguments are prepared, the user-level application initiates the system call by triggering a special instruction known as the scall. This instruction serves as a signal to the processor that a system call is being requested. Upon encountering the scall instruction, the processor transitions from user mode to privileged mode and transfers control to the operating system's system call handler.</p>
+</li>
+<li><p class="startli"><b>System Call Handler</b></p>
+<p class="startli">The system call handler within the operating system receives control when the scall instruction is encountered. It is responsible for interpreting the system call identifier provided by the user-level application and executing the corresponding functionality or service. The handler interacts with kernel resources, hardware peripherals, and other system components as necessary to fulfill the requested operation.</p>
+</li>
+<li><p class="startli"><b>Result</b></p>
+<p class="startli">After processing the system call, the system call handler returns the result of the operation to the user-level application. This result communicates the outcome of the system call execution, indicating whether the requested operation was successful or encountered an error. The user-level application can then proceed with its execution based on this feedback.</p>
+</li>
+<li><p class="startli"><b>Return to User-Level Code</b></p>
+<p class="startli">Upon completing the system call handler's execution, control returns to the user-level application. The application resumes its execution, continuing with its tasks or responding to the outcome of the system call as needed. This seamless return to user-level code ensures that applications can interact with the operating system efficiently and access privileged functionality while maintaining a clear separation between user and kernel space.</p>
+</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Complete List of System Calls</h1>
+<p>The Rishka virtual runtime kernel provides an extensive array of system calls, offering a rich set of functionalities and services for user-level applications on the ESP32-WROVER microcontroller platform.</p>
+<p>The below table is a comprehensive listing with details of the diverse range of system calls available within the Rishka kernel. Note that this is subject to changes since Rishka is still underdevelopment.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Address (A7)   </th><th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">A0   </th><th class="markdownTableHeadNone">A1   </th><th class="markdownTableHeadNone">A2   </th><th class="markdownTableHeadNone">A3   </th><th class="markdownTableHeadNone">Implementation    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">0x00   </td><td class="markdownTableBodyNone">PRINTS   </td><td class="markdownTableBodyNone">(string) text   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><a class="el" href="class_i_o.html#af67b36507b53221d03a5b7f1fd6638f0" title="Print text to the output stream.">IO::print(string)</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">0x01   </td><td class="markdownTableBodyNone">PRINTN   </td><td class="markdownTableBodyNone">(i64) number   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><a class="el" href="class_i_o.html#a30f60dd764ba3cb47b19849297dbb7d5" title="Print an integer number to the output stream.">IO::print(i64)</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">0x02   </td><td class="markdownTableBodyNone">PRINTD   </td><td class="markdownTableBodyNone">(double) number   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><a class="el" href="class_i_o.html#a60ac760446a47d3e1926ffe0120ff854" title="Print a floating-point number to the output stream.">IO::print(double)</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">0x03   </td><td class="markdownTableBodyNone">READCH   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><a class="el" href="class_i_o.html#abd2fd0dfb704cad591e256cb8074f5b2" title="Read a Unicode character from the input stream.">IO::readch()</a>   </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
