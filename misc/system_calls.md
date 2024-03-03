@@ -38,45 +38,91 @@ The Rishka virtual runtime kernel provides an extensive array of system calls, o
 
 The below table is a comprehensive listing with details of the diverse range of system calls available within the Rishka kernel. Note that this is subject to changes since Rishka is still underdevelopment.
 
-| Address `A7` | Name                | `A0`               | `A1`                | `A2`             | `A3`              | Implementation        |
-|--------------|---------------------|--------------------|---------------------|------------------|-------------------|-----------------------|
-| 0x0000       | PRINTS              | (string) text      |                     |                  |                   | IO::print(string)     |
-| 0x0001       | PRINTN              | (i64) number       |                     |                  |                   | IO::print(i64)        |
-| 0x0002       | PRINTD              | (double) number    |                     |                  |                   | IO::print(double)     |
-| 0x0003       | READCH              |                    |                     |                  |                   | IO::readch()          |
-| 0x0004       | READLINE            |                    |                     |                  |                   | IO::readline()        |
-| 0x0005       | READ                |                    |                     |                  |                   | IO::read()            |
-| 0x0006       | AVAILABLE           |                    |                     |                  |                   | IO::available()       |
-| 0x0007       | PEEK                |                    |                     |                  |                   | IO::peek()            |
-| 0x0008       | FIND                | (string) target    | (usize) size        |                  |                   | IO::find()            |
-| 0x0009       | FIND_UNTIL          | (string) target    | (string) terminator |                  |                   | IO::find_until()      |
-| 0x000a       | SET_TIMEOUT         | (u64) timeout      |                     |                  |                   | IO::set_timeout()     |
-| 0x000b       | GET_TIMEOUT         |                    |                     |                  |                   | IO::get_timeout()     |
-| 0x000c       | DELAY_MS            | (u64) ms           |                     |                  |                   | Sys::delay()          |
-| 0x000d       | MICROS              |                    |                     |                  |                   | Sys::micros()         |
-| 0x000e       | MILLIS              |                    |                     |                  |                   | Sys::millis()         |
-| 0x000f       | SHELLEXEC           | (string) program   | (i32) argc          | (string*) argv   |                   | Sys::shellexec()      |
-| 0x0010       | EXIT                | (i32) code         |                     |                  |                   | Sys::exit()           |
-| 0x0011       | INFOS               | (sysinfos_t) key   |                     |                  |                   | Sys::info_str()       |
-| 0x0012       | INFON               | (sysinfon_t) key   |                     |                  |                   | Sys::info_num()       |
-| 0x0013       | RANDOM              |                    |                     |                  |                   | Sys::random()         |
-| 0x0014       | ALLOC               | (any) dest         | (usize) size        |                  |                   | Memory::alloc()       |
-| 0x0015       | CALLOC              | (any) dest         | (usize) num         | (usize) size     |                   | Memory::calloc()      |
-| 0x0016       | REALLOC             | (any) dest         | (any) ptr           | (usize) size     |                   | Memory::realloc()     |
-| 0x0017       | FREE                | (any) ptr          |                     |                  |                   | Memory::free()        |
-| 0x0018       | MEMSET              | (any) dest         | (i32) count         | (u32) n          |                   | Memory::set()         |
-| 0x0019       | PIN_MODE            | (u8) pin           | (gpio_pin_mode_t) m |                  |                   | Gpio::pin_mode()      |
-| 0x001a       | DIGITAL_READ        | (u8) pin           |                     |                  |                   | Gpio::digital_read()  |
-| 0x001b       | DIGITAL_WRITE       | (u8) pin           | (gpio_mode_t) mode  |                  |                   | Gpio::digital_write() |
-| 0x001c       | ANALOG_READ         | (u8) pin           |                     |                  |                   | Gpio::analog_read()   |
-| 0x001d       | ANALOG_WRITE        | (u8) pin           | (u8) value          |                  |                   | Gpio::analog_write()  |
-| 0x001e       | PULSE_IN            | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in()      |
-| 0x001f       | PULSE_IN_LONG       | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in_long() |
-| 0x0020       | SHIFT_IN            | (u8) data          | (u8) clock          | (u8) bit_order   |                   | Gpio::shift_in()      |
-| 0x0021       | SHIFT_OUT           | (u8) data          | (u8) clock          | (u8) bit_order   | (u8) value        | Gpio::shift_out()     |
-| 0x0022       | TONE                | (u8) pin           | (u32) frequency     | (u64) duration   |                   | Gpio::tone()          |
-| 0x0023       | NO_TONE             | (u8) pin           |                     |                  |                   | Gpio::no_tone()       |
-| 0x0024       | INT_ENABLE          |                    |                     |                  |                   | Int::enable()         |
-| 0x0025       | INT_DISABLE         |                    |                     |                  |                   | Int::disable()        |
-| 0x0026       | INT_ATTACH          | (u8) pin           | void (*callback)()  | (int_mode_t) m   |                   | Int::attach()         |
-| 0x0027       | INT_DETACH          | (u8) pin           |                     |                  |                   | Int::detach()         |
+| Address (`A7`) | Name                | `A0`               | `A1`                | `A2`             | `A3`              | Implementation            |
+|----------------|---------------------|--------------------|---------------------|------------------|-------------------|---------------------------|
+| 0x0000         | PRINTS              | (string) text      |                     |                  |                   | IO::print(string)         |
+| 0x0001         | PRINTN              | (i64) number       |                     |                  |                   | IO::print(i64)            |
+| 0x0002         | PRINTD              | (double) number    |                     |                  |                   | IO::print(double)         |
+| 0x0003         | READCH              |                    |                     |                  |                   | IO::readch()              |
+| 0x0004         | READLINE            |                    |                     |                  |                   | IO::readline()            |
+| 0x0005         | READ                |                    |                     |                  |                   | IO::read()                |
+| 0x0006         | AVAILABLE           |                    |                     |                  |                   | IO::available()           |
+| 0x0007         | PEEK                |                    |                     |                  |                   | IO::peek()                |
+| 0x0008         | FIND                | (string) target    | (usize) size        |                  |                   | IO::find()                |
+| 0x0009         | FIND_UNTIL          | (string) target    | (string) terminator |                  |                   | IO::find_until()          |
+| 0x000a         | SET_TIMEOUT         | (u64) timeout      |                     |                  |                   | IO::set_timeout()         |
+| 0x000b         | GET_TIMEOUT         |                    |                     |                  |                   | IO::get_timeout()         |
+| 0x000c         | DELAY_MS            | (u64) ms           |                     |                  |                   | Sys::delay()              |
+| 0x000d         | MICROS              |                    |                     |                  |                   | Sys::micros()             |
+| 0x000e         | MILLIS              |                    |                     |                  |                   | Sys::millis()             |
+| 0x000f         | SHELLEXEC           | (string) program   | (i32) argc          | (string*) argv   |                   | Sys::shellexec()          |
+| 0x0010         | EXIT                | (i32) code         |                     |                  |                   | Sys::exit()               |
+| 0x0011         | INFOS               | (sysinfos_t) key   |                     |                  |                   | Sys::info_str()           |
+| 0x0012         | INFON               | (sysinfon_t) key   |                     |                  |                   | Sys::info_num()           |
+| 0x0013         | RANDOM              |                    |                     |                  |                   | Sys::random()             |
+| 0x0014         | ALLOC               | (any) dest         | (usize) size        |                  |                   | Memory::alloc()           |
+| 0x0015         | CALLOC              | (any) dest         | (usize) num         | (usize) size     |                   | Memory::calloc()          |
+| 0x0016         | REALLOC             | (any) dest         | (any) ptr           | (usize) size     |                   | Memory::realloc()         |
+| 0x0017         | FREE                | (any) ptr          |                     |                  |                   | Memory::free()            |
+| 0x0018         | MEMSET              | (any) dest         | (i32) count         | (u32) n          |                   | Memory::set()             |
+| 0x0019         | PIN_MODE            | (u8) pin           | (gpio_pin_mode_t) m |                  |                   | Gpio::pin_mode()          |
+| 0x001a         | DIGITAL_READ        | (u8) pin           |                     |                  |                   | Gpio::digital_read()      |
+| 0x001b         | DIGITAL_WRITE       | (u8) pin           | (gpio_mode_t) mode  |                  |                   | Gpio::digital_write()     |
+| 0x001c         | ANALOG_READ         | (u8) pin           |                     |                  |                   | Gpio::analog_read()       |
+| 0x001d         | ANALOG_WRITE        | (u8) pin           | (u8) value          |                  |                   | Gpio::analog_write()      |
+| 0x001e         | PULSE_IN            | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in()          |
+| 0x001f         | PULSE_IN_LONG       | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in_long()     |
+| 0x0020         | SHIFT_IN            | (u8) data          | (u8) clock          | (u8) bit_order   |                   | Gpio::shift_in()          |
+| 0x0021         | SHIFT_OUT           | (u8) data          | (u8) clock          | (u8) bit_order   | (u8) value        | Gpio::shift_out()         |
+| 0x0022         | TONE                | (u8) pin           | (u32) frequency     | (u64) duration   |                   | Gpio::tone()              |
+| 0x0023         | NO_TONE             | (u8) pin           |                     |                  |                   | Gpio::no_tone()           |
+| 0x0024         | INT_ENABLE          |                    |                     |                  |                   | Int::enable()             |
+| 0x0025         | INT_DISABLE         |                    |                     |                  |                   | Int::disable()            |
+| 0x0026         | INT_ATTACH          | (u8) pin           | void (*callback)()  | (int_mode_t) m   |                   | Int::attach()             |
+| 0x0027         | INT_DETACH          | (u8) pin           |                     |                  |                   | Int::detach()             |
+| 0x0028         | MKDIR               | (string) path      |                     |                  |                   | FS::mkdir()               |
+| 0x0029         | RMDIR               | (string) path      |                     |                  |                   | FS::rmdir()               |
+| 0x002a         | DELETE              | (string) path      |                     |                  |                   | FS::remove()              |
+| 0x002b         | EXISTS              | (string) path      |                     |                  |                   | FS::exists()              |
+| 0x002c         | ISFILE              | (i32) handle       |                     |                  |                   | File::is_file()           |
+| 0x002d         | ISDIR               | (i32) handle       |                     |                  |                   | File::is_dir()            |
+| 0x002e         | OPEN                | (string) file      | (string) mode       |                  |                   | File::open()              |
+| 0x002f         | CLOSE               | (i32) handle       |                     |                  |                   | File::close()             |
+| 0x0030         | AVAILABLE           | (i32) handle       |                     |                  |                   | File::available()         |
+| 0x0031         | FLUSH               | (i32) handle       |                     |                  |                   | File::flush()             |
+| 0x0032         | PEEK                | (i32) handle       |                     |                  |                   | File::peek()              |
+| 0x0033         | SEEK                | (i32) handle       | (u32) position      |                  |                   | File::seek()              |
+| 0x0034         | SIZE                | (i32) handle       |                     |                  |                   | File::size()              |
+| 0x0035         | READ                | (i32) handle       |                     |                  |                   | File::read()              |
+| 0x0036         | WRITEB              | (i32) handle       | (u8) data           |                  |                   | File::write(u8)           |
+| 0x0037         | WRITES              | (i32) handle       | (string) data       |                  |                   | File::write(string)       |
+| 0x0038         | POS                 | (i32) handle       |                     |                  |                   | File::position()          |
+| 0x0039         | PATH                | (i32) handle       |                     |                  |                   | File::path()              |
+| 0x003a         | NAME                | (i32) handle       |                     |                  |                   | File::name()              |
+| 0x003b         | NEXT                | (i32) handle       | (string) mode       |                  |                   | File::next()              |
+| 0x003c         | BUFSIZE             | (i32) handle       | (usize) size        |                  |                   | File::bufsize()           |
+| 0x003d         | LASTWRITE           | (i32) handle       |                     |                  |                   | File::lastwrite()         |
+| 0x003e         | SEEKDIR             | (i32) handle       | (u64) position      |                  |                   | File::seek_dir()          |
+| 0x003f         | NEXT_NAME           | (i32) handle       |                     |                  |                   | File::next_name()         |
+| 0x0040         | REWIND              | (i32) handle       |                     |                  |                   | File::rewind()            |
+| 0x0041         | ARGC                |                    |                     |                  |                   | Args::count()             |
+| 0x0042         | ARGSTR              | (u8) index         |                     |                  |                   | Args::value()             |
+| 0x0043         | I2C_BEGIN           | (u8) address       |                     |                  |                   | I2C::begin()              |
+| 0x0044         | I2C_END             |                    |                     |                  |                   | I2C::end()                |
+| 0x0045         | I2C_BEGIN_TRANS     | (u8) address       |                     |                  |                   | I2C::begin_transmission() |
+| 0x0046         | I2C_END_TRANS       | (bool) stop_bit    |                     |                  |                   | I2C::end_transmission()   |
+| 0x0047         | I2C_WRITE           | (u8*) data         | (usize) size        |                  |                   | I2C::write()              |
+| 0x0048         | I2C_SLAVE_WRITE     | (u8*) data         | (usize) size        |                  |                   | I2C::slave_write()        |
+| 0x0049         | I2C_READ            |                    |                     |                  |                   | I2C::read()               |
+| 0x004a         | I2C_PEEK            |                    |                     |                  |                   | I2C::peek()               |
+| 0x004b         | I2C_REQ             | (u8) address       | (usize) size        | (bool) stop_bit  |                   | I2C::request()            |
+| 0x004c         | I2C_AVAILABLE       |                    |                     |                  |                   | I2C::available()          |
+| 0x004d         | I2C_FLUSH           |                    |                     |                  |                   | I2C::flush()              |
+| 0x004e         | I2C_ON_RECEIVE      | void (*cback)(int) |                     |                  |                   | I2C::on_receive()         |
+| 0x004f         | I2C_ON_REQUEST      | void (*cback)()    |                     |                  |                   | I2C::on_request()         |
+| 0x0050         | I2C_GET_TIMEOUT     |                    |                     |                  |                   | I2C::get_timeout()        |
+| 0x0051         | I2C_SET_TIMEOUT     | (u32) timeout      |                     |                  |                   | I2C::set_timeout()        |
+| 0x0052         | I2C_GET_CLOCK       |                    |                     |                  |                   | I2C::get_clock()          |
+| 0x0053         | I2C_SET_CLOCK       | (u32) clock        |                     |                  |                   | I2C::set_clock()          |
+| 0x0054         | I2C_PINS            | (u8) sda           | (u8) scl            |                  |                   | I2C::pins()               |
+| 0x0055         | I2C_BUFSIZE         | (usize) size       |                     |                  |                   | I2C::set_buffersize()     |
