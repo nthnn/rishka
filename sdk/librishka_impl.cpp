@@ -572,7 +572,7 @@ void SPI::end() {
     rishka_sc_0(RISHKA_SC_SPI_END);
 }
 
-void SPI::begin_transaction(u8 clock, u8 bit_order, u8 data_mode) {
+void SPI::begin_transaction(u8 clock, u8 bit_order, spi_mode_t data_mode) {
     rishka_sc_3(RISHKA_SC_SPI_BEGIN_TRANSACTION, (i64) clock, (i64) bit_order, (i64) data_mode);
 }
 
@@ -608,7 +608,7 @@ void SPI::set_bit_order(u8 bit_order) {
     rishka_sc_1(RISHKA_SC_SPI_SET_BIT_ORDER, (i64) bit_order);
 }
 
-void SPI::set_data_mode(u8 data_mode) {
+void SPI::set_data_mode(spi_mode_t data_mode) {
     rishka_sc_1(RISHKA_SC_SPI_SET_DATA_MODE, (i64) data_mode);
 }
 
