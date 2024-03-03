@@ -19,19 +19,37 @@
 .global _start
 
 _start:
+    # Load global pointer
     la      gp, __global_pointer$
-    li      a1,0
-    li      a0,0
+
+    # Initialize arguments for main function
+    li      a1,0    # Argument 1: Not used (argc)
+    li      a0,0    # Argument 0: Not used (argv)
+
+    # Call the main function
     jal     ra, main
+
+    # Call the exit system call
     jal     ra, _exit
 
 _exit:
+    # Allocate space for the stack frame
     addi    sp,sp,-32
     sd      s0,24(sp)
     addi    s0,sp,32
+
+    # Move the return value of main to a5
     mv      a5,a0
+
+    # Store the return value on the stack
     sw      a5,-20(s0)
+
+    # Load the return value from the stack
     lw      a5,-20(s0)
-    mv      a0,a5
-    li      a7,16
+
+    # Set up the arguments for the exit system call
+    mv      a0,a5   # Argument 0: Return value from main
+    li      a7,16   # Rishka system call number for exit
+
+    # Perform the exit system call
     scall
