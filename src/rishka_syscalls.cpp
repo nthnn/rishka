@@ -334,14 +334,14 @@ void rishka_syscall_gpio_digitalwrite(rishka_virtual_machine* vm) {
     digitalWrite(pin, value);
 }
 
-int rishka_syscall_gpio_analogread(rishka_virtual_machine* vm) {
+uint16_t rishka_syscall_gpio_analogread(rishka_virtual_machine* vm) {
     uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     return analogRead(pin);
 }
 
 void rishka_syscall_gpio_analogwrite(rishka_virtual_machine* vm) {
     uint8_t pin = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
-    uint8_t value = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
+    uint16_t value = (uint16_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[11];
 
     analogWrite(pin, value);
 }
