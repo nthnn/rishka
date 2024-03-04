@@ -26,7 +26,7 @@ var NAVTREE =
 [
   [ "Rishka", "index.html", [
     [ "Rishka SDK", "index.html", null ],
-    [ "Runtime System Calls", "syscalls.html", null ],
+    [ "Runtime System Calls", "d6/db5/rt_syscalls.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

@@ -1,14 +1,14 @@
 var annotated_dup =
 [
-    [ "Args", "class_args.html", null ],
-    [ "File", "class_file.html", "class_file" ],
-    [ "FS", "class_f_s.html", null ],
-    [ "Gpio", "class_gpio.html", null ],
-    [ "I2C", "class_i2_c.html", null ],
-    [ "Int", "class_int.html", null ],
-    [ "IO", "class_i_o.html", null ],
-    [ "Memory", "class_memory.html", null ],
-    [ "Runtime", "class_runtime.html", null ],
-    [ "SPI", "class_s_p_i.html", null ],
-    [ "Sys", "class_sys.html", null ]
+    [ "Args", "dc/dc6/class_args.html", null ],
+    [ "File", "d1/d31/class_file.html", "d1/d31/class_file" ],
+    [ "FS", "d3/da6/class_f_s.html", null ],
+    [ "Gpio", "d1/dea/class_gpio.html", null ],
+    [ "I2C", "d4/d47/class_i2_c.html", null ],
+    [ "Int", "d8/dec/class_int.html", null ],
+    [ "IO", "d8/d24/class_i_o.html", null ],
+    [ "Memory", "d2/d01/class_memory.html", null ],
+    [ "Runtime", "d3/df6/class_runtime.html", null ],
+    [ "SPI", "d3/dfe/class_s_p_i.html", null ],
+    [ "Sys", "d0/d04/class_sys.html", null ]
 ];

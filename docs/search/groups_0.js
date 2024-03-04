@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['calls_0',['Runtime System Calls',['../group__syscalls.html',1,'']]]
+  ['rishka_20sdk_0',['Rishka SDK',['../d5/d65/group___rishka___s_d_k.html',1,'']]]
 ];

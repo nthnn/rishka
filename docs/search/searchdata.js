@@ -8,7 +8,7 @@ var indexSectionsWithContent =
   5: "gis",
   6: "gis",
   7: "fnt",
-  8: "crs",
+  8: "rs",
   9: "crs"
 };
 
