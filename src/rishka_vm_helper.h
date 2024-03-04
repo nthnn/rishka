@@ -22,8 +22,8 @@
  *
  * The rishka_vm_helper.h header file defines a set of helper functions for
  * reading and writing data, manipulating pointers, and performing arithmetic
- * operations within the context of the Rishka virtual machine. These functions
- * assist in managing memory, accessing data structures, and executing specific
+ * operations for the Rishka virtual machine. These functions assist the virtual
+ * runtime in managing memory, accessing data structures, and executing specific
  * instructions in the virtual machine environment.
  */
 

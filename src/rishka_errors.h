@@ -31,9 +31,9 @@
 #include <rishka_vm.h>
 
 /**
- * @brief Print an error message to the standard error stream.
+ * @brief Print an error message to the output stream.
  *
- * This function prints the specified error message to the standard output stream.
+ * This function prints the specified error message to the output stream.
  *
  * @param msg The error message to print.
  * @param len The length of the error message.

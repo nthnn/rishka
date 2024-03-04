@@ -23,8 +23,7 @@
  * The rishka.h header file serves as a central point for including all the
  * necessary headers required for Rishka kernel development. By including this
  * header file in your Arduino sketch or library, you gain access to essential
- * components and utilities provided by the Rishka kernel, facilitating the
- * development of efficient and feature-rich embedded applications.
+ * components and utilities provided by the Rishka kernel.
  */
 
 #ifndef RISHKA_H

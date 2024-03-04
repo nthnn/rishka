@@ -161,6 +161,8 @@ enum rishka_syscall {
     RISHKA_SC_RT_YIELD
 };
 
+// Rishka virtual runtime system calls
+
 void rishka_syscall_io_prints(rishka_virtual_machine* vm);
 void rishka_syscall_io_printn(rishka_virtual_machine* vm);
 void rishka_syscall_io_printd(rishka_virtual_machine* vm);

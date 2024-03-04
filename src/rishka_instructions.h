@@ -22,8 +22,9 @@
  *
  * This file defines several enumerations related to Rishka instructions and their formats.
  * The Rishka architecture utilizes these enumerations to represent various types of instructions,
- * such as load, store, immediate arithmetic/logical, integer arithmetic/logical, branch, and other types of instructions.
- * Each enumeration provides symbolic names for specific opcode or funct3 field values, making the code more readable and maintainable.
+ * such as load, store, immediate arithmetic/logical, integer arithmetic/logical, branch,
+ * and other types of instructions. Each enumeration provides symbolic names for specific opcode
+ * or funct3 field values, making the code more readable and maintainable.
  */
 
 #ifndef RISHKA_INSTRUCTIONS_H
