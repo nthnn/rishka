@@ -61,7 +61,8 @@ void setup() {
 
     // Run loaded program on Rishka virtual machine
     rishka_vm_run(&vm, 0, NULL);
-    // Reset Rishka virtual machine for next execution
+
+    // Reset Rishka virtual machine
     rishka_vm_reset(&vm);
 }
 
