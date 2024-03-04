@@ -8,6 +8,7 @@ var annotated_dup =
     [ "Int", "class_int.html", null ],
     [ "IO", "class_i_o.html", null ],
     [ "Memory", "class_memory.html", null ],
+    [ "Runtime", "class_runtime.html", null ],
     [ "SPI", "class_s_p_i.html", null ],
     [ "Sys", "class_sys.html", null ]
 ];

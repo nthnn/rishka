@@ -1,5 +1,6 @@
-# Runtime System Calls
-
+@page syscalls Runtime System Calls
+@defgroup syscalls Runtime System Calls
+@brief Rishka kernel-level system calls foundation under the hood and comprehensive list.
 @tableofcontents
 
 Rishka system calls provide a mechanism for user-level applications to request services or functionality from the underlying operating system (Jessy OS) running on the ESP32-WROVER microcontroller. Through these system calls, applications can request various services, functionalities, or access to system resources that are otherwise restricted from user-level code. This includes operations such as file I/O, memory management, device control, and system information retrieval. By leveraging system calls, applications can harness the full capabilities of the operating system while maintaining a clear separation between user-level and kernel-level code, ensuring system integrity, security, and reliability.
@@ -126,3 +127,26 @@ The below table is a comprehensive listing with details of the diverse range of 
 | 0x0053         | I2C_SET_CLOCK       | (u32) clock        |                     |                  |                   | I2C::set_clock()          |
 | 0x0054         | I2C_PINS            | (u8) sda           | (u8) scl            |                  |                   | I2C::pins()               |
 | 0x0055         | I2C_BUFSIZE         | (usize) size       |                     |                  |                   | I2C::set_buffersize()     |
+| 0x0056         | SPI_BEGIN           | (u8) sck           | (u8) miso           | (u8) mosi        | (u8) ss           | SPI::begin()              |
+| 0x0057         | SPI_END             |                    |                     |                  |                   | SPI::end()                |
+| 0x0058         | SPI_BEGIN_TRANSAC   | (u8) clock         | (u8) bit_order      | (spi_mode_t) m   |                   | SPI::begin_transaction()  |
+| 0x0059         | SPI_END_TRANSAC     |                    |                     |                  |                   | SPI::end_transaction()    |
+| 0x005a         | SPI_TRANSFER8       | (u8) data          |                     |                  |                   | SPI::transfer8()          |
+| 0x005b         | SPI_TRANSFER16      | (u16) data         |                     |                  |                   | SPI::transfer16()         |
+| 0x005c         | SPI_TRANSFER32      | (u32) data         |                     |                  |                   | SPI::transfer32()         |
+| 0x005d         | SPI_TRANSFER_BYTES  | (u8*) data         | (u8*) out           | (u8) bits        |                   | SPI::transfer_bytes()     |
+| 0x005e         | SPI_TRANSFER_BITS   | (u32) data         | (u32*) out          | (u8) bits        |                   | SPI::transfer_bits()      |
+| 0x005f         | SPI_SET_HWCS        | (bool) use         |                     |                  |                   | SPI::set_hwcs()           |
+| 0x0060         | SPI_SET_BIT_ORDER   | (u8) bit_order     |                     |                  |                   | SPI::set_bit_order()      |
+| 0x0061         | SPI_SET_DATA_MODE   | (spi_mode_t) dmode |                     |                  |                   | SPI::set_data_mode()      |
+| 0x0062         | SPI_SET_FREQ        | (u32) frequency    |                     |                  |                   | SPI::set_frequency()      |
+| 0x0063         | SPI_SET_CLOCK_DIV   | (u32) clock_div    |                     |                  |                   | SPI::set_clock_div()      |
+| 0x0064         | SPI_GET_CLOCK_DIV   |                    |                     |                  |                   | SPI::get_clock_div()      |
+| 0x0065         | SPI_WRITE8          | (u8) data          |                     |                  |                   | SPI::write8()             |
+| 0x0066         | SPI_WRITE16         | (u16) data         |                     |                  |                   | SPI::write16()            |
+| 0x0067         | SPI_WRITE32         | (u32) data         |                     |                  |                   | SPI::write32()            |
+| 0x0068         | SPI_WRITE_BYTES     | (u8*) data         | (u32) size          |                  |                   | SPI::write_bytes()        |
+| 0x0069         | SPI_WRITE_PIXELS    | (any) data         | (u32) size          |                  |                   | SPI::write_pixels()       |
+| 0x006a         | SPI_WRITE_PATTERN   | (u8*) data         | (u8) size           | (u32) pattern    |                   | SPI::write_pattern()      |
+| 0x006b         | RT_STRPASS          |                    |                     |                  |                   | _N/A_                     |
+| 0x006c         | RT_YIELD            |                    |                     |                  |                   | Runtime::yield()          |

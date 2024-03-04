@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Rishka: Args Class Reference</title>
+<title>Rishka: Runtime Class Reference</title>
 <link rel="icon" href="rishka-logo.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -68,7 +68,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_args.html',''); initResizable(); });
+$(function(){initNavTree('class_runtime.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,31 +96,28 @@ $(function(){initNavTree('class_args.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="class_args-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Args Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+<a href="class_runtime-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Runtime Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class for handling command line arguments in Rishka applications.  
+<p>The <a class="el" href="class_runtime.html" title="The Runtime class provides utilities for managing runtime operations.">Runtime</a> class provides utilities for managing runtime operations.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="args_8h_source.html">args.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="runtime_8h_source.html">runtime.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a107b1f8ed9f9eaf269380e14f6668793" id="r_a107b1f8ed9f9eaf269380e14f6668793"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a3b1df617247dbb90f86c43c7e5a0504d">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a107b1f8ed9f9eaf269380e14f6668793">count</a> ()</td></tr>
-<tr class="memdesc:a107b1f8ed9f9eaf269380e14f6668793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of command line arguments.  <br /></td></tr>
-<tr class="separator:a107b1f8ed9f9eaf269380e14f6668793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d3219edcc471c045f3b43a03abe00ae" id="r_a8d3219edcc471c045f3b43a03abe00ae"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d3219edcc471c045f3b43a03abe00ae">value</a> (<a class="el" href="types_8h.html#ab9f930ae0484417a1883fd3f7cdb490e">u8</a> index)</td></tr>
-<tr class="memdesc:a8d3219edcc471c045f3b43a03abe00ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of a command line argument at a specific index.  <br /></td></tr>
-<tr class="separator:a8d3219edcc471c045f3b43a03abe00ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bb09010afe5ea0792d9a0f337c721e7" id="r_a8bb09010afe5ea0792d9a0f337c721e7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bb09010afe5ea0792d9a0f337c721e7">yield</a> ()</td></tr>
+<tr class="memdesc:a8bb09010afe5ea0792d9a0f337c721e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Yield the execution context to other tasks or threads.  <br /></td></tr>
+<tr class="separator:a8bb09010afe5ea0792d9a0f337c721e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class for handling command line arguments in Rishka applications. </p>
-<p>The <a class="el" href="class_args.html" title="Class for handling command line arguments in Rishka applications.">Args</a> class provides static methods for accessing command line arguments passed to the Rishka application. It allows developers to retrieve the number of command line arguments and obtain the values of individual arguments. </p>
+<div class="textblock"><p>The <a class="el" href="class_runtime.html" title="The Runtime class provides utilities for managing runtime operations.">Runtime</a> class provides utilities for managing runtime operations. </p>
+<p>The <a class="el" href="class_runtime.html" title="The Runtime class provides utilities for managing runtime operations.">Runtime</a> class encapsulates functionality related to runtime management and control flow within Rishka applications. It serves as a central hub for coordinating runtime activities, such as task scheduling, event processing, and resource management. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a107b1f8ed9f9eaf269380e14f6668793" name="a107b1f8ed9f9eaf269380e14f6668793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a107b1f8ed9f9eaf269380e14f6668793">&#9670;&#160;</a></span>count()</h2>
+<a id="a8bb09010afe5ea0792d9a0f337c721e7" name="a8bb09010afe5ea0792d9a0f337c721e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb09010afe5ea0792d9a0f337c721e7">&#9670;&#160;</a></span>yield()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,7 +126,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a3b1df617247dbb90f86c43c7e5a0504d">i32</a> Args::count </td>
+          <td class="memname">void Runtime::yield </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
@@ -142,49 +139,13 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the number of command line arguments. </p>
-<p>This method returns the total number of command line arguments passed to the Rishka application.</p>
-<dl class="section return"><dt>Returns</dt><dd>The number of command line arguments. </dd></dl>
-
-</div>
-</div>
-<a id="a8d3219edcc471c045f3b43a03abe00ae" name="a8d3219edcc471c045f3b43a03abe00ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d3219edcc471c045f3b43a03abe00ae">&#9670;&#160;</a></span>value()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a> Args::value </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="types_8h.html#ab9f930ae0484417a1883fd3f7cdb490e">u8</a></td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the value of a command line argument at a specific index. </p>
-<p>This method retrieves the value of a command line argument at the specified index. The index should be within the range [0, <a class="el" href="#a107b1f8ed9f9eaf269380e14f6668793" title="Get the number of command line arguments.">count()</a> - 1].</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>The index of the command line argument. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of the command line argument at the specified index. </dd></dl>
+<p>Yield the execution context to other tasks or threads. </p>
+<p>The <a class="el" href="#a8bb09010afe5ea0792d9a0f337c721e7" title="Yield the execution context to other tasks or threads.">yield()</a> function allows cooperative multitasking by yielding the execution context to other tasks or threads within the application. By invoking this function, the currently executing task relinquishes control of the CPU, allowing other tasks or threads to execute. This method is useful for implementing cooperative multitasking or event-driven programming paradigms, where tasks voluntarily yield control to other tasks or respond to external events. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>sdk/librishka/<a class="el" href="args_8h_source.html">args.h</a></li>
+<li>sdk/librishka/<a class="el" href="runtime_8h_source.html">runtime.h</a></li>
 <li>sdk/<b>librishka_impl.cpp</b></li>
 </ul>
 </div><!-- contents -->
