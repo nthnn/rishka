@@ -15,6 +15,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file runtime.h
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Provides utilities for managing runtime operations within Rishka applications.
+ *
+ * The Runtime class encapsulates functionality related to runtime management
+ * and control flow within Rishka applications. It serves as a central hub for
+ * coordinating runtime activities, such as task scheduling, event processing,
+ * and resource management. Developers can leverage the Runtime class to
+ * orchestrate the execution flow of their applications, ensuring efficient
+ * utilization of system resources and optimal performance.
+ */
+
 #ifndef LIBRISHKA_RUNTIME_H
 #define LIBRISHKA_RUNTIME_H
 

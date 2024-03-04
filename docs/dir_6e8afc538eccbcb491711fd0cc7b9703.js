@@ -7,7 +7,7 @@ var dir_6e8afc538eccbcb491711fd0cc7b9703 =
     [ "int.h", "int_8h.html", "int_8h" ],
     [ "io.h", "io_8h.html", "io_8h" ],
     [ "memory.h", "memory_8h.html", "memory_8h" ],
-    [ "runtime.h", "runtime_8h_source.html", null ],
+    [ "runtime.h", "runtime_8h.html", "runtime_8h" ],
     [ "spi.h", "spi_8h.html", "spi_8h" ],
     [ "sys.h", "sys_8h.html", "sys_8h" ],
     [ "types.h", "types_8h.html", "types_8h" ]

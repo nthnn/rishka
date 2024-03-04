@@ -14,5 +14,6 @@ var searchData=
   ['rmdir_11',['rmdir',['../class_f_s.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]],
   ['rune_12',['rune',['../types_8h.html#a405b10d09d9298aac12e28a2e92c4641',1,'types.h']]],
   ['runtime_13',['Runtime',['../class_runtime.html',1,'']]],
-  ['runtime_20system_20calls_14',['Runtime System Calls',['../group__syscalls.html',1,'Runtime System Calls'],['../syscalls.html',1,'Runtime System Calls']]]
+  ['runtime_20system_20calls_14',['Runtime System Calls',['../group__syscalls.html',1,'Runtime System Calls'],['../syscalls.html',1,'Runtime System Calls']]],
+  ['runtime_2eh_15',['runtime.h',['../runtime_8h.html',1,'']]]
 ];
