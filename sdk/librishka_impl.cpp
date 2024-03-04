@@ -651,3 +651,7 @@ void SPI::write_pixels(void* data, u32 size) {
 void SPI::write_pattern(u8* data, u8 size, u32 pattern) {
     rishka_sc_3(RISHKA_SC_SPI_WRITE_PATTERN, (i64) data, (i64) size, (i64) pattern);
 }
+
+void Runtime::yield() {
+    rishka_sc_0(RISHKA_SC_RT_YIELD);
+}

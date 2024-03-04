@@ -44,6 +44,7 @@
 #include <librishka/int.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/io.h>       /**< @ingroup Rishka_SDK */
 #include <librishka/memory.h>   /**< @ingroup Rishka_SDK */
+#include <librishka/runtime.h>  /**< @ingroup Rishka_SDK */
 #include <librishka/spi.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/sys.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/types.h>    /**< @ingroup Rishka_SDK */
