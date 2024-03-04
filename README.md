@@ -22,8 +22,9 @@ These include basic functions like managing files, as well as more complex tasks
 
 <p align="center">
     <img src="assets/board_test.jpg" width="68%"/>
-    <i>NodeMCU ESP32-WROVER and microSD card adapter where Rishka is being developed.</i>
 </p>
+
+<p align="center"><i>NodeMCU ESP32-WROVER and microSD card adapter where Rishka is being developed.</i></p>
 
 ## Installation
 
