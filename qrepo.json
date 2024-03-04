@@ -24,6 +24,9 @@
 			"qrepo run compile examples/sdk/shell.cpp shell",
 			"qrepo run compile examples/sdk/sysinfo.cpp sysinfo"
 		],
+		"dump": [
+			"riscv64-unknown-elf-objdump -b binary -m riscv:rv64 -D {{1}}"
+		],
 		"clean": [
 			"rm -rf dist"
 		]
