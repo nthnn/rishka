@@ -15,13 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file rishka_commons.h
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Common definitions used across Rishka modules.
+ *
+ * This file contains common definitions and includes commonly
+ * used libraries for Rishka modules.
+ */
+
 #ifndef RISHKA_COMMONS_H
 #define RISHKA_COMMONS_H
 
-#include <Arduino.h>
-#include <SD.h>
-#include <SPI.h>
+#include <Arduino.h>    ///< Include Arduino core library.
+#include <SD.h>         ///< Include SD card library.
+#include <SPI.h>        ///< Include SPI communication library.
 
-#define  RISHKA_VM_STACK_SIZE 32768U
+#define  RISHKA_VM_STACK_SIZE 32768U    ///< Define the stack size for the Rishka virtual machine.
 
 #endif

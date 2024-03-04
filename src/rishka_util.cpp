@@ -15,22 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <rishka_types.h>
 #include <rishka_util.h>
-
-char* rishka_string2cstring(rishka_string s) {
-    return (s.size == 0) ? (char*) "": (char*) s.data;
-}
-
-rishka_string rishka_cstring2string(const char* s) {
-    if(s == NULL)
-        return (rishka_string) {0};
-
-    uintptr_t size = strlen(s);
-    if(size == 0)
-        return (rishka_string) {0};
-    return (rishka_string) {(uint8_t*)s, size};
-}
 
 int64_t rishka_double_to_long(double d) {
     union {

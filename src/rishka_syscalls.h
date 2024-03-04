@@ -15,11 +15,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file rishka_syscalls.h
+ * @brief Defines system calls for the Rishka kernel.
+ *
+ * This header file provides declarations for various
+ * system calls used within the Rishka kernel. These
+ * system calls enable communication and interaction between
+ * user programs and the kernel, allowing access to hardware
+ * resources, filesystem operations, and other kernel
+ * functionalities.
+ */
+
 #ifndef RISHKA_SYSCALLS_H
 #define RISHKA_SYSCALLS_H
 
 #include <rishka_vm.h>
 
+/**
+ * @enum rishka_syscall
+ * @brief Enumeration of system call codes for the Rishka kernel.
+ *
+ * This enumeration defines symbolic names for each system call supported by the Rishka kernel.
+ * Each system call has a unique code associated with it, which is used to identify the specific
+ * operation requested by the user program.
+ */
 enum rishka_syscall {
     RISHKA_SC_IO_PRINTS,
     RISHKA_SC_IO_PRINTN,
@@ -260,4 +280,4 @@ void rishka_syscall_spi_write_pattern(rishka_virtual_machine* vm);
 char rishka_syscall_rt_strpass();
 void rishka_syscall_rt_yield();
 
-#endif
+#endif /* RISHKA_TYPES_H */

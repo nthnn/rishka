@@ -15,16 +15,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file rishka.h
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Includes all the necessary headers for Rishka kernel development.
+ *
+ * The rishka.h header file serves as a central point for including all the
+ * necessary headers required for Rishka kernel development. By including this
+ * header file in your Arduino sketch or library, you gain access to essential
+ * components and utilities provided by the Rishka kernel, facilitating the
+ * development of efficient and feature-rich embedded applications.
+ */
+
 #ifndef RISHKA_H
 #define RISHKA_H
 
-#include <rishka_commons.h>
-#include <rishka_errors.h>
-#include <rishka_instructions.h>
-#include <rishka_syscalls.h>
-#include <rishka_types.h>
-#include <rishka_util.h>
-#include <rishka_vm.h>
-#include <rishka_vm_helper.h>
+#include <rishka_commons.h>        ///< Common definitions and macros.
+#include <rishka_errors.h>         ///< Error code definitions and handling.
+#include <rishka_instructions.h>   ///< Instruction set architecture definitions.
+#include <rishka_syscalls.h>       ///< System call interface and implementations.
+#include <rishka_types.h>          ///< Type definitions and aliases.
+#include <rishka_util.h>           ///< Utility functions and macros.
+#include <rishka_vm.h>             ///< Virtual machine core functionalities.
+#include <rishka_vm_helper.h>      ///< Helper functions for virtual machine operations.
 
-#endif
+#endif /* RISHKA_H */

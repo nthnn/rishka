@@ -15,14 +15,38 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file rishka_util.h
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Rishka Utility Functions
+ *
+ * This file contains utility functions for converting value
+ * between double precision floating-point and long integer values.
+ */
+
 #ifndef RISHKA_UTIL_H
 #define RISHKA_UTIL_H
 
 #include <rishka_types.h>
 
-char* rishka_string2cstring(rishka_string s);
-rishka_string rishka_cstring2string(const char* s);
+/**
+ * @brief Converts a double value to a long integer.
+ *
+ * This function converts a double precision floating-point value `d` to a long integer and returns it.
+ *
+ * @param d The double precision floating-point value to be converted.
+ * @return The converted long integer value.
+ */
 int64_t rishka_double_to_long(double d);
+
+/**
+ * @brief Converts a long integer to a double value.
+ *
+ * This function converts a long integer `l` to a double precision floating-point value and returns it.
+ *
+ * @param l The long integer value to be converted.
+ * @return The converted double precision floating-point value.
+ */
 double rishka_long_to_double(int64_t l);
 
-#endif
+#endif /* RISHKA_UTIL_H */
