@@ -118,7 +118,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a037f889ba642432d5565ce09684732cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the object represents a directory.  <br /></td></tr>
 <tr class="separator:a037f889ba642432d5565ce09684732cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a953d743fbf60423ff33bcc6a9ed0f497" id="r_a953d743fbf60423ff33bcc6a9ed0f497"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d49/types_8h.html#a3b1df617247dbb90f86c43c7e5a0504d">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a953d743fbf60423ff33bcc6a9ed0f497">available</a> ()</td></tr>
-<tr class="memdesc:a953d743fbf60423ff33bcc6a9ed0f497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the object represents a directory.  <br /></td></tr>
+<tr class="memdesc:a953d743fbf60423ff33bcc6a9ed0f497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of bytes available for reading from the file.  <br /></td></tr>
 <tr class="separator:a953d743fbf60423ff33bcc6a9ed0f497"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77d372dc30a7787ecf206c03e391ce0f" id="r_a77d372dc30a7787ecf206c03e391ce0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d49/types_8h.html#a3b1df617247dbb90f86c43c7e5a0504d">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77d372dc30a7787ecf206c03e391ce0f">peek</a> ()</td></tr>
 <tr class="memdesc:a77d372dc30a7787ecf206c03e391ce0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peek at the next byte in the file without consuming it.  <br /></td></tr>
@@ -169,7 +169,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a83cbce54d6c3b8c2f417b51f6b3f488c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the file.  <br /></td></tr>
 <tr class="separator:a83cbce54d6c3b8c2f417b51f6b3f488c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c6611e0e9e89f45307f7606e643cfa" id="r_a80c6611e0e9e89f45307f7606e643cfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80c6611e0e9e89f45307f7606e643cfa">rewind</a> ()</td></tr>
-<tr class="memdesc:a80c6611e0e9e89f45307f7606e643cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rewind the file pointer to the beginning of the file.  <br /></td></tr>
+<tr class="memdesc:a80c6611e0e9e89f45307f7606e643cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rewind the directory pointer to the beginning of the current working directory.  <br /></td></tr>
 <tr class="separator:a80c6611e0e9e89f45307f7606e643cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -229,9 +229,9 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check if the object represents a directory. </p>
-<p>This method checks whether the <a class="el" href="../../d1/d31/class_file.html" title="Class for handling file operations in Rishka applications.">File</a> object represents a directory.</p>
-<dl class="section return"><dt>Returns</dt><dd>True if the object represents a directory, false otherwise. </dd></dl>
+<p>Get the number of bytes available for reading from the file. </p>
+<p>This method returns the number of bytes available for reading from the file.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes available for reading. </dd></dl>
 
 </div>
 </div>
@@ -573,8 +573,8 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Rewind the file pointer to the beginning of the file. </p>
-<p>This method rewinds the file pointer to the beginning of the file. </p>
+<p>Rewind the directory pointer to the beginning of the current working directory. </p>
+<p>This method rewinds the directory pointer to the beginning of the current working directory. </p>
 
 </div>
 </div>

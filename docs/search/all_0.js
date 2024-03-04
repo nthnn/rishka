@@ -1,8 +1,8 @@
 var searchData=
 [
   ['alloc_0',['alloc',['../d2/d01/class_memory.html#a48b9d60417159168d884233d0f687384',1,'Memory']]],
-  ['analog_5fread_1',['analog_read',['../d1/dea/class_gpio.html#afb99a16a7b89010ed652eee947329614',1,'Gpio']]],
-  ['analog_5fwrite_2',['analog_write',['../d1/dea/class_gpio.html#a5ef755ff0063d3194144de6132ec62ac',1,'Gpio']]],
+  ['analog_5fread_1',['analog_read',['../d1/dea/class_gpio.html#a894cacb6cfe49f762692407f14bd13ab',1,'Gpio']]],
+  ['analog_5fwrite_2',['analog_write',['../d1/dea/class_gpio.html#aedb83f44dcb7832a7f2f3e81babfa246',1,'Gpio']]],
   ['any_3',['any',['../d9/d49/types_8h.html#abd7045ad8553e16c50a967b4d48b7f6b',1,'types.h']]],
   ['args_4',['Args',['../dc/dc6/class_args.html',1,'']]],
   ['args_2eh_5',['args.h',['../db/d77/args_8h.html',1,'']]],
