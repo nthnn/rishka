@@ -6,7 +6,7 @@ Rishka system calls provide a mechanism for user-level applications to request s
 
 1. **Invocation**
 
-    User-level applications on the ESP32-WROVER microcontroller can request privileged operations or access system-level functionality through system calls. These requests are made by the application directly to the underlying operating system, Jessy OS. Rather than executing system calls directly, applications rely on an abstraction layer provided by the Rishka SDK to facilitate communication with the operating system.
+    User-level applications on the ESP32-WROVER microcontroller can request privileged operations or access system-level functionality through system calls. These requests are made by the application directly to the underlying operating system via Rishka kernel. Rather than executing system calls directly, applications rely on an abstraction layer provided by the Rishka SDK to facilitate communication with the operating system.
 
 2. **Arguments**
 
@@ -18,11 +18,11 @@ Rishka system calls provide a mechanism for user-level applications to request s
 
 4. **Triggering the System Call**
 
-    Once the necessary arguments are prepared, the user-level application initiates the system call by triggering a special instruction known as the scall. This instruction serves as a signal to the processor that a system call is being requested. Upon encountering the scall instruction, the processor transitions from user mode to privileged mode and transfers control to the operating system's system call handler.
+    Once the necessary arguments are prepared, the user-level application initiates the system call by triggering a special instruction known as the `scall`. This instruction serves as a signal to the processor that a system call is being requested. Upon encountering the scall instruction, the processor transitions from user mode to privileged mode and transfers control to the operating system's system call handler.
 
 5. **System Call Handler**
 
-    The system call handler within the operating system receives control when the scall instruction is encountered. It is responsible for interpreting the system call identifier provided by the user-level application and executing the corresponding functionality or service. The handler interacts with kernel resources, hardware peripherals, and other system components as necessary to fulfill the requested operation.
+    The system call handler within the operating system receives control when the `scall` instruction is encountered. It is responsible for interpreting the system call identifier provided by the user-level application and executing the corresponding functionality or service. The handler interacts with kernel resources, hardware peripherals, and other system components as necessary to fulfill the requested operation.
 
 6. **Result**
 
@@ -36,7 +36,7 @@ Rishka system calls provide a mechanism for user-level applications to request s
 
 The Rishka virtual runtime kernel provides an extensive array of system calls, offering a rich set of functionalities and services for user-level applications on the ESP32-WROVER microcontroller platform.
 
-The below table is a comprehensive listing with details of the diverse range of system calls available within the Rishka kernel. Note that this is subject to changes since Rishka is still underdevelopment.
+The below table is a comprehensive listing with details of the diverse range of system calls available within the Rishka kernel. Note that this is subject to changes since Rishka is still under development.
 
 | Address (`A7`) | Name                | `A0`               | `A1`                | `A2`             | `A3`              | Implementation            |
 |----------------|---------------------|--------------------|---------------------|------------------|-------------------|---------------------------|
@@ -69,7 +69,7 @@ The below table is a comprehensive listing with details of the diverse range of 
 | 0x001a         | DIGITAL_READ        | (u8) pin           |                     |                  |                   | Gpio::digital_read()      |
 | 0x001b         | DIGITAL_WRITE       | (u8) pin           | (gpio_mode_t) mode  |                  |                   | Gpio::digital_write()     |
 | 0x001c         | ANALOG_READ         | (u8) pin           |                     |                  |                   | Gpio::analog_read()       |
-| 0x001d         | ANALOG_WRITE        | (u8) pin           | (u8) value          |                  |                   | Gpio::analog_write()      |
+| 0x001d         | ANALOG_WRITE        | (u8) pin           | (u16) value         |                  |                   | Gpio::analog_write()      |
 | 0x001e         | PULSE_IN            | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in()          |
 | 0x001f         | PULSE_IN_LONG       | (u8) pin           | (u8) state          | (u64) timeout    |                   | Gpio::pulse_in_long()     |
 | 0x0020         | SHIFT_IN            | (u8) data          | (u8) clock          | (u8) bit_order   |                   | Gpio::shift_in()          |

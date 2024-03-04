@@ -170,9 +170,9 @@ void loop() {
 
 ## Contributing
 
-Contributions to Ladivic are highly encouraged and appreciated! To contribute new features, bug fixes, or enhancements, please adhere to the following guidelines:
+Contributions to Rishka are highly encouraged and appreciated! To contribute new features, bug fixes, or enhancements, please adhere to the following guidelines:
 
-1. Fork the rishka repository.
+1. Fork the Rishka repository.
 2. Create a new branch for your changes: `git checkout -b feature-name`.
 3. Implement your changes and commit them: `git commit -m "Added new feature"`.
 4. Push your changes to the branch: `git push origin feature-name`.
