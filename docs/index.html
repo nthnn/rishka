@@ -107,9 +107,10 @@ $(function(){initNavTree('index.html',''); initResizable(); });
 </li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md6">Example</a></li>
-<li class="level2"><a href="#autotoc_md7">Contributing</a></li>
-<li class="level2"><a href="#autotoc_md8">License</a></li>
+<li class="level2"><a href="#autotoc_md6">Dumping Raw Binaries</a></li>
+<li class="level2"><a href="#autotoc_md7">Example</a></li>
+<li class="level2"><a href="#autotoc_md8">Contributing</a></li>
+<li class="level2"><a href="#autotoc_md9">License</a></li>
 </ul>
 </ul>
 </div>
@@ -168,6 +169,10 @@ Manually Compiling</h4>
 <div class="line"># This will output the binary file to dist/hello.bin</div>
 </div><!-- fragment --><p>Now you have successfully compiled the example and can proceed with using the generated binary file.</p>
 <h2><a class="anchor" id="autotoc_md6"></a>
+Dumping Raw Binaries</h2>
+<p>Dumping raw binary files can be helpful in debugging programs, traditionally. Hence, a simple script in Qrepo is available to dump instructions from a raw binary file of Rishka. You can utilize it by typing the following:</p>
+<div class="fragment"><div class="line">qrepo run dump &lt;filename&gt;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Example</h2>
 <p>This example demonstrates the usage of Rishka virtual machine on an ESP32-WROVER microcontroller. It initializes serial communication and SD card, waits for user input via serial port, loads the specified file into the Rishka VM, executes it, and then waits for the next input.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rishka.h&gt;</span></div>
@@ -227,7 +232,7 @@ Example</h2>
 <div class="line">    <span class="comment">// Print prompt for next input</span></div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot;&gt; &quot;</span>);</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
 Contributing</h2>
 <p>Contributions to Rishka are highly encouraged and appreciated! To contribute new features, bug fixes, or enhancements, please adhere to the following guidelines:</p>
 <ol type="1">
@@ -237,7 +242,7 @@ Contributing</h2>
 <li>Push your changes to the branch: <code>git push origin feature-name</code>.</li>
 <li>Submit a pull request for review and inclusion.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 License</h2>
 <p>Rishka is distributed under the GNU General Public License v3.0. For further details, refer to the <a href="https://github.com/nthnn/rishka/blob/main/LICENSE">LICENSE</a> file.</p>
 <div class="fragment"><div class="line">This program is free software: you can redistribute it and/or modify  </div>

@@ -104,6 +104,14 @@ qrepo run compile examples/sdk/hello.cpp hello
 
 Now you have successfully compiled the example and can proceed with using the generated binary file.
 
+## Dumping Raw Binaries
+
+Dumping raw binary files can be helpful in debugging programs, traditionally. Hence, a simple script in Qrepo is available to dump instructions from a raw binary file of Rishka. You can utilize it by typing the following:
+
+```bash
+qrepo run dump <filename>
+```
+
 ## Example
 
 This example demonstrates the usage of Rishka virtual machine on an ESP32-WROVER microcontroller. It initializes serial communication and SD card, waits for user input via serial port, loads the specified file into the Rishka VM, executes it, and then waits for the next input.

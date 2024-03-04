@@ -5,5 +5,6 @@ var searchData=
   ['digital_5fread_2',['digital_read',['../d1/dea/class_gpio.html#a6cbd8fc2e5dabfd76389f78155643a39',1,'Gpio']]],
   ['digital_5fwrite_3',['digital_write',['../d1/dea/class_gpio.html#a823fe9134bbf4a359247e8018d01ff23',1,'Gpio']]],
   ['disable_4',['disable',['../d8/dec/class_int.html#a68ab519107cb53ab894235d0dd417f2d',1,'Int']]],
-  ['does_20it_20work_5',['How Does It Work?',['../index.html#autotoc_md0',1,'']]]
+  ['does_20it_20work_5',['How Does It Work?',['../index.html#autotoc_md0',1,'']]],
+  ['dumping_20raw_20binaries_6',['Dumping Raw Binaries',['../index.html#autotoc_md6',1,'']]]
 ];

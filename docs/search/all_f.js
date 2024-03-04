@@ -59,5 +59,5 @@ var searchData=
   ['sysinfo_5fused_5fstorage_56',['SYSINFO_USED_STORAGE',['../d9/d87/sys_8h.html#a4a8640ae0f6132db18ae385f6db1b10ba1f657fe1becd20e68b837bb455ab4870',1,'sys.h']]],
   ['sysinfon_5ft_57',['sysinfon_t',['../d9/d87/sys_8h.html#a4a8640ae0f6132db18ae385f6db1b10b',1,'sys.h']]],
   ['sysinfos_5ft_58',['sysinfos_t',['../d9/d87/sys_8h.html#a67c094132a933dd7d7a79054800fce59',1,'sys.h']]],
-  ['system_20calls_59',['System Calls',['../d6/db5/rt_syscalls.html#autotoc_md9',1,'Complete List of System Calls'],['../d6/db5/rt_syscalls.html',1,'Runtime System Calls']]]
+  ['system_20calls_59',['System Calls',['../d6/db5/rt_syscalls.html#autotoc_md10',1,'Complete List of System Calls'],['../d6/db5/rt_syscalls.html',1,'Runtime System Calls']]]
 ];
