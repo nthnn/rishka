@@ -20,6 +20,11 @@ The Rishka virtual runtime is a system designed to run special RISC-V binaries s
 
 These include basic functions like managing files, as well as more complex tasks like controlling GPIO pins, attaching and detaching interrupts, and communication protocols such as I2C and SPI. Additionally, the kernel manages system utilities specific to the Jessy OS, handling tasks like sub-process runtime and memory allocation.
 
+<p align="center">
+    <img src="assets/board_test.jpg" width="68%"/>
+    <i>NodeMCU ESP32-WROVER and microSD card adapter where Rishka is being developed.</i>
+</p>
+
 ## Installation
 
 ### Rishka VM
