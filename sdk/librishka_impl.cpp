@@ -324,19 +324,19 @@ void Gpio::pin_mode(u8 pin, gpio_pin_mode_t mode) {
     rishka_sc_2(RISHKA_SC_GPIO_PIN_MODE, (i64) pin, (i64) mode);
 }
 
-i32 Gpio::digital_read(u8 pin) {
-    return (i32) rishka_sc_1(RISHKA_SC_GPIO_DIGITAL_READ, (i64) pin);
+gpio_mode_t Gpio::digital_read(u8 pin) {
+    return (gpio_mode_t) rishka_sc_1(RISHKA_SC_GPIO_DIGITAL_READ, (i64) pin);
 }
 
 void Gpio::digital_write(u8 pin, gpio_mode_t mode) {
     rishka_sc_2(RISHKA_SC_GPIO_DIGITAL_WRITE, (i64) pin, (i64) mode);
 }
 
-i32 Gpio::analog_read(u8 pin) {
+u16 Gpio::analog_read(u8 pin) {
     return (i32) rishka_sc_1(RISHKA_SC_GPIO_ANALOG_READ, (i64) pin);
 }
 
-void Gpio::analog_write(u8 pin, u8 value) {
+void Gpio::analog_write(u8 pin, u16 value) {
     rishka_sc_2(RISHKA_SC_GPIO_ANALOG_WRITE, (i64) pin, (i64) value);
 }
 

@@ -84,7 +84,7 @@ public:
      * @param pin The GPIO pin number.
      * @return The digital value of the GPIO pin (0 for LOW, 1 for HIGH).
      */
-    static i32 digital_read(u8 pin);
+    static gpio_mode_t digital_read(u8 pin);
 
     /**
      * @brief Write a digital value to a GPIO pin.
@@ -104,7 +104,7 @@ public:
      * @param pin The GPIO pin number.
      * @return The analog value of the GPIO pin (0-1023).
      */
-    static i32 analog_read(u8 pin);
+    static u16 analog_read(u8 pin);
 
     /**
      * @brief Write an analog value to a GPIO pin.
@@ -114,7 +114,7 @@ public:
      * @param pin The GPIO pin number.
      * @param value The analog value to write to the GPIO pin (0-255).
      */
-    static void analog_write(u8 pin, u8 value);
+    static void analog_write(u8 pin, u16 value);
 
     /**
      * @brief Measure the duration of a pulse on a GPIO pin.

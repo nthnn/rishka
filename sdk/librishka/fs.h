@@ -77,11 +77,11 @@ public:
     bool is_dir();
 
     /**
-     * @brief Check if the object represents a directory.
+     * @brief Get the number of bytes available for reading from the file.
      *
-     * This method checks whether the File object represents a directory.
+     * This method returns the number of bytes available for reading from the file.
      *
-     * @return True if the object represents a directory, false otherwise.
+     * @return The number of bytes available for reading.
      */
     i32 available();
 
@@ -234,9 +234,9 @@ public:
     void close();
 
     /**
-     * @brief Rewind the file pointer to the beginning of the file.
+     * @brief Rewind the directory pointer to the beginning of the current working directory.
      *
-     * This method rewinds the file pointer to the beginning of the file.
+     * This method rewinds the directory pointer to the beginning of the current working directory.
      */
     void rewind();
 };

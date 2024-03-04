@@ -23,9 +23,7 @@
  * The Runtime class encapsulates functionality related to runtime management
  * and control flow within Rishka applications. It serves as a central hub for
  * coordinating runtime activities, such as task scheduling, event processing,
- * and resource management. Developers can leverage the Runtime class to
- * orchestrate the execution flow of their applications, ensuring efficient
- * utilization of system resources and optimal performance.
+ * and resource management.
  */
 
 #ifndef LIBRISHKA_RUNTIME_H

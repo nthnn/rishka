@@ -30,7 +30,7 @@
 /**
  * @defgroup Rishka_SDK Rishka SDK
  * @brief Rishka SDK provides a collection of headers for accessing various
- * functionalities on ESP32-WROVER microcontrollers.
+ *        functionalities on ESP32-WROVER microcontrollers.
  *
  * The Rishka SDK includes headers for GPIO, filesystem, I2C, SPI, interrupts,
  * system calls, and other essential components for developing applications

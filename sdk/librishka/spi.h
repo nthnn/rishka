@@ -236,7 +236,7 @@ public:
     /**
      * @brief Write pixel data over SPI.
      *
-     * This method writes pixel data over SPI.
+     * This method writes pixel data over SPI. Compatible with ILI9341.
      *
      * @param data Pointer to the pixel data buffer to be written.
      * @param size The size of the pixel data buffer.
