@@ -67,7 +67,8 @@ void loop() {
     // Attempt to load specified file into Rishka virtual machine
     if(!rishka_vm_loadfile(&vm, input.c_str())) {
         // If loading file fails, print error message and return
-        Serial.println("Failed to load specified file: " + input);
+        Serial.print("Failed to load specified file: " + input);
+        Serial.print("> ");
         return;
     }
 

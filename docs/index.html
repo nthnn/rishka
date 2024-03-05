@@ -220,7 +220,8 @@ Example</h2>
 <div class="line">    <span class="comment">// Attempt to load specified file into Rishka virtual machine</span></div>
 <div class="line">    <span class="keywordflow">if</span>(!rishka_vm_loadfile(&amp;vm, input.c_str())) {</div>
 <div class="line">        <span class="comment">// If loading file fails, print error message and return</span></div>
-<div class="line">        Serial.println(<span class="stringliteral">&quot;Failed to load specified file: &quot;</span> + input);</div>
+<div class="line">        Serial.print(<span class="stringliteral">&quot;Failed to load specified file: &quot;</span> + input);</div>
+<div class="line">        Serial.print(<span class="stringliteral">&quot;&gt; &quot;</span>);</div>
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
