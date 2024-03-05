@@ -37,7 +37,15 @@
  * @param d The double precision floating-point value to be converted.
  * @return The converted long integer value.
  */
-int64_t rishka_double_to_long(double d);
+inline int64_t rishka_double_to_long(double d) {
+    union {
+        double input;
+        int64_t output;
+    } data;
+
+    data.input = d;
+    return data.output;
+}
 
 /**
  * @brief Converts a long integer to a double value.
@@ -47,6 +55,14 @@ int64_t rishka_double_to_long(double d);
  * @param l The long integer value to be converted.
  * @return The converted double precision floating-point value.
  */
-double rishka_long_to_double(int64_t l);
+inline double rishka_long_to_double(int64_t l) {
+    union {
+        double output;
+        int64_t input;
+    } data;
+
+    data.input = l;
+    return data.output;
+}
 
 #endif /* RISHKA_UTIL_H */
