@@ -17,23 +17,8 @@
 
 #include <rishka_errors.h>
 
-void rishka_perror(const char* msg, uintptr_t len, bool flush) {
-    if(len > 0 && msg)
-        for(int i = 0; i < len; i++)
-            Serial.write(msg[i]);
-
-    if(flush) {
-        Serial.println();
-        Serial.flush();
-    }
-}
-
 void rishka_panic(const char* message, rishka_virtual_machine* vm) {
-    size_t len = strlen(message);
-
-    if(len > 0)
-        rishka_perror(message, len, true);
-
+    vm->stream->write(message);
     vm->running = false;
     vm->exitcode = -1;
 }

@@ -31,17 +31,6 @@
 #include <rishka_vm.h>
 
 /**
- * @brief Print an error message to the output stream.
- *
- * This function prints the specified error message to the output stream.
- *
- * @param msg The error message to print.
- * @param len The length of the error message.
- * @param flush Whether to flush the standard error stream after printing the message.
- */
-void rishka_perror(const char* msg, uintptr_t len, bool flush);
-
-/**
  * @brief Handle a panic situation in the virtual machine.
  *
  * This function is called to handle a panic situation in the Rishka virtual machine.
