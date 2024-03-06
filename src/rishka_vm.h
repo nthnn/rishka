@@ -144,4 +144,15 @@ uint32_t rishka_vm_fetch(rishka_virtual_machine* vm);
  */
 uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code);
 
+/**
+ * @brief Handle a panic situation in the virtual machine.
+ *
+ * This function is called to handle a panic situation in the Rishka virtual machine.
+ * It prints the panic message and performs any necessary cleanup before terminating the program.
+ *
+ * @param vm A pointer to the virtual machine structure associated with the panic.
+ * @param message The panic message to print.
+ */
+void rishka_vm_panic(rishka_virtual_machine* vm, const char* message);
+
 #endif /* RISHKA_VM_H */

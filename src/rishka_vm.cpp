@@ -15,7 +15,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <rishka_errors.h>
 #include <rishka_instructions.h>
 #include <rishka_syscalls.h>
 #include <rishka_types.h>
@@ -40,6 +39,12 @@ void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
 
     while(vm->running)
         rishka_vm_execute(vm, rishka_vm_fetch(vm));
+}
+
+void rishka_vm_panic(rishka_virtual_machine* vm, const char* message) {
+    vm->stream->write(message);
+    vm->running = false;
+    vm->exitcode = -1;
 }
 
 void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
@@ -85,7 +90,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 default:
-                    rishka_panic("Invalid load instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid load instruction.");
                     break;
             }
 
@@ -118,7 +123,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 default:
-                    rishka_panic("Invalid store instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid store instruction.");
                     break;
             }
             break;
@@ -167,7 +172,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                             break;
 
                         default:
-                            rishka_panic("Invalid immediate shift instruction.", vm);
+                            rishka_vm_panic(vm, "Invalid immediate shift instruction.");
                             break;
                     }
                     break;
@@ -183,7 +188,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_panic("Invalid immediate instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid immediate instruction.");
                     break;
             }
 
@@ -220,7 +225,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                             break;
 
                         default:
-                            rishka_panic("Invalid immediate shift instruction.", vm);
+                            rishka_vm_panic(vm, "Invalid immediate shift instruction.");
                             break;
                     }
 
@@ -228,7 +233,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_panic("Invalid immediate instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid immediate instruction.");
                     break;
             }
 
@@ -345,7 +350,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_panic("Invalid arithmetic instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid arithmetic instruction.");
                     break;
             }
 
@@ -428,7 +433,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_panic("Invalid store doubleword instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid store doubleword instruction.");
                     break;
             }
 
@@ -508,7 +513,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 default:
-                    rishka_panic("Invalid branch instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid branch instruction.");
                     break;
             }
 
@@ -539,7 +544,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 default:
-                    rishka_panic("Invalid system instruction.", vm);
+                    rishka_vm_panic(vm, "Invalid system instruction.");
                     break;
             }
 
@@ -547,7 +552,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
         }
 
         default:
-            rishka_panic("Invalid opcode instruction.", vm);
+            rishka_vm_panic(vm, "Invalid opcode instruction.");
             break;
     }
 
@@ -951,7 +956,7 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             return rishka_syscall_rt_strpass();
 
         default:
-            rishka_panic("Invalid system call.", vm);
+            rishka_vm_panic(vm, "Invalid system call.");
             break;
     }
 
