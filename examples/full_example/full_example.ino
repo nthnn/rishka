@@ -57,7 +57,7 @@ void setup() {
     if(!rishka_vm_loadfile(&vm, "/hello.bin"))
         // If loading file fails, print error
         // message and halt execution
-        rishka_panic("Failed to load specified file.", &vm);
+        rishka_vm_panic(&vm, "Failed to load specified file.");
 
     // Run loaded program on Rishka virtual machine
     rishka_vm_run(&vm, 0, NULL);
