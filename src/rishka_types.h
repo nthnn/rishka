@@ -29,8 +29,6 @@
 #ifndef RISHKA_TYPES_H
 #define RISHKA_TYPES_H
 
-#include <rishka_commons.h>
-
 /**
  * @brief Pointer to an 8-bit unsigned integer.
  */
