@@ -529,11 +529,6 @@ uint8_t rishka_syscall_fs_next(rishka_virtual_machine* vm) {
     uint8_t handle = (uint8_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[10];
     char* mode = (char*) rishka_vm_getptr(vm, (((rishka_u64_arrptr*) & vm->registers)->a).v[11]);
 
-    uint8_t idx = 0;
-    for(uint8_t i = 0; i < 255; i++)
-        if(vm->file_handles[i] == NULL)
-            idx = i;
-
     File file = vm->file_handles[handle].openNextFile(mode);
     vm->file_handles.add(file);
     return vm->file_handles.getSize();
