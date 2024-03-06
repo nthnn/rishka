@@ -45,7 +45,9 @@
  * @param addr The memory address to read from.
  * @return The 8-bit signed integer value read from the memory address.
  */
-int8_t rishka_vm_read_i8(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline int8_t rishka_vm_read_i8(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (int8_t)(*(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads a 16-bit signed integer from the specified memory address.
@@ -59,7 +61,9 @@ int8_t rishka_vm_read_i8(rishka_virtual_machine* vm, rishka_nil_type type, uint6
  * @param addr The memory address to read from.
  * @return The 16-bit signed integer value read from the memory address.
  */
-int16_t rishka_vm_read_i16(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline int16_t rishka_vm_read_i16(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (int16_t)(*(rishka_u16ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads a 32-bit signed integer from the specified memory address.
@@ -73,7 +77,9 @@ int16_t rishka_vm_read_i16(rishka_virtual_machine* vm, rishka_nil_type type, uin
  * @param addr The memory address to read from.
  * @return The 32-bit signed integer value read from the memory address.
  */
-int32_t rishka_vm_read_i32(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline int32_t rishka_vm_read_i32(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (int32_t)(*(rishka_u32ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads a 64-bit signed integer from the specified memory address.
@@ -87,7 +93,9 @@ int32_t rishka_vm_read_i32(rishka_virtual_machine* vm, rishka_nil_type type, uin
  * @param addr The memory address to read from.
  * @return The 64-bit signed integer value read from the memory address.
  */
-int64_t rishka_vm_read_i64(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline int64_t rishka_vm_read_i64(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (int64_t)(*(rishka_u64ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads an 8-bit unsigned integer from the specified memory address.
@@ -101,7 +109,9 @@ int64_t rishka_vm_read_i64(rishka_virtual_machine* vm, rishka_nil_type type, uin
  * @param addr The memory address to read from.
  * @return The 8-bit unsigned integer value read from the memory address.
  */
-uint8_t rishka_vm_read_u8_arrptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline uint8_t rishka_vm_read_u8_arrptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (*(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads a 16-bit unsigned integer from the specified memory address.
@@ -115,7 +125,9 @@ uint8_t rishka_vm_read_u8_arrptr(rishka_virtual_machine* vm, rishka_nil_type typ
  * @param addr The memory address to read from.
  * @return The 16-bit unsigned integer value read from the memory address.
  */
-uint16_t rishka_vm_read_u16ptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline uint16_t rishka_vm_read_u16ptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (*(rishka_u16ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Reads a 32-bit unsigned integer from the specified memory address.
@@ -129,7 +141,9 @@ uint16_t rishka_vm_read_u16ptr(rishka_virtual_machine* vm, rishka_nil_type type,
  * @param addr The memory address to read from.
  * @return The 32-bit unsigned integer value read from the memory address.
  */
-uint32_t rishka_vm_read_u32ptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr);
+inline uint32_t rishka_vm_read_u32ptr(rishka_virtual_machine* vm, rishka_nil_type type, uint64_t addr) {
+    return (*(rishka_u32ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]));
+}
 
 /**
  * @brief Retrieves a pointer value from the specified memory address.
@@ -141,7 +155,9 @@ uint32_t rishka_vm_read_u32ptr(rishka_virtual_machine* vm, rishka_nil_type type,
  * @param addr The memory address to retrieve the pointer from.
  * @return A void pointer pointing to the memory address specified by `addr`.
  */
-void* rishka_vm_getptr(rishka_virtual_machine* vm, uint64_t addr);
+inline void* rishka_vm_getptr(rishka_virtual_machine* vm, uint64_t addr) {
+    return (void*)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr]);
+}
 
 /**
  * @brief Writes an 8-bit unsigned integer value to the specified memory address.
@@ -153,7 +169,9 @@ void* rishka_vm_getptr(rishka_virtual_machine* vm, uint64_t addr);
  * @param addr The memory address to write the value to.
  * @param val The 8-bit unsigned integer value to be written.
  */
-void rishka_vm_write_u8(rishka_virtual_machine* vm, uint64_t addr, uint8_t val);
+inline void rishka_vm_write_u8(rishka_virtual_machine* vm, uint64_t addr, uint8_t val) {
+    (*(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr])) = val;
+}
 
 /**
  * @brief Writes a 16-bit unsigned integer value to the specified memory address.
@@ -165,7 +183,9 @@ void rishka_vm_write_u8(rishka_virtual_machine* vm, uint64_t addr, uint8_t val);
  * @param addr The memory address to write the value to.
  * @param val The 16-bit unsigned integer value to be written.
  */
-void rishka_vm_write_u16(rishka_virtual_machine* vm, uint64_t addr, uint16_t val);
+inline void rishka_vm_write_u16(rishka_virtual_machine* vm, uint64_t addr, uint16_t val) {
+    (*(rishka_u16ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr])) = val;
+}
 
 /**
  * @brief Writes a 32-bit unsigned integer value to the specified memory address.
@@ -177,7 +197,9 @@ void rishka_vm_write_u16(rishka_virtual_machine* vm, uint64_t addr, uint16_t val
  * @param addr The memory address to write the value to.
  * @param val The 32-bit unsigned integer value to be written.
  */
-void rishka_vm_write_u32(rishka_virtual_machine* vm, uint64_t addr, uint32_t val);
+inline void rishka_vm_write_u32(rishka_virtual_machine* vm, uint64_t addr, uint32_t val) {
+    (*(rishka_u32ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr])) = val;
+}
 
 /**
  * @brief Writes a 64-bit unsigned integer value to the specified memory address.
@@ -189,7 +211,9 @@ void rishka_vm_write_u32(rishka_virtual_machine* vm, uint64_t addr, uint32_t val
  * @param addr The memory address to write the value to.
  * @param val The 64-bit unsigned integer value to be written.
  */
-void rishka_vm_write_u64(rishka_virtual_machine* vm, uint64_t addr, uint64_t val);
+inline void rishka_vm_write_u64(rishka_virtual_machine* vm, uint64_t addr, uint64_t val) {
+    (*(rishka_u64ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[addr])) = val;
+}
 
 /**
  * @brief Performs left shift operation on a 64-bit signed integer.
@@ -202,7 +226,14 @@ void rishka_vm_write_u64(rishka_virtual_machine* vm, uint64_t addr, uint64_t val
  * @param b The number of bits to shift `a` by.
  * @return The result of the left shift operation.
  */
-int64_t rishka_shl_riscvi64(int64_t a, int64_t b);
+inline int64_t rishka_shl_riscvi64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return ((uint64_t) a) << b;
+    else if(b < 0 && b > -64)
+        return (uint64_t) a >> -b;
+
+    return 0;
+}
 
 /**
  * @brief Performs right shift operation on a 64-bit signed integer.
@@ -215,7 +246,14 @@ int64_t rishka_shl_riscvi64(int64_t a, int64_t b);
  * @param b The number of bits to shift `a` by.
  * @return The result of the right shift operation.
  */
-int64_t rishka_shr_riscvi64(int64_t a, int64_t b);
+inline int64_t rishka_shr_riscvi64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return (uint64_t) a >> b;
+    else if(b < 0 && b > -64)
+        return (uint64_t) a << -b;
+
+    return 0;
+}
 
 /**
  * @brief Performs arithmetic right shift operation on a 64-bit signed integer.
@@ -228,7 +266,16 @@ int64_t rishka_shr_riscvi64(int64_t a, int64_t b);
  * @param b The number of bits to shift `a` by.
  * @return The result of the arithmetic right shift operation.
  */
-int64_t rishka_asr_riscvi64(int64_t a, int64_t b);
+inline int64_t rishka_asr_riscvi64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return a >> b;
+    else if(b >= 64)
+        return a < 0 ? -1 : 0;
+    else if(b < 0 && b > -64)
+        return a << -b;
+
+    return 0;
+}
 
 /**
  * @brief Performs right shift operation on a 128-bit signed integer.
@@ -241,6 +288,13 @@ int64_t rishka_asr_riscvi64(int64_t a, int64_t b);
  * @param b The number of bits to shift `a` by.
  * @return The result of the right shift operation.
  */
-int64_t rishka_shr_riscvi128(int64_t a, int64_t b);
+inline int64_t rishka_shr_riscvi128(int64_t a, int64_t b) {
+    if(b >= 0 && b < 128)
+        return (uint64_t) a >> b;
+    else if(b < 0 && b > -128)
+        return (uint64_t) a << -b;
+
+    return 0;
+}
 
 #endif /* RISHKA_VM_HELPER_H */
