@@ -29,8 +29,6 @@
 #ifndef RISHKA_H
 #define RISHKA_H
 
-#define  RISHKA_VM_STACK_SIZE 32768U    ///< Define the stack size for the Rishka virtual machine.
-
 #include <Arduino.h>    ///< Include Arduino core library.
 #include <SD.h>         ///< Include SD card library.
 #include <SPI.h>        ///< Include SPI communication library.

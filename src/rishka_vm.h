@@ -33,6 +33,8 @@
 #include <List.hpp>         ///< List container for file handles.
 #include <SD.h>             ///< SD card library for file operations.
 
+#define  RISHKA_VM_STACK_SIZE 32768U    ///< Define the stack size for the Rishka virtual machine.
+
 /**
  * @brief Structure representing a Rishka virtual machine instance.
  */
