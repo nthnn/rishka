@@ -30,7 +30,6 @@
 #define RISHKA_H
 
 #include <rishka_commons.h>        ///< Common definitions and macros.
-#include <rishka_errors.h>         ///< Error code definitions and handling.
 #include <rishka_instructions.h>   ///< Instruction set architecture definitions.
 #include <rishka_syscalls.h>       ///< System call interface and implementations.
 #include <rishka_types.h>          ///< Type definitions and aliases.
