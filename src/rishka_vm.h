@@ -31,7 +31,6 @@
 #define RISHKA_VM_H
 
 #include <List.hpp>         ///< List container for file handles.
-#include <rishka_commons.h> ///< Common definitions and macros.
 #include <SD.h>             ///< SD card library for file operations.
 
 /**
