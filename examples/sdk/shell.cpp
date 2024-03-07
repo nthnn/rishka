@@ -22,7 +22,7 @@ i32 main() {
 
     IO::print(F("Exit code: "));
     IO::print((i64) exitcode);
-    IO::print(F("\n"));
+    IO::print(F("\r\n"));
 
     return 0;
 }

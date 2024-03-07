@@ -21,7 +21,7 @@ i32 main() {
     for(i8 i = 0; i < 10; i++) {
         IO::print(F("Hello, world! ["));
         IO::print((i64) i);
-        IO::print(F("]\n"));
+        IO::print(F("]\r\n"));
 
         if(i == 5)
             Sys::exit(0);
