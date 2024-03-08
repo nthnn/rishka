@@ -1,11 +1,17 @@
 var searchData=
 [
-  ['path_0',['path',['../d1/d31/class_file.html#a413be02c456128dd068f13f40512082c',1,'File']]],
-  ['peek_1',['peek',['../d1/d31/class_file.html#a77d372dc30a7787ecf206c03e391ce0f',1,'File::peek()'],['../d4/d47/class_i2_c.html#a99eabb6ab690da04d49b9a6a4b1aa459',1,'I2C::peek()'],['../d8/d24/class_i_o.html#ab56c95632078c4b39f47c77f0f103ab7',1,'IO::peek()']]],
-  ['pin_5fmode_2',['pin_mode',['../d1/dea/class_gpio.html#a956f98807a132fe5be3b6abc6555ff57',1,'Gpio']]],
-  ['pins_3',['pins',['../d4/d47/class_i2_c.html#a351469c338e1b8ed55c596480beb58af',1,'I2C']]],
-  ['position_4',['position',['../d1/d31/class_file.html#a5be995865298178e97b6384b77c8e5c9',1,'File']]],
-  ['print_5',['print',['../d8/d24/class_i_o.html#af67b36507b53221d03a5b7f1fd6638f0',1,'IO::print(const string text)'],['../d8/d24/class_i_o.html#a30f60dd764ba3cb47b19849297dbb7d5',1,'IO::print(i64 number)'],['../d8/d24/class_i_o.html#a60ac760446a47d3e1926ffe0120ff854',1,'IO::print(double number)']]],
-  ['pulse_5fin_6',['pulse_in',['../d1/dea/class_gpio.html#a56c27badbd92bb18593987e5cdd0fade',1,'Gpio']]],
-  ['pulse_5fin_5flong_7',['pulse_in_long',['../d1/dea/class_gpio.html#a065fa69ac324fe76e67d47db841c4799',1,'Gpio']]]
+  ['random_0',['random',['../d0/d04/class_sys.html#a3cc8c3d6432a431ea7655ddc272d2531',1,'Sys']]],
+  ['read_1',['read',['../d1/d31/class_file.html#a71de4839522ca512a4ffa01ba208c862',1,'File::read()'],['../d4/d47/class_i2_c.html#a7df78c7394b3f304235ca4e0b74dee1e',1,'I2C::read()'],['../d8/d24/class_i_o.html#a45dfb01a4ebfa134227a51f7be20d214',1,'IO::read()']]],
+  ['readch_2',['readch',['../d8/d24/class_i_o.html#abd2fd0dfb704cad591e256cb8074f5b2',1,'IO']]],
+  ['readline_3',['readline',['../d8/d24/class_i_o.html#a9d4ca0746e40c8b8f37c1c06c3c5d411',1,'IO']]],
+  ['realloc_4',['realloc',['../d2/d01/class_memory.html#aa2eab9d0b939b163aa535000e0b342ef',1,'Memory']]],
+  ['remove_5',['remove',['../d3/da6/class_f_s.html#a56dffad802b44bcfee0fa5a571268ded',1,'FS']]],
+  ['request_6',['request',['../d4/d47/class_i2_c.html#adc8abfb1f98c8c43ef5cd8f1f944fcb2',1,'I2C']]],
+  ['rewind_7',['rewind',['../d1/d31/class_file.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
+  ['rishka_20sdk_8',['Rishka SDK',['../index.html',1,'(Global Namespace)'],['../d5/d65/group___rishka___s_d_k.html',1,'(Global Namespace)']]],
+  ['rmdir_9',['rmdir',['../d3/da6/class_f_s.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]],
+  ['rune_10',['rune',['../d9/d49/types_8h.html#a405b10d09d9298aac12e28a2e92c4641',1,'types.h']]],
+  ['runtime_11',['Runtime',['../d3/df6/class_runtime.html',1,'']]],
+  ['runtime_20system_20calls_12',['Runtime System Calls',['../d6/db5/rt_syscalls.html',1,'']]],
+  ['runtime_2eh_13',['runtime.h',['../d3/d51/runtime_8h.html',1,'']]]
 ];

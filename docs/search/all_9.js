@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['lastwrite_0',['lastwrite',['../d1/d31/class_file.html#a75953d4d4e3993b6084323ea494a627f',1,'File']]],
-  ['librishka_2eh_1',['librishka.h',['../d6/de4/librishka_8h.html',1,'']]],
-  ['license_2',['License',['../index.html#autotoc_md9',1,'']]],
-  ['list_20of_20system_20calls_3',['Complete List of System Calls',['../d6/db5/rt_syscalls.html#autotoc_md10',1,'']]]
+  ['memory_0',['Memory',['../d2/d01/class_memory.html',1,'']]],
+  ['memory_2eh_1',['memory.h',['../dc/d18/memory_8h.html',1,'']]],
+  ['micros_2',['micros',['../d0/d04/class_sys.html#a9e9083c9abd766d90ae71ae9ba6bc28b',1,'Sys']]],
+  ['millis_3',['millis',['../d0/d04/class_sys.html#acfe1b7f4ea18cb985d2465d4f9bbebd3',1,'Sys']]],
+  ['mkdir_4',['mkdir',['../d3/da6/class_f_s.html#a60635712e457e5b4ebfe445e9b673bd4',1,'FS']]]
 ];
