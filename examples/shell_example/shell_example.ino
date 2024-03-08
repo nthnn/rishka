@@ -16,39 +16,64 @@
  */
 
 /*
- * This example demonstrates the usage of Rishka virtual machine
- * on an ESP32-WROVER microcontroller. It initializes serial communication
- * and SD card, waits for user input via serial port, loads the specified
+ * This example initializes a TFT display using FabGL library, loads a font for a terminal,
+ * initializes an SD card using SPI, initializes a Rishka virtual machine, loads the specified
  * file into the Rishka VM, executes it, and then waits for the next input.
  */
 
+#include <fabgl.h>
 #include <rishka.h>
+#include <SD.h>
+#include <SPI.h>
 
+#define TFT_SCK    18           // TFT SPI clock pin
+#define TFT_MOSI   23           // TFT SPI MOSI pin
+#define TFT_DC     2            // TFT data/command pin
+#define TFT_RESET  4            // TFT reset pin
+#define TFT_SPIBUS VSPI_HOST    // TFT SPI bus
+
+#define SD_CS      15           // SD card chip select pin
+#define SD_SCK     14           // SD card SPI clock pin
+#define SD_MOSI    13           // SD card SPI MOSI pin
+#define SD_MISO    12           // SD card SPI MISO pin
+
+// TFT display controller and Terminal instance
+fabgl::ILI9341Controller DisplayController;
+fabgl::Terminal Terminal;
+
+// Rishka virtual machine instance
 rishka_virtual_machine vm;
+// SPI instance for SD card
+SPIClass sdSpi(HSPI);
 
 void setup() {
-    // Begin serial communication at 115200 baud rate
     Serial.begin(115200);
-    // Wait until serial connection is established
-    while(!Serial);
 
-    // Initialize SD card on pin 5
-    if(!SD.begin(5)) {
-        // If SD card initialization fails, 
-        // print error message and halt execution
-        Serial.println("Failed to initialize SD card.");
-        while(true);
+    // Initialize TFT display
+    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, 5, TFT_SPIBUS);
+    DisplayController.setResolution("\"TFT_320x240\" 320 240");
+
+    // Initialize terminal
+    Terminal.begin(&DisplayController);
+    Terminal.loadFont(&fabgl::FONT_8x14);
+    Terminal.enableCursor(true);
+
+    // Initialize SD card
+    sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+    if(!SD.begin(SD_CS, sdSpi, 80000000)) {
+        Terminal.println("Card \e[94mMount\e[97m Failed");
+        return;
     }
 
     if(!psramInit()) {
         // If PSRAM initialization fails,
         // print error message and halt execution
-        Serial.println("Cannot initialize PSRAM.");
+        Serial.println("\e[94mCannot\e[97m initialize PSRAM.");
         while(true);
     }
 
     // Print prompt
-    Serial.print("> ");
+    Terminal.print("\e[32m#~\e[97m ");
 }
 
 void loop() {
@@ -59,16 +84,18 @@ void loop() {
     // Read input from serial port
     String input = Serial.readString();
     // Echo input back to serial port
-    Serial.print(input);
+    Terminal.print("\e[93m");
+    Terminal.print(input);
+    Terminal.print("\r\e[97m");
 
     // Initialize Rishka virtual machine
-    rishka_vm_initialize(&vm, &Serial);
+    rishka_vm_initialize(&vm, &Terminal);
 
     // Attempt to load specified file into Rishka virtual machine
     if(!rishka_vm_loadfile(&vm, input.c_str())) {
         // If loading file fails, print error message and return
-        Serial.print("Failed to load specified file: " + input);
-        Serial.print("> ");
+        Terminal.print("Failed to \e[94mload\e[97m specified file: " + input);
+        Terminal.print("\r\e[32m#~\e[97m ");
         return;
     }
 
@@ -78,5 +105,5 @@ void loop() {
     rishka_vm_reset(&vm);
 
     // Print prompt for next input
-    Serial.print("> ");
+    Terminal.print("\e[32m#~\e[97m ");
 }
