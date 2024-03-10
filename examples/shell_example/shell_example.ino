@@ -94,7 +94,7 @@ void loop() {
     // Attempt to load specified file into Rishka virtual machine
     if(!vm->loadFile(input.c_str())) {
         // If loading file fails, print error message and return
-        Terminal.print("Failed to \e[94mload\e[97m specified file: " + input);
+        vm->panic("Failed to \e[94mload\e[97m specified file: " + input);
         Terminal.print("\r\e[32m#~\e[97m ");
         return;
     }

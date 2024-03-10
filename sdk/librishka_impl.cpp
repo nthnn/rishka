@@ -279,8 +279,8 @@ u64 Sys::millis() {
     return (u64) rishka_sc_0(RISHKA_SC_SYS_MILLIS);
 }
 
-i32 Sys::shellexec(string program, i32 argc, string* argv) {
-    return (i32) rishka_sc_3(RISHKA_SC_SYS_SHELLEXEC, (i64) program, (i64) argc, (i64) argv);
+i64 Sys::shellexec(string program, i32 argc, string* argv) {
+    return (i64) rishka_sc_3(RISHKA_SC_SYS_SHELLEXEC, (i64) program, (i64) argc, (i64) argv);
 }
 
 void Sys::exit(i32 code) {
