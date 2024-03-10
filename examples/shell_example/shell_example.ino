@@ -41,8 +41,6 @@
 fabgl::ILI9341Controller DisplayController;
 fabgl::Terminal Terminal;
 
-// Rishka virtual machine instance
-rishka_virtual_machine vm;
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
 
@@ -88,11 +86,13 @@ void loop() {
     Terminal.print(input);
     Terminal.print("\r\e[97m");
 
+    // Rishka virtual machine instance
+    RishkaVM* vm = new RishkaVM();
     // Initialize Rishka virtual machine
-    rishka_vm_initialize(&vm, &Terminal);
+    vm->initialize(&Terminal);
 
     // Attempt to load specified file into Rishka virtual machine
-    if(!rishka_vm_loadfile(&vm, input.c_str())) {
+    if(!vm->loadFile(input.c_str())) {
         // If loading file fails, print error message and return
         Terminal.print("Failed to \e[94mload\e[97m specified file: " + input);
         Terminal.print("\r\e[32m#~\e[97m ");
@@ -100,9 +100,12 @@ void loop() {
     }
 
     // Run loaded program on Rishka virtual machine
-    rishka_vm_run(&vm, 0, NULL);
+    vm->run(0, NULL);
     // Reset Rishka virtual machine for next execution
-    rishka_vm_reset(&vm);
+    vm->reset();
+
+    // Delete VM instance.
+    delete vm;
 
     // Print prompt for next input
     Terminal.print("\e[32m#~\e[97m ");

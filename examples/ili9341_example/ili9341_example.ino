@@ -41,8 +41,6 @@
 fabgl::ILI9341Controller DisplayController;
 fabgl::Terminal Terminal;
 
-// Rishka virtual machine instance
-rishka_virtual_machine vm;
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
 
@@ -63,15 +61,18 @@ void setup() {
         return;
     }
 
+    // Rishka virtual machine instance
+    RishkaVM* vm = new RishkaVM();
     // Initialize Rishka VM
-    rishka_vm_initialize(&vm, &Terminal);
-    if(!rishka_vm_loadfile(&vm, "/sysinfo.bin"))
-        rishka_vm_panic(&vm, "Failed to load specified file.");
+    vm->initialize(&Terminal);
+
+    if(!vm->loadFile("/sysinfo.bin"))
+        vm->panic("Failed to load specified file.");
 
     // Run loaded program
-    rishka_vm_run(&vm, 0, NULL);
+    vm->run(0, NULL);
     // Reset VM after program execution
-    rishka_vm_reset(&vm);
+    vm->reset();
 }
 
 void loop() {
