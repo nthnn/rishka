@@ -33,6 +33,9 @@ private:
     bool running;
     int64_t exitCode;
 
+    char** argv;
+    uint8_t argc;
+
     uint32_t fetch();
     uint64_t handleSyscall(uint64_t code);
     void execute(uint32_t inst);
@@ -43,8 +46,6 @@ private:
     int64_t arithmeticShiftRightInt64(int64_t a, int64_t b);
 
 public:
-    char** argv;
-    int argc;
     List<File> fileHandles;
 
     void stopVM();
@@ -52,6 +53,9 @@ public:
 
     int64_t getExitCode() const;
     Stream* getStream() const;
+
+    uint8_t getArgCount() const;
+    char* getArgValue(const uint8_t index) const;
 
     void initialize(Stream* stream);
     void reset();

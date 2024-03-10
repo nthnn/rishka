@@ -46,6 +46,14 @@ Stream* RishkaVM::getStream() const {
     return this->stream;
 }
 
+uint8_t RishkaVM::getArgCount() const {
+    return this->argc;
+}
+
+char* RishkaVM::getArgValue(const uint8_t index) const {
+    return this->argv[index];
+}
+
 bool RishkaVM::loadFile(const char* fileName) {
     File file = SD.open(fileName);
     if(!file) {
@@ -838,70 +846,70 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_ARG_STR:
             return rishka_syscall_arg_value(this);
 
-        /*case RISHKA_SC_I2C_BEGIN:
-            return rishka_syscall_i2c_begin(vm);
+        case RISHKA_SC_I2C_BEGIN:
+            return rishka_syscall_i2c_begin(this);
 
         case RISHKA_SC_I2C_END:
-            return rishka_syscall_i2c_end(vm);
+            return rishka_syscall_i2c_end(this);
 
         case RISHKA_SC_I2C_BEGIN_TRANSMISSION:
-            rishka_syscall_i2c_begin_transmission(vm);
+            rishka_syscall_i2c_begin_transmission(this);
             break;
 
         case RISHKA_SC_I2C_END_TRANSMISSION:
-            return rishka_syscall_i2c_end_transmission(vm);
+            return rishka_syscall_i2c_end_transmission(this);
 
         case RISHKA_SC_I2C_WRITE:
-            return rishka_syscall_i2c_write(vm);
+            return rishka_syscall_i2c_write(this);
 
         case RISHKA_SC_I2C_SLAVE_WRITE:
-            return rishka_syscall_i2c_slave_write(vm);
+            return rishka_syscall_i2c_slave_write(this);
 
         case RISHKA_SC_I2C_READ:
-            return rishka_syscall_i2c_read(vm);
+            return rishka_syscall_i2c_read(this);
 
         case RISHKA_SC_I2C_PEEK:
-            return rishka_syscall_i2c_peek(vm);
+            return rishka_syscall_i2c_peek(this);
 
         case RISHKA_SC_I2C_REQUEST:
-            return rishka_syscall_i2c_request(vm);
+            return rishka_syscall_i2c_request(this);
 
         case RISHKA_SC_I2C_AVAILABLE:
-            return rishka_syscall_i2c_available(vm);
+            return rishka_syscall_i2c_available(this);
 
         case RISHKA_SC_I2C_FLUSH:
             rishka_syscall_i2c_flush();
             break;
 
         case RISHKA_SC_I2C_ON_RECEIVE:
-            rishka_syscall_i2c_on_receive(vm);
+            rishka_syscall_i2c_on_receive(this);
             break;
         
         case RISHKA_SC_I2C_ON_REQUEST:
-            rishka_syscall_i2c_on_request(vm);
+            rishka_syscall_i2c_on_request(this);
             break;
 
         case RISHKA_SC_I2C_GET_TIMEOUT:
             return rishka_syscall_i2c_get_timeout();
 
         case RISHKA_SC_I2C_SET_TIMEOUT:
-            rishka_syscall_i2c_set_timeout(vm);
+            rishka_syscall_i2c_set_timeout(this);
             break;
 
         case RISHKA_SC_I2C_SET_CLOCK:
-            return rishka_syscall_i2c_set_clock(vm);
+            return rishka_syscall_i2c_set_clock(this);
 
         case RISHKA_SC_I2C_GET_CLOCK:
             return rishka_syscall_i2c_get_clock();
 
         case RISHKA_SC_I2C_PINS:
-            return rishka_syscall_i2c_pins(vm);
+            return rishka_syscall_i2c_pins(this);
 
         case RISHKA_SC_I2C_BUFSIZE:
-            return rishka_syscall_i2c_bufsize(vm);
+            return rishka_syscall_i2c_bufsize(this);
 
         case RISHKA_SC_SPI_BEGIN:
-            rishka_syscall_spi_begin(vm);
+            rishka_syscall_spi_begin(this);
             break;
 
         case RISHKA_SC_SPI_END:
@@ -909,7 +917,7 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
             break;
 
         case RISHKA_SC_SPI_BEGIN_TRANSACTION:
-            rishka_syscall_spi_begin_transaction(vm);
+            rishka_syscall_spi_begin_transaction(this);
             break;
 
         case RISHKA_SC_SPI_END_TRANSACTION:
@@ -917,68 +925,68 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
             break;
 
         case RISHKA_SC_SPI_TRANSFER8:
-            return rishka_syscall_spi_transfer8(vm);
+            return rishka_syscall_spi_transfer8(this);
 
         case RISHKA_SC_SPI_TRANSFER16:
-            return rishka_syscall_spi_transfer16(vm);
+            return rishka_syscall_spi_transfer16(this);
 
         case RISHKA_SC_SPI_TRANSFER32:
-            return rishka_syscall_spi_transfer32(vm);
+            return rishka_syscall_spi_transfer32(this);
 
         case RISHKA_SC_SPI_TRANSFER_BYTES:
-            rishka_syscall_spi_transfer_bytes(vm);
+            rishka_syscall_spi_transfer_bytes(this);
             break;
 
         case RISHKA_SC_SPI_TRANSFER_BITS:
-            rishka_syscall_spi_transfer_bits(vm);
+            rishka_syscall_spi_transfer_bits(this);
             break;
 
         case RISHKA_SC_SPI_SET_HWCS:
-            rishka_syscall_spi_set_hwcs(vm);
+            rishka_syscall_spi_set_hwcs(this);
             break;
 
         case RISHKA_SC_SPI_SET_BIT_ORDER:
-            rishka_syscall_spi_set_bit_order(vm);
+            rishka_syscall_spi_set_bit_order(this);
             break;
 
         case RISHKA_SC_SPI_SET_DATA_MODE:
-            rishka_syscall_spi_set_data_mode(vm);
+            rishka_syscall_spi_set_data_mode(this);
             break;
 
         case RISHKA_SC_SPI_SET_FREQ:
-            rishka_syscall_spi_set_frequency(vm);
+            rishka_syscall_spi_set_frequency(this);
             break;
 
         case RISHKA_SC_SPI_SET_CLOCK_DIV:
-            rishka_syscall_spi_set_clock_div(vm);
+            rishka_syscall_spi_set_clock_div(this);
             break;
 
         case RISHKA_SC_SPI_GET_CLOCK_DIV:
             return rishka_syscall_spi_get_clock_div();
 
         case RISHKA_SC_SPI_WRITE8:
-            rishka_syscall_spi_write8(vm);
+            rishka_syscall_spi_write8(this);
             break;
 
         case RISHKA_SC_SPI_WRITE16:
-            rishka_syscall_spi_write16(vm);
+            rishka_syscall_spi_write16(this);
             break;
 
         case RISHKA_SC_SPI_WRITE32:
-            rishka_syscall_spi_write32(vm);
+            rishka_syscall_spi_write32(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_BYTES:
-            rishka_syscall_spi_write_bytes(vm);
+            rishka_syscall_spi_write_bytes(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_PIXELS:
-            rishka_syscall_spi_write_pixels(vm);
+            rishka_syscall_spi_write_pixels(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_PATTERN:
-            rishka_syscall_spi_write_pattern(vm);
-            break;*/
+            rishka_syscall_spi_write_pattern(this);
+            break;
 
         case RISHKA_SC_RT_STRPASS:
             return rishka_syscall_rt_strpass();
