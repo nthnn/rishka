@@ -57,7 +57,7 @@ void setup() {
     // Initialize SD card
     sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
     if(!SD.begin(SD_CS, sdSpi, 80000000)) {
-        Terminal.println("Card Mount Failed");
+        Terminal.println("Card \e[94mMount\e[97m Failed");
         return;
     }
 
@@ -67,7 +67,7 @@ void setup() {
     vm->initialize(&Terminal);
 
     if(!vm->loadFile("/sysinfo.bin"))
-        vm->panic("Failed to load specified file.");
+        vm->panic("Failed to \e[94mload\e[97m specified file.");
 
     // Run loaded program
     vm->run(0, NULL);
