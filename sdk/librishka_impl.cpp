@@ -210,7 +210,7 @@ static inline rune rt_strpass() {
 
 static inline string get_rt_string(u32 len) {
     string str;
-    Memory::alloc(str, len + 1);
+    Memory::set(str, 0, len + 1);
 
     for(u32 i = 0; i < len; i++)
         str[i] = rt_strpass();
@@ -484,7 +484,7 @@ bool FS::exists(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_EXISTS, (i64) path);
 }
 
-u32 Args::count() {
+u8 Args::count() {
     return (u32) rishka_sc_0(RISHKA_SC_ARG_COUNT);
 }
 
