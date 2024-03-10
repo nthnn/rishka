@@ -20,120 +20,167 @@
 #include <rishka_types.h>
 #include <rishka_util.h>
 #include <rishka_vm.h>
-#include <rishka_vm_helper.h>
 
-void rishka_vm_initialize(rishka_virtual_machine* vm, Stream* stream) {
-    vm->running = false;
-    vm->argv = NULL;
-    vm->argc = 0;
-    vm->pc = 0;
-    vm->exitcode = 0;
-
-    vm->stream = stream;
+void RishkaVM::initialize(Stream* stream) {
+    this->running = false;
+    this->argv = NULL;
+    this->argc = 0;
+    this->pc = 0;
+    this->exitCode = 0;
+    this->stream = stream;
 }
 
-void rishka_vm_run(rishka_virtual_machine* vm, int argc, char** argv) {
-    vm->running = true;
-    vm->argc = argc;
-    vm->argv = argv;
-
-    while(vm->running)
-        rishka_vm_execute(vm, rishka_vm_fetch(vm));
+void RishkaVM::stopVM() {
+    this->running = false;
 }
 
-void rishka_vm_panic(rishka_virtual_machine* vm, const char* message) {
-    vm->stream->write(message);
-    vm->running = false;
-    vm->exitcode = -1;
+void RishkaVM::setExitCode(int64_t exitCode) {
+    this->exitCode = exitCode;
 }
 
-void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
-    uint32_t opcode = ((inst >> 0) & 127);
-    uint32_t rd = ((inst >> 7) & 31),
-        rs1 = ((inst >> 15) & 31),
-        rs2 = ((inst >> 20) & 31);
+int64_t RishkaVM::getExitCode() const {
+    return this->exitCode;
+}
+
+Stream* RishkaVM::getStream() const {
+    return this->stream;
+}
+
+bool RishkaVM::loadFile(const char* fileName) {
+    File file = SD.open(fileName);
+    if(!file) {
+        file.close();
+        return false;
+    }
+
+    if(file.read(&(((rishka_u8_arrptr*) &this->memory)->a).v[4096], file.size())) {
+        file.close();
+
+        (((rishka_u64_arrptr*) &this->registers)->a).v[2] = RISHKA_VM_STACK_SIZE;
+        this->pc = 4096;
+
+        return true;
+    }
+
+    return false;
+}
+
+void RishkaVM::run(int argc, char** argv) {
+    this->running = true;
+    this->argc = argc;
+    this->argv = argv;
+
+    while(this->running)
+        this->execute(this->fetch());
+}
+
+void RishkaVM::panic(const char* message) {
+    this->stopVM();
+    this->setExitCode(-1);
+
+    this->stream->print("\r\n");
+    this->stream->print(message);
+    this->stream->print("\r\n");
+}
+
+void RishkaVM::reset() {
+    this->running = false;
+    this->argv = NULL;
+    this->argc = 0;
+    this->pc = 0;
+    this->exitCode = 0;
+
+    this->fileHandles.clear();
+}
+
+void RishkaVM::execute(uint32_t inst) {
+    uint32_t opcode = ((inst >> 0) &127);
+    uint32_t rd = ((inst >> 7) &31),
+        rs1 = ((inst >> 15) &31),
+        rs2 = ((inst >> 20) &31);
 
     switch(opcode) {
         case RISHKA_OPINST_LOAD: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) & 4095) << 20)) >> 20);
-            uint64_t addr = ((((rishka_u64_arrptr*) & vm->registers)->a).v[rs1] + (uint64_t) immediate);
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) &4095) << 20)) >> 20);
+            uint64_t addr = ((((rishka_u64_arrptr*) &this->registers)->a).v[rs1] + (uint64_t) immediate);
 
             int64_t val;
             switch(function_code_3) {
                 case RISHKA_FC3_LB:
-                    val = (int64_t) rishka_vm_read_i8(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LHW:
-                    val = (int64_t) rishka_vm_read_i16(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(uint16_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LW:
-                    val = (int64_t) rishka_vm_read_i32(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t) (*(uint32_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LDW:
-                    val = rishka_vm_read_i64(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(uint64_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LBU:
-                    val = (int64_t) rishka_vm_read_u8_arrptr(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LHU:
-                    val = (int64_t) rishka_vm_read_u16ptr(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(uint16_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 case RISHKA_FC3_LRES:
-                    val = (int64_t) rishka_vm_read_u32ptr(vm, (rishka_nil_type) {}, addr);
+                    val = (int64_t)(*(uint32_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr]));
                     break;
 
                 default:
-                    rishka_vm_panic(vm, "Invalid load instruction.");
+                    this->panic("Invalid load instruction.");
                     break;
             }
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) val;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) val;
             break;
         }
     
         case RISHKA_OPINST_STORE: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((inst >> 20) & 4064) | ((inst >> 7) & 31)) << 20)) >> 20);
-            uint64_t addr = ((((rishka_u64_arrptr*) & vm->registers)->a).v[rs1] + (uint64_t) immediate);
-            uint64_t val = (((rishka_u64_arrptr*) & vm->registers)->a).v[rs2];
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((inst >> 20) &4064) | ((inst >> 7) &31)) << 20)) >> 20);
+
+            uint64_t addr = ((((rishka_u64_arrptr*) &this->registers)->a).v[rs1] + (uint64_t) immediate);
+            uint64_t val = (((rishka_u64_arrptr*) &this->registers)->a).v[rs2];
 
             switch(function_code_3) {
                 case RISHKA_FC3_SB:
-                    rishka_vm_write_u8(vm, addr, (uint8_t) val);
+                    (*(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr])) = val;
                     break;
 
                 case RISHKA_FC3_SHW:
-                    rishka_vm_write_u16(vm, addr, (uint16_t) val);
+                    (*(uint16_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr])) = val;
                     break;
 
                 case RISHKA_FC3_SW:
-                    rishka_vm_write_u32(vm, addr, (uint32_t) val);
+                    (*(uint32_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr])) = val;
                     break;
 
                 case RISHKA_FC3_SDW:
-                    rishka_vm_write_u64(vm, addr, val);
+                    (*(uint64_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[addr])) = val;
                     break;
 
                 default:
-                    rishka_vm_panic(vm, "Invalid store instruction.");
+                    this->panic("Invalid store instruction.");
                     break;
             }
             break;
         }
 
         case RISHKA_OPINST_IMM: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) & 4095) << 20)) >> 20);
-            uint32_t shift_amount = ((inst >> 20) & 63);
-            int64_t val = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs1];
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) &4095) << 20)) >> 20);
+            uint32_t shift_amount = ((inst >> 20) &63);
+            int64_t val = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs1];
 
             switch(function_code_3) {
                 case RISHKA_FC3_ADDI:
@@ -141,7 +188,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_SLLI:
-                    val = rishka_shl_riscvi64(val, shift_amount);
+                    val = this->shiftLeftInt64(val, shift_amount);
                     break;
 
                 case RISHKA_FC3_SLTI:
@@ -161,18 +208,18 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_SRLI: {
-                    uint32_t function_code_6 = ((inst >> 26) & 63);
+                    uint32_t function_code_6 = ((inst >> 26) &63);
                     switch((function_code_6 >> 4)) {
                         case 0x0:
-                            val = rishka_shr_riscvi64(val, shift_amount);
+                            val = this->shiftRightInt64(val, shift_amount);
                             break;
 
                         case 0x1:
-                            val = rishka_asr_riscvi64(val, shift_amount);
+                            val = this->arithmeticShiftRightInt64(val, shift_amount);
                             break;
 
                         default:
-                            rishka_vm_panic(vm, "Invalid immediate shift instruction.");
+                            this->panic("Invalid immediate shift instruction.");
                             break;
                     }
                     break;
@@ -183,24 +230,24 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_ANDI: {
-                    val = (val & immediate);
+                    val = (val &immediate);
                     break;
                 }
 
                 default:
-                    rishka_vm_panic(vm, "Invalid immediate instruction.");
+                    this->panic("Invalid immediate instruction.");
                     break;
             }
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) val;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) val;
             break;
         }
 
         case RISHKA_OPINST_IALU: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) & 4095) << 20)) >> 20);
-            int64_t val = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs1];
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) &4095) << 20)) >> 20);
+            int64_t val = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs1];
 
             switch(function_code_3) {
                 case RISHKA_FC3_SLLIW:
@@ -208,24 +255,24 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_SRLIW:
-                    val = (int64_t) rishka_shl_riscvi64(val, immediate);
+                    val = (int64_t) this->shiftLeftInt64(val, immediate);
                     break;
 
                 case RISHKA_FC3_SRAIW: {
                     uint32_t shift_amount = rs2;
-                    uint32_t function_code_7 = ((inst >> 25) & 127);
+                    uint32_t function_code_7 = ((inst >> 25) &127);
 
                     switch((function_code_7 >> 5)) {
                         case 0x0:
-                            val = (int64_t) rishka_shr_riscvi64(val, shift_amount);
+                            val = (int64_t) this->shiftRightInt64(val, shift_amount);
                             break;
 
                         case 0x1:
-                            val = (int64_t) rishka_asr_riscvi64(val, shift_amount);
+                            val = (int64_t) this->arithmeticShiftRightInt64(val, shift_amount);
                             break;
 
                         default:
-                            rishka_vm_panic(vm, "Invalid immediate shift instruction.");
+                            this->panic("Invalid immediate shift instruction.");
                             break;
                     }
 
@@ -233,19 +280,19 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_vm_panic(vm, "Invalid immediate instruction.");
+                    this->panic("Invalid immediate instruction.");
                     break;
             }
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) val;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) val;
             break;
         }
 
         case RISHKA_OPINST_RT64: {
-            uint32_t function_code_3 = ((inst >> 12) & 7), function_code_7 = ((inst >> 25) & 127);
-            int64_t val1 = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs1];
-            int64_t val2 = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs2];
+            uint32_t function_code_3 = ((inst >> 12) &7), function_code_7 = ((inst >> 25) &127);
+            int64_t val1 = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs1];
+            int64_t val2 = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs2];
 
             int64_t val;
             switch(((function_code_7 << 3) | function_code_3)) {
@@ -258,7 +305,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case 0x1:
-                    val = rishka_shl_riscvi64(val1, (val2 & 0x1f));
+                    val = this->shiftLeftInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x2:
@@ -278,11 +325,11 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case 0x5:
-                    val = rishka_shr_riscvi64(val1, (val2 & 0x1f));
+                    val = this->shiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x105:
-                    val = rishka_asr_riscvi64(val1, (val2 & 0x1f));
+                    val = this->arithmeticShiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x6:
@@ -290,7 +337,7 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case 0x7:
-                    val = (val1 & val2);
+                    val = (val1 &val2);
                     break;
 
                 case 0x8:
@@ -298,15 +345,15 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case 0x9:
-                    val = (int64_t) rishka_shr_riscvi128(((int64_t) val1 * (int64_t) val2), 64);
+                    val = (int64_t) this->shiftRightInt128(((int64_t) val1 * (int64_t) val2), 64);
                     break;
 
                 case 0xa:
-                    val = (int64_t)(uint64_t) rishka_shr_riscvi128(((int64_t) val1 * (int64_t)(uint64_t) val2), 64);
+                    val = (int64_t)(uint64_t) this->shiftRightInt128(((int64_t) val1 * (int64_t)(uint64_t) val2), 64);
                     break;
 
                 case 0xb:
-                    val = (int64_t)(uint64_t) rishka_shr_riscvi128(((int64_t)(uint64_t) val1 * (int64_t)(uint64_t) val2), 64);
+                    val = (int64_t)(uint64_t) this->shiftRightInt128(((int64_t)(uint64_t) val1 * (int64_t)(uint64_t) val2), 64);
                     break;
 
                 case 0xc: {
@@ -350,21 +397,21 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_vm_panic(vm, "Invalid arithmetic instruction.");
+                    this->panic("Invalid arithmetic instruction.");
                     break;
             }
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) val;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) val;
             break;
         }
 
         case RISHKA_OPINST_RT32: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            uint32_t function_code_7 = ((inst >> 25) & 127);
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            uint32_t function_code_7 = ((inst >> 25) &127);
 
-            int64_t val1 = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs1];
-            int64_t val2 = (int64_t)(((rishka_u64_arrptr*) & vm->registers)->a).v[rs2];
+            int64_t val1 = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs1];
+            int64_t val2 = (int64_t)(((rishka_u64_arrptr*) &this->registers)->a).v[rs2];
 
             int64_t val;
             switch(((function_code_7 << 3) | function_code_3)) {
@@ -377,15 +424,15 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 case 0x1:
-                    val = (int64_t) rishka_shl_riscvi64(val1, (val2 & 0x1f));
+                    val = (int64_t) this->shiftLeftInt64(val1, (val2 & 0x1f));
                     break;
         
                 case 0x5:
-                    val = (int64_t) rishka_shr_riscvi64(val1, (val2 & 0x1f));
+                    val = (int64_t) this->shiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x105:
-                    val = (int64_t) rishka_asr_riscvi64(val1, (val2 & 0x1f));
+                    val = (int64_t) this->arithmeticShiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x8:
@@ -433,58 +480,58 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                 }
 
                 default:
-                    rishka_vm_panic(vm, "Invalid store doubleword instruction.");
+                    this->panic("Invalid store doubleword instruction.");
                     break;
             }
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) val;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) val;
             break;
         }
 
         case RISHKA_OPINST_LUI: {
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst << 0) & 4294963200LL) << 0)) >> 0);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst << 0) &4294963200LL) << 0)) >> 0);
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) immediate;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) immediate;
             break;
         }
 
         case RISHKA_OPINST_AUIPC: {
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst << 0) & 4294963200LL) << 0)) >> 0);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst << 0) &4294963200LL) << 0)) >> 0);
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t)(vm->pc + immediate);
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t)(this->pc + immediate);
             break;
         }
 
         case RISHKA_OPINST_JAL: {
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((((inst >> 11) & 1048576) | ((inst >> 20) & 2046)) | ((inst >> 9) & 2048)) | ((inst << 0) & 1044480)) << 11)) >> 11);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((((inst >> 11) &1048576) | ((inst >> 20) &2046)) | ((inst >> 9) &2048)) | ((inst << 0) &1044480)) << 11)) >> 11);
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t)(vm->pc + 4);
-            vm->pc = (vm->pc + immediate);
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t)(this->pc + 4);
+            this->pc = (this->pc + immediate);
 
             return;
         }
 
         case RISHKA_OPINST_JALR: {
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) & 4095) << 20)) >> 20);
-            int64_t pc = (vm->pc + 4);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)((inst >> 20) &4095) << 20)) >> 20);
+            int64_t pc = (this->pc + 4);
 
-            vm->pc = ((int64_t)((((rishka_u64_arrptr*) & vm->registers)->a).v[rs1] + immediate) & - 2);
+            this->pc = ((int64_t)((((rishka_u64_arrptr*) &this->registers)->a).v[rs1] + immediate) &- 2);
 
             if(rd != 0)
-                (((rishka_u64_arrptr*) & vm->registers)->a).v[rd] = (uint64_t) pc;
+                (((rishka_u64_arrptr*) &this->registers)->a).v[rd] = (uint64_t) pc;
             return;
         }
 
         case RISHKA_OPINST_BRANCH: {
-            uint32_t function_code_3 = ((inst >> 12) & 7);
-            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((((inst >> 19) & 4096) | ((inst >> 20) & 2016)) | ((inst >> 7) & 30)) | ((inst << 4) & 2048)) << 19)) >> 19);
+            uint32_t function_code_3 = ((inst >> 12) &7);
+            int64_t immediate = (int64_t)(((int32_t)((uint32_t)(((((inst >> 19) &4096) | ((inst >> 20) &2016)) | ((inst >> 7) &30)) | ((inst << 4) &2048)) << 19)) >> 19);
 
-            uint64_t val1 = (((rishka_u64_arrptr*) & vm->registers)->a).v[rs1];
-            uint64_t val2 = (((rishka_u64_arrptr*) & vm->registers)->a).v[rs2];
+            uint64_t val1 = (((rishka_u64_arrptr*) &this->registers)->a).v[rs1];
+            uint64_t val2 = (((rishka_u64_arrptr*) &this->registers)->a).v[rs2];
 
             bool condition;
             switch(function_code_3) {
@@ -513,12 +560,12 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
                     break;
 
                 default:
-                    rishka_vm_panic(vm, "Invalid branch instruction.");
+                    this->panic("Invalid branch instruction.");
                     break;
             }
 
             if(condition) {
-                vm->pc = (vm->pc + immediate);
+                this->pc = (this->pc + immediate);
                 return;
             }
 
@@ -529,22 +576,22 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
             break;
 
         case RISHKA_OPINST_CALL: {
-            uint32_t function_code_11 = ((inst >> 20) & 4095);
+            uint32_t function_code_11 = ((inst >> 20) &4095);
 
             switch(function_code_11) {
                 case 0x0: {
-                    uint64_t code = (((rishka_u64_arrptr*) & vm->registers)->a).v[17];
-                    (((rishka_u64_arrptr*) & vm->registers)->a).v[10] = rishka_vm_handle_syscall(vm, code);
+                    uint64_t code = (((rishka_u64_arrptr*) &this->registers)->a).v[17];
+                    (((rishka_u64_arrptr*) &this->registers)->a).v[10] = this->handleSyscall(code);
                     break;
                 }
 
                 case 0x1:
-                    vm->exitcode = -1;
-                    vm->running = false;
+                    this->exitCode = -1;
+                    this->running = false;
                     break;
 
                 default:
-                    rishka_vm_panic(vm, "Invalid system instruction.");
+                    this->panic("Invalid system instruction.");
                     break;
             }
 
@@ -552,80 +599,61 @@ void rishka_vm_execute(rishka_virtual_machine* vm, uint32_t inst) {
         }
 
         default:
-            rishka_vm_panic(vm, "Invalid opcode instruction.");
+            this->panic("Invalid opcode instruction.");
             break;
     }
 
-    vm->pc = (vm->pc + 4);
+    this->pc = (this->pc + 4);
 }
 
-bool rishka_vm_loadfile(rishka_virtual_machine* vm, const char* file_name) {
-    File file = SD.open(file_name);
-    if(!file) {
-        file.close();
-        return false;
-    }
-
-    if(file.read(&(((rishka_u8_arrptr*) &vm->memory)->a).v[4096], file.size())) {
-        file.close();
-
-        (((rishka_u64_arrptr*) &vm->registers)->a).v[2] = RISHKA_VM_STACK_SIZE;
-        vm->pc = 4096;
-
-        return true;
-    }
-
-    return false;
+inline uint32_t RishkaVM::fetch() {
+    return (*(uint32_t*)(&(((rishka_u8_arrptr*) &this->memory)->a).v[this->pc]));
 }
 
-uint32_t rishka_vm_fetch(rishka_virtual_machine* vm) {
-    return (*(rishka_u32ptr)(&(((rishka_u8_arrptr*) & vm->memory)->a).v[vm->pc]));
-}
-
-uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
+uint64_t RishkaVM::handleSyscall(uint64_t code) {
     switch(code) {
         case RISHKA_SC_IO_PRINTS:
-            rishka_syscall_io_prints(vm);
+            rishka_syscall_io_prints(this);
             break;
 
         case RISHKA_SC_IO_PRINTN:
-            rishka_syscall_io_printn(vm);
+            rishka_syscall_io_printn(this);
             break;
 
         case RISHKA_SC_IO_PRINTD:
-            rishka_syscall_io_printd(vm);
+            rishka_syscall_io_printd(this);
             break;
 
         case RISHKA_SC_IO_READCH:
-            return rishka_syscall_io_readch(vm);
+            return rishka_syscall_io_readch(this);
 
         case RISHKA_SC_IO_READLINE:
-            return rishka_syscall_io_readline(vm);
+            return rishka_syscall_io_readline(this);
 
         case RISHKA_SC_IO_READ:
-            return rishka_syscall_io_read(vm);
+            return rishka_syscall_io_read(this);
 
         case RISHKA_SC_IO_AVAILABLE:
-            return rishka_syscall_io_available(vm);
+            return rishka_syscall_io_available(this);
 
         case RISHKA_SC_IO_PEEK:
-            return rishka_syscall_io_peek(vm);
+            return rishka_syscall_io_peek(this);
 
         case RISHKA_SC_IO_FIND:
-            return rishka_syscall_io_find(vm);
+            return rishka_syscall_io_find(this);
 
         case RISHKA_SC_IO_FIND_UNTIL:
-            return rishka_syscall_io_find_until(vm);
+            return rishka_syscall_io_find_until(this);
 
         case RISHKA_SC_IO_SET_TIMEOUT:
-            rishka_syscall_io_set_timeout(vm);
+            rishka_syscall_io_set_timeout(this);
             break;
 
         case RISHKA_SC_IO_GET_TIMEOUT:
-            return rishka_syscall_io_get_timeout(vm);
+            return rishka_syscall_io_get_timeout(this);
 
         case RISHKA_SC_SYS_DELAY_MS:
-            rishka_syscall_sys_delay(vm);
+            rishka_syscall_sys_delay(this);
             break;
 
         case RISHKA_SC_SYS_MICROS:
@@ -635,77 +663,77 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             return rishka_syscall_sys_millis();
 
         case RISHKA_SC_SYS_SHELLEXEC:
-            return rishka_syscall_sys_shellexec(vm);
+            return rishka_syscall_sys_shellexec(this);
 
         case RISHKA_SC_SYS_EXIT:
-            rishka_syscall_sys_exit(vm);
+            rishka_syscall_sys_exit(this);
             break;
 
         case RISHKA_SC_SYS_INFOS:
-            return rishka_syscall_sys_infos(vm);
+            return rishka_syscall_sys_infos(this);
 
         case RISHKA_SC_SYS_INFON:
-            return rishka_syscall_sys_infon(vm);
+            return rishka_syscall_sys_infon(this);
 
         case RISHKA_SC_SYS_RANDOM:
             return rishka_syscall_sys_random();
 
         case RISHKA_SC_MEM_ALLOC:
-            rishka_syscall_mem_alloc(vm);
+            rishka_syscall_mem_alloc(this);
             break;
 
         case RISHKA_SC_MEM_CALLOC:
-            rishka_syscall_mem_calloc(vm);
+            rishka_syscall_mem_calloc(this);
             break;
 
         case RISHKA_SC_MEM_REALLOC:
-            rishka_syscall_mem_realloc(vm);
+            rishka_syscall_mem_realloc(this);
             break;
 
         case RISHKA_SC_MEM_FREE:
-            rishka_syscall_mem_free(vm);
+            rishka_syscall_mem_free(this);
             break;
 
         case RISHKA_SC_MEM_SET:
-            return (uint64_t) rishka_syscall_mem_set(vm);
+            return (uint64_t) rishka_syscall_mem_set(this);
 
         case RISHKA_SC_GPIO_PIN_MODE:
-            rishka_syscall_gpio_pinmode(vm);
+            rishka_syscall_gpio_pinmode(this);
             break;
 
         case RISHKA_SC_GPIO_DIGITAL_READ:
-            return rishka_syscall_gpio_digitalread(vm);
+            return rishka_syscall_gpio_digitalread(this);
 
         case RISHKA_SC_GPIO_DIGITAL_WRITE:
-            rishka_syscall_gpio_digitalwrite(vm);
+            rishka_syscall_gpio_digitalwrite(this);
             break;
 
         case RISHKA_SC_GPIO_ANALOG_READ:
-            return rishka_syscall_gpio_analogread(vm);
+            return rishka_syscall_gpio_analogread(this);
 
         case RISHKA_SC_GPIO_ANALOG_WRITE:
-            rishka_syscall_gpio_analogwrite(vm);
+            rishka_syscall_gpio_analogwrite(this);
             break;
 
         case RISHKA_SC_GPIO_PULSE_IN:
-            return rishka_syscall_gpio_pulse_in(vm);
+            return rishka_syscall_gpio_pulse_in(this);
 
         case RISHKA_SC_GPIO_PULSE_IN_LONG:
-            return rishka_syscall_gpio_pulse_in_long(vm);
+            return rishka_syscall_gpio_pulse_in_long(this);
 
         case RISHKA_SC_GPIO_SHIFT_IN:
-            return rishka_syscall_gpio_shift_in(vm);
+            return rishka_syscall_gpio_shift_in(this);
 
         case RISHKA_SC_GPIO_SHIFT_OUT:
-            rishka_syscall_gpio_shift_out(vm);
+            rishka_syscall_gpio_shift_out(this);
             break;
 
         case RISHKA_SC_GPIO_TONE:
-            rishka_syscall_gpio_tone(vm);
+            rishka_syscall_gpio_tone(this);
             break;
 
         case RISHKA_SC_GPIO_NO_TONE:
-            rishka_syscall_gpio_no_tone(vm);
+            rishka_syscall_gpio_no_tone(this);
             break;
 
         case RISHKA_SC_INT_ENABLE:
@@ -717,100 +745,100 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
             break;
 
         case RISHKA_SC_INT_ATTACH:
-            rishka_syscall_int_attach(vm);
+            rishka_syscall_int_attach(this);
             break;
 
         case RISHKA_SC_INT_DETACH:
-            rishka_syscall_int_detach(vm);
+            rishka_syscall_int_detach(this);
             break;
 
         case RISHKA_SC_FS_MKDIR:
-            return rishka_syscall_fs_mkdir(vm);
+            return rishka_syscall_fs_mkdir(this);
 
         case RISHKA_SC_FS_RMDIR:
-            return rishka_syscall_fs_rmdir(vm);
+            return rishka_syscall_fs_rmdir(this);
 
         case RISHKA_SC_FS_DELETE:
-            return rishka_syscall_fs_delete(vm);
+            return rishka_syscall_fs_delete(this);
 
         case RISHKA_SC_FS_EXISTS:
-            return rishka_syscall_fs_exists(vm);
+            return rishka_syscall_fs_exists(this);
 
         case RISHKA_SC_FS_ISFILE:
-            return rishka_syscall_fs_isfile(vm);
+            return rishka_syscall_fs_isfile(this);
 
         case RISHKA_SC_FS_ISDIR:
-            return rishka_syscall_fs_isdir(vm);
+            return rishka_syscall_fs_isdir(this);
 
         case RISHKA_SC_FS_OPEN:
-            return rishka_syscall_fs_open(vm);
+            return rishka_syscall_fs_open(this);
 
         case RISHKA_SC_FS_CLOSE:
-            rishka_syscall_fs_close(vm);
+            rishka_syscall_fs_close(this);
             break;
 
         case RISHKA_SC_FS_AVAILABLE:
-            return rishka_syscall_fs_available(vm);
+            return rishka_syscall_fs_available(this);
 
         case RISHKA_SC_FS_FLUSH:
-            rishka_syscall_fs_flush(vm);
+            rishka_syscall_fs_flush(this);
             break;
 
         case RISHKA_SC_FS_PEEK:
-            return rishka_syscall_fs_peek(vm);
+            return rishka_syscall_fs_peek(this);
 
         case RISHKA_SC_FS_SEEK:
-            return rishka_syscall_fs_seek(vm);
+            return rishka_syscall_fs_seek(this);
 
         case RISHKA_SC_FS_SIZE:
-            return rishka_syscall_fs_size(vm);
+            return rishka_syscall_fs_size(this);
 
         case RISHKA_SC_FS_READ:
-            return rishka_syscall_fs_read(vm);
+            return rishka_syscall_fs_read(this);
 
         case RISHKA_SC_FS_WRITEB:
-            rishka_syscall_fs_writeb(vm);
+            rishka_syscall_fs_writeb(this);
             break;
 
         case RISHKA_SC_FS_WRITES:
-            rishka_syscall_fs_writes(vm);
+            rishka_syscall_fs_writes(this);
             break;
 
         case RISHKA_SC_FS_POS:
-            return rishka_syscall_fs_position(vm);
+            return rishka_syscall_fs_position(this);
 
         case RISHKA_SC_FS_PATH:
-            return rishka_syscall_fs_path(vm);
+            return rishka_syscall_fs_path(this);
 
         case RISHKA_SC_FS_NAME:
-            return rishka_syscall_fs_name(vm);
+            return rishka_syscall_fs_name(this);
 
         case RISHKA_SC_FS_NEXT:
-            return rishka_syscall_fs_next(vm);
+            return rishka_syscall_fs_next(this);
 
         case RISHKA_SC_FS_BUFSIZE:
-            return rishka_syscall_fs_bufsize(vm);
+            return rishka_syscall_fs_bufsize(this);
 
         case RISHKA_SC_FS_LASTWRITE:
-            return rishka_syscall_fs_lastwrite(vm);
+            return rishka_syscall_fs_lastwrite(this);
 
         case RISHKA_SC_FS_SEEKDIR:
-            return rishka_syscall_fs_seekdir(vm);
+            return rishka_syscall_fs_seekdir(this);
 
         case RISHKA_SC_FS_NEXT_NAME:
-            return rishka_syscall_fs_next_name(vm);
+            return rishka_syscall_fs_next_name(this);
 
         case RISHKA_SC_FS_REWIND:
-            rishka_syscall_fs_rewind(vm);
+            rishka_syscall_fs_rewind(this);
             break;
 
         case RISHKA_SC_ARG_COUNT:
-            return rishka_syscall_arg_count(vm);
+            return rishka_syscall_arg_count(this);
 
         case RISHKA_SC_ARG_STR:
-            return rishka_syscall_arg_value(vm);
+            return rishka_syscall_arg_value(this);
 
-        case RISHKA_SC_I2C_BEGIN:
+        /*case RISHKA_SC_I2C_BEGIN:
             return rishka_syscall_i2c_begin(vm);
 
         case RISHKA_SC_I2C_END:
@@ -950,31 +978,53 @@ uint64_t rishka_vm_handle_syscall(rishka_virtual_machine* vm, uint64_t code) {
 
         case RISHKA_SC_SPI_WRITE_PATTERN:
             rishka_syscall_spi_write_pattern(vm);
-            break;
+            break;*/
 
         case RISHKA_SC_RT_STRPASS:
             return rishka_syscall_rt_strpass();
 
         default:
-            rishka_vm_panic(vm, "Invalid system call.");
+            this->panic("Invalid system call.");
             break;
     }
 
     return 0;
 }
 
-void rishka_vm_reset(rishka_virtual_machine* vm) {
-    vm->running = false;
-    vm->argv = NULL;
-    vm->argc = 0;
-    vm->pc = 0;
-    vm->exitcode = 0;
+inline int64_t RishkaVM::shiftLeftInt64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return ((uint64_t) a) << b;
+    else if(b < 0 && b > -64)
+        return (uint64_t) a >> -b;
 
-    for(uint8_t i = 0; i < 32; i++)
-        vm->registers[i] = 0;
+    return 0;
+}
 
-    for(int i = 0; i < RISHKA_VM_STACK_SIZE; i++)
-        vm->memory[i] = 0;
+inline int64_t RishkaVM::shiftRightInt64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return (uint64_t) a >> b;
+    else if(b < 0 && b > -64)
+        return (uint64_t) a << -b;
 
-    vm->file_handles.clear();
+    return 0;
+}
+
+inline int64_t RishkaVM::shiftRightInt128(int64_t a, int64_t b) {
+    if(b >= 0 && b < 128)
+        return (uint64_t) a >> b;
+    else if(b < 0 && b > -128)
+        return (uint64_t) a << -b;
+
+    return 0;
+}
+
+inline int64_t RishkaVM::arithmeticShiftRightInt64(int64_t a, int64_t b) {
+    if(b >= 0 && b < 64)
+        return a >> b;
+    else if(b >= 64)
+        return a < 0 ? -1 : 0;
+    else if(b < 0 && b > -64)
+        return a << -b;
+
+    return 0;
 }

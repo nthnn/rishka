@@ -38,6 +38,5 @@
 #include <rishka_types.h>          ///< Type definitions and aliases.
 #include <rishka_util.h>           ///< Utility functions and macros.
 #include <rishka_vm.h>             ///< Virtual machine core functionalities.
-#include <rishka_vm_helper.h>      ///< Helper functions for virtual machine operations.
 
 #endif /* RISHKA_H */

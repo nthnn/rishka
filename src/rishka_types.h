@@ -29,37 +29,9 @@
 #ifndef RISHKA_TYPES_H
 #define RISHKA_TYPES_H
 
-/**
- * @brief Pointer to an 8-bit unsigned integer.
- */
-typedef uint8_t* rishka_u8ptr;
+#include <stdint.h>
 
-/**
- * @brief Pointer to a 16-bit unsigned integer.
- */
-typedef uint16_t* rishka_u16ptr;
-
-/**
- * @brief Pointer to a 32-bit unsigned integer.
- */
-typedef uint32_t* rishka_u32ptr;
-
-/**
- * @brief Pointer to a 64-bit unsigned integer.
- */
-typedef uint64_t* rishka_u64ptr;
-
-/**
- * @brief Represents a nil type in Rishka.
- *
- * This type is used to indicate a lack of data in certain contexts.
- */
-typedef struct {} rishka_nil_type;
-
-/**
- * @brief Alias for the nil type in Rishka.
- */
-typedef rishka_nil_type rishka_type;
+#define  RISHKA_VM_STACK_SIZE 32768U    ///< Define the stack size for the Rishka virtual machine.
 
 /**
  * @brief Represents an array of 8-bit unsigned integers in Rishka.
