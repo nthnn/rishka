@@ -179,6 +179,7 @@ Example</h2>
 <div class="line"><span class="preprocessor">#include &lt;SD.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="da/d87/spi_8h.html">SPI.h</a>&gt;</span></div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#define TFT_CS     5            </span><span class="comment">// TFT SPI select pin</span></div>
 <div class="line"><span class="preprocessor">#define TFT_SCK    18           </span><span class="comment">// TFT SPI clock pin</span></div>
 <div class="line"><span class="preprocessor">#define TFT_MOSI   23           </span><span class="comment">// TFT SPI MOSI pin</span></div>
 <div class="line"><span class="preprocessor">#define TFT_DC     2            </span><span class="comment">// TFT data/command pin</span></div>
@@ -194,8 +195,6 @@ Example</h2>
 <div class="line">fabgl::ILI9341Controller DisplayController;</div>
 <div class="line">fabgl::Terminal Terminal;</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Rishka virtual machine instance</span></div>
-<div class="line">rishka_virtual_machine vm;</div>
 <div class="line"><span class="comment">// SPI instance for SD card</span></div>
 <div class="line">SPIClass sdSpi(HSPI);</div>
 <div class="line"> </div>
@@ -203,7 +202,7 @@ Example</h2>
 <div class="line">    Serial.begin(115200);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Initialize TFT display</span></div>
-<div class="line">    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, 5, TFT_SPIBUS);</div>
+<div class="line">    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);</div>
 <div class="line">    DisplayController.setResolution(<span class="stringliteral">&quot;\&quot;TFT_320x240\&quot; 320 240&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Initialize terminal</span></div>
@@ -215,13 +214,13 @@ Example</h2>
 <div class="line">    sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);</div>
 <div class="line">    <span class="keywordflow">if</span>(!SD.begin(SD_CS, sdSpi, 80000000)) {</div>
 <div class="line">        Terminal.println(<span class="stringliteral">&quot;Card \e[94mMount\e[97m Failed&quot;</span>);</div>
-<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line">        <span class="keywordflow">while</span>(<span class="keyword">true</span>);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">if</span>(!psramInit()) {</div>
 <div class="line">        <span class="comment">// If PSRAM initialization fails,</span></div>
 <div class="line">        <span class="comment">// print error message and halt execution</span></div>
-<div class="line">        Serial.println(<span class="stringliteral">&quot;\e[94mCannot\e[97m initialize PSRAM.&quot;</span>);</div>
+<div class="line">        Terminal.println(<span class="stringliteral">&quot;\e[94mCannot\e[97m initialize PSRAM.&quot;</span>);</div>
 <div class="line">        <span class="keywordflow">while</span>(<span class="keyword">true</span>);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
@@ -241,21 +240,31 @@ Example</h2>
 <div class="line">    Terminal.print(input);</div>
 <div class="line">    Terminal.print(<span class="stringliteral">&quot;\r\e[97m&quot;</span>);</div>
 <div class="line"> </div>
+<div class="line">    <span class="comment">// Rishka virtual machine instance</span></div>
+<div class="line">    RishkaVM* vm = <span class="keyword">new</span> RishkaVM();</div>
 <div class="line">    <span class="comment">// Initialize Rishka virtual machine</span></div>
-<div class="line">    rishka_vm_initialize(&amp;vm, &amp;Terminal);</div>
+<div class="line">    vm-&gt;initialize(&amp;Terminal);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Attempt to load specified file into Rishka virtual machine</span></div>
-<div class="line">    <span class="keywordflow">if</span>(!rishka_vm_loadfile(&amp;vm, input.c_str())) {</div>
+<div class="line">    <span class="keywordflow">if</span>(!vm-&gt;loadFile(input.c_str())) {</div>
 <div class="line">        <span class="comment">// If loading file fails, print error message and return</span></div>
-<div class="line">        Terminal.print(<span class="stringliteral">&quot;Failed to \e[94mload\e[97m specified file: &quot;</span> + input);</div>
+<div class="line">        vm-&gt;panic(String(<span class="stringliteral">&quot;Failed to \e[94mload\e[97m specified file: &quot;</span> + input).c_str());</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// Delete Rishka VM instance.</span></div>
+<div class="line">        <span class="keyword">delete</span> vm;</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// Print prompt</span></div>
 <div class="line">        Terminal.print(<span class="stringliteral">&quot;\r\e[32m#~\e[97m &quot;</span>);</div>
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Run loaded program on Rishka virtual machine</span></div>
-<div class="line">    rishka_vm_run(&amp;vm, 0, NULL);</div>
+<div class="line">    vm-&gt;run(0, NULL);</div>
 <div class="line">    <span class="comment">// Reset Rishka virtual machine for next execution</span></div>
-<div class="line">    rishka_vm_reset(&amp;vm);</div>
+<div class="line">    vm-&gt;reset();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Delete Rishka VM instance.</span></div>
+<div class="line">    <span class="keyword">delete</span> vm;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Print prompt for next input</span></div>
 <div class="line">    Terminal.print(<span class="stringliteral">&quot;\e[32m#~\e[97m &quot;</span>);</div>
