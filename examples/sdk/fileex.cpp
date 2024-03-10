@@ -42,7 +42,9 @@ void create_file() {
 
 void read_file() {
     File file = File::open(F("/test.txt"), F("r"));
-    rune contents[file.size()];
+
+    string contents;
+    Memory::set(contents, 0, file.size() + 1);
 
     IO::print(F("Reading from file: "));
     IO::print(file.name());
@@ -51,12 +53,17 @@ void read_file() {
     i32 data, idx = 0;
     while((data = file.read()) != -1)
         contents[idx++] = (rune) data;
+
+    contents[idx] = '\0';
     file.close();
 
+    IO::print(F("Contents: "));
     IO::print(contents);
     IO::print(F("\r\n"));
 }
 
 void delete_file() {
-    FS::remove(F("/test.txt"));
+    if(FS::remove(F("/test.txt")))
+        IO::print(F("Deleted /test.txt\r\n"));
+    else IO::print(F("Can't delete /test.txt\r\n"));
 }
