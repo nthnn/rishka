@@ -179,7 +179,7 @@ uint64_t rishka_syscall_io_get_timeout(RishkaVM* vm);
 void rishka_syscall_sys_delay(RishkaVM* vm);
 unsigned long rishka_syscall_sys_micros();
 unsigned long rishka_syscall_sys_millis();
-int rishka_syscall_sys_shellexec(RishkaVM* parent_vm);
+int64_t rishka_syscall_sys_shellexec(RishkaVM* parent_vm);
 void rishka_syscall_sys_exit(RishkaVM* vm);
 uint32_t rishka_syscall_sys_infos(RishkaVM* vm);
 long rishka_syscall_sys_infon(RishkaVM* vm);

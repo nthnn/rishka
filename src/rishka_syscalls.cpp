@@ -147,7 +147,7 @@ unsigned long rishka_syscall_sys_millis() {
     return millis();
 }
 
-int rishka_syscall_sys_shellexec(RishkaVM* parent_vm) {
+int64_t rishka_syscall_sys_shellexec(RishkaVM* parent_vm) {
     RishkaVM* child_vm = new RishkaVM();
 
     char* program = parent_vm->getPointerParam<char*>(0);
@@ -155,8 +155,12 @@ int rishka_syscall_sys_shellexec(RishkaVM* parent_vm) {
     char** argv = parent_vm->getPointerParam<char**>(2);
 
     child_vm->initialize(parent_vm->getStream());
-    if(!child_vm->loadFile(program))
+    if(!child_vm->loadFile(program)) {
+        child_vm->reset();
+        delete child_vm;
+
         return -1;
+    }
 
     child_vm->run(argc, argv);
     child_vm->reset();
@@ -293,7 +297,7 @@ void rishka_syscall_mem_calloc(RishkaVM* vm) {
     size_t num = vm->getParam<size_t>(1);
     size_t size = vm->getParam<size_t>(2);
 
-    dest = calloc(num, size);
+    dest = ps_calloc(num, size);
 }
 
 void rishka_syscall_mem_realloc(RishkaVM* vm) {
@@ -301,7 +305,7 @@ void rishka_syscall_mem_realloc(RishkaVM* vm) {
     void* ptr = vm->getPointerParam<void*>(1);
     size_t size = vm->getParam<size_t>(2);
 
-    dest = realloc(ptr, size);
+    dest = ps_realloc(ptr, size);
 }
 
 void rishka_syscall_mem_free(RishkaVM* vm) {
