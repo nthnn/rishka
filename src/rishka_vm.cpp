@@ -84,6 +84,7 @@ void RishkaVM::run(int argc, char** argv) {
 
 void RishkaVM::panic(const char* message) {
     this->stopVM();
+    this->reset();
     this->setExitCode(-1);
 
     this->stream->print("\r\n");
@@ -196,7 +197,7 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_SLLI:
-                    val = this->shiftLeftInt64(val, shift_amount);
+                    val = RishkaVM::shiftLeftInt64(val, shift_amount);
                     break;
 
                 case RISHKA_FC3_SLTI:
@@ -219,11 +220,11 @@ void RishkaVM::execute(uint32_t inst) {
                     uint32_t function_code_6 = ((inst >> 26) &63);
                     switch((function_code_6 >> 4)) {
                         case 0x0:
-                            val = this->shiftRightInt64(val, shift_amount);
+                            val = RishkaVM::shiftRightInt64(val, shift_amount);
                             break;
 
                         case 0x1:
-                            val = this->arithmeticShiftRightInt64(val, shift_amount);
+                            val = RishkaVM::arithmeticShiftRightInt64(val, shift_amount);
                             break;
 
                         default:
@@ -263,7 +264,7 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case RISHKA_FC3_SRLIW:
-                    val = (int64_t) this->shiftLeftInt64(val, immediate);
+                    val = RishkaVM::shiftLeftInt64(val, immediate);
                     break;
 
                 case RISHKA_FC3_SRAIW: {
@@ -272,11 +273,11 @@ void RishkaVM::execute(uint32_t inst) {
 
                     switch((function_code_7 >> 5)) {
                         case 0x0:
-                            val = (int64_t) this->shiftRightInt64(val, shift_amount);
+                            val = RishkaVM::shiftRightInt64(val, shift_amount);
                             break;
 
                         case 0x1:
-                            val = (int64_t) this->arithmeticShiftRightInt64(val, shift_amount);
+                            val = RishkaVM::arithmeticShiftRightInt64(val, shift_amount);
                             break;
 
                         default:
@@ -313,7 +314,7 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case 0x1:
-                    val = this->shiftLeftInt64(val1, (val2 & 0x1f));
+                    val = RishkaVM::shiftLeftInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x2:
@@ -333,11 +334,11 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case 0x5:
-                    val = this->shiftRightInt64(val1, (val2 & 0x1f));
+                    val = RishkaVM::shiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x105:
-                    val = this->arithmeticShiftRightInt64(val1, (val2 & 0x1f));
+                    val = RishkaVM::arithmeticShiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x6:
@@ -353,15 +354,15 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case 0x9:
-                    val = (int64_t) this->shiftRightInt128(((int64_t) val1 * (int64_t) val2), 64);
+                    val = RishkaVM::shiftRightInt128(((int64_t) val1 * (int64_t) val2), 64);
                     break;
 
                 case 0xa:
-                    val = (int64_t)(uint64_t) this->shiftRightInt128(((int64_t) val1 * (int64_t)(uint64_t) val2), 64);
+                    val = (int64_t)(uint64_t) RishkaVM::shiftRightInt128(((int64_t) val1 * (int64_t)(uint64_t) val2), 64);
                     break;
 
                 case 0xb:
-                    val = (int64_t)(uint64_t) this->shiftRightInt128(((int64_t)(uint64_t) val1 * (int64_t)(uint64_t) val2), 64);
+                    val = (int64_t)(uint64_t) RishkaVM::shiftRightInt128(((int64_t)(uint64_t) val1 * (int64_t)(uint64_t) val2), 64);
                     break;
 
                 case 0xc: {
@@ -432,15 +433,15 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
 
                 case 0x1:
-                    val = (int64_t) this->shiftLeftInt64(val1, (val2 & 0x1f));
+                    val = RishkaVM::shiftLeftInt64(val1, (val2 & 0x1f));
                     break;
         
                 case 0x5:
-                    val = (int64_t) this->shiftRightInt64(val1, (val2 & 0x1f));
+                    val = RishkaVM::shiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x105:
-                    val = (int64_t) this->arithmeticShiftRightInt64(val1, (val2 & 0x1f));
+                    val = (int64_t) RishkaVM::arithmeticShiftRightInt64(val1, (val2 & 0x1f));
                     break;
 
                 case 0x8:
