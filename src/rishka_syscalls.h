@@ -17,14 +17,17 @@
 
 /**
  * @file rishka_syscalls.h
- * @brief Defines system calls for the Rishka kernel.
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Definition of system calls for the Rishka kernel.
  *
- * This header file provides declarations for various
- * system calls used within the Rishka kernel. These
- * system calls enable communication and interaction between
- * user programs and the kernel, allowing access to hardware
- * resources, filesystem operations, and other kernel
- * functionalities.
+ * This header file defines the system calls supported by the Rishka kernel, providing
+ * a set of functions for performing various operations such as input/output, file
+ * management, hardware interaction, and runtime control.
+ *
+ * The system calls are organized into different categories based on their functionality,
+ * and each system call is associated with a unique code that identifies the specific
+ * operation it performs. These system calls are invoked by user programs running on
+ * the Rishka virtual machine to interact with the underlying system and peripherals.
  */
 
 #ifndef RISHKA_SYSCALLS_H
@@ -41,129 +44,154 @@
  * operation requested by the user program.
  */
 enum rishka_syscall {
-    RISHKA_SC_IO_PRINTS,
-    RISHKA_SC_IO_PRINTN,
-    RISHKA_SC_IO_PRINTD,
-    RISHKA_SC_IO_READCH,
-    RISHKA_SC_IO_READLINE,
-    RISHKA_SC_IO_READ,
-    RISHKA_SC_IO_AVAILABLE,
-    RISHKA_SC_IO_PEEK,
-    RISHKA_SC_IO_FIND,
-    RISHKA_SC_IO_FIND_UNTIL,
-    RISHKA_SC_IO_SET_TIMEOUT,
-    RISHKA_SC_IO_GET_TIMEOUT,
+    // Input/Output System Calls
+    RISHKA_SC_IO_PRINTS, ///< Print a string
+    RISHKA_SC_IO_PRINTN, ///< Print a number
+    RISHKA_SC_IO_PRINTD, ///< Print a double
+    RISHKA_SC_IO_READCH, ///< Read a single character
+    RISHKA_SC_IO_READLINE, ///< Read a line of text
+    RISHKA_SC_IO_READ, ///< Read data from stream
+    RISHKA_SC_IO_AVAILABLE, ///< Check if data is available in the stream
+    RISHKA_SC_IO_PEEK, ///< Peek the next character from the stream
+    RISHKA_SC_IO_FIND, ///< Find a character in the stream
+    RISHKA_SC_IO_FIND_UNTIL, ///< Find a character until a delimiter in the stream
+    RISHKA_SC_IO_SET_TIMEOUT, ///< Set the timeout for stream operations
+    RISHKA_SC_IO_GET_TIMEOUT, ///< Get the current timeout for stream operations
 
-    RISHKA_SC_SYS_DELAY_MS,
-    RISHKA_SC_SYS_MICROS,
-    RISHKA_SC_SYS_MILLIS,
-    RISHKA_SC_SYS_SHELLEXEC,
-    RISHKA_SC_SYS_EXIT,
-    RISHKA_SC_SYS_INFOS,
-    RISHKA_SC_SYS_INFON,
-    RISHKA_SC_SYS_RANDOM,
+    // System Utility System Calls
+    RISHKA_SC_SYS_DELAY_MS, ///< Delay execution by milliseconds
+    RISHKA_SC_SYS_MICROS, ///< Get the current microsecond count
+    RISHKA_SC_SYS_MILLIS, ///< Get the current millisecond count
+    RISHKA_SC_SYS_SHELLEXEC, ///< Execute a shell command
+    RISHKA_SC_SYS_EXIT, ///< Terminate the program
+    RISHKA_SC_SYS_INFOS, ///< Get system information as string
+    RISHKA_SC_SYS_INFON, ///< Get system information as number
+    RISHKA_SC_SYS_RANDOM, ///< Generate a random number
 
-    RISHKA_SC_MEM_ALLOC,
-    RISHKA_SC_MEM_CALLOC,
-    RISHKA_SC_MEM_REALLOC,
-    RISHKA_SC_MEM_FREE,
-    RISHKA_SC_MEM_SET,
+    // Memory Management System Calls
+    RISHKA_SC_MEM_ALLOC, ///< Allocate memory block
+    RISHKA_SC_MEM_CALLOC, ///< Allocate memory block and clear it
+    RISHKA_SC_MEM_REALLOC, ///< Reallocate memory block
+    RISHKA_SC_MEM_FREE, ///< Free allocated memory
+    RISHKA_SC_MEM_SET, ///< Set memory contents to a value
 
-    RISHKA_SC_GPIO_PIN_MODE,
-    RISHKA_SC_GPIO_DIGITAL_READ,
-    RISHKA_SC_GPIO_DIGITAL_WRITE,
-    RISHKA_SC_GPIO_ANALOG_READ,
-    RISHKA_SC_GPIO_ANALOG_WRITE,
-    RISHKA_SC_GPIO_PULSE_IN,
-    RISHKA_SC_GPIO_PULSE_IN_LONG,
-    RISHKA_SC_GPIO_SHIFT_IN,
-    RISHKA_SC_GPIO_SHIFT_OUT,
-    RISHKA_SC_GPIO_TONE,
-    RISHKA_SC_GPIO_NO_TONE,
+    // General Purpose Input/Output System Calls
+    RISHKA_SC_GPIO_PIN_MODE, ///< Set pin mode (input/output)
+    RISHKA_SC_GPIO_DIGITAL_READ, ///< Read digital input value
+    RISHKA_SC_GPIO_DIGITAL_WRITE, ///< Write digital output value
+    RISHKA_SC_GPIO_ANALOG_READ, ///< Read analog input value
+    RISHKA_SC_GPIO_ANALOG_WRITE, ///< Write analog output value
+    RISHKA_SC_GPIO_PULSE_IN, ///< Measure pulse duration in microseconds
+    RISHKA_SC_GPIO_PULSE_IN_LONG, ///< Measure pulse duration in microseconds (long)
+    RISHKA_SC_GPIO_SHIFT_IN, ///< Shift in data from a parallel to serial converter
+    RISHKA_SC_GPIO_SHIFT_OUT, ///< Shift out data to a parallel to serial converter
+    RISHKA_SC_GPIO_TONE, ///< Generate a tone of a given frequency
+    RISHKA_SC_GPIO_NO_TONE, ///< Stop generating a tone
 
-    RISHKA_SC_INT_ENABLE,
-    RISHKA_SC_INT_DISABLE,
-    RISHKA_SC_INT_ATTACH,
-    RISHKA_SC_INT_DETACH,
+    // Interrupt Handling System Calls
+    RISHKA_SC_INT_ENABLE, ///< Enable interrupts
+    RISHKA_SC_INT_DISABLE, ///< Disable interrupts
+    RISHKA_SC_INT_ATTACH, ///< Attach interrupt handler
+    RISHKA_SC_INT_DETACH, ///< Detach interrupt handler
 
-    RISHKA_SC_FS_MKDIR,
-    RISHKA_SC_FS_RMDIR,
-    RISHKA_SC_FS_DELETE,
-    RISHKA_SC_FS_EXISTS,
-    RISHKA_SC_FS_ISFILE,
-    RISHKA_SC_FS_ISDIR,
-    RISHKA_SC_FS_OPEN,
-    RISHKA_SC_FS_CLOSE,
-    RISHKA_SC_FS_AVAILABLE,
-    RISHKA_SC_FS_FLUSH,
-    RISHKA_SC_FS_PEEK,
-    RISHKA_SC_FS_SEEK,
-    RISHKA_SC_FS_SIZE,
-    RISHKA_SC_FS_READ,
-    RISHKA_SC_FS_WRITEB,
-    RISHKA_SC_FS_WRITES,
-    RISHKA_SC_FS_POS,
-    RISHKA_SC_FS_PATH,
-    RISHKA_SC_FS_NAME,
-    RISHKA_SC_FS_NEXT,
-    RISHKA_SC_FS_BUFSIZE,
-    RISHKA_SC_FS_LASTWRITE,
-    RISHKA_SC_FS_SEEKDIR,
-    RISHKA_SC_FS_NEXT_NAME,
-    RISHKA_SC_FS_REWIND,
+    // File System System Calls
+    RISHKA_SC_FS_MKDIR, ///< Create a directory
+    RISHKA_SC_FS_RMDIR, ///< Remove a directory
+    RISHKA_SC_FS_DELETE, ///< Delete a file
+    RISHKA_SC_FS_EXISTS, ///< Check if a file or directory exists
+    RISHKA_SC_FS_ISFILE, ///< Check if it is a file
+    RISHKA_SC_FS_ISDIR, ///< Check if it is a directory
+    RISHKA_SC_FS_OPEN, ///< Open a file
+    RISHKA_SC_FS_CLOSE, ///< Close a file
+    RISHKA_SC_FS_AVAILABLE, ///< Check if data is available to read from file
+    RISHKA_SC_FS_FLUSH, ///< Flush file output buffer
+    RISHKA_SC_FS_PEEK, ///< Peek the next character from the file
+    RISHKA_SC_FS_SEEK, ///< Move file position to a specified location
+    RISHKA_SC_FS_SIZE, ///< Get the size of a file
+    RISHKA_SC_FS_READ, ///< Read data from a file
+    RISHKA_SC_FS_WRITEB, ///< Write a byte to a file
+    RISHKA_SC_FS_WRITES, ///< Write a string to a file
+    RISHKA_SC_FS_POS, ///< Get the current position in the file
+    RISHKA_SC_FS_PATH, ///< Get the path of a file
+    RISHKA_SC_FS_NAME, ///< Get the name of a file or directory
+    RISHKA_SC_FS_NEXT, ///< Get the next file or directory in a directory
+    RISHKA_SC_FS_BUFSIZE, ///< Get the file buffer size
+    RISHKA_SC_FS_LASTWRITE, ///< Get the last write time of a file
+    RISHKA_SC_FS_SEEKDIR, ///< Seek to a position in a directory
+    RISHKA_SC_FS_NEXT_NAME, ///< Get the name of the next file or directory in a directory
+    RISHKA_SC_FS_REWIND, ///< Rewind the file position to the beginning
 
-    RISHKA_SC_ARG_COUNT,
-    RISHKA_SC_ARG_STR,
+    // Command-Line Argument System Calls
+    RISHKA_SC_ARG_COUNT, ///< Get the number of command-line arguments
+    RISHKA_SC_ARG_STR, ///< Get the value of a command-line argument
 
-    RISHKA_SC_I2C_BEGIN,
-    RISHKA_SC_I2C_END,
-    RISHKA_SC_I2C_BEGIN_TRANSMISSION,
-    RISHKA_SC_I2C_END_TRANSMISSION,
-    RISHKA_SC_I2C_WRITE,
-    RISHKA_SC_I2C_SLAVE_WRITE,
-    RISHKA_SC_I2C_READ,
-    RISHKA_SC_I2C_PEEK,
-    RISHKA_SC_I2C_REQUEST,
-    RISHKA_SC_I2C_AVAILABLE,
-    RISHKA_SC_I2C_FLUSH,
-    RISHKA_SC_I2C_ON_RECEIVE,
-    RISHKA_SC_I2C_ON_REQUEST,
-    RISHKA_SC_I2C_GET_TIMEOUT,
-    RISHKA_SC_I2C_SET_TIMEOUT,
-    RISHKA_SC_I2C_GET_CLOCK,
-    RISHKA_SC_I2C_SET_CLOCK,
-    RISHKA_SC_I2C_PINS,
-    RISHKA_SC_I2C_BUFSIZE,
+    // Inter-Integrated Circuit (I2C) System Calls
+    RISHKA_SC_I2C_BEGIN, ///< Begin I2C communication
+    RISHKA_SC_I2C_END, ///< End I2C communication
+    RISHKA_SC_I2C_BEGIN_TRANSMISSION, ///< Begin transmission to I2C device
+    RISHKA_SC_I2C_END_TRANSMISSION, ///< End transmission to I2C device
+    RISHKA_SC_I2C_WRITE, ///< Write data to I2C device
+    RISHKA_SC_I2C_SLAVE_WRITE, ///< Write data to I2C slave device
+    RISHKA_SC_I2C_READ, ///< Read data from I2C device
+    RISHKA_SC_I2C_PEEK, ///< Peek the next byte from the I2C buffer
+    RISHKA_SC_I2C_REQUEST, ///< Send a request to an I2C device
+    RISHKA_SC_I2C_AVAILABLE, ///< Check if data is available from the I2C device
+    RISHKA_SC_I2C_FLUSH, ///< Flush the I2C buffer
+    RISHKA_SC_I2C_ON_RECEIVE, ///< Register a callback for I2C receive event
+    RISHKA_SC_I2C_ON_REQUEST, ///< Register a callback for I2C request event
+    RISHKA_SC_I2C_GET_TIMEOUT, ///< Get the I2C timeout value
+    RISHKA_SC_I2C_SET_TIMEOUT, ///< Set the I2C timeout value
+    RISHKA_SC_I2C_GET_CLOCK, ///< Get the I2C clock frequency
+    RISHKA_SC_I2C_SET_CLOCK, ///< Set the I2C clock frequency
+    RISHKA_SC_I2C_PINS, ///< Get the I2C pins
+    RISHKA_SC_I2C_BUFSIZE, ///< Get the I2C buffer size
 
-    RISHKA_SC_SPI_BEGIN,
-    RISHKA_SC_SPI_END,
-    RISHKA_SC_SPI_BEGIN_TRANSACTION,
-    RISHKA_SC_SPI_END_TRANSACTION,
-    RISHKA_SC_SPI_TRANSFER8,
-    RISHKA_SC_SPI_TRANSFER16,
-    RISHKA_SC_SPI_TRANSFER32,
-    RISHKA_SC_SPI_TRANSFER_BYTES,
-    RISHKA_SC_SPI_TRANSFER_BITS,
-    RISHKA_SC_SPI_SET_HWCS,
-    RISHKA_SC_SPI_SET_BIT_ORDER,
-    RISHKA_SC_SPI_SET_DATA_MODE,
-    RISHKA_SC_SPI_SET_FREQ,
-    RISHKA_SC_SPI_SET_CLOCK_DIV,
-    RISHKA_SC_SPI_GET_CLOCK_DIV,
-    RISHKA_SC_SPI_WRITE8,
-    RISHKA_SC_SPI_WRITE16,
-    RISHKA_SC_SPI_WRITE32,
-    RISHKA_SC_SPI_WRITE_BYTES,
-    RISHKA_SC_SPI_WRITE_PIXELS,
-    RISHKA_SC_SPI_WRITE_PATTERN,
+    // Serial Peripheral Interface (SPI) System Calls
+    RISHKA_SC_SPI_BEGIN, ///< Begin SPI communication
+    RISHKA_SC_SPI_END, ///< End SPI communication
+    RISHKA_SC_SPI_BEGIN_TRANSACTION, ///< Begin SPI transaction
+    RISHKA_SC_SPI_END_TRANSACTION, ///< End SPI transaction
+    RISHKA_SC_SPI_TRANSFER8, ///< Transfer 8-bit data over SPI
+    RISHKA_SC_SPI_TRANSFER16, ///< Transfer 16-bit data over SPI
+    RISHKA_SC_SPI_TRANSFER32, ///< Transfer 32-bit data over SPI
+    RISHKA_SC_SPI_TRANSFER_BYTES, ///< Transfer bytes over SPI
+    RISHKA_SC_SPI_TRANSFER_BITS, ///< Transfer bits over SPI
+    RISHKA_SC_SPI_SET_HWCS, ///< Set SPI hardware chip select
+    RISHKA_SC_SPI_SET_BIT_ORDER, ///< Set SPI bit order
+    RISHKA_SC_SPI_SET_DATA_MODE, ///< Set SPI data mode
+    RISHKA_SC_SPI_SET_FREQ, ///< Set SPI clock frequency
+    RISHKA_SC_SPI_SET_CLOCK_DIV, ///< Set SPI clock divider
+    RISHKA_SC_SPI_GET_CLOCK_DIV, ///< Get SPI clock divider
+    RISHKA_SC_SPI_WRITE8, ///< Write 8-bit data over SPI
+    RISHKA_SC_SPI_WRITE16, ///< Write 16-bit data over SPI
+    RISHKA_SC_SPI_WRITE32, ///< Write 32-bit data over SPI
+    RISHKA_SC_SPI_WRITE_BYTES, ///< Write bytes over SPI
+    RISHKA_SC_SPI_WRITE_PIXELS, ///< Write pixels over SPI
+    RISHKA_SC_SPI_WRITE_PATTERN, ///< Write pattern over SPI
 
-    RISHKA_SC_RT_STRPASS,
-    RISHKA_SC_RT_YIELD
+    // Runtime System Calls
+    RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
+    RISHKA_SC_RT_YIELD ///< Yield execution to other tasks
 };
 
+/**
+ * @class RishkaSyscall
+ * @brief Class containing implementations of Rishka kernel system calls.
+ *
+ * The RishkaSyscall class provides static member functions to implement various system calls
+ * supported by the Rishka kernel. Each system call is implemented as a static member function
+ * within the appropriate nested class corresponding to its category (e.g., IO, Sys, Memory, Gpio, etc.).
+ * These functions are invoked by the Rishka virtual machine to perform the requested operations.
+ */
 class RishkaSyscall final {
 public:
-
+    /**
+     * @class IO
+     * @brief Class containing implementations of input/output system calls.
+     *
+     * The IO class provides static member functions to implement input/output system calls,
+     * such as printing text, reading input, and manipulating streams.
+     */
     class IO final {
     public:
         static void prints(RishkaVM* vm);
@@ -180,6 +208,13 @@ public:
         static uint64_t getTimeout(RishkaVM* vm);
     };
 
+    /**
+     * @class Sys
+     * @brief Class containing implementations of system utility system calls.
+     *
+     * The Sys class provides static member functions to implement system utility system calls,
+     * such as delaying execution, obtaining system information, and terminating the program.
+     */
     class Sys final {
     public:
         static void delayImpl(RishkaVM* vm);
@@ -192,6 +227,13 @@ public:
         static long randomImpl();
     };
 
+    /**
+     * @class Memory
+     * @brief Class containing implementations of memory management system calls.
+     *
+     * The Memory class provides static member functions to implement memory management system calls,
+     * such as allocating, deallocating, and manipulating memory blocks.
+     */
     class Memory final {
     public:
         static void alloc(RishkaVM* vm);
@@ -201,6 +243,13 @@ public:
         static void* set(RishkaVM* vm);
     };
 
+    /**
+     * @class Gpio
+     * @brief Class containing implementations of general purpose input/output system calls.
+     *
+     * The Gpio class provides static member functions to implement general purpose input/output
+     * system calls, such as configuring pins, reading/writing digital/analog values, and generating tones.
+     */
     class Gpio final {
     public:
         static void pinModeImpl(RishkaVM* vm);
@@ -216,6 +265,13 @@ public:
         static void noToneImpl(RishkaVM* vm);
     };
 
+    /**
+     * @class Int
+     * @brief Class containing implementations of interrupt handling system calls.
+     *
+     * The Int class provides static member functions to implement interrupt handling system calls,
+     * such as enabling/disabling interrupts and attaching/detaching interrupt handlers.
+     */
     class Int final {
     public:
         static void enable();
@@ -224,6 +280,13 @@ public:
         static void detach(RishkaVM* vm);
     };
 
+    /**
+     * @class FS
+     * @brief Class containing implementations of file system system calls.
+     *
+     * The FS class provides static member functions to implement file system system calls,
+     * such as file/directory manipulation, file I/O operations, and file metadata retrieval.
+     */
     class FS final {
     public:
         static bool mkdir(RishkaVM* vm);
@@ -253,12 +316,27 @@ public:
         static void rewind(RishkaVM* vm);
     };
 
+    /**
+     * @class Args
+     * @brief Class containing implementations of command-line argument system calls.
+     *
+     * The Args class provides static member functions to implement VM argument on
+     * execution system calls, such as obtaining the number of arguments and retrieving
+     * argument values by index.
+     */
     class Args final {
     public:
         static uint8_t count(RishkaVM* vm);
         static uint32_t value(RishkaVM* vm);
     };
 
+    /**
+     * @class I2C
+     * @brief Class containing implementations of I2C system calls.
+     *
+     * The I2C class provides static member functions to implement I2C system calls,
+     * such as initiating communication, transmitting/receiving data, and configuring I2C settings.
+     */
     class I2C final {
     public:
         static bool begin(RishkaVM* vm);
@@ -282,6 +360,13 @@ public:
         static size_t bufsize(RishkaVM* vm);
     };
 
+    /**
+     * @class SPICall
+     * @brief Class containing implementations of SPI system calls.
+     *
+     * The SPICall class provides static member functions to implement SPI system calls,
+     * such as initiating communication, transferring data, and configuring SPI settings.
+     */
     class SPICall final {
     public:
         static void begin(RishkaVM* vm);
@@ -307,6 +392,14 @@ public:
         static void write_pattern(RishkaVM* vm);
     };
 
+    /**
+     * @class Runtime
+     * @brief Class containing implementations of runtime system calls.
+     *
+     * The Runtime class provides static member functions to implement runtime system calls,
+     * such as passing strings between runtime and system call implementations, and yielding
+     * execution to other tasks.
+     */
     class Runtime final {
     public:
         static char strpass();
@@ -314,4 +407,4 @@ public:
     };
 };
 
-#endif /* RISHKA_TYPES_H */
+#endif /* RISHKA_SYSCALLS_H */
