@@ -484,8 +484,8 @@ bool FS::exists(const char* path) {
     return (bool) rishka_sc_1(RISHKA_SC_FS_EXISTS, (i64) path);
 }
 
-i32 Args::count() {
-    return (i32) rishka_sc_0(RISHKA_SC_ARG_COUNT);
+u32 Args::count() {
+    return (u32) rishka_sc_0(RISHKA_SC_ARG_COUNT);
 }
 
 string Args::value(u8 index) {

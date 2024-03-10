@@ -47,7 +47,7 @@ public:
      *
      * @return The number of command line arguments.
      */
-    static i32 count();
+    static u8 count();
 
     /**
      * @brief Get the value of a command line argument at a specific index.
