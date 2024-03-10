@@ -198,6 +198,9 @@ Example</h2>
 <div class="line"><span class="comment">// SPI instance for SD card</span></div>
 <div class="line">SPIClass sdSpi(HSPI);</div>
 <div class="line"> </div>
+<div class="line"><span class="comment">// Rishka virtual machine instance</span></div>
+<div class="line">RishkaVM* vm;</div>
+<div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">    Serial.begin(115200);</div>
 <div class="line"> </div>
@@ -224,6 +227,9 @@ Example</h2>
 <div class="line">        <span class="keywordflow">while</span>(<span class="keyword">true</span>);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
+<div class="line">    <span class="comment">// Initialize the Rishka VM instance.</span></div>
+<div class="line">    vm = <span class="keyword">new</span> RishkaVM();</div>
+<div class="line"> </div>
 <div class="line">    <span class="comment">// Print prompt</span></div>
 <div class="line">    Terminal.print(<span class="stringliteral">&quot;\e[32m#~\e[97m &quot;</span>);</div>
 <div class="line">}</div>
@@ -240,8 +246,6 @@ Example</h2>
 <div class="line">    Terminal.print(input);</div>
 <div class="line">    Terminal.print(<span class="stringliteral">&quot;\r\e[97m&quot;</span>);</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Rishka virtual machine instance</span></div>
-<div class="line">    RishkaVM* vm = <span class="keyword">new</span> RishkaVM();</div>
 <div class="line">    <span class="comment">// Initialize Rishka virtual machine</span></div>
 <div class="line">    vm-&gt;initialize(&amp;Terminal);</div>
 <div class="line"> </div>
@@ -249,9 +253,6 @@ Example</h2>
 <div class="line">    <span class="keywordflow">if</span>(!vm-&gt;loadFile(input.c_str())) {</div>
 <div class="line">        <span class="comment">// If loading file fails, print error message and return</span></div>
 <div class="line">        vm-&gt;panic(String(<span class="stringliteral">&quot;Failed to \e[94mload\e[97m specified file: &quot;</span> + input).c_str());</div>
-<div class="line"> </div>
-<div class="line">        <span class="comment">// Delete Rishka VM instance.</span></div>
-<div class="line">        <span class="keyword">delete</span> vm;</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment">// Print prompt</span></div>
 <div class="line">        Terminal.print(<span class="stringliteral">&quot;\r\e[32m#~\e[97m &quot;</span>);</div>
@@ -262,9 +263,6 @@ Example</h2>
 <div class="line">    vm-&gt;run(0, NULL);</div>
 <div class="line">    <span class="comment">// Reset Rishka virtual machine for next execution</span></div>
 <div class="line">    vm-&gt;reset();</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Delete Rishka VM instance.</span></div>
-<div class="line">    <span class="keyword">delete</span> vm;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Print prompt for next input</span></div>
 <div class="line">    Terminal.print(<span class="stringliteral">&quot;\e[32m#~\e[97m &quot;</span>);</div>

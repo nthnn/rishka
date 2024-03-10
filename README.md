@@ -153,6 +153,9 @@ fabgl::Terminal Terminal;
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
 
+// Rishka virtual machine instance
+RishkaVM* vm;
+
 void setup() {
     Serial.begin(115200);
 
@@ -179,6 +182,9 @@ void setup() {
         while(true);
     }
 
+    // Initialize the Rishka VM instance.
+    vm = new RishkaVM();
+
     // Print prompt
     Terminal.print("\e[32m#~\e[97m ");
 }
@@ -195,8 +201,6 @@ void loop() {
     Terminal.print(input);
     Terminal.print("\r\e[97m");
 
-    // Rishka virtual machine instance
-    RishkaVM* vm = new RishkaVM();
     // Initialize Rishka virtual machine
     vm->initialize(&Terminal);
 
@@ -204,9 +208,6 @@ void loop() {
     if(!vm->loadFile(input.c_str())) {
         // If loading file fails, print error message and return
         vm->panic(String("Failed to \e[94mload\e[97m specified file: " + input).c_str());
-
-        // Delete Rishka VM instance.
-        delete vm;
 
         // Print prompt
         Terminal.print("\r\e[32m#~\e[97m ");
@@ -217,9 +218,6 @@ void loop() {
     vm->run(0, NULL);
     // Reset Rishka virtual machine for next execution
     vm->reset();
-
-    // Delete Rishka VM instance.
-    delete vm;
 
     // Print prompt for next input
     Terminal.print("\e[32m#~\e[97m ");
