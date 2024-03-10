@@ -15,6 +15,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file rishka_vm.h
+ * @author [Nathanne Isip](https://github.com/nthnn)
+ * @brief Definition of the RishkaVM class, representing a Rishka virtual machine.
+ * 
+ * This header file defines the RishkaVM class, which encapsulates the functionality
+ * of a Rishka virtual machine. The RishkaVM class provides methods to initialize,
+ * load, and execute bytecode programs, handle system calls, manage memory and
+ * registers, and interact with input/output streams.
+ */
 #ifndef RISHKA_VM_H
 #define RISHKA_VM_H
 

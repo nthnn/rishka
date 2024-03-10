@@ -25,15 +25,9 @@
 #include <rishka_util.h>
 #include <rishka_vm.h>
 
-#ifdef __cplusplus
-    extern "C" {
-#endif
-
-uint8_t temprature_sens_read();
-
-#ifdef __cplusplus
-    }
-#endif
+extern "C" {
+    uint8_t temprature_sens_read();
+}
 
 enum rishka_espinfo_n {
     RISHKA_ESPINFO_CHIPCORES,
@@ -65,96 +59,96 @@ enum rishka_espinfo_s {
     RISHKA_ESPINFO_SKETCH_MD5
 };
 
-String strpass_data;
-int strpass_idx = 0;
+static inline String strpass_data;
+static inline int strpass_idx = 0;
 
-inline void change_rt_strpass(char* data) {
+void change_rt_strpass(char* data) {
     strpass_data = data;
     strpass_idx = 0;
 }
 
-void rishka_syscall_io_prints(RishkaVM* vm) {
-    char* arg = vm->getPointerParam<char*>(0);
+void RishkaSyscall::IO::prints(RishkaVM* vm) {
+    auto arg = vm->getPointerParam<char*>(0);
     vm->getStream()->print(arg != NULL ? arg : "(null)");
 }
 
-void rishka_syscall_io_printn(RishkaVM* vm) {
-    int64_t arg = vm->getParam<int64_t>(0);
+void RishkaSyscall::IO::printn(RishkaVM* vm) {
+    auto arg = vm->getParam<int64_t>(0);
     vm->getStream()->print(arg);
 }
 
-void rishka_syscall_io_printd(RishkaVM* vm) {
-    double arg = vm->getParam<double>(0);
+void RishkaSyscall::IO::printd(RishkaVM* vm) {
+    auto arg = vm->getParam<double>(0);
     vm->getStream()->print(arg);
 }
 
-char rishka_syscall_io_readch(RishkaVM* vm) {
+char RishkaSyscall::IO::readch(RishkaVM* vm) {
     return (char) vm->getStream()->read();
 }
 
-size_t rishka_syscall_io_readline(RishkaVM* vm) {
+size_t RishkaSyscall::IO::readLine(RishkaVM* vm) {
     char* input = (char*) vm->getStream()->readString().c_str();
-    change_rt_strpass(input);
 
+    change_rt_strpass(input);
     return strlen(input);
 }
 
-int rishka_syscall_io_read(RishkaVM* vm) {
+int RishkaSyscall::IO::read(RishkaVM* vm) {
     return vm->getStream()->read();
 }
 
-int rishka_syscall_io_available(RishkaVM* vm) {
+int RishkaSyscall::IO::available(RishkaVM* vm) {
     return vm->getStream()->available();
 }
 
-int rishka_syscall_io_peek(RishkaVM* vm) {
+int RishkaSyscall::IO::peek(RishkaVM* vm) {
     return vm->getStream()->peek();
 }
 
-bool rishka_syscall_io_find(RishkaVM* vm) {
-    char* target = vm->getPointerParam<char*>(0);
-    size_t length = vm->getParam<size_t>(1);
+bool RishkaSyscall::IO::find(RishkaVM* vm) {
+    auto target = vm->getPointerParam<char*>(0);
+    auto length = vm->getParam<size_t>(1);
 
     return vm->getStream()->find(target, length);
 }
 
-bool rishka_syscall_io_find_until(RishkaVM* vm) {
-    char* target = vm->getPointerParam<char*>(0);
-    char* terminator = vm->getPointerParam<char*>(1);
+bool RishkaSyscall::IO::findUntil(RishkaVM* vm) {
+    auto target = vm->getPointerParam<char*>(0);
+    auto terminator = vm->getPointerParam<char*>(1);
 
     return vm->getStream()->findUntil(target, terminator);
 }
 
-void rishka_syscall_io_set_timeout(RishkaVM* vm) {
-    uint64_t timeout = vm->getParam<uint64_t>(0);
+void RishkaSyscall::IO::setTimeout(RishkaVM* vm) {
+    auto timeout = vm->getParam<uint64_t>(0);
     vm->getStream()->setTimeout(timeout);
 }
 
-uint64_t rishka_syscall_io_get_timeout(RishkaVM* vm) {
+uint64_t RishkaSyscall::IO::getTimeout(RishkaVM* vm) {
     return vm->getStream()->getTimeout();
 }
 
-void rishka_syscall_sys_delay(RishkaVM* vm) {
-    uint64_t ms = vm->getParam<uint64_t>(0);
+void RishkaSyscall::Sys::delayImpl(RishkaVM* vm) {
+    auto ms = vm->getParam<uint64_t>(0);
     delay(ms);
 }
 
-unsigned long rishka_syscall_sys_micros() {
+unsigned long RishkaSyscall::Sys::microsImpl() {
     return micros();
 }
 
-unsigned long rishka_syscall_sys_millis() {
+unsigned long RishkaSyscall::Sys::millisImpl() {
     return millis();
 }
 
-int64_t rishka_syscall_sys_shellexec(RishkaVM* parent_vm) {
+int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
+    auto program = parent_vm->getPointerParam<char*>(0);
+    auto argc = parent_vm->getParam<int>(1);
+    auto argv = parent_vm->getPointerParam<char**>(2);
+
     RishkaVM* child_vm = new RishkaVM();
-
-    char* program = parent_vm->getPointerParam<char*>(0);
-    int argc = parent_vm->getParam<int>(1);
-    char** argv = parent_vm->getPointerParam<char**>(2);
-
     child_vm->initialize(parent_vm->getStream());
+
     if(!child_vm->loadFile(program)) {
         child_vm->reset();
         delete child_vm;
@@ -171,15 +165,15 @@ int64_t rishka_syscall_sys_shellexec(RishkaVM* parent_vm) {
     return exitCode;
 }
 
-void rishka_syscall_sys_exit(RishkaVM* vm) {
-    int code = vm->getParam<int>(0);
+void RishkaSyscall::Sys::exit(RishkaVM* vm) {
+    auto code = vm->getParam<int>(0);
 
     vm->stopVM();
     vm->setExitCode(code);
 }
 
-uint32_t rishka_syscall_sys_infos(RishkaVM* vm) {
-    uint8_t key = vm->getParam<uint8_t>(0);
+uint32_t RishkaSyscall::Sys::infos(RishkaVM* vm) {
+    auto key = vm->getParam<uint8_t>(0);
 
     char* data;
     switch(key) {
@@ -204,9 +198,8 @@ uint32_t rishka_syscall_sys_infos(RishkaVM* vm) {
     return strlen(data);
 }
 
-long rishka_syscall_sys_infon(RishkaVM* vm) {
-    uint8_t key = vm->getParam<uint8_t>(0);
-
+long RishkaSyscall::Sys::infon(RishkaVM* vm) {
+    auto key = vm->getParam<uint8_t>(0);
     switch(key) {
         case RISHKA_ESPINFO_CHIPCORES:
             return ESP.getChipCores();
@@ -275,7 +268,7 @@ long rishka_syscall_sys_infon(RishkaVM* vm) {
     return 0;
 }
 
-long rishka_syscall_sys_random() {
+long RishkaSyscall::Sys::randomImpl() {
     long rand_num = 0;
 
     bootloader_random_enable();
@@ -285,255 +278,255 @@ long rishka_syscall_sys_random() {
     return rand_num;
 }
 
-void rishka_syscall_mem_alloc(RishkaVM* vm) {
-    void* dest = vm->getPointerParam<void*>(0);
-    size_t size = vm->getParam<size_t>(1);
+void RishkaSyscall::Memory::alloc(RishkaVM* vm) {
+    auto dest = vm->getPointerParam<void*>(0);
+    auto size = vm->getParam<size_t>(1);
 
     dest = ps_malloc(size);
 }
 
-void rishka_syscall_mem_calloc(RishkaVM* vm) {
-    void* dest = vm->getPointerParam<void*>(0);
-    size_t num = vm->getParam<size_t>(1);
-    size_t size = vm->getParam<size_t>(2);
+void RishkaSyscall::Memory::calloc(RishkaVM* vm) {
+    auto dest = vm->getPointerParam<void*>(0);
+    auto num = vm->getParam<size_t>(1);
+    auto size = vm->getParam<size_t>(2);
 
     dest = ps_calloc(num, size);
 }
 
-void rishka_syscall_mem_realloc(RishkaVM* vm) {
-    void* dest = vm->getPointerParam<void*>(0);
-    void* ptr = vm->getPointerParam<void*>(1);
-    size_t size = vm->getParam<size_t>(2);
+void RishkaSyscall::Memory::realloc(RishkaVM* vm) {
+    auto dest = vm->getPointerParam<void*>(0);
+    auto ptr = vm->getPointerParam<void*>(1);
+    auto size = vm->getParam<size_t>(2);
 
     dest = ps_realloc(ptr, size);
 }
 
-void rishka_syscall_mem_free(RishkaVM* vm) {
-    void* ptr = vm->getPointerParam<void*>(0);
+void RishkaSyscall::Memory::freeHeap(RishkaVM* vm) {
+    auto ptr = vm->getPointerParam<void*>(0);
     free(ptr);
 }
 
-void* rishka_syscall_mem_set(RishkaVM* vm) {
-    void* dest = vm->getPointerParam<void*>(0);
-    uint64_t val = vm->getParam<uint64_t>(1);
-    uint64_t len = vm->getParam<uint64_t>(2);
+void* RishkaSyscall::Memory::set(RishkaVM* vm) {
+    auto dest = vm->getPointerParam<void*>(0);
+    auto val = vm->getParam<uint64_t>(1);
+    auto len = vm->getParam<uint64_t>(2);
 
     return memset(dest, (int) val, (size_t) len);
 }
 
-void rishka_syscall_gpio_pinmode(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    uint8_t mode = vm->getParam<uint8_t>(1);
+void RishkaSyscall::Gpio::pinModeImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto mode = vm->getParam<uint8_t>(1);
 
     pinMode(pin, mode);
 }
 
-bool rishka_syscall_gpio_digitalread(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
+bool RishkaSyscall::Gpio::digitalReadImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
     return digitalRead(pin);
 }
 
-void rishka_syscall_gpio_digitalwrite(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    bool value = vm->getParam<bool>(1);
+void RishkaSyscall::Gpio::digitalWriteImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto value = vm->getParam<bool>(1);
 
     digitalWrite(pin, value);
 }
 
-uint16_t rishka_syscall_gpio_analogread(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
+uint16_t RishkaSyscall::Gpio::analogReadImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
     return analogRead(pin);
 }
 
-void rishka_syscall_gpio_analogwrite(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    uint16_t value = vm->getParam<uint16_t>(1);
+void RishkaSyscall::Gpio::analogWriteImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto value = vm->getParam<uint16_t>(1);
 
     analogWrite(pin, value);
 }
 
-uint64_t rishka_syscall_gpio_pulse_in(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    uint8_t state = vm->getParam<uint8_t>(1);
-    uint64_t timeout = vm->getParam<uint64_t>(2);
+uint64_t RishkaSyscall::Gpio::pulseInImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto state = vm->getParam<uint8_t>(1);
+    auto timeout = vm->getParam<uint64_t>(2);
 
     return pulseIn(pin, state, timeout);
 }
 
-uint64_t rishka_syscall_gpio_pulse_in_long(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    uint8_t state = vm->getParam<uint8_t>(1);
-    uint64_t timeout = vm->getParam<uint64_t>(2);
+uint64_t RishkaSyscall::Gpio::pulseInLongImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto state = vm->getParam<uint8_t>(1);
+    auto timeout = vm->getParam<uint64_t>(2);
 
     return pulseInLong(pin, state, timeout);
 }
 
-uint8_t rishka_syscall_gpio_shift_in(RishkaVM* vm) {
-    uint8_t data = vm->getParam<uint8_t>(0);
-    uint8_t clock = vm->getParam<uint8_t>(1);
-    uint8_t bit_order = vm->getParam<uint8_t>(2);
+uint8_t RishkaSyscall::Gpio::shiftInImpl(RishkaVM* vm) {
+    auto data = vm->getParam<uint8_t>(0);
+    auto clock = vm->getParam<uint8_t>(1);
+    auto bit_order = vm->getParam<uint8_t>(2);
 
     return shiftIn(data, clock, bit_order);
 }
 
-void rishka_syscall_gpio_shift_out(RishkaVM* vm) {
-    uint8_t data = vm->getParam<uint8_t>(0);
-    uint8_t clock = vm->getParam<uint8_t>(1);
-    uint8_t bit_order = vm->getParam<uint8_t>(2);
-    uint8_t value = vm->getParam<uint8_t>(3);
+void RishkaSyscall::Gpio::shiftOutImpl(RishkaVM* vm) {
+    auto data = vm->getParam<uint8_t>(0);
+    auto clock = vm->getParam<uint8_t>(1);
+    auto bit_order = vm->getParam<uint8_t>(2);
+    auto value = vm->getParam<uint8_t>(3);
 
     shiftOut(data, clock, bit_order, value);
 }
 
-void rishka_syscall_gpio_tone(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
-    uint32_t frequency = vm->getParam<uint32_t>(1);
-    uint64_t duration = vm->getParam<uint64_t>(2);
+void RishkaSyscall::Gpio::toneImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
+    auto frequency = vm->getParam<uint32_t>(1);
+    auto duration = vm->getParam<uint64_t>(2);
 
     tone(pin, frequency, duration);
 }
 
-void rishka_syscall_gpio_no_tone(RishkaVM* vm) {
-    uint8_t pin = vm->getParam<uint8_t>(0);
+void RishkaSyscall::Gpio::noToneImpl(RishkaVM* vm) {
+    auto pin = vm->getParam<uint8_t>(0);
     noTone(pin);
 }
 
-void rishka_syscall_int_enable() {
+void RishkaSyscall::Int::enable() {
     interrupts();
 }
 
-void rishka_syscall_int_disable() {
+void RishkaSyscall::Int::disable() {
     noInterrupts();
 }
 
-void rishka_syscall_int_attach(RishkaVM* vm) {
-    uint8_t num = vm->getParam<uint8_t>(0);
-    void (*ptr)(void) = vm->getPointerParam<void (*)(void)>(1);
-    int mode = vm->getPointerParam<int>(2);
+void RishkaSyscall::Int::attach(RishkaVM* vm) {
+    auto num = vm->getParam<uint8_t>(0);
+    auto ptr = vm->getPointerParam<void(*)(void)>(1);
+    auto mode = vm->getParam<int>(2);
 
     attachInterrupt(num, ptr, mode);
 }
 
-void rishka_syscall_int_detach(RishkaVM* vm) {
-    uint8_t num = vm->getParam<uint8_t>(0);
+void RishkaSyscall::Int::detach(RishkaVM* vm) {
+    auto num = vm->getParam<uint8_t>(0);
     detachInterrupt(num);
 }
 
-bool rishka_syscall_fs_mkdir(RishkaVM* vm) {
-    char* path = vm->getPointerParam<char*>(0);
+bool RishkaSyscall::FS::mkdir(RishkaVM* vm) {
+    auto path = vm->getPointerParam<char*>(0);
     return SD.mkdir(path);
 }
 
-bool rishka_syscall_fs_rmdir(RishkaVM* vm) {
-    char* path = vm->getPointerParam<char*>(0);
+bool RishkaSyscall::FS::rmdir(RishkaVM* vm) {
+    auto path = vm->getPointerParam<char*>(0);
     return SD.rmdir(path);
 }
 
-bool rishka_syscall_fs_delete(RishkaVM* vm) {
-    char* path = vm->getPointerParam<char*>(0);
+bool RishkaSyscall::FS::remove(RishkaVM* vm) {
+    auto path = vm->getPointerParam<char*>(0);
     return SD.remove(path);
 }
 
-bool rishka_syscall_fs_exists(RishkaVM* vm) {
-    char* path = vm->getPointerParam<char*>(0);
+bool RishkaSyscall::FS::exists(RishkaVM* vm) {
+    auto path = vm->getPointerParam<char*>(0);
     return SD.exists(path);
 }
 
-bool rishka_syscall_fs_isfile(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+bool RishkaSyscall::FS::isfile(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return !vm->fileHandles[handle].isDirectory();
 }
 
-bool rishka_syscall_fs_isdir(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+bool RishkaSyscall::FS::isdir(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].isDirectory();
 }
 
-uint8_t rishka_syscall_fs_open(RishkaVM* vm) {
-    char* path = vm->getPointerParam<char*>(0);
-    char* mode = vm->getPointerParam<char*>(1);
+uint8_t RishkaSyscall::FS::open(RishkaVM* vm) {
+    auto path = vm->getPointerParam<char*>(0);
+    auto mode = vm->getPointerParam<char*>(1);
 
     vm->fileHandles.add(SD.open(path, mode));
     return vm->fileHandles.getSize() - 1;
 }
 
-void rishka_syscall_fs_close(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+void RishkaSyscall::FS::close(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
 
     vm->fileHandles[handle].close();
     vm->fileHandles.remove(handle);
 }
 
-int rishka_syscall_fs_available(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+int RishkaSyscall::FS::available(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].available();
 }
 
-void rishka_syscall_fs_flush(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+void RishkaSyscall::FS::flush(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     vm->fileHandles[handle].flush();
 }
 
-int rishka_syscall_fs_peek(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+int RishkaSyscall::FS::peek(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].peek();
 }
 
-bool rishka_syscall_fs_seek(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    uint32_t pos = vm->getParam<uint32_t>(1);
+bool RishkaSyscall::FS::seek(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto pos = vm->getParam<uint32_t>(1);
 
     return vm->fileHandles[handle].seek(pos);
 }
 
-uint32_t rishka_syscall_fs_size(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+uint32_t RishkaSyscall::FS::size(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].size();
 }
 
-int rishka_syscall_fs_read(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+int RishkaSyscall::FS::read(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].read();
 }
 
-size_t rishka_syscall_fs_writeb(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    uint8_t data = vm->getParam<uint8_t>(1);
+size_t RishkaSyscall::FS::writeb(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto data = vm->getParam<uint8_t>(1);
 
     return vm->fileHandles[handle].write(data);
 }
 
-size_t rishka_syscall_fs_writes(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    char* data = vm->getPointerParam<char*>(1);
+size_t RishkaSyscall::FS::writes(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto data = vm->getPointerParam<char*>(1);
 
     return vm->fileHandles[handle].print(data);
 }
 
-size_t rishka_syscall_fs_position(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+size_t RishkaSyscall::FS::position(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return vm->fileHandles[handle].position();
 }
 
-uint32_t rishka_syscall_fs_path(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+uint32_t RishkaSyscall::FS::path(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     char* path = (char*) vm->fileHandles[handle].path();
 
     change_rt_strpass(path);
     return strlen(path);
 }
 
-uint32_t rishka_syscall_fs_name(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+uint32_t RishkaSyscall::FS::name(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     char* name = (char*) vm->fileHandles[handle].name();
 
     change_rt_strpass(name);
     return strlen(name);
 }
 
-uint8_t rishka_syscall_fs_next(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    char* mode = vm->getPointerParam<char*>(1);
+uint8_t RishkaSyscall::FS::next(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto mode = vm->getPointerParam<char*>(1);
 
     File file = vm->fileHandles[handle].openNextFile(mode);
     vm->fileHandles.add(file);
@@ -541,269 +534,273 @@ uint8_t rishka_syscall_fs_next(RishkaVM* vm) {
     return vm->fileHandles.getSize();
 }
 
-bool rishka_syscall_fs_bufsize(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    size_t size = vm->getParam<size_t>(1);
+bool RishkaSyscall::FS::bufsize(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto size = vm->getParam<size_t>(1);
 
     return vm->fileHandles[handle].setBufferSize(size);
 }
 
-uint64_t rishka_syscall_fs_lastwrite(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+uint64_t RishkaSyscall::FS::lastwrite(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     return (uint64_t) vm->fileHandles[handle].getLastWrite();
 }
 
-bool rishka_syscall_fs_seekdir(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    uint64_t position = vm->getParam<uint64_t>(1);
+bool RishkaSyscall::FS::seekdir(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto position = vm->getParam<uint64_t>(1);
 
     return vm->fileHandles[handle].seekDir(position);
 }
 
-uint32_t rishka_syscall_fs_next_name(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
-    char* name = vm->getPointerParam<char*>(1);
+uint32_t RishkaSyscall::FS::next_name(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    auto name = vm->getPointerParam<char*>(1);
 
     change_rt_strpass(name);
     return strlen(name);
 }
 
-void rishka_syscall_fs_rewind(RishkaVM* vm) {
-    uint8_t handle = vm->getParam<uint8_t>(0);
+void RishkaSyscall::FS::rewind(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
     vm->fileHandles[handle].rewindDirectory();
 }
 
-uint8_t rishka_syscall_arg_count(RishkaVM* vm) {
+uint8_t RishkaSyscall::Args::count(RishkaVM* vm) {
     return vm->getArgCount();
 }
 
-uint32_t rishka_syscall_arg_value(RishkaVM* vm) {
-    uint8_t index = vm->getParam<uint8_t>(0);
+uint32_t RishkaSyscall::Args::value(RishkaVM* vm) {
+    auto index = vm->getParam<uint8_t>(0);
     char* argv = vm->getArgValue(index);
 
     change_rt_strpass(argv);
     return strlen(argv);
 }
 
-bool rishka_syscall_i2c_begin(RishkaVM* vm) {
-    uint8_t address = vm->getParam<uint8_t>(0);
+bool RishkaSyscall::I2C::begin(RishkaVM* vm) {
+    auto address = vm->getParam<uint8_t>(0);
     return Wire.begin(address);
 }
 
-bool rishka_syscall_i2c_end(RishkaVM* vm) {
+bool RishkaSyscall::I2C::end(RishkaVM* vm) {
     return Wire.end();
 }
 
-void rishka_syscall_i2c_begin_transmission(RishkaVM* vm) {
-    uint8_t address = vm->getParam<uint8_t>(0);
+void RishkaSyscall::I2C::begin_transmission(RishkaVM* vm) {
+    auto address = vm->getParam<uint8_t>(0);
     return Wire.beginTransmission(address);
 }
 
-uint8_t rishka_syscall_i2c_end_transmission(RishkaVM* vm) {
-    bool stop_bit = vm->getParam<bool>(0);
+uint8_t RishkaSyscall::I2C::end_transmission(RishkaVM* vm) {
+    auto stop_bit = vm->getParam<bool>(0);
     return Wire.endTransmission(stop_bit);
 }
 
-size_t rishka_syscall_i2c_write(RishkaVM* vm) {
-    uint8_t* data = vm->getPointerParam<uint8_t*>(0);
-    size_t size = vm->getParam<size_t>(1);
+size_t RishkaSyscall::I2C::write(RishkaVM* vm) {
+    auto data = vm->getPointerParam<uint8_t*>(0);
+    auto size = vm->getParam<size_t>(1);
 
     return Wire.write(data, size);
 }
 
-size_t rishka_syscall_i2c_slave_write(RishkaVM* vm) {
-    uint8_t* data = vm->getPointerParam<uint8_t*>(0);
-    size_t size = vm->getParam<size_t>(1);
+size_t RishkaSyscall::I2C::slave_write(RishkaVM* vm) {
+    auto data = vm->getPointerParam<uint8_t*>(0);
+    auto size = vm->getParam<size_t>(1);
 
     return Wire.slaveWrite(data, size);
 }
 
-int rishka_syscall_i2c_read(RishkaVM* vm) {
+int RishkaSyscall::I2C::read(RishkaVM* vm) {
     return Wire.read();
 }
 
-int rishka_syscall_i2c_peek(RishkaVM* vm) {
+int RishkaSyscall::I2C::peek(RishkaVM* vm) {
     return Wire.peek();
 }
 
-size_t rishka_syscall_i2c_request(RishkaVM* vm) {
-    uint8_t address = vm->getParam<uint8_t>(0);
-    size_t size = vm->getParam<size_t>(1);
-    bool stop_bit = vm->getParam<bool>(2);
+size_t RishkaSyscall::I2C::request(RishkaVM* vm) {
+    auto address = vm->getParam<uint8_t>(0);
+    auto size = vm->getParam<size_t>(1);
+    auto stop_bit = vm->getParam<bool>(2);
 
     return Wire.requestFrom(address, size, stop_bit);
 }
 
-int rishka_syscall_i2c_available(RishkaVM* vm) {
+int RishkaSyscall::I2C::available(RishkaVM* vm) {
     return Wire.available();
 }
 
-void rishka_syscall_i2c_flush() {
+void RishkaSyscall::I2C::flush() {
     Wire.flush();
 }
 
-void rishka_syscall_i2c_on_receive(RishkaVM* vm) {
-    void(*callback)(int) = vm->getPointerParam<void(*)(int)>(0);
+void RishkaSyscall::I2C::on_receive(RishkaVM* vm) {
+    auto callback = vm->getPointerParam<void(*)(int)>(0);
     Wire.onReceive(callback);
 }
 
-void rishka_syscall_i2c_on_request(RishkaVM* vm) {
-    void(*callback)(void) = vm->getPointerParam<void(*)(void)>(0);
+void RishkaSyscall::I2C::on_request(RishkaVM* vm) {
+    auto callback = vm->getPointerParam<void(*)(void)>(0);
     Wire.onRequest(callback);
 }
 
-uint16_t rishka_syscall_i2c_get_timeout() {
+uint16_t RishkaSyscall::I2C::get_timeout() {
     return Wire.getTimeout();
 }
 
-void rishka_syscall_i2c_set_timeout(RishkaVM* vm) {
-    uint16_t timeout = vm->getParam<uint16_t>(0);
+void RishkaSyscall::I2C::set_timeout(RishkaVM* vm) {
+    auto timeout = vm->getParam<uint16_t>(0);
     Wire.setTimeout(timeout);
 }
 
-bool rishka_syscall_i2c_set_clock(RishkaVM* vm) {
-    uint32_t clock = vm->getParam<uint32_t>(0);
+bool RishkaSyscall::I2C::set_clock(RishkaVM* vm) {
+    auto clock = vm->getParam<uint32_t>(0);
     return Wire.setClock(clock);
 }
 
-uint32_t rishka_syscall_i2c_get_clock() {
+uint32_t RishkaSyscall::I2C::get_clock() {
     return Wire.getClock();
 }
 
-bool rishka_syscall_i2c_pins(RishkaVM* vm) {
-    uint8_t sda = vm->getParam<uint8_t>(0);
-    uint8_t scl = vm->getParam<uint8_t>(1);
+bool RishkaSyscall::I2C::pins(RishkaVM* vm) {
+    auto sda = vm->getParam<uint8_t>(0);
+    auto scl = vm->getParam<uint8_t>(1);
 
     return Wire.setPins(sda, scl);
 }
 
-size_t rishka_syscall_i2c_bufsize(RishkaVM* vm) {
-    size_t size = vm->getParam<size_t>(0);
+size_t RishkaSyscall::I2C::bufsize(RishkaVM* vm) {
+    auto size = vm->getParam<size_t>(0);
     return Wire.setBufferSize(size);
 }
 
-void rishka_syscall_spi_begin(RishkaVM* vm) {
-    uint8_t sck = vm->getParam<uint8_t>(0);
-    uint8_t miso = vm->getParam<uint8_t>(1);
-    uint8_t mosi = vm->getParam<uint8_t>(2);
-    uint8_t ss = vm->getParam<uint8_t>(3);
+void RishkaSyscall::SPICall::begin(RishkaVM* vm) {
+    auto sck = vm->getParam<uint8_t>(0);
+    auto miso = vm->getParam<uint8_t>(1);
+    auto mosi = vm->getParam<uint8_t>(2);
+    auto ss = vm->getParam<uint8_t>(3);
 
     SPI.begin(sck, miso, mosi, ss);
 }
 
-void rishka_syscall_spi_end() {
+void RishkaSyscall::SPICall::end() {
     SPI.end();
 }
 
-void rishka_syscall_spi_begin_transaction(RishkaVM* vm) {
-    uint8_t clock = vm->getParam<uint8_t>(0);
-    uint8_t bit_order = vm->getParam<uint8_t>(1);
-    uint8_t data_mode = vm->getParam<uint8_t>(2);
+void RishkaSyscall::SPICall::begin_transaction(RishkaVM* vm) {
+    auto clock = vm->getParam<uint8_t>(0);
+    auto bit_order = vm->getParam<uint8_t>(1);
+    auto data_mode = vm->getParam<uint8_t>(2);
 
     SPI.beginTransaction(SPISettings(clock, bit_order, data_mode));
 }
 
-void rishka_syscall_spi_end_transaction() {
+void RishkaSyscall::SPICall::end_transaction() {
     SPI.endTransaction();
 }
 
-uint8_t rishka_syscall_spi_transfer8(RishkaVM* vm) {
-    uint8_t data = vm->getParam<uint8_t>(0);
+uint8_t RishkaSyscall::SPICall::transfer8(RishkaVM* vm) {
+    auto data = vm->getParam<uint8_t>(0);
     return SPI.transfer(data);
 }
 
-uint16_t rishka_syscall_spi_transfer16(RishkaVM* vm) {
-    uint16_t data = vm->getParam<uint16_t>(0);
+uint16_t RishkaSyscall::SPICall::transfer16(RishkaVM* vm) {
+    auto data = vm->getParam<uint16_t>(0);
     return SPI.transfer16(data);
 }
 
-uint32_t rishka_syscall_spi_transfer32(RishkaVM* vm) {
-    uint32_t data = vm->getParam<uint32_t>(0);
+uint32_t RishkaSyscall::SPICall::transfer32(RishkaVM* vm) {
+    auto data = vm->getParam<uint32_t>(0);
     return SPI.transfer32(data);
 }
 
-void rishka_syscall_spi_transfer_bytes(RishkaVM* vm) {
-    uint8_t* data = vm->getPointerParam<uint8_t*>(0);
-    uint8_t* out = vm->getPointerParam<uint8_t*>(1);
-    uint32_t size = vm->getParam<uint32_t>(2);
+void RishkaSyscall::SPICall::transfer_bytes(RishkaVM* vm) {
+    auto data = vm->getPointerParam<uint8_t*>(0);
+    auto out = vm->getPointerParam<uint8_t*>(1);
+    auto size = vm->getParam<uint32_t>(2);
 
     SPI.transferBytes(data, out, size);
 }
 
-void rishka_syscall_spi_transfer_bits(RishkaVM* vm) {
-    uint32_t data = vm->getParam<uint32_t>(0);
-    uint32_t* out = vm->getPointerParam<uint32_t*>(1);
-    uint8_t bits = vm->getParam<uint8_t>(2);
+void RishkaSyscall::SPICall::transfer_bits(RishkaVM* vm) {
+    auto data = vm->getParam<uint32_t>(0);
+    auto out = vm->getPointerParam<uint32_t*>(1);
+    auto bits = vm->getParam<uint8_t>(2);
 
     SPI.transferBits(data, out, bits);
 }
 
-void rishka_syscall_spi_set_hwcs(RishkaVM* vm) {
-    bool use = vm->getParam<bool>(0);
+void RishkaSyscall::SPICall::set_hwcs(RishkaVM* vm) {
+    auto use = vm->getParam<bool>(0);
     SPI.setHwCs(use);
 }
 
-void rishka_syscall_spi_set_bit_order(RishkaVM* vm) {
-    uint8_t bit_order = vm->getParam<uint8_t>(0);
+void RishkaSyscall::SPICall::set_bit_order(RishkaVM* vm) {
+    auto bit_order = vm->getParam<uint8_t>(0);
     SPI.setBitOrder(bit_order);
 }
 
-void rishka_syscall_spi_set_data_mode(RishkaVM* vm) {
-    uint8_t data_mode = vm->getParam<uint8_t>(0);
+void RishkaSyscall::SPICall::set_data_mode(RishkaVM* vm) {
+    auto data_mode = vm->getParam<uint8_t>(0);
     SPI.setDataMode(data_mode);
 }
 
-void rishka_syscall_spi_set_frequency(RishkaVM* vm) {
-    uint32_t frequency = vm->getParam<uint32_t>(0);
+void RishkaSyscall::SPICall::set_frequency(RishkaVM* vm) {
+    auto frequency = vm->getParam<uint32_t>(0);
     SPI.setFrequency(frequency);
 }
 
-void rishka_syscall_spi_set_clock_div(RishkaVM* vm) {
-    uint32_t clock_div = vm->getParam<uint32_t>(0);
+void RishkaSyscall::SPICall::set_clock_div(RishkaVM* vm) {
+    auto clock_div = vm->getParam<uint32_t>(0);
     SPI.setClockDivider(clock_div);
 }
 
-uint32_t rishka_syscall_spi_get_clock_div() {
+uint32_t RishkaSyscall::SPICall::get_clock_div() {
     return SPI.getClockDivider();
 }
 
-void rishka_syscall_spi_write8(RishkaVM* vm) {
-    uint8_t data = vm->getParam<uint8_t>(0);
+void RishkaSyscall::SPICall::write8(RishkaVM* vm) {
+    auto data = vm->getParam<uint8_t>(0);
     SPI.write(data);
 }
 
-void rishka_syscall_spi_write16(RishkaVM* vm) {
-    uint16_t data = vm->getParam<uint16_t>(0);
+void RishkaSyscall::SPICall::write16(RishkaVM* vm) {
+    auto data = vm->getParam<uint16_t>(0);
     SPI.write16(data);
 }
 
-void rishka_syscall_spi_write32(RishkaVM* vm) {
-    uint32_t data = vm->getParam<uint32_t>(0);
+void RishkaSyscall::SPICall::write32(RishkaVM* vm) {
+    auto data = vm->getParam<uint32_t>(0);
     SPI.write32(data);
 }
 
-void rishka_syscall_spi_write_bytes(RishkaVM* vm) {
-    uint8_t* data = vm->getPointerParam<uint8_t*>(0);
-    uint32_t size = vm->getParam<uint32_t>(1);
+void RishkaSyscall::SPICall::write_bytes(RishkaVM* vm) {
+    auto data = vm->getPointerParam<uint8_t*>(0);
+    auto size = vm->getParam<uint32_t>(1);
 
     SPI.writeBytes(data, size);
 }
 
-void rishka_syscall_spi_write_pixels(RishkaVM* vm) {
-    void* data = vm->getPointerParam<void*>(0);
-    uint32_t size = vm->getParam<uint32_t>(1);
+void RishkaSyscall::SPICall::write_pixels(RishkaVM* vm) {
+    auto data = vm->getPointerParam<void*>(0);
+    auto size = vm->getParam<uint32_t>(1);
 
     SPI.writePixels(data, size);
 }
 
-void rishka_syscall_spi_write_pattern(RishkaVM* vm) {
-    uint8_t* data = vm->getPointerParam<uint8_t*>(0);
-    uint8_t size = vm->getParam<uint8_t>(1);
-    uint32_t repeat = vm->getParam<uint32_t>(2);
+void RishkaSyscall::SPICall::write_pattern(RishkaVM* vm) {
+    auto data = vm->getPointerParam<uint8_t*>(0);
+    auto size = vm->getParam<uint8_t>(1);
+    auto repeat = vm->getParam<uint32_t>(2);
 
     SPI.writePattern(data, size, repeat);
 }
 
-char rishka_syscall_rt_strpass() {
+char RishkaSyscall::Runtime::strpass() {
     return strpass_data.charAt(strpass_idx++);
+}
+
+void RishkaSyscall::Runtime::yield() {
+    yield();
 }

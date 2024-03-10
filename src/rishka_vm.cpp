@@ -622,375 +622,379 @@ inline uint32_t RishkaVM::fetch() {
 uint64_t RishkaVM::handleSyscall(uint64_t code) {
     switch(code) {
         case RISHKA_SC_IO_PRINTS:
-            rishka_syscall_io_prints(this);
+            RishkaSyscall::IO::prints(this);
             break;
 
         case RISHKA_SC_IO_PRINTN:
-            rishka_syscall_io_printn(this);
+            RishkaSyscall::IO::printn(this);
             break;
 
         case RISHKA_SC_IO_PRINTD:
-            rishka_syscall_io_printd(this);
+            RishkaSyscall::IO::printd(this);
             break;
 
         case RISHKA_SC_IO_READCH:
-            return rishka_syscall_io_readch(this);
+            return RishkaSyscall::IO::readch(this);
 
         case RISHKA_SC_IO_READLINE:
-            return rishka_syscall_io_readline(this);
+            return RishkaSyscall::IO::readLine(this);
 
         case RISHKA_SC_IO_READ:
-            return rishka_syscall_io_read(this);
+            return RishkaSyscall::IO::read(this);
 
         case RISHKA_SC_IO_AVAILABLE:
-            return rishka_syscall_io_available(this);
+            return RishkaSyscall::IO::available(this);
 
         case RISHKA_SC_IO_PEEK:
-            return rishka_syscall_io_peek(this);
+            return RishkaSyscall::IO::peek(this);
 
         case RISHKA_SC_IO_FIND:
-            return rishka_syscall_io_find(this);
+            return RishkaSyscall::IO::find(this);
 
         case RISHKA_SC_IO_FIND_UNTIL:
-            return rishka_syscall_io_find_until(this);
+            return RishkaSyscall::IO::findUntil(this);
 
         case RISHKA_SC_IO_SET_TIMEOUT:
-            rishka_syscall_io_set_timeout(this);
+            RishkaSyscall::IO::setTimeout(this);
             break;
 
         case RISHKA_SC_IO_GET_TIMEOUT:
-            return rishka_syscall_io_get_timeout(this);
+            return RishkaSyscall::IO::getTimeout(this);
 
         case RISHKA_SC_SYS_DELAY_MS:
-            rishka_syscall_sys_delay(this);
+            RishkaSyscall::Sys::delayImpl(this);
             break;
 
         case RISHKA_SC_SYS_MICROS:
-            return rishka_syscall_sys_micros();
+            return RishkaSyscall::Sys::microsImpl();
 
         case RISHKA_SC_SYS_MILLIS:
-            return rishka_syscall_sys_millis();
+            return RishkaSyscall::Sys::millisImpl();
 
         case RISHKA_SC_SYS_SHELLEXEC:
-            return rishka_syscall_sys_shellexec(this);
+            return RishkaSyscall::Sys::shellExec(this);
 
         case RISHKA_SC_SYS_EXIT:
-            rishka_syscall_sys_exit(this);
+            RishkaSyscall::Sys::exit(this);
             break;
 
         case RISHKA_SC_SYS_INFOS:
-            return rishka_syscall_sys_infos(this);
+            return RishkaSyscall::Sys::infos(this);
 
         case RISHKA_SC_SYS_INFON:
-            return rishka_syscall_sys_infon(this);
+            return RishkaSyscall::Sys::infon(this);
 
         case RISHKA_SC_SYS_RANDOM:
-            return rishka_syscall_sys_random();
+            return RishkaSyscall::Sys::randomImpl();
 
         case RISHKA_SC_MEM_ALLOC:
-            rishka_syscall_mem_alloc(this);
+            RishkaSyscall::Memory::alloc(this);
             break;
 
         case RISHKA_SC_MEM_CALLOC:
-            rishka_syscall_mem_calloc(this);
+            RishkaSyscall::Memory::calloc(this);
             break;
 
         case RISHKA_SC_MEM_REALLOC:
-            rishka_syscall_mem_realloc(this);
+            RishkaSyscall::Memory::realloc(this);
             break;
 
         case RISHKA_SC_MEM_FREE:
-            rishka_syscall_mem_free(this);
+            RishkaSyscall::Memory::freeHeap(this);
             break;
 
         case RISHKA_SC_MEM_SET:
-            return (uint64_t) rishka_syscall_mem_set(this);
+            return (uint64_t) RishkaSyscall::Memory::set(this);
 
         case RISHKA_SC_GPIO_PIN_MODE:
-            rishka_syscall_gpio_pinmode(this);
+            RishkaSyscall::Gpio::pinModeImpl(this);
             break;
 
         case RISHKA_SC_GPIO_DIGITAL_READ:
-            return rishka_syscall_gpio_digitalread(this);
+            return RishkaSyscall::Gpio::digitalReadImpl(this);
 
         case RISHKA_SC_GPIO_DIGITAL_WRITE:
-            rishka_syscall_gpio_digitalwrite(this);
+            RishkaSyscall::Gpio::digitalWriteImpl(this);
             break;
 
         case RISHKA_SC_GPIO_ANALOG_READ:
-            return rishka_syscall_gpio_analogread(this);
+            return RishkaSyscall::Gpio::analogReadImpl(this);
 
         case RISHKA_SC_GPIO_ANALOG_WRITE:
-            rishka_syscall_gpio_analogwrite(this);
+            RishkaSyscall::Gpio::analogWriteImpl(this);
             break;
 
         case RISHKA_SC_GPIO_PULSE_IN:
-            return rishka_syscall_gpio_pulse_in(this);
+            return RishkaSyscall::Gpio::pulseInImpl(this);
 
         case RISHKA_SC_GPIO_PULSE_IN_LONG:
-            return rishka_syscall_gpio_pulse_in_long(this);
+            return RishkaSyscall::Gpio::pulseInLongImpl(this);
 
         case RISHKA_SC_GPIO_SHIFT_IN:
-            return rishka_syscall_gpio_shift_in(this);
+            return RishkaSyscall::Gpio::shiftInImpl(this);
 
         case RISHKA_SC_GPIO_SHIFT_OUT:
-            rishka_syscall_gpio_shift_out(this);
+            RishkaSyscall::Gpio::shiftOutImpl(this);
             break;
 
         case RISHKA_SC_GPIO_TONE:
-            rishka_syscall_gpio_tone(this);
+            RishkaSyscall::Gpio::toneImpl(this);
             break;
 
         case RISHKA_SC_GPIO_NO_TONE:
-            rishka_syscall_gpio_no_tone(this);
+            RishkaSyscall::Gpio::noToneImpl(this);
             break;
 
         case RISHKA_SC_INT_ENABLE:
-            rishka_syscall_int_enable();
+            RishkaSyscall::Int::enable();
             break;
 
         case RISHKA_SC_INT_DISABLE:
-            rishka_syscall_int_disable();
+            RishkaSyscall::Int::disable();
             break;
 
         case RISHKA_SC_INT_ATTACH:
-            rishka_syscall_int_attach(this);
+            RishkaSyscall::Int::attach(this);
             break;
 
         case RISHKA_SC_INT_DETACH:
-            rishka_syscall_int_detach(this);
+            RishkaSyscall::Int::detach(this);
             break;
 
         case RISHKA_SC_FS_MKDIR:
-            return rishka_syscall_fs_mkdir(this);
+            return RishkaSyscall::FS::mkdir(this);
 
         case RISHKA_SC_FS_RMDIR:
-            return rishka_syscall_fs_rmdir(this);
+            return RishkaSyscall::FS::rmdir(this);
 
         case RISHKA_SC_FS_DELETE:
-            return rishka_syscall_fs_delete(this);
+            return RishkaSyscall::FS::remove(this);
 
         case RISHKA_SC_FS_EXISTS:
-            return rishka_syscall_fs_exists(this);
+            return RishkaSyscall::FS::exists(this);
 
         case RISHKA_SC_FS_ISFILE:
-            return rishka_syscall_fs_isfile(this);
+            return RishkaSyscall::FS::isfile(this);
 
         case RISHKA_SC_FS_ISDIR:
-            return rishka_syscall_fs_isdir(this);
+            return RishkaSyscall::FS::isdir(this);
 
         case RISHKA_SC_FS_OPEN:
-            return rishka_syscall_fs_open(this);
+            return RishkaSyscall::FS::open(this);
 
         case RISHKA_SC_FS_CLOSE:
-            rishka_syscall_fs_close(this);
+            RishkaSyscall::FS::close(this);
             break;
 
         case RISHKA_SC_FS_AVAILABLE:
-            return rishka_syscall_fs_available(this);
+            return RishkaSyscall::FS::available(this);
 
         case RISHKA_SC_FS_FLUSH:
-            rishka_syscall_fs_flush(this);
+            RishkaSyscall::FS::flush(this);
             break;
 
         case RISHKA_SC_FS_PEEK:
-            return rishka_syscall_fs_peek(this);
+            return RishkaSyscall::FS::peek(this);
 
         case RISHKA_SC_FS_SEEK:
-            return rishka_syscall_fs_seek(this);
+            return RishkaSyscall::FS::seek(this);
 
         case RISHKA_SC_FS_SIZE:
-            return rishka_syscall_fs_size(this);
+            return RishkaSyscall::FS::size(this);
 
         case RISHKA_SC_FS_READ:
-            return rishka_syscall_fs_read(this);
+            return RishkaSyscall::FS::read(this);
 
         case RISHKA_SC_FS_WRITEB:
-            rishka_syscall_fs_writeb(this);
+            RishkaSyscall::FS::writeb(this);
             break;
 
         case RISHKA_SC_FS_WRITES:
-            rishka_syscall_fs_writes(this);
+            RishkaSyscall::FS::writes(this);
             break;
 
         case RISHKA_SC_FS_POS:
-            return rishka_syscall_fs_position(this);
+            return RishkaSyscall::FS::position(this);
 
         case RISHKA_SC_FS_PATH:
-            return rishka_syscall_fs_path(this);
+            return RishkaSyscall::FS::path(this);
 
         case RISHKA_SC_FS_NAME:
-            return rishka_syscall_fs_name(this);
+            return RishkaSyscall::FS::name(this);
 
         case RISHKA_SC_FS_NEXT:
-            return rishka_syscall_fs_next(this);
+            return RishkaSyscall::FS::next(this);
 
         case RISHKA_SC_FS_BUFSIZE:
-            return rishka_syscall_fs_bufsize(this);
+            return RishkaSyscall::FS::bufsize(this);
 
         case RISHKA_SC_FS_LASTWRITE:
-            return rishka_syscall_fs_lastwrite(this);
+            return RishkaSyscall::FS::lastwrite(this);
 
         case RISHKA_SC_FS_SEEKDIR:
-            return rishka_syscall_fs_seekdir(this);
+            return RishkaSyscall::FS::seekdir(this);
 
         case RISHKA_SC_FS_NEXT_NAME:
-            return rishka_syscall_fs_next_name(this);
+            return RishkaSyscall::FS::next_name(this);
 
         case RISHKA_SC_FS_REWIND:
-            rishka_syscall_fs_rewind(this);
+            RishkaSyscall::FS::rewind(this);
             break;
 
         case RISHKA_SC_ARG_COUNT:
-            return rishka_syscall_arg_count(this);
+            return RishkaSyscall::Args::count(this);
 
         case RISHKA_SC_ARG_STR:
-            return rishka_syscall_arg_value(this);
+            return RishkaSyscall::Args::value(this);
 
         case RISHKA_SC_I2C_BEGIN:
-            return rishka_syscall_i2c_begin(this);
+            return RishkaSyscall::I2C::begin(this);
 
         case RISHKA_SC_I2C_END:
-            return rishka_syscall_i2c_end(this);
+            return RishkaSyscall::I2C::end(this);
 
         case RISHKA_SC_I2C_BEGIN_TRANSMISSION:
-            rishka_syscall_i2c_begin_transmission(this);
+            RishkaSyscall::I2C::begin_transmission(this);
             break;
 
         case RISHKA_SC_I2C_END_TRANSMISSION:
-            return rishka_syscall_i2c_end_transmission(this);
+            return RishkaSyscall::I2C::end_transmission(this);
 
         case RISHKA_SC_I2C_WRITE:
-            return rishka_syscall_i2c_write(this);
+            return RishkaSyscall::I2C::write(this);
 
         case RISHKA_SC_I2C_SLAVE_WRITE:
-            return rishka_syscall_i2c_slave_write(this);
+            return RishkaSyscall::I2C::slave_write(this);
 
         case RISHKA_SC_I2C_READ:
-            return rishka_syscall_i2c_read(this);
+            return RishkaSyscall::I2C::read(this);
 
         case RISHKA_SC_I2C_PEEK:
-            return rishka_syscall_i2c_peek(this);
+            return RishkaSyscall::I2C::peek(this);
 
         case RISHKA_SC_I2C_REQUEST:
-            return rishka_syscall_i2c_request(this);
+            return RishkaSyscall::I2C::request(this);
 
         case RISHKA_SC_I2C_AVAILABLE:
-            return rishka_syscall_i2c_available(this);
+            return RishkaSyscall::I2C::available(this);
 
         case RISHKA_SC_I2C_FLUSH:
-            rishka_syscall_i2c_flush();
+            RishkaSyscall::I2C::flush();
             break;
 
         case RISHKA_SC_I2C_ON_RECEIVE:
-            rishka_syscall_i2c_on_receive(this);
+            RishkaSyscall::I2C::on_receive(this);
             break;
         
         case RISHKA_SC_I2C_ON_REQUEST:
-            rishka_syscall_i2c_on_request(this);
+            RishkaSyscall::I2C::on_request(this);
             break;
 
         case RISHKA_SC_I2C_GET_TIMEOUT:
-            return rishka_syscall_i2c_get_timeout();
+            return RishkaSyscall::I2C::get_timeout();
 
         case RISHKA_SC_I2C_SET_TIMEOUT:
-            rishka_syscall_i2c_set_timeout(this);
+            RishkaSyscall::I2C::set_timeout(this);
             break;
 
         case RISHKA_SC_I2C_SET_CLOCK:
-            return rishka_syscall_i2c_set_clock(this);
+            return RishkaSyscall::I2C::set_clock(this);
 
         case RISHKA_SC_I2C_GET_CLOCK:
-            return rishka_syscall_i2c_get_clock();
+            return RishkaSyscall::I2C::get_clock();
 
         case RISHKA_SC_I2C_PINS:
-            return rishka_syscall_i2c_pins(this);
+            return RishkaSyscall::I2C::pins(this);
 
         case RISHKA_SC_I2C_BUFSIZE:
-            return rishka_syscall_i2c_bufsize(this);
+            return RishkaSyscall::I2C::bufsize(this);
 
         case RISHKA_SC_SPI_BEGIN:
-            rishka_syscall_spi_begin(this);
+            RishkaSyscall::SPICall::begin(this);
             break;
 
         case RISHKA_SC_SPI_END:
-            rishka_syscall_spi_end();
+            RishkaSyscall::SPICall::end();
             break;
 
         case RISHKA_SC_SPI_BEGIN_TRANSACTION:
-            rishka_syscall_spi_begin_transaction(this);
+            RishkaSyscall::SPICall::begin_transaction(this);
             break;
 
         case RISHKA_SC_SPI_END_TRANSACTION:
-            rishka_syscall_spi_end_transaction();
+            RishkaSyscall::SPICall::end_transaction();
             break;
 
         case RISHKA_SC_SPI_TRANSFER8:
-            return rishka_syscall_spi_transfer8(this);
+            return RishkaSyscall::SPICall::transfer8(this);
 
         case RISHKA_SC_SPI_TRANSFER16:
-            return rishka_syscall_spi_transfer16(this);
+            return RishkaSyscall::SPICall::transfer16(this);
 
         case RISHKA_SC_SPI_TRANSFER32:
-            return rishka_syscall_spi_transfer32(this);
+            return RishkaSyscall::SPICall::transfer32(this);
 
         case RISHKA_SC_SPI_TRANSFER_BYTES:
-            rishka_syscall_spi_transfer_bytes(this);
+            RishkaSyscall::SPICall::transfer_bytes(this);
             break;
 
         case RISHKA_SC_SPI_TRANSFER_BITS:
-            rishka_syscall_spi_transfer_bits(this);
+            RishkaSyscall::SPICall::transfer_bits(this);
             break;
 
         case RISHKA_SC_SPI_SET_HWCS:
-            rishka_syscall_spi_set_hwcs(this);
+            RishkaSyscall::SPICall::set_hwcs(this);
             break;
 
         case RISHKA_SC_SPI_SET_BIT_ORDER:
-            rishka_syscall_spi_set_bit_order(this);
+            RishkaSyscall::SPICall::set_bit_order(this);
             break;
 
         case RISHKA_SC_SPI_SET_DATA_MODE:
-            rishka_syscall_spi_set_data_mode(this);
+            RishkaSyscall::SPICall::set_data_mode(this);
             break;
 
         case RISHKA_SC_SPI_SET_FREQ:
-            rishka_syscall_spi_set_frequency(this);
+            RishkaSyscall::SPICall::set_frequency(this);
             break;
 
         case RISHKA_SC_SPI_SET_CLOCK_DIV:
-            rishka_syscall_spi_set_clock_div(this);
+            RishkaSyscall::SPICall::set_clock_div(this);
             break;
 
         case RISHKA_SC_SPI_GET_CLOCK_DIV:
-            return rishka_syscall_spi_get_clock_div();
+            return RishkaSyscall::SPICall::get_clock_div();
 
         case RISHKA_SC_SPI_WRITE8:
-            rishka_syscall_spi_write8(this);
+            RishkaSyscall::SPICall::write8(this);
             break;
 
         case RISHKA_SC_SPI_WRITE16:
-            rishka_syscall_spi_write16(this);
+            RishkaSyscall::SPICall::write16(this);
             break;
 
         case RISHKA_SC_SPI_WRITE32:
-            rishka_syscall_spi_write32(this);
+            RishkaSyscall::SPICall::write32(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_BYTES:
-            rishka_syscall_spi_write_bytes(this);
+            RishkaSyscall::SPICall::write_bytes(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_PIXELS:
-            rishka_syscall_spi_write_pixels(this);
+            RishkaSyscall::SPICall::write_pixels(this);
             break;
 
         case RISHKA_SC_SPI_WRITE_PATTERN:
-            rishka_syscall_spi_write_pattern(this);
+            RishkaSyscall::SPICall::write_pattern(this);
             break;
 
         case RISHKA_SC_RT_STRPASS:
-            return rishka_syscall_rt_strpass();
+            return RishkaSyscall::Runtime::strpass();
+
+        case RISHKA_SC_RT_YIELD:
+            RishkaSyscall::Runtime::yield();
+            break;
 
         default:
             this->panic("Invalid system call.");

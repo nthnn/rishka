@@ -161,125 +161,157 @@ enum rishka_syscall {
     RISHKA_SC_RT_YIELD
 };
 
-// Rishka virtual runtime system calls
+class RishkaSyscall final {
+public:
 
-void rishka_syscall_io_prints(RishkaVM* vm);
-void rishka_syscall_io_printn(RishkaVM* vm);
-void rishka_syscall_io_printd(RishkaVM* vm);
-char rishka_syscall_io_readch(RishkaVM* vm);
-size_t rishka_syscall_io_readline(RishkaVM* vm);
-int rishka_syscall_io_read(RishkaVM* vm);
-int rishka_syscall_io_available(RishkaVM* vm);
-int rishka_syscall_io_peek(RishkaVM* vm);
-bool rishka_syscall_io_find(RishkaVM* vm);
-bool rishka_syscall_io_find_until(RishkaVM* vm);
-void rishka_syscall_io_set_timeout(RishkaVM* vm);
-uint64_t rishka_syscall_io_get_timeout(RishkaVM* vm);
+    class IO final {
+    public:
+        static void prints(RishkaVM* vm);
+        static void printn(RishkaVM* vm);
+        static void printd(RishkaVM* vm);
+        static char readch(RishkaVM* vm);
+        static size_t readLine(RishkaVM* vm);
+        static int read(RishkaVM* vm);
+        static int available(RishkaVM* vm);
+        static int peek(RishkaVM* vm);
+        static bool find(RishkaVM* vm);
+        static bool findUntil(RishkaVM* vm);
+        static void setTimeout(RishkaVM* vm);
+        static uint64_t getTimeout(RishkaVM* vm);
+    };
 
-void rishka_syscall_sys_delay(RishkaVM* vm);
-unsigned long rishka_syscall_sys_micros();
-unsigned long rishka_syscall_sys_millis();
-int64_t rishka_syscall_sys_shellexec(RishkaVM* parent_vm);
-void rishka_syscall_sys_exit(RishkaVM* vm);
-uint32_t rishka_syscall_sys_infos(RishkaVM* vm);
-long rishka_syscall_sys_infon(RishkaVM* vm);
-long rishka_syscall_sys_random();
+    class Sys final {
+    public:
+        static void delayImpl(RishkaVM* vm);
+        static unsigned long microsImpl();
+        static unsigned long millisImpl();
+        static int64_t shellExec(RishkaVM* parent_vm);
+        static void exit(RishkaVM* vm);
+        static uint32_t infos(RishkaVM* vm);
+        static long infon(RishkaVM* vm);
+        static long randomImpl();
+    };
 
-void rishka_syscall_mem_alloc(RishkaVM* vm);
-void rishka_syscall_mem_calloc(RishkaVM* vm);
-void rishka_syscall_mem_realloc(RishkaVM* vm);
-void rishka_syscall_mem_free(RishkaVM* vm);
-void* rishka_syscall_mem_set(RishkaVM* vm);
+    class Memory final {
+    public:
+        static void alloc(RishkaVM* vm);
+        static void calloc(RishkaVM* vm);
+        static void realloc(RishkaVM* vm);
+        static void freeHeap(RishkaVM* vm);
+        static void* set(RishkaVM* vm);
+    };
 
-void rishka_syscall_gpio_pinmode(RishkaVM* vm);
-bool rishka_syscall_gpio_digitalread(RishkaVM* vm);
-void rishka_syscall_gpio_digitalwrite(RishkaVM* vm);
-uint16_t rishka_syscall_gpio_analogread(RishkaVM* vm);
-void rishka_syscall_gpio_analogwrite(RishkaVM* vm);
-uint64_t rishka_syscall_gpio_pulse_in(RishkaVM* vm);
-uint64_t rishka_syscall_gpio_pulse_in_long(RishkaVM* vm);
-uint8_t rishka_syscall_gpio_shift_in(RishkaVM* vm);
-void rishka_syscall_gpio_shift_out(RishkaVM* vm);
-void rishka_syscall_gpio_tone(RishkaVM* vm);
-void rishka_syscall_gpio_no_tone(RishkaVM* vm);
+    class Gpio final {
+    public:
+        static void pinModeImpl(RishkaVM* vm);
+        static bool digitalReadImpl(RishkaVM* vm);
+        static void digitalWriteImpl(RishkaVM* vm);
+        static uint16_t analogReadImpl(RishkaVM* vm);
+        static void analogWriteImpl(RishkaVM* vm);
+        static uint64_t pulseInImpl(RishkaVM* vm);
+        static uint64_t pulseInLongImpl(RishkaVM* vm);
+        static uint8_t shiftInImpl(RishkaVM* vm);
+        static void shiftOutImpl(RishkaVM* vm);
+        static void toneImpl(RishkaVM* vm);
+        static void noToneImpl(RishkaVM* vm);
+    };
 
-void rishka_syscall_int_enable();
-void rishka_syscall_int_disable();
-void rishka_syscall_int_attach(RishkaVM* vm);
-void rishka_syscall_int_detach(RishkaVM* vm);
+    class Int final {
+    public:
+        static void enable();
+        static void disable();
+        static void attach(RishkaVM* vm);
+        static void detach(RishkaVM* vm);
+    };
 
-bool rishka_syscall_fs_mkdir(RishkaVM* vm);
-bool rishka_syscall_fs_rmdir(RishkaVM* vm);
-bool rishka_syscall_fs_delete(RishkaVM* vm);
-bool rishka_syscall_fs_exists(RishkaVM* vm);
-bool rishka_syscall_fs_isfile(RishkaVM* vm);
-bool rishka_syscall_fs_isdir(RishkaVM* vm);
-uint8_t rishka_syscall_fs_open(RishkaVM* vm);
-void rishka_syscall_fs_close(RishkaVM* vm);
-int rishka_syscall_fs_available(RishkaVM* vm);
-void rishka_syscall_fs_flush(RishkaVM* vm);
-int rishka_syscall_fs_peek(RishkaVM* vm);
-bool rishka_syscall_fs_seek(RishkaVM* vm);
-uint32_t rishka_syscall_fs_size(RishkaVM* vm);
-int rishka_syscall_fs_read(RishkaVM* vm);
-size_t rishka_syscall_fs_writeb(RishkaVM* vm);
-size_t rishka_syscall_fs_writes(RishkaVM* vm);
-size_t rishka_syscall_fs_position(RishkaVM* vm);
-uint32_t rishka_syscall_fs_path(RishkaVM* vm);
-uint32_t rishka_syscall_fs_name(RishkaVM* vm);
-uint8_t rishka_syscall_fs_next(RishkaVM* vm);
-bool rishka_syscall_fs_bufsize(RishkaVM* vm);
-uint64_t rishka_syscall_fs_lastwrite(RishkaVM* vm);
-bool rishka_syscall_fs_seekdir(RishkaVM* vm);
-uint32_t rishka_syscall_fs_next_name(RishkaVM* vm);
-void rishka_syscall_fs_rewind(RishkaVM* vm);
+    class FS final {
+    public:
+        static bool mkdir(RishkaVM* vm);
+        static bool rmdir(RishkaVM* vm);
+        static bool remove(RishkaVM* vm);
+        static bool exists(RishkaVM* vm);
+        static bool isfile(RishkaVM* vm);
+        static bool isdir(RishkaVM* vm);
+        static uint8_t open(RishkaVM* vm);
+        static void close(RishkaVM* vm);
+        static int available(RishkaVM* vm);
+        static void flush(RishkaVM* vm);
+        static int peek(RishkaVM* vm);
+        static bool seek(RishkaVM* vm);
+        static uint32_t size(RishkaVM* vm);
+        static int read(RishkaVM* vm);
+        static size_t writeb(RishkaVM* vm);
+        static size_t writes(RishkaVM* vm);
+        static size_t position(RishkaVM* vm);
+        static uint32_t path(RishkaVM* vm);
+        static uint32_t name(RishkaVM* vm);
+        static uint8_t next(RishkaVM* vm);
+        static bool bufsize(RishkaVM* vm);
+        static uint64_t lastwrite(RishkaVM* vm);
+        static bool seekdir(RishkaVM* vm);
+        static uint32_t next_name(RishkaVM* vm);
+        static void rewind(RishkaVM* vm);
+    };
 
-uint8_t rishka_syscall_arg_count(RishkaVM* vm);
-uint32_t rishka_syscall_arg_value(RishkaVM* vm);
+    class Args final {
+    public:
+        static uint8_t count(RishkaVM* vm);
+        static uint32_t value(RishkaVM* vm);
+    };
 
-bool rishka_syscall_i2c_begin(RishkaVM* vm);
-bool rishka_syscall_i2c_end(RishkaVM* vm);
-void rishka_syscall_i2c_begin_transmission(RishkaVM* vm);
-uint8_t rishka_syscall_i2c_end_transmission(RishkaVM* vm);
-size_t rishka_syscall_i2c_write(RishkaVM* vm);
-size_t rishka_syscall_i2c_slave_write(RishkaVM* vm);
-int rishka_syscall_i2c_read(RishkaVM* vm);
-int rishka_syscall_i2c_peek(RishkaVM* vm);
-size_t rishka_syscall_i2c_request(RishkaVM* vm);
-int rishka_syscall_i2c_available(RishkaVM* vm);
-void rishka_syscall_i2c_flush();
-void rishka_syscall_i2c_on_receive(RishkaVM* vm);
-void rishka_syscall_i2c_on_request(RishkaVM* vm);
-uint16_t rishka_syscall_i2c_get_timeout();
-void rishka_syscall_i2c_set_timeout(RishkaVM* vm);
-bool rishka_syscall_i2c_set_clock(RishkaVM* vm);
-uint32_t rishka_syscall_i2c_get_clock();
-bool rishka_syscall_i2c_pins(RishkaVM* vm);
-size_t rishka_syscall_i2c_bufsize(RishkaVM* vm);
+    class I2C final {
+    public:
+        static bool begin(RishkaVM* vm);
+        static bool end(RishkaVM* vm);
+        static void begin_transmission(RishkaVM* vm);
+        static uint8_t end_transmission(RishkaVM* vm);
+        static size_t write(RishkaVM* vm);
+        static size_t slave_write(RishkaVM* vm);
+        static int read(RishkaVM* vm);
+        static int peek(RishkaVM* vm);
+        static size_t request(RishkaVM* vm);
+        static int available(RishkaVM* vm);
+        static void flush();
+        static void on_receive(RishkaVM* vm);
+        static void on_request(RishkaVM* vm);
+        static uint16_t get_timeout();
+        static void set_timeout(RishkaVM* vm);
+        static bool set_clock(RishkaVM* vm);
+        static uint32_t get_clock();
+        static bool pins(RishkaVM* vm);
+        static size_t bufsize(RishkaVM* vm);
+    };
 
-void rishka_syscall_spi_begin(RishkaVM* vm);
-void rishka_syscall_spi_end();
-void rishka_syscall_spi_begin_transaction(RishkaVM* vm);
-void rishka_syscall_spi_end_transaction();
-uint8_t rishka_syscall_spi_transfer8(RishkaVM* vm);
-uint16_t rishka_syscall_spi_transfer16(RishkaVM* vm);
-uint32_t rishka_syscall_spi_transfer32(RishkaVM* vm);
-void rishka_syscall_spi_transfer_bytes(RishkaVM* vm);
-void rishka_syscall_spi_transfer_bits(RishkaVM* vm);
-void rishka_syscall_spi_set_hwcs(RishkaVM* vm);
-void rishka_syscall_spi_set_bit_order(RishkaVM* vm);
-void rishka_syscall_spi_set_data_mode(RishkaVM* vm);
-void rishka_syscall_spi_set_frequency(RishkaVM* vm);
-void rishka_syscall_spi_set_clock_div(RishkaVM* vm);
-uint32_t rishka_syscall_spi_get_clock_div();
-void rishka_syscall_spi_write8(RishkaVM* vm);
-void rishka_syscall_spi_write16(RishkaVM* vm);
-void rishka_syscall_spi_write32(RishkaVM* vm);
-void rishka_syscall_spi_write_bytes(RishkaVM* vm);
-void rishka_syscall_spi_write_pixels(RishkaVM* vm);
-void rishka_syscall_spi_write_pattern(RishkaVM* vm);
+    class SPICall final {
+    public:
+        static void begin(RishkaVM* vm);
+        static void end();
+        static void begin_transaction(RishkaVM* vm);
+        static void end_transaction();
+        static uint8_t transfer8(RishkaVM* vm);
+        static uint16_t transfer16(RishkaVM* vm);
+        static uint32_t transfer32(RishkaVM* vm);
+        static void transfer_bytes(RishkaVM* vm);
+        static void transfer_bits(RishkaVM* vm);
+        static void set_hwcs(RishkaVM* vm);
+        static void set_bit_order(RishkaVM* vm);
+        static void set_data_mode(RishkaVM* vm);
+        static void set_frequency(RishkaVM* vm);
+        static void set_clock_div(RishkaVM* vm);
+        static uint32_t get_clock_div();
+        static void write8(RishkaVM* vm);
+        static void write16(RishkaVM* vm);
+        static void write32(RishkaVM* vm);
+        static void write_bytes(RishkaVM* vm);
+        static void write_pixels(RishkaVM* vm);
+        static void write_pattern(RishkaVM* vm);
+    };
 
-char rishka_syscall_rt_strpass();
-void rishka_syscall_rt_yield();
+    class Runtime final {
+    public:
+        static char strpass();
+        static void yield();
+    };
+};
 
 #endif /* RISHKA_TYPES_H */
