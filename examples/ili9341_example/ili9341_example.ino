@@ -26,6 +26,7 @@
 #include <SD.h>
 #include <SPI.h>
 
+#define TFT_CS     5            // TFT SPI chip select pin
 #define TFT_SCK    18           // TFT SPI clock pin
 #define TFT_MOSI   23           // TFT SPI MOSI pin
 #define TFT_DC     2            // TFT data/command pin
@@ -46,7 +47,7 @@ SPIClass sdSpi(HSPI);
 
 void setup() {
     // Initialize TFT display
-    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, 5, TFT_SPIBUS);
+    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);
     DisplayController.setResolution("\"TFT_320x240\" 320 240");
 
     // Initialize terminal
