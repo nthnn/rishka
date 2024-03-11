@@ -26,14 +26,14 @@
 #include <SD.h>
 #include <SPI.h>
 
-#define TFT_CS     5            // TFT SPI chip select pin
+#define TFT_CS     5            // TFT SPI select pin
 #define TFT_SCK    18           // TFT SPI clock pin
 #define TFT_MOSI   23           // TFT SPI MOSI pin
-#define TFT_DC     2            // TFT data/command pin
+#define TFT_DC     15           // TFT data/command pin
 #define TFT_RESET  4            // TFT reset pin
 #define TFT_SPIBUS VSPI_HOST    // TFT SPI bus
 
-#define SD_CS      15           // SD card chip select pin
+#define SD_CS      2            // SD card chip select pin
 #define SD_SCK     14           // SD card SPI clock pin
 #define SD_MOSI    13           // SD card SPI MOSI pin
 #define SD_MISO    12           // SD card SPI MISO pin
