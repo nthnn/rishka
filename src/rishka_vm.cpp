@@ -21,13 +21,13 @@
 #include <rishka_util.h>
 #include <rishka_vm.h>
 
-void RishkaVM::initialize(Stream* stream) {
+void RishkaVM::initialize(fabgl::Terminal* terminal) {
     this->running = false;
     this->argv = NULL;
     this->argc = 0;
     this->pc = 0;
     this->exitCode = 0;
-    this->stream = stream;
+    this->terminal = terminal;
 }
 
 void RishkaVM::stopVM() {
@@ -42,8 +42,8 @@ int64_t RishkaVM::getExitCode() const {
     return this->exitCode;
 }
 
-Stream* RishkaVM::getStream() const {
-    return this->stream;
+fabgl::Terminal* RishkaVM::getTerminal() const {
+    return this->terminal;
 }
 
 uint8_t RishkaVM::getArgCount() const {
@@ -87,9 +87,9 @@ void RishkaVM::panic(const char* message) {
     this->reset();
     this->setExitCode(-1);
 
-    this->stream->print("\r\n");
-    this->stream->print(message);
-    this->stream->print("\r\n");
+    this->terminal->print("\r\n");
+    this->terminal->print(message);
+    this->terminal->print("\r\n");
 }
 
 void RishkaVM::reset() {

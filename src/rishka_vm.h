@@ -28,6 +28,7 @@
 #ifndef RISHKA_VM_H
 #define RISHKA_VM_H
 
+#include <fabgl.h>
 #include <List.hpp>
 #include <rishka_types.h>
 #include <SD.h>
@@ -45,7 +46,7 @@ private:
     uint8_t memory[RISHKA_VM_STACK_SIZE]; ///< Memory space for the virtual machine
 
     int64_t pc; ///< Program counter
-    Stream* stream; ///< Stream for input/output operations
+    fabgl::Terminal* terminal; ///< Terminal for input/output operations
 
     bool running; ///< Flag indicating whether the VM is running
     int64_t exitCode; ///< Exit code of the VM after execution
@@ -160,11 +161,11 @@ public:
     int64_t getExitCode() const;
 
     /**
-     * @brief Gets the input/output stream used by the virtual machine.
+     * @brief Gets the input/output terminal used by the virtual machine.
      * 
-     * @return A pointer to the input/output stream.
+     * @return A pointer to the input/output terminal.
      */
-    Stream* getStream() const;
+    fabgl::Terminal* getTerminal() const;
 
     /**
      * @brief Gets the number of VM arguments on execution.
@@ -189,9 +190,9 @@ public:
      * state of the virtual machine, including resetting registers, memory, and file
      * handles. Once initialized, the virtual machine is ready for execution.
      *
-     * @param stream A pointer to the Stream object for input/output operations.
+     * @param stream A pointer to the Terminal object for input/output operations.
      */
-    void initialize(Stream* stream);
+    void initialize(fabgl::Terminal* terminal);
 
     /**
      * @brief Resets the Rishka virtual machine instance to its initial state.

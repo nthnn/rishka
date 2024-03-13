@@ -69,63 +69,63 @@ void change_rt_strpass(char* data) {
 
 void RishkaSyscall::IO::prints(RishkaVM* vm) {
     auto arg = vm->getPointerParam<char*>(0);
-    vm->getStream()->print(arg != NULL ? arg : "(null)");
+    vm->getTerminal()->print(arg != NULL ? arg : "(null)");
 }
 
 void RishkaSyscall::IO::printn(RishkaVM* vm) {
     auto arg = vm->getParam<int64_t>(0);
-    vm->getStream()->print(arg);
+    vm->getTerminal()->print(arg);
 }
 
 void RishkaSyscall::IO::printd(RishkaVM* vm) {
     auto arg = vm->getParam<double>(0);
-    vm->getStream()->print(arg);
+    vm->getTerminal()->print(arg);
 }
 
 char RishkaSyscall::IO::readch(RishkaVM* vm) {
-    return (char) vm->getStream()->read();
+    return (char) vm->getTerminal()->read();
 }
 
 size_t RishkaSyscall::IO::readLine(RishkaVM* vm) {
-    char* input = (char*) vm->getStream()->readString().c_str();
+    char* input = (char*) vm->getTerminal()->readString().c_str();
 
     change_rt_strpass(input);
     return strlen(input);
 }
 
 int RishkaSyscall::IO::read(RishkaVM* vm) {
-    return vm->getStream()->read();
+    return vm->getTerminal()->read();
 }
 
 int RishkaSyscall::IO::available(RishkaVM* vm) {
-    return vm->getStream()->available();
+    return vm->getTerminal()->available();
 }
 
 int RishkaSyscall::IO::peek(RishkaVM* vm) {
-    return vm->getStream()->peek();
+    return vm->getTerminal()->peek();
 }
 
 bool RishkaSyscall::IO::find(RishkaVM* vm) {
     auto target = vm->getPointerParam<char*>(0);
     auto length = vm->getParam<size_t>(1);
 
-    return vm->getStream()->find(target, length);
+    return vm->getTerminal()->find(target, length);
 }
 
 bool RishkaSyscall::IO::findUntil(RishkaVM* vm) {
     auto target = vm->getPointerParam<char*>(0);
     auto terminator = vm->getPointerParam<char*>(1);
 
-    return vm->getStream()->findUntil(target, terminator);
+    return vm->getTerminal()->findUntil(target, terminator);
 }
 
 void RishkaSyscall::IO::setTimeout(RishkaVM* vm) {
     auto timeout = vm->getParam<uint64_t>(0);
-    vm->getStream()->setTimeout(timeout);
+    vm->getTerminal()->setTimeout(timeout);
 }
 
 uint64_t RishkaSyscall::IO::getTimeout(RishkaVM* vm) {
-    return vm->getStream()->getTimeout();
+    return vm->getTerminal()->getTimeout();
 }
 
 void RishkaSyscall::Sys::delayImpl(RishkaVM* vm) {
@@ -147,7 +147,7 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
     auto argv = parent_vm->getPointerParam<char**>(2);
 
     RishkaVM* child_vm = new RishkaVM();
-    child_vm->initialize(parent_vm->getStream());
+    child_vm->initialize(parent_vm->getTerminal());
 
     if(!child_vm->loadFile(program)) {
         child_vm->reset();
