@@ -67,6 +67,8 @@ enum rishka_syscall {
     RISHKA_SC_SYS_INFOS, ///< Get system information as string
     RISHKA_SC_SYS_INFON, ///< Get system information as number
     RISHKA_SC_SYS_RANDOM, ///< Generate a random number
+    RISHKA_SC_SYS_CD, ///< Change working directory
+    RISHKA_SC_SYS_WD, ///< Current working directory
 
     // Memory Management System Calls
     RISHKA_SC_MEM_ALLOC, ///< Allocate memory block
@@ -225,6 +227,8 @@ public:
         static uint32_t infos(RishkaVM* vm);
         static long infon(RishkaVM* vm);
         static long randomImpl();
+        static bool changeDir(RishkaVM* vm);
+        static uint32_t workingDirectory(RishkaVM* vm);
     };
 
     /**
