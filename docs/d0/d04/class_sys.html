@@ -130,11 +130,53 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a3cc8c3d6432a431ea7655ddc272d2531"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d9/d49/types_8h.html#a6c95997324761b0f5e6aa06244f52d24">i64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d04/class_sys.html#a3cc8c3d6432a431ea7655ddc272d2531">random</a> ()</td></tr>
 <tr class="memdesc:a3cc8c3d6432a431ea7655ddc272d2531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a random integer value.  <br /></td></tr>
 <tr class="separator:a3cc8c3d6432a431ea7655ddc272d2531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc14702959528aa2c6abb0ac3771a68b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d04/class_sys.html#abc14702959528aa2c6abb0ac3771a68b">changeDirectory</a> (char *directory)</td></tr>
+<tr class="memdesc:abc14702959528aa2c6abb0ac3771a68b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the current working directory.  <br /></td></tr>
+<tr class="separator:abc14702959528aa2c6abb0ac3771a68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4fea3e1d3b60392b30b78eb5b35e446"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d9/d49/types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d04/class_sys.html#ac4fea3e1d3b60392b30b78eb5b35e446">workingDirectory</a> ()</td></tr>
+<tr class="memdesc:ac4fea3e1d3b60392b30b78eb5b35e446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the current working directory.  <br /></td></tr>
+<tr class="separator:ac4fea3e1d3b60392b30b78eb5b35e446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for handling system utilities in Rishka applications. </p>
 <p>The <a class="el" href="../../d0/d04/class_sys.html" title="Class for handling system utilities in Rishka applications.">Sys</a> class provides static methods for delaying execution, accessing system time, executing shell commands, retrieving system information, and exiting the application. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc14702959528aa2c6abb0ac3771a68b" name="abc14702959528aa2c6abb0ac3771a68b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc14702959528aa2c6abb0ac3771a68b">&#9670;&#160;</a></span>changeDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Sys::changeDirectory </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>directory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the current working directory. </p>
+<p>This static method changes the current working directory to the specified directory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>The directory to change to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the directory change was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="a9418655c63dd6022b504993d73b11cc5" name="a9418655c63dd6022b504993d73b11cc5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9418655c63dd6022b504993d73b11cc5">&#9670;&#160;</a></span>delay()</h2>
 
@@ -415,6 +457,35 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The exit status of the shell command. </dd></dl>
+
+</div>
+</div>
+<a id="ac4fea3e1d3b60392b30b78eb5b35e446" name="ac4fea3e1d3b60392b30b78eb5b35e446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4fea3e1d3b60392b30b78eb5b35e446">&#9670;&#160;</a></span>workingDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d9/d49/types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a> Sys::workingDirectory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the current working directory. </p>
+<p>This static method returns the current working directory as a string.</p>
+<dl class="section return"><dt>Returns</dt><dd>A string representing the current working directory. </dd></dl>
 
 </div>
 </div>
