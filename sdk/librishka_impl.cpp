@@ -39,6 +39,8 @@ enum rishka_syscall {
     RISHKA_SC_SYS_INFOS,
     RISHKA_SC_SYS_INFON,
     RISHKA_SC_SYS_RANDOM,
+    RISHKA_SC_SYS_CD,
+    RISHKA_SC_SYS_WD,
 
     RISHKA_SC_MEM_ALLOC,
     RISHKA_SC_MEM_CALLOC,
@@ -298,6 +300,15 @@ i64 Sys::info_num(sysinfon_t key) {
 
 i64 Sys::random() {
     return (i64) rishka_sc_0(RISHKA_SC_SYS_RANDOM);
+}
+
+bool Sys::changeDirectory(char* directory) {
+    return (bool) rishka_sc_1(RISHKA_SC_SYS_CD, (i64) directory);
+}
+
+string Sys::workingDirectory() {
+    u32 len = rishka_sc_0(RISHKA_SC_SYS_WD);
+    return get_rt_string(len);
 }
 
 void Memory::alloc(any dest, usize size) {
