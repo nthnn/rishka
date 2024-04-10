@@ -179,6 +179,25 @@ public:
      *
      */
     static i64 random();
+
+    /**
+     * @brief Changes the current working directory.
+     *
+     * This static method changes the current working directory to the specified directory.
+     *
+     * @param directory The directory to change to.
+     * @return True if the directory change was successful, false otherwise.
+     */
+    static bool changeDirectory(char* directory);
+
+    /**
+     * @brief Retrieves the current working directory.
+     *
+     * This static method returns the current working directory as a string.
+     *
+     * @return A string representing the current working directory.
+     */
+    static string workingDirectory();
 };
 
 #endif /* LIBRISHKA_SYS_H */
