@@ -241,7 +241,26 @@ public:
      */
     void panic(const char* message);
 
+    /**
+     * @brief Sets the working directory for the virtual machine.
+     *
+     * This function sets the working directory for the virtual machine instance.
+     * The working directory is the base directory for file operations performed
+     * by the virtual machine.
+     *
+     * @param directory The path to the new working directory.
+     */
     void setWorkingDirectory(char* directory);
+
+    /**
+     * @brief Retrieves the current working directory of the virtual machine.
+     *
+     * This function retrieves the current working directory of the virtual machine instance.
+     * The working directory is the base directory for file operations performed
+     * by the virtual machine.
+     *
+     * @return A pointer to the current working directory string.
+     */
     char* getWorkingDirectory();
 
     /**
