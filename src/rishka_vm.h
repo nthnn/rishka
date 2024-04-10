@@ -250,7 +250,7 @@ public:
      *
      * @param directory The path to the new working directory.
      */
-    void setWorkingDirectory(char* directory);
+    void setWorkingDirectory(String directory);
 
     /**
      * @brief Retrieves the current working directory of the virtual machine.

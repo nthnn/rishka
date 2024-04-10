@@ -1011,8 +1011,8 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
     return 0;
 }
 
-void RishkaVM::setWorkingDirectory(char* directory) {
-    this->workingDirectory = directory;
+void RishkaVM::setWorkingDirectory(String directory) {
+    this->workingDirectory = directory.c_str();
 }
 
 char* RishkaVM::getWorkingDirectory() {

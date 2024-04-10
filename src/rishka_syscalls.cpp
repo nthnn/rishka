@@ -285,7 +285,7 @@ bool RishkaSyscall::Sys::changeDir(RishkaVM* vm) {
         return true;
     }
  
-    String target = rishka_sanitize_path(vm->getWorkingDirectory(), String(dir));
+    String target = rishka_sanitize_path(vm->getWorkingDirectory(), dir);
     if(!SD.exists(target))
         return false;
 
