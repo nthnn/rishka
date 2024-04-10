@@ -65,4 +65,45 @@ inline double rishka_long_to_double(int64_t l) {
     return data.output;
 }
 
+/**
+ * @brief Sanitizes a file path by resolving it relative to the current working directory.
+ *
+ * This function sanitizes a file path by resolving it relative to the current working directory.
+ * If the provided path is already absolute, it is returned as is. Otherwise, it is resolved
+ * relative to the current working directory.
+ *
+ * @param currentWorkingDirectory The current working directory.
+ * @param path The file path to sanitize.
+ * @return A String containing the sanitized file path.
+ */
+inline String rishka_sanitize_path(char* currentWorkingDirectory, char* path) {
+    String fullPath = String(currentWorkingDirectory) + "/" + String(path);
+    String segment, sanitizedPath = "";
+  
+    int index;
+    while((index = fullPath.indexOf('/')) != -1) {
+        segment = fullPath.substring(0, index);
+        fullPath = fullPath.substring(index + 1);
+
+        if(segment == ".");
+        else if(segment == "..") {
+            int lastSlashIndex = sanitizedPath.lastIndexOf('/');
+
+            if(lastSlashIndex != -1)
+                sanitizedPath = sanitizedPath.substring(0, lastSlashIndex);
+        }
+        else sanitizedPath += "/" + segment;
+    }
+
+    if(fullPath != "." && fullPath != "..")
+        sanitizedPath += "/" + fullPath;
+    if(sanitizedPath.startsWith("//"))
+        sanitizedPath = sanitizedPath.substring(1);
+    
+    if(sanitizedPath.endsWith("/") && strlen(sanitizedPath.c_str()) > 1)
+        sanitizedPath = sanitizedPath.substring(0, sanitizedPath.length() - 1);
+
+    return sanitizedPath;
+}
+
 #endif /* RISHKA_UTIL_H */
