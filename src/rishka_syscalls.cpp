@@ -280,8 +280,12 @@ long RishkaSyscall::Sys::randomImpl() {
 
 bool RishkaSyscall::Sys::changeDir(RishkaVM* vm) {
     auto dir = vm->getPointerParam<char*>(0);
-    
-    dir = rishka_sanitize_path(dir);
+    if(dir == "~") {
+        vm->setWorkingDirectory(F("/"));
+        return true;
+    }
+ 
+    dir = rishka_sanitize_path(vm->getWorkingDirectory(), dir);
     if(!SD.exists(dir))
         return false;
 
