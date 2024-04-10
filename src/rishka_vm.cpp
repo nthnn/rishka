@@ -28,6 +28,7 @@ void RishkaVM::initialize(fabgl::Terminal* terminal) {
     this->pc = 0;
     this->exitCode = 0;
     this->terminal = terminal;
+    this->workingDirectory = "/";
 }
 
 void RishkaVM::stopVM() {
@@ -1002,6 +1003,14 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
     }
 
     return 0;
+}
+
+void RishkaVM::setWorkingDirectory(char* directory) {
+    this->workingDirectory = directory;
+}
+
+char* RishkaVM::getWorkingDirectory() {
+    return this->workingDirectory;
 }
 
 inline int64_t RishkaVM::shiftLeftInt64(int64_t a, int64_t b) {

@@ -42,17 +42,18 @@
  */
 class RishkaVM final {
 private:
-    uint64_t registers[32]; ///< CPU registers
-    uint8_t memory[RISHKA_VM_STACK_SIZE]; ///< Memory space for the virtual machine
+    uint64_t registers[32];                 ///< CPU registers
+    uint8_t memory[RISHKA_VM_STACK_SIZE];   ///< Memory space for the virtual machine
 
-    int64_t pc; ///< Program counter
-    fabgl::Terminal* terminal; ///< Terminal for input/output operations
+    int64_t pc;                             ///< Program counter
+    fabgl::Terminal* terminal;              ///< Terminal for input/output operations
+    char* workingDirectory;                 ///< Current directory of the virtual machine
 
-    bool running; ///< Flag indicating whether the VM is running
-    int64_t exitCode; ///< Exit code of the VM after execution
+    bool running;                           ///< Flag indicating whether the VM is running
+    int64_t exitCode;                       ///< Exit code of the VM after execution
 
-    char** argv; ///< Command-line arguments
-    uint8_t argc; ///< Number of command-line arguments
+    char** argv;                            ///< Command-line arguments
+    uint8_t argc;                           ///< Number of command-line arguments
 
     /**
      * @brief Fetches the next instruction to be executed in a virtual machine.
@@ -239,6 +240,9 @@ public:
      * @param message The panic message to print.
      */
     void panic(const char* message);
+
+    void setWorkingDirectory(char* directory);
+    char* getWorkingDirectory();
 
     /**
      * @brief Template function to retrieve a parameter from the registers.
