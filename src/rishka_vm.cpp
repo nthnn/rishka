@@ -688,6 +688,12 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_SYS_RANDOM:
             return RishkaSyscall::Sys::randomImpl();
 
+        case RISHKA_SC_SYS_CD:
+            return RishkaSyscall::Sys::changeDir(this);
+
+        case RISHKA_SC_SYS_WD:
+            return RishkaSyscall::Sys::workingDirectory(this);
+
         case RISHKA_SC_MEM_ALLOC:
             RishkaSyscall::Memory::alloc(this);
             break;
