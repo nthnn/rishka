@@ -278,6 +278,24 @@ long RishkaSyscall::Sys::randomImpl() {
     return rand_num;
 }
 
+bool RishkaSyscall::Sys::changeDir(RishkaVM* vm) {
+    auto dir = vm->getPointerParam<char*>(0);
+    
+    dir = rishka_sanitize_path(dir);
+    if(!SD.exists(dir))
+        return false;
+
+    vm->setWorkingDirectory(dir);
+    return true;
+}
+
+uint32_t RishkaSyscall::Sys::workingDirectory(RishkaVM* vm) {
+    char* data = vm->getWorkingDirectory();
+    change_rt_strpass(data);
+
+    return strlen(data);
+}
+
 void RishkaSyscall::Memory::alloc(RishkaVM* vm) {
     auto dest = vm->getPointerParam<void*>(0);
     auto size = vm->getParam<size_t>(1);
