@@ -47,7 +47,7 @@ private:
 
     int64_t pc;                             ///< Program counter
     fabgl::Terminal* terminal;              ///< Terminal for input/output operations
-    char* workingDirectory;                 ///< Current directory of the virtual machine
+    String workingDirectory;                 ///< Current directory of the virtual machine
 
     bool running;                           ///< Flag indicating whether the VM is running
     int64_t exitCode;                       ///< Exit code of the VM after execution
@@ -261,7 +261,7 @@ public:
      *
      * @return A pointer to the current working directory string.
      */
-    char* getWorkingDirectory();
+    String getWorkingDirectory();
 
     /**
      * @brief Template function to retrieve a parameter from the registers.

@@ -76,8 +76,8 @@ inline double rishka_long_to_double(int64_t l) {
  * @param path The file path to sanitize.
  * @return A String containing the sanitized file path.
  */
-inline String rishka_sanitize_path(char* currentWorkingDirectory, char* path) {
-    String fullPath = String(currentWorkingDirectory) + "/" + String(path);
+inline String rishka_sanitize_path(String currentWorkingDirectory, char* path) {
+    String fullPath = currentWorkingDirectory + "/" + String(path);
     String segment, sanitizedPath = "";
   
     int index;
