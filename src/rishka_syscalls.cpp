@@ -294,7 +294,7 @@ bool RishkaSyscall::Sys::changeDir(RishkaVM* vm) {
 }
 
 uint32_t RishkaSyscall::Sys::workingDirectory(RishkaVM* vm) {
-    char* data = vm->getWorkingDirectory();
+    char* data = vm->getWorkingDirectory().c_str();
     change_rt_strpass(data);
 
     return strlen(data);
