@@ -401,16 +401,14 @@ void RishkaSyscall::Gpio::shiftOutImpl(RishkaVM* vm) {
 }
 
 void RishkaSyscall::Gpio::toneImpl(RishkaVM* vm) {
-    auto pin = vm->getParam<uint8_t>(0);
-    auto frequency = vm->getParam<uint32_t>(1);
-    auto duration = vm->getParam<uint64_t>(2);
+    auto frequency = vm->getParam<uint32_t>(0);
+    auto duration = vm->getParam<uint64_t>(1);
 
-    tone(pin, frequency, duration);
+    tone(25, frequency, duration);
 }
 
 void RishkaSyscall::Gpio::noToneImpl(RishkaVM* vm) {
-    auto pin = vm->getParam<uint8_t>(0);
-    noTone(pin);
+    noTone(25);
 }
 
 void RishkaSyscall::Int::enable() {
