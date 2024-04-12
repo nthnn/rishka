@@ -169,25 +169,22 @@ public:
     static void shift_out(u8 data, u8 clock, u8 bit_order, u8 value);
 
     /**
-     * @brief Generate a tone of the specified frequency and duration on a GPIO pin.
+     * @brief Generate a tone of the specified frequency and duration on GPIO25.
      *
      * This method generates a tone of the specified frequency and duration on the
-     * specified GPIO pin using pulse-width modulation (PWM).
+     * GPIO25 using pulse-width modulation (PWM).
      *
-     * @param pin The GPIO pin number.
      * @param frequency The frequency of the tone in Hertz (Hz).
      * @param duration The duration of the tone in microseconds (0 for continuous).
      */
-    static void tone(u8 pin, u32 frequency, u64 duration);
+    static void tone(u32 frequency, u64 duration);
 
     /**
-     * @brief Stop generating a tone on a GPIO pin.
+     * @brief Stop generating a tone on GPIO25.
      *
-     * This method stops generating a tone on the specified GPIO pin.
-     *
-     * @param pin The GPIO pin number.
+     * This method stops generating a tone on GPIO25.
      */
-    static void no_tone(u8 pin);
+    static void no_tone();
 };
 
 #endif /* LIBRISHKA_GPIO_H */
