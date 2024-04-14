@@ -1,4 +1,4 @@
 var modules =
 [
-    [ "Rishka SDK", "d5/d65/group___rishka___s_d_k.html", null ]
+    [ "Rishka SDK", "d4/dbc/group__Rishka__SDK.html", null ]
 ];

@@ -1,19 +1,14 @@
 var searchData=
 [
-  ['seek_0',['seek',['../d1/d31/class_file.html#abaa31b65c2c9f41d53f9909582b83f86',1,'File']]],
-  ['seek_5fdir_1',['seek_dir',['../d1/d31/class_file.html#a726ebe1b8042e45f9dfd64ea9aad43e9',1,'File']]],
-  ['set_2',['set',['../d2/d01/class_memory.html#a7071f7c8ffebaddbc546417993ede88c',1,'Memory']]],
-  ['set_5fbit_5forder_3',['set_bit_order',['../d3/dfe/class_s_p_i.html#ad2ec9b7629487a2c4cde2c1cbb737677',1,'SPI']]],
-  ['set_5fbuffersize_4',['set_buffersize',['../d4/d47/class_i2_c.html#a22d588d4381ff381e93f395d2b3d2f9f',1,'I2C']]],
-  ['set_5fclock_5',['set_clock',['../d4/d47/class_i2_c.html#a67e0e3ea2b1fa1715685f91f652c5b01',1,'I2C']]],
-  ['set_5fclock_5fdiv_6',['set_clock_div',['../d3/dfe/class_s_p_i.html#ade35b762242af604349cc7d98d34b5b3',1,'SPI']]],
-  ['set_5fdata_5fmode_7',['set_data_mode',['../d3/dfe/class_s_p_i.html#a9f4bcc89c03ebc884846064198db2c2b',1,'SPI']]],
-  ['set_5ffrequency_8',['set_frequency',['../d3/dfe/class_s_p_i.html#a7520ff58e5a957807125dfb0745ad195',1,'SPI']]],
-  ['set_5fhwcs_9',['set_hwcs',['../d3/dfe/class_s_p_i.html#a41e7a6d99a54213614ef1311f84e51e9',1,'SPI']]],
-  ['set_5ftimeout_10',['set_timeout',['../d4/d47/class_i2_c.html#adddc140b7dfff94a968b30d9496343f2',1,'I2C::set_timeout()'],['../d8/d24/class_i_o.html#ac77c1571a9789636cc913425bb235bd4',1,'IO::set_timeout()']]],
-  ['shellexec_11',['shellexec',['../d0/d04/class_sys.html#abb99002ebc9b4b1edd2491d776eed1dc',1,'Sys']]],
-  ['shift_5fin_12',['shift_in',['../d1/dea/class_gpio.html#a277cdf4dac5cc5304ccc776d76cc7229',1,'Gpio']]],
-  ['shift_5fout_13',['shift_out',['../d1/dea/class_gpio.html#a46c2e1f0fc7e212f8e7415df769258b0',1,'Gpio']]],
-  ['size_14',['size',['../d1/d31/class_file.html#a2527cd9f72a210a84d2c287439bb494a',1,'File']]],
-  ['slave_5fwrite_15',['slave_write',['../d4/d47/class_i2_c.html#ab152c51b023ff2c4e7b5f1512d8aee48',1,'I2C']]]
+  ['seek_0',['seek',['../db/d30/classFile.html#abaa31b65c2c9f41d53f9909582b83f86',1,'File']]],
+  ['seek_5fdir_1',['seek_dir',['../db/d30/classFile.html#a726ebe1b8042e45f9dfd64ea9aad43e9',1,'File']]],
+  ['set_2',['set',['../da/dc6/classMemory.html#a7071f7c8ffebaddbc546417993ede88c',1,'Memory']]],
+  ['set_5fbuffersize_3',['set_buffersize',['../d6/d81/classI2C.html#a22d588d4381ff381e93f395d2b3d2f9f',1,'I2C']]],
+  ['set_5fclock_4',['set_clock',['../d6/d81/classI2C.html#a67e0e3ea2b1fa1715685f91f652c5b01',1,'I2C']]],
+  ['set_5ftimeout_5',['set_timeout',['../d6/d81/classI2C.html#adddc140b7dfff94a968b30d9496343f2',1,'I2C::set_timeout()'],['../d8/d66/classIO.html#ac77c1571a9789636cc913425bb235bd4',1,'IO::set_timeout()']]],
+  ['shellexec_6',['shellexec',['../d1/d61/classSys.html#abb99002ebc9b4b1edd2491d776eed1dc',1,'Sys']]],
+  ['shift_5fin_7',['shift_in',['../d4/d79/classGpio.html#a277cdf4dac5cc5304ccc776d76cc7229',1,'Gpio']]],
+  ['shift_5fout_8',['shift_out',['../d4/d79/classGpio.html#a46c2e1f0fc7e212f8e7415df769258b0',1,'Gpio']]],
+  ['size_9',['size',['../db/d30/classFile.html#a2527cd9f72a210a84d2c287439bb494a',1,'File']]],
+  ['slave_5fwrite_10',['slave_write',['../d6/d81/classI2C.html#ab152c51b023ff2c4e7b5f1512d8aee48',1,'I2C']]]
 ];

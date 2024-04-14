@@ -8,7 +8,6 @@ var dir_6e8afc538eccbcb491711fd0cc7b9703 =
     [ "io.h", "dc/dac/io_8h.html", "dc/dac/io_8h" ],
     [ "memory.h", "dc/d18/memory_8h.html", "dc/d18/memory_8h" ],
     [ "runtime.h", "d3/d51/runtime_8h.html", "d3/d51/runtime_8h" ],
-    [ "spi.h", "da/d87/spi_8h.html", "da/d87/spi_8h" ],
     [ "sys.h", "d9/d87/sys_8h.html", "d9/d87/sys_8h" ],
     [ "types.h", "d9/d49/types_8h.html", "d9/d49/types_8h" ]
 ];
