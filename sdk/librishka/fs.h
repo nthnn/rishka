@@ -210,6 +210,16 @@ public:
     File next(string mode);
 
     /**
+     * @brief Checks if the file is in a valid state.
+     *
+     * This method checks if the file is in a valid state, i.e., if it has been successfully opened
+     * or created and is ready for reading or writing operations.
+     *
+     * @return True if the file is in a valid state, false otherwise.
+     */
+    bool is_ok();
+
+    /**
      * @brief Get the name of the next file in the directory.
      *
      * This method returns the name of the next file in the directory

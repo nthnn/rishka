@@ -84,6 +84,7 @@ enum rishka_syscall {
     RISHKA_SC_FS_POS,
     RISHKA_SC_FS_PATH,
     RISHKA_SC_FS_NAME,
+    RISHKA_SC_FS_IS_OK,
     RISHKA_SC_FS_NEXT,
     RISHKA_SC_FS_BUFSIZE,
     RISHKA_SC_FS_LASTWRITE,
@@ -449,6 +450,10 @@ string File::name() {
 
 File File::next(string mode) {
     return File(rishka_sc_2(RISHKA_SC_FS_NEXT, (i64) this->handle, (i64) mode));
+}
+
+bool File::is_ok() {
+    return rishka_sc_1(RISHKA_SC_FS_IS_OK, (i64) this->handle);
 }
 
 void File::flush() {
