@@ -476,9 +476,7 @@ uint8_t RishkaSyscall::FS::open(RishkaVM* vm) {
 
 void RishkaSyscall::FS::close(RishkaVM* vm) {
     auto handle = vm->getParam<uint8_t>(0);
-
     vm->fileHandles[handle].close();
-    vm->fileHandles.remove(handle);
 }
 
 int RishkaSyscall::FS::available(RishkaVM* vm) {
@@ -550,16 +548,17 @@ uint32_t RishkaSyscall::FS::name(RishkaVM* vm) {
 
 bool RishkaSyscall::FS::isOk(RishkaVM* vm) {
     auto handle = vm->getParam<uint8_t>(0);
-    return vm->fileHandles[handle];
+    return !!vm->fileHandles[handle];
 }
 
 uint8_t RishkaSyscall::FS::next(RishkaVM* vm) {
     auto handle = vm->getParam<uint8_t>(0);
 
-    File file = vm->fileHandles[handle].openNextFile();
-    vm->fileHandles.add(file);
+    File next = vm->fileHandles[handle].openNextFile();
+    File file = SD.open(next.path());
 
-    return vm->fileHandles.getSize();
+    vm->fileHandles.add(SD.open(String(next.path()).c_str()));
+    return vm->fileHandles.getSize() - 1;
 }
 
 bool RishkaSyscall::FS::bufsize(RishkaVM* vm) {
