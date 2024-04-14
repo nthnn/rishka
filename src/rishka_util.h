@@ -77,8 +77,10 @@ inline double rishka_long_to_double(int64_t l) {
  * @return A String containing the sanitized file path.
  */
 inline String rishka_sanitize_path(String currentWorkingDirectory, char* path) {
-    String fullPath = currentWorkingDirectory + "/" + String(path);
-    String segment, sanitizedPath = "";
+    String segment, sanitizedPath = "",
+        fullPath = (currentWorkingDirectory == "/" ?
+            "" : currentWorkingDirectory) +
+                "/" + String(path);
   
     int index;
     while((index = fullPath.indexOf('/')) != -1) {
@@ -97,12 +99,14 @@ inline String rishka_sanitize_path(String currentWorkingDirectory, char* path) {
 
     if(fullPath != "." && fullPath != "..")
         sanitizedPath += "/" + fullPath;
+
     if(sanitizedPath.startsWith("//"))
-        sanitizedPath = sanitizedPath.substring(1);
-    
+        sanitizedPath = sanitizedPath.substring(1);    
+
     if(sanitizedPath.endsWith("/") && strlen(sanitizedPath.c_str()) > 1)
         sanitizedPath = sanitizedPath.substring(0, sanitizedPath.length() - 1);
 
+    sanitizedPath.replace("//", "/");
     return sanitizedPath;
 }
 
