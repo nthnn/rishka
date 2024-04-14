@@ -132,7 +132,7 @@ void setup() {
 
     // Initialize the Rishka VM instance.
     vm = new RishkaVM();
-    vm->initialize(&Terminal, "/");
+    vm->initialize(&Terminal);
 
     // Print prompt
     Terminal.print("\e[32m[\e[97m" + vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
