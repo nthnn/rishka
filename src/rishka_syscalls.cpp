@@ -471,16 +471,6 @@ uint8_t RishkaSyscall::FS::open(RishkaVM* vm) {
         vm->fileHandles.add(SD.open(path));
     else vm->fileHandles.add(SD.open(path, mode));
 
-    File next = vm->fileHandles[vm->fileHandles.getSize() - 1];
-    while(true) {
-        vm->getTerminal()->println(next.name());
-
-        next = next.openNextFile();
-        if(!next)
-            break;
-    }
-    while(true);
-
     return vm->fileHandles.getSize() - 1;
 }
 
