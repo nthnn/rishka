@@ -467,7 +467,20 @@ uint8_t RishkaSyscall::FS::open(RishkaVM* vm) {
     auto path = vm->getPointerParam<char*>(0);
     auto mode = vm->getPointerParam<char*>(1);
 
-    vm->fileHandles.add(SD.open(path, mode));
+    if(strcmp(mode, "n") == 0)
+        vm->fileHandles.add(SD.open(path));
+    else vm->fileHandles.add(SD.open(path, mode));
+
+    File next = vm->fileHandles[vm->fileHandles.getSize() - 1];
+    while(true) {
+        vm->getTerminal()->println(next.name());
+
+        next = next.openNextFile();
+        if(!next)
+            break;
+    }
+    while(true);
+
     return vm->fileHandles.getSize() - 1;
 }
 
@@ -552,9 +565,8 @@ bool RishkaSyscall::FS::isOk(RishkaVM* vm) {
 
 uint8_t RishkaSyscall::FS::next(RishkaVM* vm) {
     auto handle = vm->getParam<uint8_t>(0);
-    auto mode = vm->getPointerParam<char*>(1);
 
-    File file = vm->fileHandles[handle].openNextFile(mode);
+    File file = vm->fileHandles[handle].openNextFile();
     vm->fileHandles.add(file);
 
     return vm->fileHandles.getSize();
