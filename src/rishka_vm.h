@@ -192,8 +192,9 @@ public:
      * handles. Once initialized, the virtual machine is ready for execution.
      *
      * @param stream A pointer to the Terminal object for input/output operations.
+     * @param directory The path to the new working directory.
      */
-    void initialize(fabgl::Terminal* terminal);
+    void initialize(fabgl::Terminal* terminal, String workingDirectory);
 
     /**
      * @brief Resets the Rishka virtual machine instance to its initial state.

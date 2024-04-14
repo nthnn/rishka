@@ -21,14 +21,14 @@
 #include <rishka_util.h>
 #include <rishka_vm.h>
 
-void RishkaVM::initialize(fabgl::Terminal* terminal) {
+void RishkaVM::initialize(fabgl::Terminal* terminal, String workingDirectory) {
     this->running = false;
     this->argv = NULL;
     this->argc = 0;
     this->pc = 0;
     this->exitCode = 0;
     this->terminal = terminal;
-    this->workingDirectory = "/";
+    this->workingDirectory = workingDirectory;
 }
 
 void RishkaVM::stopVM() {
@@ -101,6 +101,7 @@ void RishkaVM::reset() {
     this->exitCode = 0;
 
     this->fileHandles.clear();
+    this->initialize(this->terminal, this->workingDirectory);
 }
 
 void RishkaVM::execute(uint32_t inst) {
@@ -829,6 +830,9 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_FS_NAME:
             return RishkaSyscall::FS::name(this);
 
+        case RISHKA_SC_FS_IS_OK:
+            return RishkaSyscall::FS::isOk(this);
+
         case RISHKA_SC_FS_NEXT:
             return RishkaSyscall::FS::next(this);
 
@@ -1012,11 +1016,11 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
 }
 
 void RishkaVM::setWorkingDirectory(String directory) {
-    this->workingDirectory = directory;
+    this->workingDirectory = String(directory.c_str());
 }
 
 String RishkaVM::getWorkingDirectory() {
-    return this->workingDirectory;
+    return String(this->workingDirectory.c_str());
 }
 
 inline int64_t RishkaVM::shiftLeftInt64(int64_t a, int64_t b) {
