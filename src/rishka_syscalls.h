@@ -149,29 +149,6 @@ enum rishka_syscall {
     RISHKA_SC_I2C_PINS, ///< Get the I2C pins
     RISHKA_SC_I2C_BUFSIZE, ///< Get the I2C buffer size
 
-    // Serial Peripheral Interface (SPI) System Calls
-    RISHKA_SC_SPI_BEGIN, ///< Begin SPI communication
-    RISHKA_SC_SPI_END, ///< End SPI communication
-    RISHKA_SC_SPI_BEGIN_TRANSACTION, ///< Begin SPI transaction
-    RISHKA_SC_SPI_END_TRANSACTION, ///< End SPI transaction
-    RISHKA_SC_SPI_TRANSFER8, ///< Transfer 8-bit data over SPI
-    RISHKA_SC_SPI_TRANSFER16, ///< Transfer 16-bit data over SPI
-    RISHKA_SC_SPI_TRANSFER32, ///< Transfer 32-bit data over SPI
-    RISHKA_SC_SPI_TRANSFER_BYTES, ///< Transfer bytes over SPI
-    RISHKA_SC_SPI_TRANSFER_BITS, ///< Transfer bits over SPI
-    RISHKA_SC_SPI_SET_HWCS, ///< Set SPI hardware chip select
-    RISHKA_SC_SPI_SET_BIT_ORDER, ///< Set SPI bit order
-    RISHKA_SC_SPI_SET_DATA_MODE, ///< Set SPI data mode
-    RISHKA_SC_SPI_SET_FREQ, ///< Set SPI clock frequency
-    RISHKA_SC_SPI_SET_CLOCK_DIV, ///< Set SPI clock divider
-    RISHKA_SC_SPI_GET_CLOCK_DIV, ///< Get SPI clock divider
-    RISHKA_SC_SPI_WRITE8, ///< Write 8-bit data over SPI
-    RISHKA_SC_SPI_WRITE16, ///< Write 16-bit data over SPI
-    RISHKA_SC_SPI_WRITE32, ///< Write 32-bit data over SPI
-    RISHKA_SC_SPI_WRITE_BYTES, ///< Write bytes over SPI
-    RISHKA_SC_SPI_WRITE_PIXELS, ///< Write pixels over SPI
-    RISHKA_SC_SPI_WRITE_PATTERN, ///< Write pattern over SPI
-
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
     RISHKA_SC_RT_YIELD ///< Yield execution to other tasks
