@@ -116,6 +116,7 @@ enum rishka_syscall {
     RISHKA_SC_FS_POS, ///< Get the current position in the file
     RISHKA_SC_FS_PATH, ///< Get the path of a file
     RISHKA_SC_FS_NAME, ///< Get the name of a file or directory
+    RISHKA_SC_FS_IS_OK, ///< Checks if there are more items in the file
     RISHKA_SC_FS_NEXT, ///< Get the next file or directory in a directory
     RISHKA_SC_FS_BUFSIZE, ///< Get the file buffer size
     RISHKA_SC_FS_LASTWRITE, ///< Get the last write time of a file
@@ -312,6 +313,7 @@ public:
         static size_t position(RishkaVM* vm);
         static uint32_t path(RishkaVM* vm);
         static uint32_t name(RishkaVM* vm);
+        static bool isOk(RishkaVM* vm);
         static uint8_t next(RishkaVM* vm);
         static bool bufsize(RishkaVM* vm);
         static uint64_t lastwrite(RishkaVM* vm);

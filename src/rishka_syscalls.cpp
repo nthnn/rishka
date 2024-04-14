@@ -147,7 +147,7 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
     auto argv = parent_vm->getPointerParam<char**>(2);
 
     RishkaVM* child_vm = new RishkaVM();
-    child_vm->initialize(parent_vm->getTerminal());
+    child_vm->initialize(parent_vm->getTerminal(), parent_vm->getWorkingDirectory());
 
     if(!child_vm->loadFile(program)) {
         child_vm->reset();
@@ -294,9 +294,10 @@ bool RishkaSyscall::Sys::changeDir(RishkaVM* vm) {
 }
 
 uint32_t RishkaSyscall::Sys::workingDirectory(RishkaVM* vm) {
-    char* data = (char*) vm->getWorkingDirectory().c_str();
-    change_rt_strpass(data);
+    String path = vm->getWorkingDirectory();
+    char* data = (char*) path.c_str();
 
+    change_rt_strpass(data);
     return strlen(data);
 }
 
@@ -542,6 +543,11 @@ uint32_t RishkaSyscall::FS::name(RishkaVM* vm) {
 
     change_rt_strpass(name);
     return strlen(name);
+}
+
+bool RishkaSyscall::FS::isOk(RishkaVM* vm) {
+    auto handle = vm->getParam<uint8_t>(0);
+    return vm->fileHandles[handle];
 }
 
 uint8_t RishkaSyscall::FS::next(RishkaVM* vm) {
