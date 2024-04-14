@@ -22,8 +22,5 @@ jobs:
 
       - name: Build SDK Examples
         run: |
-          qrepo run compile examples/sdk/blink.cpp --output blink
-          qrepo run compile examples/sdk/delay.cpp --output delay
-          qrepo run compile examples/sdk/hello.cpp --output hello
-          qrepo run compile examples/sdk/shell.cpp --output shell
-          qrepo run compile examples/sdk/sysinfo.cpp --output sysinfo
+          qrepo run compile-examples
+
