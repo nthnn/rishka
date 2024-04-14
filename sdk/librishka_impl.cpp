@@ -303,11 +303,11 @@ i64 Sys::random() {
     return (i64) rishka_sc_0(RISHKA_SC_SYS_RANDOM);
 }
 
-bool Sys::changeDirectory(char* directory) {
+bool Sys::change_dir(char* directory) {
     return (bool) rishka_sc_1(RISHKA_SC_SYS_CD, (i64) directory);
 }
 
-string Sys::workingDirectory() {
+string Sys::working_dir() {
     u32 len = rishka_sc_0(RISHKA_SC_SYS_WD);
     return get_rt_string(len);
 }
@@ -445,11 +445,11 @@ string File::path() {
 }
 
 string File::name() {
-    return get_rt_string(rishka_sc_1(RISHKA_SC_FS_PATH, (i64) this->handle));
+    return get_rt_string(rishka_sc_1(RISHKA_SC_FS_NAME, (i64) this->handle));
 }
 
-File File::next(string mode) {
-    return File(rishka_sc_2(RISHKA_SC_FS_NEXT, (i64) this->handle, (i64) mode));
+File File::next() {
+    return File(rishka_sc_1(RISHKA_SC_FS_NEXT, (i64) this->handle));
 }
 
 bool File::is_ok() {

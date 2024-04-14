@@ -188,7 +188,7 @@ public:
      * @param directory The directory to change to.
      * @return True if the directory change was successful, false otherwise.
      */
-    static bool changeDirectory(char* directory);
+    static bool change_dir(char* directory);
 
     /**
      * @brief Retrieves the current working directory.
@@ -197,7 +197,7 @@ public:
      *
      * @return A string representing the current working directory.
      */
-    static string workingDirectory();
+    static string working_dir();
 };
 
 #endif /* LIBRISHKA_SYS_H */

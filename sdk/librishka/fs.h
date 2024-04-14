@@ -201,13 +201,11 @@ public:
      * @brief Get the next file in the directory.
      *
      * This method returns the next file in the directory and advances
-     * the directory pointer. The mode parameter specifies the mode in
-     * which to open the next file (e.g., "r" for reading, "w" for writing).
+     * the directory pointer.
      *
-     * @param mode The mode in which to open the next file (e.g., "r" for reading, "w" for writing).
      * @return A File object representing the next file in the directory.
      */
-    File next(string mode);
+    File next();
 
     /**
      * @brief Checks if the file is in a valid state.
