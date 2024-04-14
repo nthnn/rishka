@@ -38,9 +38,11 @@
 #define SD_MOSI    13           // SD card SPI MOSI pin
 #define SD_MISO    12           // SD card SPI MISO pin
 
-// TFT display controller and Terminal instance
+// TFT display controller, PS/2 keyboard controller,
+// and Terminal instance
 fabgl::ILI9341Controller DisplayController;
-fabgl::Terminal Terminal;
+fabgl::PS2Controller     PS2Controller;
+fabgl::Terminal          Terminal;
 
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
@@ -48,8 +50,58 @@ SPIClass sdSpi(HSPI);
 // Rishka virtual machine instance
 RishkaVM* vm;
 
+// This function utilizes a LineEditor instance to read a line
+// from the terminal input. It then returns the read line as a String.
+static inline String readLine() {
+    fabgl::LineEditor line(&Terminal);
+    line.edit();
+
+    return String(line.get());
+}
+
+// This function splits a given input string into tokens based on space characters.
+// It also handles quotes to allow space characters within quoted strings.
+void splitString(const String& input, char** tokens, int maxTokens, int &count) {
+    int tokenCount = 0, tokenStart = 0;
+    bool inQuotes = false;
+
+    // Iterate over each character in the input string
+    for(int i = 0; i < input.length(); i++) {
+        // Check if the current character is a quotation mark
+        if(input[i] == '"')
+            // Toggle the inQuotes flag to handle quoted strings
+            inQuotes = !inQuotes;
+        else if(input[i] == ' ' && !inQuotes) {
+            // If the current character is a space and not inside quotes,
+            // extract the token from the input string
+            if(tokenCount < maxTokens) {
+                // Extract the substring between tokenStart and i
+                // and copy it into the tokens array
+                input.substring(tokenStart, i)
+                    .toCharArray(tokens[tokenCount], i - tokenStart + 1);
+
+                // Null-terminate the token string
+                tokens[tokenCount++][i - tokenStart] = '\0';
+                tokenStart = i + 1;
+                count++;
+            }
+            else break; // Break if maximum token count reached
+        }
+    }
+
+    // Handle the case where there are remaining characters after the last space
+    if(tokenCount < maxTokens && tokenStart < input.length()) {
+        // Extract the substring starting from tokenStart to the end of the input string
+        // and copy it into the tokens array
+        input.substring(tokenStart).toCharArray(tokens[tokenCount], input.length() - tokenStart + 1);
+        tokens[tokenCount++][input.length() - tokenStart] = '\0';
+        count++;
+    }
+}
+
 void setup() {
     Serial.begin(115200);
+    PS2Controller.begin(PS2Preset::KeyboardPort0);
 
     // Initialize TFT display
     DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);
@@ -58,59 +110,80 @@ void setup() {
     // Initialize terminal
     Terminal.begin(&DisplayController);
     Terminal.loadFont(&fabgl::FONT_8x14);
+    Terminal.setBackgroundColor(Color::Black);
+    Terminal.setForegroundColor(Color::White);
+    Terminal.connectLocally();
+    Terminal.clear();
     Terminal.enableCursor(true);
 
     // Initialize SD card
     sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
     if(!SD.begin(SD_CS, sdSpi, 80000000)) {
+        // If PSRAM initialization fails,
+        // print error message and halt execution
         Terminal.println("Card \e[94mMount\e[97m Failed");
         while(true);
     }
 
     if(!psramInit()) {
-        // If PSRAM initialization fails,
-        // print error message and halt execution
         Terminal.println("\e[94mCannot\e[97m initialize PSRAM.");
         while(true);
     }
 
     // Initialize the Rishka VM instance.
     vm = new RishkaVM();
+    vm->initialize(&Terminal, "/");
 
     // Print prompt
-    Terminal.print("\e[32m#~\e[97m ");
+    Terminal.print("\e[32m[\e[97m" + vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
 }
 
 void loop() {
-    // Check if there is data available to read from serial port
-    if(!Serial.available())
+    // Read input from PS/2 keyboard
+    String input = readLine();
+
+    // Skip if input is empty
+    if(input == "") {
+        // Print prompt
+        Terminal.print(String("\e[32m[\e[97m") +
+            vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
         return;
+    }
 
-    // Read input from serial port
-    String input = Serial.readString();
-    // Echo input back to serial port
-    Terminal.print("\e[93m");
-    Terminal.print(input);
-    Terminal.print("\r\e[97m");
+    char* tokens[10];
+    int count = 0;
 
-    // Initialize Rishka virtual machine
-    vm->initialize(&Terminal);
+    // Split input string as argument tokens
+    for(int i = 0; i < 10; i++)
+        tokens[i] = (char*) malloc(50 * sizeof(char));
+    splitString(input, tokens, 10, count);
 
     // Attempt to load specified file into Rishka virtual machine
-    if(!vm->loadFile(input.c_str())) {
+    if(!vm->loadFile(tokens[0])) {
+        char message[50];
+
         // If loading file fails, print error message and return
-        vm->panic(String("Failed to \e[94mload\e[97m specified file: " + input).c_str());
+        sprintf(message, "Failed to \e[94mload\e[97m specified file: %s", tokens[0]);
+        vm->panic(message);
 
         // Print prompt
-        Terminal.print("\r\e[32m#~\e[97m ");
+        Terminal.print(String("\e[32m[\e[97m") +
+            vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
+        vm->reset();
+
         return;
     }
 
     // Run loaded program on Rishka virtual machine
-    vm->run(0, NULL);
+    vm->run(count, tokens);
     // Reset Rishka virtual machine for next execution
     vm->reset();
 
+    // Free all tokens in memory
+    for(int i = 0; i < 10; i++)
+        free(tokens[i]);
+
     // Print prompt for next input
-    Terminal.print("\e[32m#~\e[97m ");
+    Terminal.print(String("\e[32m[\e[97m") +
+        vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
 }
