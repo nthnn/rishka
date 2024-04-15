@@ -67,15 +67,6 @@ public:
     static void print(double number);
 
     /**
-     * @brief Read a character from the input stream.
-     *
-     * This method reads a character from the input stream.
-     *
-     * @return The character read from the input stream.
-     */
-    static i32 read();
-
-    /**
      * @brief Check if there is data available to read from the input stream.
      *
      * This method checks if there is data available to read from the input stream.

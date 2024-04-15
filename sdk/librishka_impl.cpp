@@ -23,7 +23,6 @@ enum rishka_syscall {
     RISHKA_SC_IO_PRINTD,
     RISHKA_SC_IO_READCH,
     RISHKA_SC_IO_READLINE,
-    RISHKA_SC_IO_READ,
     RISHKA_SC_IO_AVAILABLE,
     RISHKA_SC_IO_PEEK,
     RISHKA_SC_IO_FIND,
@@ -218,10 +217,6 @@ rune IO::readch() {
 
 string IO::readline() {
     return get_rt_string((u32) rishka_sc_0(RISHKA_SC_IO_READLINE));
-}
-
-i32 IO::read() {
-    return (i32) rishka_sc_0(RISHKA_SC_IO_READ);
 }
 
 i32 IO::available() {
