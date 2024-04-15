@@ -83,6 +83,10 @@ void RishkaVM::run(int argc, char** argv) {
         this->execute(this->fetch());
 }
 
+bool RishkaVM::isRunning() {
+    return this->running;
+}
+
 void RishkaVM::panic(const char* message) {
     this->stopVM();
     this->reset();

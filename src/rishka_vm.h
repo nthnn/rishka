@@ -233,6 +233,16 @@ public:
     void run(int argc, char** argv);
 
     /**
+     * @brief Checks if the virtual machine is running.
+     *
+     * This method returns a boolean value indicating whether the virtual machine is currently running
+     * or not.
+     *
+     * @return true if the virtual machine is running, false otherwise.
+     */
+    bool isRunning();
+
+    /**
      * @brief Handle a panic situation in the virtual machine.
      *
      * This function is called to handle a panic situation in the Rishka virtual machine.
