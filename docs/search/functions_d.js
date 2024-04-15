@@ -1,7 +1,7 @@
 var searchData=
 [
   ['random_0',['random',['../d1/d61/classSys.html#a3cc8c3d6432a431ea7655ddc272d2531',1,'Sys']]],
-  ['read_1',['read',['../db/d30/classFile.html#a71de4839522ca512a4ffa01ba208c862',1,'File::read()'],['../d6/d81/classI2C.html#a7df78c7394b3f304235ca4e0b74dee1e',1,'I2C::read()'],['../d8/d66/classIO.html#a45dfb01a4ebfa134227a51f7be20d214',1,'IO::read()']]],
+  ['read_1',['read',['../db/d30/classFile.html#a71de4839522ca512a4ffa01ba208c862',1,'File::read()'],['../d6/d81/classI2C.html#a7df78c7394b3f304235ca4e0b74dee1e',1,'I2C::read()']]],
   ['readch_2',['readch',['../d8/d66/classIO.html#abd2fd0dfb704cad591e256cb8074f5b2',1,'IO']]],
   ['readline_3',['readline',['../d8/d66/classIO.html#a9d4ca0746e40c8b8f37c1c06c3c5d411',1,'IO']]],
   ['realloc_4',['realloc',['../da/dc6/classMemory.html#aa2eab9d0b939b163aa535000e0b342ef',1,'Memory']]],
