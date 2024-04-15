@@ -134,6 +134,17 @@ void setup() {
     vm = new RishkaVM();
     vm->initialize(&Terminal);
 
+    // Virtual key listener to halt program
+    Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {
+        if(vkItem->CTRL && vkItem->vk == VirtualKey::VK_c && vm->isRunning()) {
+            // Stop the VM if CTRL+C was pressed
+            vm->stopVM();
+            vm->reset();
+
+            Terminal.println("^C");
+        }
+    };
+
     // Print prompt
     Terminal.print("\e[32m[\e[97m" + vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
 }
