@@ -83,18 +83,20 @@ void RishkaSyscall::IO::printd(RishkaVM* vm) {
 }
 
 char RishkaSyscall::IO::readch(RishkaVM* vm) {
-    return (char) vm->getTerminal()->read();
+    fabgl::LineEditor line(vm->getTerminal());
+
+    line.edit();
+    return (char) line.get()[0];
 }
 
 size_t RishkaSyscall::IO::readLine(RishkaVM* vm) {
-    char* input = (char*) vm->getTerminal()->readString().c_str();
+    fabgl::LineEditor line(vm->getTerminal());
+    line.edit();
 
+    char* input = (char*) line.get();
     change_rt_strpass(input);
-    return strlen(input);
-}
 
-int RishkaSyscall::IO::read(RishkaVM* vm) {
-    return vm->getTerminal()->read();
+    return strlen(input);
 }
 
 int RishkaSyscall::IO::available(RishkaVM* vm) {

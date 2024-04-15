@@ -641,9 +641,6 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_IO_READLINE:
             return RishkaSyscall::IO::readLine(this);
 
-        case RISHKA_SC_IO_READ:
-            return RishkaSyscall::IO::read(this);
-
         case RISHKA_SC_IO_AVAILABLE:
             return RishkaSyscall::IO::available(this);
 

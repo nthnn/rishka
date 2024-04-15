@@ -50,7 +50,6 @@ enum rishka_syscall {
     RISHKA_SC_IO_PRINTD, ///< Print a double
     RISHKA_SC_IO_READCH, ///< Read a single character
     RISHKA_SC_IO_READLINE, ///< Read a line of text
-    RISHKA_SC_IO_READ, ///< Read data from stream
     RISHKA_SC_IO_AVAILABLE, ///< Check if data is available in the stream
     RISHKA_SC_IO_PEEK, ///< Peek the next character from the stream
     RISHKA_SC_IO_FIND, ///< Find a character in the stream
