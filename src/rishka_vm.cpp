@@ -62,6 +62,9 @@ bool RishkaVM::loadFile(const char* fileName) {
             this->getWorkingDirectory(),
             (char*) fileName);
 
+    if(!SD.exists(absoluteFilename))
+        return false;
+
     File file = SD.open(absoluteFilename);
     if(!file) {
         file.close();
@@ -94,13 +97,12 @@ bool RishkaVM::isRunning() {
 }
 
 void RishkaVM::panic(const char* message) {
-    this->stopVM();
-    this->reset();
-    this->setExitCode(-1);
-
     this->terminal->print("\r\n");
     this->terminal->print(message);
     this->terminal->print("\r\n");
+
+    this->stopVM();
+    this->reset();
 }
 
 void RishkaVM::reset() {
