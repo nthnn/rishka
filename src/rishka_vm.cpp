@@ -29,8 +29,6 @@ void RishkaVM::initialize(fabgl::Terminal* terminal, String workingDirectory) {
     this->exitCode = 0;
     this->terminal = terminal;
     this->workingDirectory = workingDirectory;
-
-    this->ensureSystemDirectories();
 }
 
 void RishkaVM::stopVM() {
