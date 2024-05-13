@@ -96,15 +96,6 @@ bool RishkaVM::isRunning() {
     return this->running;
 }
 
-void RishkaVM::panic(const char* message) {
-    this->terminal->print("\r\n");
-    this->terminal->print(message);
-    this->terminal->print("\r\n");
-
-    this->stopVM();
-    this->reset();
-}
-
 void RishkaVM::reset() {
     this->running = false;
     this->argv = NULL;
