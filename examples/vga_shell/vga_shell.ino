@@ -170,17 +170,20 @@ void loop() {
 
     // Attempt to load specified file into Rishka virtual machine
     if(!vm->loadFile(tokens[0])) {
-        char message[50];
-
         // If loading file fails, print error message and return
-        sprintf(message, "Failed to \e[94mload\e[97m specified file: %s", tokens[0]);
-        vm->panic(message);
+        Terminal.println("Failed to \e[94mload\e[97m specified file: " +
+          String(tokens[0]));
+
+        // Free all tokens in memory
+        for(int i = 0; i < 10; i++)
+            free(tokens[i]);
+
+        // Reset Rishka virtual machine for next execution
+        vm->reset();
 
         // Print prompt
         Terminal.print(String("\e[32m[\e[97m") +
             vm->getWorkingDirectory() + "\e[97m\e[32m]~\e[97m ");
-        vm->reset();
-
         return;
     }
 
