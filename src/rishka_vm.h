@@ -243,6 +243,16 @@ public:
     bool isRunning();
 
     /**
+     * @brief Handle a panic situation in the virtual machine.
+     *
+     * This function is called to handle a panic situation in the Rishka virtual machine.
+     * It prints the panic message and performs any necessary cleanup before terminating the program.
+     *
+     * @param message The panic message to print.
+     */
+    void panic(const char* message);
+
+    /**
      * @brief Sets the working directory for the virtual machine.
      *
      * This function sets the working directory for the virtual machine instance.
