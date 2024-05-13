@@ -274,6 +274,8 @@ public:
      */
     String getWorkingDirectory();
 
+    void ensureSystemDirectories();
+
     /**
      * @brief Template function to retrieve a parameter from the registers.
      * 
