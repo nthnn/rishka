@@ -63,6 +63,11 @@ bool RishkaVM::loadFile(const char* fileName) {
             (char*) fileName);
 
     if(!SD.exists(absoluteFilename))
+        absoluteFilename = rishka_sanitize_path(
+            this->getWorkingDirectory(),
+            (char*) (String(fileName) + ".bin").c_str());
+
+    if(!SD.exists(absoluteFilename))
         return false;
 
     File file = SD.open(absoluteFilename);
@@ -103,6 +108,7 @@ void RishkaVM::panic(const char* message) {
 
     this->stopVM();
     this->reset();
+    this->setExitCode(-1);
 }
 
 void RishkaVM::reset() {
