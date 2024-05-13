@@ -82,6 +82,9 @@ inline String rishka_sanitize_path(String currentWorkingDirectory, char* path) {
             "" : currentWorkingDirectory) +
                 "/" + String(path);
 
+    if(strcmp(path, "..") == 0)
+        fullPath += "/";
+
     int index;
     while((index = fullPath.indexOf('/')) != -1) {
         segment = fullPath.substring(0, index);
