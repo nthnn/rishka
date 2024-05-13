@@ -122,7 +122,13 @@ void setup() {
         // If PSRAM initialization fails,
         // print error message and halt execution
         Terminal.println("Card \e[94mMount\e[97m Failed");
-        while(true);
+
+        // Wait for SD card.
+        do sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+        while(!SD.begin(SD_CS, sdSpi, 80000000));
+
+        // Clear terminal error message
+        Terminal.clear();
     }
 
     if(!psramInit()) {
