@@ -944,6 +944,23 @@ String RishkaVM::getWorkingDirectory() {
     return String(this->workingDirectory.c_str());
 }
 
+void RishkaVM::ensureSystemDirectories() {
+    if(!SD.exists("/bin"))
+        SD.mkdir("/bin");
+
+    if(!SD.exists("/etc"))
+        SD.mkdir("/etc");
+
+    if(!SD.exists("/home"))
+        SD.mkdir("/home");
+
+    if(!SD.exists("/man"))
+        SD.mkdir("/man");
+
+    if(!SD.exists("/tmp"))
+        SD.mkdir("/tmp");
+}
+
 inline int64_t RishkaVM::shiftLeftInt64(int64_t a, int64_t b) {
     if(b >= 0 && b < 64)
         return ((uint64_t) a) << b;
