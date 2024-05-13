@@ -437,22 +437,22 @@ void RishkaSyscall::Int::detach(RishkaVM* vm) {
 
 bool RishkaSyscall::FS::mkdir(RishkaVM* vm) {
     auto path = vm->getPointerParam<char*>(0);
-    return SD.mkdir(path);
+    return SD.mkdir(rishka_sanitize_path(vm->getWorkingDirectory(), path));
 }
 
 bool RishkaSyscall::FS::rmdir(RishkaVM* vm) {
     auto path = vm->getPointerParam<char*>(0);
-    return SD.rmdir(path);
+    return SD.rmdir(rishka_sanitize_path(vm->getWorkingDirectory(), path));
 }
 
 bool RishkaSyscall::FS::remove(RishkaVM* vm) {
     auto path = vm->getPointerParam<char*>(0);
-    return SD.remove(path);
+    return SD.remove(rishka_sanitize_path(vm->getWorkingDirectory(), path));
 }
 
 bool RishkaSyscall::FS::exists(RishkaVM* vm) {
     auto path = vm->getPointerParam<char*>(0);
-    return SD.exists(path);
+    return SD.exists(rishka_sanitize_path(vm->getWorkingDirectory(), path));
 }
 
 bool RishkaSyscall::FS::isfile(RishkaVM* vm) {
@@ -470,8 +470,12 @@ uint8_t RishkaSyscall::FS::open(RishkaVM* vm) {
     auto mode = vm->getPointerParam<char*>(1);
 
     if(strcmp(mode, "n") == 0)
-        vm->fileHandles.add(SD.open(path));
-    else vm->fileHandles.add(SD.open(path, mode));
+        vm->fileHandles.add(
+            SD.open(rishka_sanitize_path(vm->getWorkingDirectory(), path))
+        );
+    else vm->fileHandles.add(SD.open(
+        rishka_sanitize_path(vm->getWorkingDirectory(), path), mode)
+    );
 
     return vm->fileHandles.getSize() - 1;
 }
