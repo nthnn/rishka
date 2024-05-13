@@ -274,6 +274,17 @@ public:
      */
     String getWorkingDirectory();
 
+    /**
+     * @brief Ensures the existence of system directories on the SD card.
+     *
+     * This method creates essential system directories such as /bin, /home, /etc, /man, and /tmp
+     * on the SD card if they do not already exist.
+     *
+     * The system directories are crucial for organizing and managing files and resources used by
+     * the Rishka virtual machine.
+     *
+     * @note If the directories already exist, this method does nothing.
+     */
     void ensureSystemDirectories();
 
     /**
