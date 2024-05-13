@@ -58,7 +58,13 @@ char* RishkaVM::getArgValue(const uint8_t index) const {
 }
 
 bool RishkaVM::loadFile(const char* fileName) {
-    File file = SD.open(fileName);
+    String absoluteFilename = "/bin/" + String(fileName) + ".bin";
+    if(!SD.exists(absoluteFilename))
+        absoluteFilename = rishka_sanitize_path(
+            this->getWorkingDirectory(),
+            (char*) fileName);
+
+    File file = SD.open(absoluteFilename);
     if(!file) {
         file.close();
         return false;
