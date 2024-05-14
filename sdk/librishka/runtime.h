@@ -51,6 +51,17 @@ public:
      * tasks or respond to external events.
      */
     static void yield();
+
+    /**
+     * @brief Retrieves the fork stream.
+     *
+     * This static method returns the current stream text content from
+     * the fork program previously executed. The stream contains all of
+     * the printed text of the previously executed program.
+     * 
+     * @return A string containing the content of the fork stream.
+     */
+    static string get_fork_stream();
 };
 
 #endif /* LIBRISHKA_RUNTIME_H */

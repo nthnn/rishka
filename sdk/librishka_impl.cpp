@@ -115,7 +115,8 @@ enum rishka_syscall {
     RISHKA_SC_I2C_BUFSIZE,
 
     RISHKA_SC_RT_STRPASS,
-    RISHKA_SC_RT_YIELD
+    RISHKA_SC_RT_YIELD,
+    RISHKA_SC_RT_FORK_STREAM
 };
 
 static inline long long int double_to_long(double d) {
@@ -559,4 +560,8 @@ u32 I2C::get_clock() {
 
 void Runtime::yield() {
     rishka_sc_0(RISHKA_SC_RT_YIELD);
+}
+
+string Runtime::get_fork_stream() {
+    return get_rt_string(rishka_sc_0(RISHKA_SC_RT_FORK_STREAM));
 }
