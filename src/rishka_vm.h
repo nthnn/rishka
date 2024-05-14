@@ -276,10 +276,37 @@ public:
      */
     String getWorkingDirectory() const;
 
+    /**
+     * @brief Retrieves the current output stream of the virtual machine.
+     *
+     * This method returns the entire content of the virtual machine's output stream as a String.
+     * The output stream contains all the text that has been written to the virtual machine's 
+     * output during its execution.
+     *
+     * @return A String containing the content of the output stream.
+     */
     String getOutputStream() const;
 
+    /**
+     * @brief Appends a text string to the virtual machine's output stream.
+     *
+     * This method allows you to add a specified text string to the end of the virtual machine's
+     * output stream. This can be useful for logging or for any output generation during the
+     * virtual machine's execution.
+     *
+     * @param text The text string to be appended to the output stream.
+     */
     void appendToOutputStream(String text);
 
+    /**
+     * @brief Appends a single character to the virtual machine's output stream.
+     *
+     * This method allows you to add a single character to the end of the virtual machine's
+     * output stream. This can be useful for logging or for any output generation during the
+     * virtual machine's execution.
+     *
+     * @param ch The character to be appended to the output stream.
+     */
     void appendToOutputStream(char ch);
 
     /**
