@@ -14,5 +14,8 @@ jobs:
         with:
           toolchain: stable
 
+      - name: rishka-arc cargo build
+        run: cd tools/rishka-arc && cargo build --release
+
       - name: rishka-cc cargo build
         run: cd tools/rishka-cc && cargo build --release
