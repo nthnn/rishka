@@ -55,6 +55,8 @@ private:
     char** argv;                            ///< Command-line arguments
     uint8_t argc;                           ///< Number of command-line arguments
 
+    String outputStream;                    ///< Output stream from the VM system calls
+
     /**
      * @brief Fetches the next instruction to be executed in a virtual machine.
      *
@@ -272,7 +274,13 @@ public:
      *
      * @return A pointer to the current working directory string.
      */
-    String getWorkingDirectory();
+    String getWorkingDirectory() const;
+
+    String getOutputStream() const;
+
+    void appendToOutputStream(String text);
+
+    void appendToOutputStream(char ch);
 
     /**
      * @brief Ensures the existence of system directories on the SD card.

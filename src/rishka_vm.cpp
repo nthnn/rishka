@@ -29,6 +29,7 @@ void RishkaVM::initialize(fabgl::Terminal* terminal, String workingDirectory) {
     this->exitCode = 0;
     this->terminal = terminal;
     this->workingDirectory = workingDirectory;
+    this->outputStream = "";
 }
 
 void RishkaVM::stopVM() {
@@ -117,6 +118,7 @@ void RishkaVM::reset() {
     this->argc = 0;
     this->pc = 0;
     this->exitCode = 0;
+    this->outputStream = "";
 
     this->fileHandles.clear();
     this->initialize(this->terminal, this->workingDirectory);
@@ -954,7 +956,7 @@ void RishkaVM::setWorkingDirectory(String directory) {
     this->workingDirectory = String(directory.c_str());
 }
 
-String RishkaVM::getWorkingDirectory() {
+String RishkaVM::getWorkingDirectory() const {
     return String(this->workingDirectory.c_str());
 }
 
@@ -973,6 +975,18 @@ void RishkaVM::ensureSystemDirectories() {
 
     if(!SD.exists("/tmp"))
         SD.mkdir("/tmp");
+}
+
+String RishkaVM::getOutputStream() const {
+    return this->outputStream;
+}
+
+void RishkaVM::appendToOutputStream(String text) {
+    this->outputStream += text;
+}
+
+void RishkaVM::appendToOutputStream(char ch) {
+    this->outputStream += ch;
 }
 
 inline int64_t RishkaVM::shiftLeftInt64(int64_t a, int64_t b) {
