@@ -69,24 +69,34 @@ void change_rt_strpass(char* data) {
 
 void RishkaSyscall::IO::prints(RishkaVM* vm) {
     auto arg = vm->getPointerParam<char*>(0);
-    vm->getTerminal()->print(arg != NULL ? arg : "(null)");
+    arg = arg != NULL ? arg : (char*) "(null)";
+
+    vm->getTerminal()->print(arg);
+    vm->appendToOutputStream(arg);
 }
 
 void RishkaSyscall::IO::printn(RishkaVM* vm) {
     auto arg = vm->getParam<int64_t>(0);
+
     vm->getTerminal()->print(arg);
+    vm->appendToOutputStream(arg);
 }
 
 void RishkaSyscall::IO::printd(RishkaVM* vm) {
     auto arg = vm->getParam<double>(0);
+
     vm->getTerminal()->print(arg);
+    vm->appendToOutputStream(arg);
 }
 
 char RishkaSyscall::IO::readch(RishkaVM* vm) {
     fabgl::LineEditor line(vm->getTerminal());
-
     line.edit();
-    return (char) line.get()[0];
+
+    char ch = (char) line.get()[0];
+    vm->appendToOutputStream(ch);
+
+    return ch;
 }
 
 size_t RishkaSyscall::IO::readLine(RishkaVM* vm) {
@@ -96,6 +106,7 @@ size_t RishkaSyscall::IO::readLine(RishkaVM* vm) {
     char* input = (char*) line.get();
     change_rt_strpass(input);
 
+    vm->appendToOutputStream(String(input));
     return strlen(input);
 }
 
