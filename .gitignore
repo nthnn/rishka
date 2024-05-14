@@ -1,3 +1,6 @@
 .vscode/
 dist/
+tools/rishka-arc/Cargo.lock
+tools/rishka-arc/target/
+tools/rishka-cc/Cargo.lock
 tools/rishka-cc/target/
