@@ -945,7 +945,7 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
             break;
 
         case RISHKA_SC_RT_FORK_STREAM:
-            return RishkaSyscall::Runtime::get_fork_string();
+            return RishkaSyscall::Runtime::getForkString(this);
 
         default:
             this->panic("Invalid system call.");
