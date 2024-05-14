@@ -150,7 +150,8 @@ enum rishka_syscall {
 
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
-    RISHKA_SC_RT_YIELD ///< Yield execution to other tasks
+    RISHKA_SC_RT_YIELD, ///< Yield execution to other tasks
+    RISHKA_SC_RT_FORK_STREAM ///< Passes the program fork output stream
 };
 
 /**
@@ -386,6 +387,7 @@ public:
     public:
         static char strpass();
         static void yield();
+        static uint32_t get_fork_string();
     };
 };
 

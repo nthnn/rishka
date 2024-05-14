@@ -726,3 +726,11 @@ char RishkaSyscall::Runtime::strpass() {
 void RishkaSyscall::Runtime::yield() {
     yield();
 }
+
+uint32_t RishkaSyscall::Runtime::get_fork_string(RishkaVM* vm) {
+    String stream = vm->getOutputStream();
+    char* data = (char*) stream.c_str();
+
+    change_rt_strpass(data);
+    return strlen(data);
+}
