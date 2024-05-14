@@ -978,7 +978,7 @@ void RishkaVM::ensureSystemDirectories() {
 }
 
 String RishkaVM::getOutputStream() const {
-    return this->outputStream;
+    return String(this->outputStream.c_str());
 }
 
 void RishkaVM::appendToOutputStream(String text) {
