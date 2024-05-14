@@ -727,7 +727,7 @@ void RishkaSyscall::Runtime::yield() {
     yield();
 }
 
-uint32_t RishkaSyscall::Runtime::get_fork_string(RishkaVM* vm) {
+uint32_t RishkaSyscall::Runtime::getForkString(RishkaVM* vm) {
     String stream = vm->getOutputStream();
     char* data = (char*) stream.c_str();
 

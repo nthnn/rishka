@@ -387,7 +387,7 @@ public:
     public:
         static char strpass();
         static void yield();
-        static uint32_t get_fork_string();
+        static uint32_t getForkString(RishkaVM* vm);
     };
 };
 
