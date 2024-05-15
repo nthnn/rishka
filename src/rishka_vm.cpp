@@ -963,23 +963,6 @@ String RishkaVM::getWorkingDirectory() const {
     return String(this->workingDirectory.c_str());
 }
 
-void RishkaVM::ensureSystemDirectories() {
-    if(!SD.exists("/bin"))
-        SD.mkdir("/bin");
-
-    if(!SD.exists("/etc"))
-        SD.mkdir("/etc");
-
-    if(!SD.exists("/home"))
-        SD.mkdir("/home");
-
-    if(!SD.exists("/man"))
-        SD.mkdir("/man");
-
-    if(!SD.exists("/tmp"))
-        SD.mkdir("/tmp");
-}
-
 String RishkaVM::getOutputStream() const {
     return String(this->outputStream.c_str());
 }
