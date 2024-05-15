@@ -126,9 +126,6 @@ void setup() {
         while(true);
     }
 
-    // Ensure significant system folders
-    RishkaVM::ensureSystemDirectories();
-
     // Initialize the Rishka VM instance.
     vm = new RishkaVM();
     vm->initialize(&Terminal);
