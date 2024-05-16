@@ -25,16 +25,6 @@ void IO::print(const string text) {
 void IO::print(
     const string text,
     const string fg,
-    const string style
-) {
-    IO::print(style);
-    IO::print(fg);
-    IO::print(text);
-}
-
-void IO::print(
-    const string text,
-    const string fg,
     const string bg,
     const string style
 ) {

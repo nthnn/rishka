@@ -147,23 +147,6 @@ public:
      *
      * This method prints the specified text to
      * the output stream with specified foreground
-     * color and style.
-     *
-     * @param text The text to be printed.
-     * @param fg Foreground color of the output text.
-     * @param style Style/format of the output.
-     */
-    static void print(
-        const string text,
-        const string fg,
-        const string style = TERM_STYLE_NORMAL
-    );
-
-    /**
-     * @brief Print text to the output stream.
-     *
-     * This method prints the specified text to
-     * the output stream with specified foreground
      * color, background color, and style.
      *
      * @param text The text to be printed.
