@@ -52,7 +52,7 @@ pub fn run_riscv64_gpp(options: &Options, cc_env: RishkaEnv) -> (bool, String) {
         .arg(format!("-Wl,-T,{}/link.ld", cc_env.scripts))
         .arg(format!("-I{}", cc_env.library))
         .arg(format!("-o{}.out", options.output))
-        .arg(format!("{}/librishka_impl.cpp", cc_env.library))
+        .arg(format!("{}/*.cpp", cc_env.library))
         .arg(format!("{}/launcher.s", cc_env.scripts))
         .arg(options.files.join(" "));
 
