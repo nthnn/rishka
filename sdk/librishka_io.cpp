@@ -22,6 +22,28 @@ void IO::print(const string text) {
     rishka_sc_1(RISHKA_SC_IO_PRINTS, (i64) text);
 }
 
+void IO::print(
+    const string text,
+    const string fg,
+    const string style
+) {
+    IO::print(style);
+    IO::print(fg);
+    IO::print(text);
+}
+
+void IO::print(
+    const string text,
+    const string fg,
+    const string bg,
+    const string style
+) {
+    IO::print(style);
+    IO::print(fg);
+    IO::print(bg);
+    IO::print(text);
+}
+
 void IO::println(const string text) {
     rishka_sc_1(RISHKA_SC_IO_PRINTS, (i64) text);
     IO::println();

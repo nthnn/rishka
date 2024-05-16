@@ -29,6 +29,47 @@
 
 #include <librishka/types.h>
 
+#define TERM_FG_BLACK       F("\e[30m")
+#define TERM_FG_RED         F("\e[31m")
+#define TERM_FG_GREEN       F("\e[32m")
+#define TERM_FG_YELLOW      F("\e[33m")
+#define TERM_FG_BLUE        F("\e[34m")
+#define TERM_FG_MAGENTA     F("\e[35m")
+#define TERM_FG_CYAN        F("\e[36m")
+#define TERM_FG_WHITE       F("\e[37m")
+#define TERM_FG_HBLACK      F("\e[90m")
+#define TERM_FG_HRED        F("\e[91m")
+#define TERM_FG_HGREEN      F("\e[92m")
+#define TERM_FG_HYELLOW     F("\e[93m")
+#define TERM_FG_HBLUE       F("\e[94m")
+#define TERM_FG_HMAGENTA    F("\e[95m")
+#define TERM_FG_HCYAN       F("\e[96m")
+#define TERM_FG_HWHITE      F("\e[97m")
+
+#define TERM_BG_BLACK       F("\e[40m")
+#define TERM_BG_RED         F("\e[41m")
+#define TERM_BG_GREEN       F("\e[42m")
+#define TERM_BG_YELLOW      F("\e[43m")
+#define TERM_BG_BLUE        F("\e[44m")
+#define TERM_BG_MAGENTA     F("\e[45m")
+#define TERM_BG_CYAN        F("\e[46m")
+#define TERM_BG_WHITE       F("\e[47m")
+#define TERM_BG_HBLACK      F("\e[100m")
+#define TERM_BG_HRED        F("\e[101m")
+#define TERM_BG_HGREEN      F("\e[102m")
+#define TERM_BG_HYELLOW     F("\e[103m")
+#define TERM_BG_HBLUE       F("\e[104m")
+#define TERM_BG_HMAGENTA    F("\e[105m")
+#define TERM_BG_HCYAN       F("\e[106m")
+#define TERM_BG_HWHITE      F("\e[107m")
+
+#define TERM_STYLE_NORMAL       F("\e[0m")
+#define TERM_STYLE_BOLD         F("\e[1m")
+#define TERM_STYLE_ITALIC       F("\e[3m")
+#define TERM_STYLE_UNDERLINED   F("\e[4m")
+#define TERM_STYLE_BLINK        F("\e[5m")
+#define TERM_STYLE_INVERSE      F("\e[7m")
+
 /**
  * @class IO
  * @brief Class for handling input/output operations in Rishka applications.
@@ -47,6 +88,42 @@ public:
      * @param text The text to be printed.
      */
     static void print(const string text);
+
+    /**
+     * @brief Print text to the output stream.
+     *
+     * This method prints the specified text to
+     * the output stream with specified foreground
+     * color and style.
+     *
+     * @param text The text to be printed.
+     * @param fg Foreground color of the output text.
+     * @param style Style/format of the output.
+     */
+    static void print(
+        const string text,
+        const string fg,
+        const string style = TERM_STYLE_NORMAL
+    );
+
+    /**
+     * @brief Print text to the output stream.
+     *
+     * This method prints the specified text to
+     * the output stream with specified foreground
+     * color, background color, and style.
+     *
+     * @param text The text to be printed.
+     * @param fg Foreground color of the output text.
+     * @param bg Background color of the output text.
+     * @param style Style/format of the output.
+     */
+    static void print(
+        const string text,
+        const string fg,
+        const string bg = TERM_BG_BLACK,
+        const string style = TERM_STYLE_NORMAL
+    );
 
     /**
      * @brief Print text to the output stream.
