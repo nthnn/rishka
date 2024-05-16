@@ -3,7 +3,7 @@
 	"author": "nthnn",
 	"version": "v0.0.1",
 	"description": "RISC-V virtual runtime in C/C++ SDK made for ESP32-WROVER with PSRAM.",
-	"git": "https://github.com/rishka-esp32/rishka-sdk.git",
+	"git": "https://github.com/nthnn/rishka.git",
 	"scripts": {
 		"linux:compile": [
 			"mkdir -p dist",
