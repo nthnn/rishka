@@ -130,11 +130,11 @@ This example demonstrates the usage of Rishka virtual machine on an ESP32-WROVER
 #define TFT_CS     5            // TFT SPI select pin
 #define TFT_SCK    18           // TFT SPI clock pin
 #define TFT_MOSI   23           // TFT SPI MOSI pin
-#define TFT_DC     2            // TFT data/command pin
+#define TFT_DC     15           // TFT data/command pin
 #define TFT_RESET  4            // TFT reset pin
 #define TFT_SPIBUS VSPI_HOST    // TFT SPI bus
 
-#define SD_CS      15           // SD card chip select pin
+#define SD_CS      2            // SD card chip select pin
 #define SD_SCK     14           // SD card SPI clock pin
 #define SD_MOSI    13           // SD card SPI MOSI pin
 #define SD_MISO    12           // SD card SPI MISO pin
@@ -146,12 +146,7 @@ fabgl::Terminal Terminal;
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
 
-// Rishka virtual machine instance
-RishkaVM* vm;
-
 void setup() {
-    Serial.begin(115200);
-
     // Initialize TFT display
     DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);
     DisplayController.setResolution("\"TFT_320x240\" 320 240");
@@ -165,55 +160,26 @@ void setup() {
     sdSpi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
     if(!SD.begin(SD_CS, sdSpi, 80000000)) {
         Terminal.println("Card \e[94mMount\e[97m Failed");
-        while(true);
+        return;
     }
 
-    if(!psramInit()) {
-        // If PSRAM initialization fails,
-        // print error message and halt execution
-        Terminal.println("\e[94mCannot\e[97m initialize PSRAM.");
-        while(true);
-    }
+    // Rishka virtual machine instance
+    RishkaVM* vm = new RishkaVM();
+    // Initialize Rishka VM
+    vm->initialize(&Terminal);
 
-    // Initialize the Rishka VM instance.
-    vm = new RishkaVM();
+    if(!vm->loadFile("/sysinfo.bin"))
+        vm->panic("Failed to \e[94mload\e[97m specified file.");
 
-    // Print prompt
-    Terminal.print("\e[32m#~\e[97m ");
+    // Run loaded program
+    vm->run(0, NULL);
+    // Reset VM after program execution
+    vm->reset();
 }
 
 void loop() {
-    // Check if there is data available to read from serial port
-    if(!Serial.available())
-        return;
-
-    // Read input from serial port
-    String input = Serial.readString();
-    // Echo input back to serial port
-    Terminal.print("\e[93m");
-    Terminal.print(input);
-    Terminal.print("\r\e[97m");
-
-    // Initialize Rishka virtual machine
-    vm->initialize(&Terminal);
-
-    // Attempt to load specified file into Rishka virtual machine
-    if(!vm->loadFile(input.c_str())) {
-        // If loading file fails, print error message and return
-        vm->panic(String("Failed to \e[94mload\e[97m specified file: " + input).c_str());
-
-        // Print prompt
-        Terminal.print("\r\e[32m#~\e[97m ");
-        return;
-    }
-
-    // Run loaded program on Rishka virtual machine
-    vm->run(0, NULL);
-    // Reset Rishka virtual machine for next execution
-    vm->reset();
-
-    // Print prompt for next input
-    Terminal.print("\e[32m#~\e[97m ");
+    // Delay to prevent continuous execution
+    vTaskDelay(10);
 }
 ```
 
