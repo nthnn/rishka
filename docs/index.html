@@ -111,7 +111,9 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
  <em>Rishka running shell example with an ILI9341 TFT LCD and FabGL.</em> </div><h2><a class="anchor" id="autotoc_md0"></a>
 How Does It Work?</h2>
 <p >The Rishka virtual runtime is a system designed to run special RISC-V binaries smoothly on ESP32-WROVER microcontroller units. Under the hood, the virtual machine serves as the main engine, while the kernel acts as its core component. The kernel handles system calls efficiently, providing a range of interfaces for accessing different system features and services.</p>
-<div align="center"> <img src="rishka-flow.png" alt="" class="inline"/> </div><p >These include basic functions like managing files, as well as more complex tasks like controlling GPIO pins, attaching and detaching interrupts, and communication protocols such as <a class="el" href="d6/d81/classI2C.html" title="Class for handling I2C operations in Rishka applications.">I2C</a> and SPI. Additionally, the kernel manages system utilities specific to the Jessy OS, handling tasks like sub-process runtime and memory allocation.</p>
+<p ><img src="assets/rishka-flow.png" alt="" width="65%" class="inline"/> <br  />
+ <em>Simple comparison of Rishka-based OS and Linux-based OS (with an Ubuntu logo, lol).</em> </p>
+<p >These include basic functions like managing files, as well as more complex tasks like controlling GPIO pins, attaching and detaching interrupts, and communication protocols such as <a class="el" href="d6/d81/classI2C.html" title="Class for handling I2C operations in Rishka applications.">I2C</a> and SPI. Additionally, the kernel manages system utilities specific to the Jessy OS, handling tasks like sub-process runtime and memory allocation.</p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Installation</h2>
 <h3><a class="anchor" id="autotoc_md2"></a>
