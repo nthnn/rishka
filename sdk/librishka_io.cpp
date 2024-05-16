@@ -34,6 +34,7 @@ void IO::print(
     IO::print(text);
 
     IO::print(TERM_STYLE_NORMAL);
+    IO::print(TERM_FG_HWHITE);
 }
 
 void IO::println(const string text) {
