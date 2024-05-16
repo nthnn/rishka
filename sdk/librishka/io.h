@@ -49,6 +49,16 @@ public:
     static void print(const string text);
 
     /**
+     * @brief Print text to the output stream.
+     *
+     * This method prints the specified text to the output
+     * stream followed by a new line.
+     *
+     * @param text The text to be printed.
+     */
+    static void println(const string text);
+
+    /**
      * @brief Print an integer number to the output stream.
      *
      * This method prints the specified integer number to the output stream.
@@ -58,13 +68,42 @@ public:
     static void print(i64 number);
 
     /**
+     * @brief Print an integer number to the output stream.
+     *
+     * This method prints the specified integer number to
+     * the output stream followed by a new line.
+     *
+     * @param number The integer number to be printed.
+     */
+    static void println(i64 number);
+
+    /**
      * @brief Print a floating-point number to the output stream.
      *
-     * This method prints the specified floating-point number to the output stream.
+     * This method prints the specified floating-point number
+     * to the output stream.
      *
      * @param number The floating-point number to be printed.
      */
     static void print(double number);
+
+    /**
+     * @brief Print a floating-point number to the output stream.
+     *
+     * This method prints the specified floating-point number
+     * to the output stream followed by a new line.
+     *
+     * @param number The floating-point number to be printed.
+     */
+    static void println(double number);
+
+    /**
+     * @brief Prints a new line to the output stream.
+     * 
+     * THis method prints a new line to the current
+     * output stream.
+    */
+    static void println();
 
     /**
      * @brief Check if there is data available to read from the input stream.

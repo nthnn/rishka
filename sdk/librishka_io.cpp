@@ -22,12 +22,31 @@ void IO::print(const string text) {
     rishka_sc_1(RISHKA_SC_IO_PRINTS, (i64) text);
 }
 
+void IO::println(const string text) {
+    rishka_sc_1(RISHKA_SC_IO_PRINTS, (i64) text);
+    IO::println();
+}
+
 void IO::print(i64 number) {
     rishka_sc_1(RISHKA_SC_IO_PRINTN, (i64) number);
 }
 
+void IO::println(i64 number) {
+    rishka_sc_1(RISHKA_SC_IO_PRINTN, (i64) number);
+    IO::println();
+}
+
 void IO::print(double number) {
     rishka_sc_1(RISHKA_SC_IO_PRINTD, double_to_long(number));
+}
+
+void IO::println(double number) {
+    rishka_sc_1(RISHKA_SC_IO_PRINTD, double_to_long(number));
+    IO::println();
+}
+
+void IO::println() {
+    IO::print(F("\r\n"));
 }
 
 rune IO::readch() {
