@@ -29,46 +29,99 @@
 
 #include <librishka/types.h>
 
+/** @name Foreground Color Definitions
+ *  Macros for setting the foreground (text) color in terminal output.
+ *  @{
+ */
+/// Black text color.
 #define TERM_FG_BLACK       F("\e[30m")
+/// Red text color.
 #define TERM_FG_RED         F("\e[31m")
+/// Green text color.
 #define TERM_FG_GREEN       F("\e[32m")
+/// Yellow text color.
 #define TERM_FG_YELLOW      F("\e[33m")
+/// Blue text color.
 #define TERM_FG_BLUE        F("\e[34m")
+/// Magenta text color.
 #define TERM_FG_MAGENTA     F("\e[35m")
+/// Cyan text color.
 #define TERM_FG_CYAN        F("\e[36m")
+/// White text color.
 #define TERM_FG_WHITE       F("\e[37m")
+/// High-intensity black text color (gray).
 #define TERM_FG_HBLACK      F("\e[90m")
+/// High-intensity red text color.
 #define TERM_FG_HRED        F("\e[91m")
+/// High-intensity green text color.
 #define TERM_FG_HGREEN      F("\e[92m")
+/// High-intensity yellow text color.
 #define TERM_FG_HYELLOW     F("\e[93m")
+/// High-intensity blue text color.
 #define TERM_FG_HBLUE       F("\e[94m")
+/// High-intensity magenta text color.
 #define TERM_FG_HMAGENTA    F("\e[95m")
+/// High-intensity cyan text color.
 #define TERM_FG_HCYAN       F("\e[96m")
+/// High-intensity white text color (bright white).
 #define TERM_FG_HWHITE      F("\e[97m")
+/** @} */
 
+/** @name Background Color Definitions
+ *  Macros for setting the background color in terminal output.
+ *  @{
+ */
+/// Black background color.
 #define TERM_BG_BLACK       F("\e[40m")
+/// Red background color.
 #define TERM_BG_RED         F("\e[41m")
+/// Green background color.
 #define TERM_BG_GREEN       F("\e[42m")
+/// Yellow background color.
 #define TERM_BG_YELLOW      F("\e[43m")
+/// Blue background color.
 #define TERM_BG_BLUE        F("\e[44m")
+/// Magenta background color.
 #define TERM_BG_MAGENTA     F("\e[45m")
+/// Cyan background color.
 #define TERM_BG_CYAN        F("\e[46m")
+/// White background color.
 #define TERM_BG_WHITE       F("\e[47m")
+/// High-intensity black background color (gray).
 #define TERM_BG_HBLACK      F("\e[100m")
+/// High-intensity red background color.
 #define TERM_BG_HRED        F("\e[101m")
+/// High-intensity green background color.
 #define TERM_BG_HGREEN      F("\e[102m")
+/// High-intensity yellow background color.
 #define TERM_BG_HYELLOW     F("\e[103m")
+/// High-intensity blue background color.
 #define TERM_BG_HBLUE       F("\e[104m")
+/// High-intensity magenta background color.
 #define TERM_BG_HMAGENTA    F("\e[105m")
+/// High-intensity cyan background color.
 #define TERM_BG_HCYAN       F("\e[106m")
+/// High-intensity white background color (bright white).
 #define TERM_BG_HWHITE      F("\e[107m")
+/** @} */
 
+/** @name Text Style Definitions
+ *  Macros for setting text styles in terminal output.
+ *  @{
+ */
+/// Normal text style.
 #define TERM_STYLE_NORMAL       F("\e[0m")
+/// Bold text style.
 #define TERM_STYLE_BOLD         F("\e[1m")
+/// Italic text style.
 #define TERM_STYLE_ITALIC       F("\e[3m")
+/// Underlined text style.
 #define TERM_STYLE_UNDERLINED   F("\e[4m")
+/// Blinking text style.
 #define TERM_STYLE_BLINK        F("\e[5m")
+/// Inverse text style (swap foreground and background colors).
 #define TERM_STYLE_INVERSE      F("\e[7m")
+/** @} */
 
 /**
  * @class IO
