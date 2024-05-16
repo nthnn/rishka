@@ -102,11 +102,43 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a8bb09010afe5ea0792d9a0f337c721e7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd8/classRuntime.html#a8bb09010afe5ea0792d9a0f337c721e7">yield</a> ()</td></tr>
 <tr class="memdesc:a8bb09010afe5ea0792d9a0f337c721e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Yield the execution context to other tasks or threads.  <a href="../../d6/dd8/classRuntime.html#a8bb09010afe5ea0792d9a0f337c721e7">More...</a><br /></td></tr>
 <tr class="separator:a8bb09010afe5ea0792d9a0f337c721e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86a38abf7383ad664a6aac8551f8f2cd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d9/d49/types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd8/classRuntime.html#a86a38abf7383ad664a6aac8551f8f2cd">get_fork_stream</a> ()</td></tr>
+<tr class="memdesc:a86a38abf7383ad664a6aac8551f8f2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the fork stream.  <a href="../../d6/dd8/classRuntime.html#a86a38abf7383ad664a6aac8551f8f2cd">More...</a><br /></td></tr>
+<tr class="separator:a86a38abf7383ad664a6aac8551f8f2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The <a class="el" href="../../d6/dd8/classRuntime.html" title="The Runtime class provides utilities for managing runtime operations.">Runtime</a> class provides utilities for managing runtime operations. </p>
 <p >The <a class="el" href="../../d6/dd8/classRuntime.html" title="The Runtime class provides utilities for managing runtime operations.">Runtime</a> class encapsulates functionality related to runtime management and control flow within Rishka applications. It serves as a central hub for coordinating runtime activities, such as task scheduling, event processing, and resource management. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a86a38abf7383ad664a6aac8551f8f2cd" name="a86a38abf7383ad664a6aac8551f8f2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86a38abf7383ad664a6aac8551f8f2cd">&#9670;&nbsp;</a></span>get_fork_stream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d9/d49/types_8h.html#a338951b7e7607b65262fb051e7804d91">string</a> Runtime::get_fork_stream </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the fork stream. </p>
+<p >This static method returns the current stream text content from the fork program previously executed. The stream contains all of the printed text of the previously executed program.</p>
+<dl class="section return"><dt>Returns</dt><dd>A string containing the content of the fork stream. </dd></dl>
+
+</div>
+</div>
 <a id="a8bb09010afe5ea0792d9a0f337c721e7" name="a8bb09010afe5ea0792d9a0f337c721e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bb09010afe5ea0792d9a0f337c721e7">&#9670;&nbsp;</a></span>yield()</h2>
 
@@ -137,7 +169,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>sdk/librishka/<a class="el" href="../../d3/d51/runtime_8h_source.html">runtime.h</a></li>
-<li>sdk/librishka_impl.cpp</li>
+<li>sdk/librishka_rt.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

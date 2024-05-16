@@ -89,4 +89,7 @@ var menudata={children:[
 {text:"g",url:"globals_eval.html#index_g"},
 {text:"i",url:"globals_eval.html#index_i"},
 {text:"s",url:"globals_eval.html#index_s"}]},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"Macros",url:"globals_defs.html",children:[
+{text:"f",url:"globals_defs.html#index_f"},
+{text:"n",url:"globals_defs.html#index_n"},
+{text:"t",url:"globals_defs.html#index_t"}]}]}]}]}
