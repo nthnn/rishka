@@ -19,9 +19,11 @@ Rishka is a RISC-V virtual runtime in C/C++ made for ESP32-WROVER with PSRAM spe
 
 The Rishka virtual runtime is a system designed to run special RISC-V binaries smoothly on ESP32-WROVER microcontroller units. Under the hood, the virtual machine serves as the main engine, while the kernel acts as its core component. The kernel handles system calls efficiently, providing a range of interfaces for accessing different system features and services.
 
-<div align="center">
-  <img src="rishka-flow.png" />
-</div>
+<p align="center">
+    <img src="assets/rishka-flow.png" width="65%" />
+    <br/>
+    <i>Simple comparison of Rishka-based OS and Linux-based OS (with an Ubuntu logo, lol).</i>
+</p>
 
 These include basic functions like managing files, as well as more complex tasks like controlling GPIO pins, attaching and detaching interrupts, and communication protocols such as I2C and SPI. Additionally, the kernel manages system utilities specific to the Jessy OS, handling tasks like sub-process runtime and memory allocation.
 
