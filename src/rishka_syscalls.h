@@ -148,6 +148,23 @@ enum rishka_syscall {
     RISHKA_SC_I2C_PINS, ///< Get the I2C pins
     RISHKA_SC_I2C_BUFSIZE, ///< Get the I2C buffer size
 
+    RISHKA_SC_KB_LAYOUT_NAME, ///< Get the name of the current keyboard layout
+    RISHKA_SC_KB_LAYOUT_DESC, ///< Get the description of the current keyboard layout
+    RISHKA_SC_KB_LED_GET_NUM, ///< Get the state of the Num Lock LED
+    RISHKA_SC_KB_LED_GET_CAPS, ///< Get the state of the Caps Lock LED
+    RISHKA_SC_KB_LED_GET_SCROLL, ///< Get the state of the Scroll Lock LED
+    RISHKA_SC_KB_LED_SET_NUM, ///< Set the state of the Num Lock LED
+    RISHKA_SC_KB_LED_SET_CAPS, ///< Set the state of the Caps Lock LED
+    RISHKA_SC_KB_LED_SET_SCROLL, ///< Set the state of the Scroll Lock LED
+    RISHKA_SC_KB_NEXT_SCAN_CODE, ///< Get the next keyboard scan code
+    RISHKA_SC_KB_DEVICE_TYPE, ///< Get the type of the keyboard device
+    RISHKA_SC_KB_AVAILABLE_VK, ///< Get the available virtual key codes
+    RISHKA_SC_KB_IS_AVAILABLE, ///< Check if the keyboard is available
+    RISHKA_SC_KB_IS_VK_DOWN, ///< Check if a virtual key is currently pressed
+    RISHKA_SC_KB_LOCK, ///< Lock the keyboard to prevent input
+    RISHKA_SC_KB_UNLOCK, ///< Unlock the keyboard to allow input
+    RISHKA_SC_KB_RESET, ///< Reset the keyboard to its default state
+
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
     RISHKA_SC_RT_YIELD, ///< Yield execution to other tasks
@@ -373,6 +390,37 @@ public:
         static void write_bytes(RishkaVM* vm);
         static void write_pixels(RishkaVM* vm);
         static void write_pattern(RishkaVM* vm);
+    };
+
+    /**
+     * @class Keyboard
+     * @brief Class containing system call operations
+     *        related to keyboard input.
+     *
+     * This class provides static member functions for
+     * performing keyboard-related system calls in the
+     * Rishka runtime environment. These functions allow
+     * Rishka programs to read input from the keyboard
+     * and perform operations based on user input.
+     */
+    class Keyboard final {
+    public:
+        static uint32_t layout_name();
+        static uint32_t layout_desc();
+        static uint8_t device_type();
+
+        static bool is_num_lock();
+        static bool is_caps_lock();
+        static bool is_scroll_lock();
+
+        static void num_lock(RishkaVM* vm);
+        static void caps_lock(RishkaVM* vm);
+        static void scroll_lock(RishkaVM* vm);
+
+        static uint32_t next_scan_code(RishkaVM* vm);
+        static void lock(RishkaVM* vm);
+        static void unlock();
+        static void reset();
     };
 
     /**
