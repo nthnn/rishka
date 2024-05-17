@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['runtime_2eh_0',['runtime.h',['../d3/d51/runtime_8h.html',1,'']]]
+  ['librishka_2eh_0',['librishka.h',['../d6/de4/librishka_8h.html',1,'']]]
 ];

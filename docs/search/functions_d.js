@@ -7,6 +7,7 @@ var searchData=
   ['realloc_4',['realloc',['../da/dc6/classMemory.html#aa2eab9d0b939b163aa535000e0b342ef',1,'Memory']]],
   ['remove_5',['remove',['../d6/df3/classFS.html#a56dffad802b44bcfee0fa5a571268ded',1,'FS']]],
   ['request_6',['request',['../d6/d81/classI2C.html#adc8abfb1f98c8c43ef5cd8f1f944fcb2',1,'I2C']]],
-  ['rewind_7',['rewind',['../db/d30/classFile.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
-  ['rmdir_8',['rmdir',['../d6/df3/classFS.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]]
+  ['reset_7',['reset',['../dc/dd2/classKeyboard.html#a765a73cd072fcad73db2d1d9824e7595',1,'Keyboard']]],
+  ['rewind_8',['rewind',['../db/d30/classFile.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
+  ['rmdir_9',['rmdir',['../d6/df3/classFS.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]]
 ];

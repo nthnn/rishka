@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['memory_0',['Memory',['../da/dc6/classMemory.html',1,'']]],
-  ['memory_2eh_1',['memory.h',['../dc/d18/memory_8h.html',1,'']]],
-  ['micros_2',['micros',['../d1/d61/classSys.html#a9e9083c9abd766d90ae71ae9ba6bc28b',1,'Sys']]],
-  ['millis_3',['millis',['../d1/d61/classSys.html#acfe1b7f4ea18cb985d2465d4f9bbebd3',1,'Sys']]],
-  ['mkdir_4',['mkdir',['../d6/df3/classFS.html#a60635712e457e5b4ebfe445e9b673bd4',1,'FS']]]
+  ['lastwrite_0',['lastwrite',['../db/d30/classFile.html#a75953d4d4e3993b6084323ea494a627f',1,'File']]],
+  ['layout_5fdesc_1',['layout_desc',['../dc/dd2/classKeyboard.html#ad136614385f6aa152bdfce75c3d46945',1,'Keyboard']]],
+  ['layout_5fname_2',['layout_name',['../dc/dd2/classKeyboard.html#acf7a81abfb2f60ecc53e68227b45225a',1,'Keyboard']]],
+  ['librishka_2eh_3',['librishka.h',['../d6/de4/librishka_8h.html',1,'']]],
+  ['lock_4',['lock',['../dc/dd2/classKeyboard.html#a62d5effc4398f986fab2e7aff9d88125',1,'Keyboard']]]
 ];
