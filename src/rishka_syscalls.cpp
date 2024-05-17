@@ -721,22 +721,16 @@ size_t RishkaSyscall::I2C::bufsize(RishkaVM* vm) {
 }
 
 uint32_t RishkaSyscall::Keyboard::layout_name() {
-    auto name = (char*) String(
-        fabgl::PS2Controller::keyboard()
-            ->getLayout()
-            ->name
-    ).c_str();
+    auto name = (char*) fabgl::PS2Controller::keyboard()
+        ->getLayout()->name;
 
     change_rt_strpass(name);
     return strlen(name);
 }
 
 uint32_t RishkaSyscall::Keyboard::layout_desc() {
-    auto name = (char*) String(
-        fabgl::PS2Controller::keyboard()
-            ->getLayout()
-            ->desc
-    ).c_str();
+    auto name = (char*) fabgl::PS2Controller::keyboard()
+        ->getLayout()->desc;
 
     change_rt_strpass(name);
     return strlen(name);
