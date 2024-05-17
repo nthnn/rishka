@@ -38,11 +38,13 @@
  */
 
 #include <librishka/args.h>     /**< @ingroup Rishka_SDK */
+#include <librishka/devices.h>  /**< @ingroup Rishka_SDK */
 #include <librishka/fs.h>       /**< @ingroup Rishka_SDK */
 #include <librishka/gpio.h>     /**< @ingroup Rishka_SDK */
 #include <librishka/i2c.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/int.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/io.h>       /**< @ingroup Rishka_SDK */
+#include <librishka/keyboard.h> /**< @ingroup Rishka_SDK */
 #include <librishka/memory.h>   /**< @ingroup Rishka_SDK */
 #include <librishka/runtime.h>  /**< @ingroup Rishka_SDK */
 #include <librishka/sys.h>      /**< @ingroup Rishka_SDK */
