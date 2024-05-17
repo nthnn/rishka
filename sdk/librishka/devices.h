@@ -1,0 +1,14 @@
+#ifndef LIBRISHKA_DEVICES_H
+#define LIBRISHKA_DEVICES_H
+
+typedef enum {
+    PS2_DEV_UNKNOWN,
+    PS2_DEV_OLD_ATKB,
+    PS2_DEV_MOUSE_STD,
+    PS2_DEV_MOUSE_WHEEL,
+    PS2_DEV_MOUSE_5BTN,
+    PS2_DEV_MF2KB_TRANS,
+    PS2_DEV_MF2KB
+} PS2Device;
+
+#endif
