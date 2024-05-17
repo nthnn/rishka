@@ -17,6 +17,7 @@
 
 #include <bootloader_random.h>
 #include <Esp.h>
+#include <fabgl.h>
 #include <SD.h>
 #include <Wire.h>
 
@@ -717,6 +718,121 @@ bool RishkaSyscall::I2C::pins(RishkaVM* vm) {
 size_t RishkaSyscall::I2C::bufsize(RishkaVM* vm) {
     auto size = vm->getParam<size_t>(0);
     return Wire.setBufferSize(size);
+}
+
+uint32_t RishkaSyscall::Keyboard::layout_name() {
+    auto name = (char*) String(
+        fabgl::PS2Controller::keyboard()
+            ->getLayout()
+            ->name
+    ).c_str();
+
+    change_rt_strpass(name);
+    return strlen(name);
+}
+
+uint32_t RishkaSyscall::Keyboard::layout_desc() {
+    auto name = (char*) String(
+        fabgl::PS2Controller::keyboard()
+            ->getLayout()
+            ->desc
+    ).c_str();
+
+    change_rt_strpass(name);
+    return strlen(name);
+}
+
+uint8_t RishkaSyscall::Keyboard::device_type() {
+    return (uint8_t) fabgl::PS2Controller::keyboard()
+        ->identify();
+}
+
+bool RishkaSyscall::Keyboard::is_num_lock() {
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) caps, (void) scroll;
+    return num;
+}
+
+bool RishkaSyscall::Keyboard::is_caps_lock() {
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) num, (void) scroll;
+    return caps;
+}
+
+bool RishkaSyscall::Keyboard::is_scroll_lock() {
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) num, (void) caps;
+    return scroll;
+}
+
+void RishkaSyscall::Keyboard::num_lock(RishkaVM* vm) {
+    auto numVal = vm->getParam<bool>(0);
+
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) num;
+    fabgl::PS2Controller::keyboard()
+        ->setLEDs(numVal, caps, scroll);
+}
+
+void RishkaSyscall::Keyboard::caps_lock(RishkaVM* vm) {
+    auto capsVal = vm->getParam<bool>(0);
+
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) caps;
+    fabgl::PS2Controller::keyboard()
+        ->setLEDs(num, capsVal, scroll);
+}
+
+void RishkaSyscall::Keyboard::scroll_lock(RishkaVM* vm) {
+    auto scrollVal = vm->getParam<bool>(0);
+
+    bool num, caps, scroll;
+    fabgl::PS2Controller::keyboard()
+        ->getLEDs(&num, &caps, &scroll);
+
+    (void) scroll;
+    fabgl::PS2Controller::keyboard()
+        ->setLEDs(num, caps, scrollVal);
+}
+
+uint32_t RishkaSyscall::Keyboard::next_scan_code(RishkaVM* vm) {
+    auto timeout = vm->getParam<int>(0);
+    auto resend = vm->getParam<bool>(1);
+
+    return fabgl::PS2Controller::keyboard()
+        ->getNextScancode(timeout, resend);
+}
+
+void RishkaSyscall::Keyboard::lock(RishkaVM* vm) {
+    auto timeout = vm->getParam<int>(0);
+
+    fabgl::PS2Controller::keyboard()
+        ->lock(timeout);
+}
+
+void RishkaSyscall::Keyboard::unlock() {
+    fabgl::PS2Controller::keyboard()
+        ->unlock();
+}
+
+void RishkaSyscall::Keyboard::reset() {
+    fabgl::PS2Controller::keyboard()
+        ->reset();
 }
 
 char RishkaSyscall::Runtime::strpass() {
