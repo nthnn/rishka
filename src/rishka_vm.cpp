@@ -947,6 +947,51 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_RT_FORK_STREAM:
             return RishkaSyscall::Runtime::getForkString(this);
 
+        case RISHKA_SC_KB_LAYOUT_NAME:
+            return RishkaSyscall::Keyboard::layout_name();
+
+        case RISHKA_SC_KB_LAYOUT_DESC:
+            return RishkaSyscall::Keyboard::layout_desc();
+
+        case RISHKA_SC_KB_DEVICE_TYPE:
+            return RishkaSyscall::Keyboard::device_type();
+
+        case RISHKA_SC_KB_LED_GET_NUM:
+            return RishkaSyscall::Keyboard::is_num_lock();
+
+        case RISHKA_SC_KB_LED_GET_CAPS:
+            return RishkaSyscall::Keyboard::is_caps_lock();
+
+        case RISHKA_SC_KB_LED_GET_SCROLL:
+            return RishkaSyscall::Keyboard::is_scroll_lock();
+
+        case RISHKA_SC_KB_LED_SET_NUM:
+            RishkaSyscall::Keyboard::num_lock(this);
+            break;
+
+        case RISHKA_SC_KB_LED_SET_CAPS:
+            RishkaSyscall::Keyboard::caps_lock(this);
+            break;
+
+        case RISHKA_SC_KB_LED_SET_SCROLL:
+            RishkaSyscall::Keyboard::scroll_lock(this);
+            break;
+
+        case RISHKA_SC_KB_NEXT_SCAN_CODE:
+            return RishkaSyscall::Keyboard::next_scan_code(this);
+
+        case RISHKA_SC_KB_LOCK:
+            RishkaSyscall::Keyboard::lock(this);
+            break;
+
+        case RISHKA_SC_KB_UNLOCK:
+            RishkaSyscall::Keyboard::unlock();
+            break;
+
+        case RISHKA_SC_KB_RESET:
+            RishkaSyscall::Keyboard::reset();
+            break;
+
         default:
             this->panic("Invalid system call.");
             break;
