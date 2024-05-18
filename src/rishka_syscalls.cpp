@@ -84,7 +84,7 @@ void RishkaSyscall::IO::printn(RishkaVM* vm) {
 }
 
 void RishkaSyscall::IO::printd(RishkaVM* vm) {
-    auto arg = rishka_double_to_long(
+    auto arg = rishka_long_to_double(
         vm->getParam<int64_t>(0)
     );
 
