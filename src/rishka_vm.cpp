@@ -71,7 +71,7 @@ bool RishkaVM::loadFile(const char* fileName, bool enableBoot) {
     if(!SD.exists(absoluteFilename))
         return false;
 
-    if(enableBoot && absoluteFilename == "/bin/boot.bin")
+    if(!enableBoot && absoluteFilename == "/bin/boot.bin")
         return false;
 
     File file = SD.open(absoluteFilename);
