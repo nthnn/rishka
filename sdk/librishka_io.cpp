@@ -51,6 +51,15 @@ void IO::println(i64 number) {
     IO::println();
 }
 
+void IO::print(u64 number) {
+    rishka_sc_1(RISHKA_SC_IO_PRINTU, (i64) number);
+}
+
+void IO::println(u64 number) {
+    rishka_sc_1(RISHKA_SC_IO_PRINTU, (i64) number);
+    IO::println();
+}
+
 void IO::print(double number) {
     rishka_sc_1(RISHKA_SC_IO_PRINTD, double_to_long(number));
 }
