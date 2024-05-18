@@ -216,10 +216,10 @@ public:
      * for execution.
      *
      * @param fileName The name of the program file to be loaded.
-     * @param disableBoot Disable loading the /bin/boot.bin program.
+     * @param enableBoot Enable loading the /bin/boot.bin program.
      * @return true if the file is loaded successfully, false otherwise.
      */
-    bool loadFile(const char* fileName, bool disableBoot = true);
+    bool loadFile(const char* fileName, bool enableBoot = false);
 
     /**
      * @brief Runs the Rishka virtual machine instance.
