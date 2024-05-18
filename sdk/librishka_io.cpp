@@ -16,6 +16,7 @@
  */
 
 #include "librishka.h"
+#include "librishka/func_args.h"
 #include "librishka_impl.hpp"
 
 void IO::print(const string text) {
@@ -28,13 +29,14 @@ void IO::print(
     const string bg,
     const string style
 ) {
-    IO::print(style);
-    IO::print(fg);
-    IO::print(bg);
-    IO::print(text);
-
-    IO::print(TERM_STYLE_NORMAL);
-    IO::print(TERM_FG_HWHITE);
+    IO::printf(
+        F("{s}{s}{s}{s}{s}{s}"),
+        style,
+        fg, bg,
+        text,
+        TERM_STYLE_NORMAL,
+        TERM_FG_HWHITE
+    );
 }
 
 void IO::println(const string text) {
@@ -71,6 +73,54 @@ void IO::println(double number) {
 
 void IO::println() {
     IO::print(F("\r\n"));
+}
+
+bool IO::printf(string format, ...) {
+    func_arg_list args;
+    func_arg_start(args, format);
+
+    while(*format) {
+        if(*format == '{') {
+            format++;
+
+            if(*format == 'i' && *(format + 1) == '}') {
+                i64 i = func_arg_get(args, i64);
+                IO::print(i);
+
+                format += 2;
+            }
+            else if(*format == 'u' && *(format + 1) == '}') {
+                u64 u = func_arg_get(args, u64);
+                IO::print(u);
+
+                format += 2;
+            }
+            else if(*format == 'd' && *(format + 1) == '}') {
+                double d = func_arg_get(args, double);
+                IO::print(d);
+
+                format += 2;
+            }
+            else if(*format == 's' && *(format + 1) == '}') {
+                string s = func_arg_get(args, char*);
+                IO::print(s);
+
+                format += 2;
+            }
+            else {
+                func_arg_end(args);
+                return 0;
+            }
+        }
+        else {
+            rune str[1] = {*format};
+            IO::print(str);
+            format++;
+        }
+    }
+
+    func_arg_end(args);
+    return 1;
 }
 
 rune IO::readch() {

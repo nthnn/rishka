@@ -238,6 +238,24 @@ public:
     static void println();
 
     /**
+     * @brief Prints formatted output.
+     *
+     * This method prints formatted output to the standard output stream. It behaves similar to the printf function
+     * in C/C++, allowing developers to specify a format string and additional arguments for formatting.
+     * 
+     * Formatters:
+     * - `{i}` &mdash; Integer number value
+     * - `{u}` &mdash; Unsigned number value
+     * - `{d}` &mdash; Double or floating-point number
+     * - `{s}` &mdash; String value
+     *
+     * @param format A string specifying the format of the output.
+     * @param ... Additional arguments to be formatted according to the format string.
+     * @return True if the output operation is successful, false otherwise.
+     */
+    static bool printf(string format, ...);
+
+    /**
      * @brief Check if there is data available to read from the input stream.
      *
      * This method checks if there is data available to read from the input stream.
