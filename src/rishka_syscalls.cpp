@@ -84,10 +84,16 @@ void RishkaSyscall::IO::printn(RishkaVM* vm) {
 }
 
 void RishkaSyscall::IO::printd(RishkaVM* vm) {
-    auto arg = vm->getParam<double>(0);
+    auto arg = vm->getParam<int64_t>(0);
 
-    vm->getTerminal()->print(arg);
-    vm->appendToOutputStream(arg);
+    union {
+        double output;
+        int64_t input;
+    } data;
+    data.input = arg;
+
+    vm->getTerminal()->print(data.output);
+    vm->appendToOutputStream(data.output);
 }
 
 char RishkaSyscall::IO::readch(RishkaVM* vm) {
