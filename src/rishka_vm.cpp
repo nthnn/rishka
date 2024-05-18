@@ -651,6 +651,10 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
             RishkaSyscall::IO::printn(this);
             break;
 
+        case RISHKA_SC_IO_PRINTU:
+            RishkaSyscall::IO::printu(this);
+            break;
+
         case RISHKA_SC_IO_PRINTD:
             RishkaSyscall::IO::printd(this);
             break;
