@@ -56,7 +56,7 @@ char* RishkaVM::getArgValue(const uint8_t index) const {
     return this->argv[index];
 }
 
-bool RishkaVM::loadFile(const char* fileName) {
+bool RishkaVM::loadFile(const char* fileName, bool disableBoot) {
     String absoluteFilename = "/bin/" + String(fileName) + ".bin";
     if(!SD.exists(absoluteFilename))
         absoluteFilename = rishka_sanitize_path(
@@ -71,7 +71,7 @@ bool RishkaVM::loadFile(const char* fileName) {
     if(!SD.exists(absoluteFilename))
         return false;
 
-    if(absoluteFilename == "/bin/boot.bin")
+    if(!disableBoot && absoluteFilename == "/bin/boot.bin")
         return false;
 
     File file = SD.open(absoluteFilename);
