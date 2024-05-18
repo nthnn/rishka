@@ -191,6 +191,25 @@ public:
     static void println(i64 number);
 
     /**
+     * @brief Print an unsigned number to the output stream.
+     *
+     * This method prints the specified unsigned number to the output stream.
+     *
+     * @param number The unsigned number to be printed.
+     */
+    static void print(u64 number);
+
+    /**
+     * @brief Print an unsigned number to the output stream.
+     *
+     * This method prints the specified unsigned number to
+     * the output stream followed by a new line.
+     *
+     * @param number The unsigned number to be printed.
+     */
+    static void println(u64 number);
+
+    /**
      * @brief Print a floating-point number to the output stream.
      *
      * This method prints the specified floating-point number
