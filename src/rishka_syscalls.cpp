@@ -84,7 +84,7 @@ void RishkaSyscall::IO::printn(RishkaVM* vm) {
 }
 
 void RishkaSyscall::IO::printu(RishkaVM* vm) {
-    auto arg = vm->getParam<unt64_t>(0);
+    auto arg = vm->getParam<uint64_t>(0);
 
     vm->getTerminal()->print(arg);
     vm->appendToOutputStream(arg);
