@@ -111,12 +111,12 @@ bool IO::printf(string format, ...) {
                 func_arg_end(args);
                 return 0;
             }
+
+            continue;
         }
-        else {
-            rune str[1] = {*format};
-            IO::print(str);
-            format++;
-        }
+
+        rune str[2] = {*format++, '\0'};
+        IO::print(str);
     }
 
     func_arg_end(args);
