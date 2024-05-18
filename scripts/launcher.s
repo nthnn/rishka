@@ -49,7 +49,7 @@ _exit:
 
     # Set up the arguments for the exit system call
     mv      a0,a5   # Argument 0: Return value from main
-    li      a7,15   # Rishka system call number for exit
+    li      a7,16   # Rishka system call number for exit
 
     # Perform the exit system call
     scall
