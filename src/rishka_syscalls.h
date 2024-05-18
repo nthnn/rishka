@@ -46,7 +46,8 @@
 enum rishka_syscall {
     // Input/Output System Calls
     RISHKA_SC_IO_PRINTS, ///< Print a string
-    RISHKA_SC_IO_PRINTN, ///< Print a number
+    RISHKA_SC_IO_PRINTN, ///< Print a signed number
+    RISHKA_SC_IO_PRINTU, ///< Print an unsigned number
     RISHKA_SC_IO_PRINTD, ///< Print a double
     RISHKA_SC_IO_READCH, ///< Read a single character
     RISHKA_SC_IO_READLINE, ///< Read a line of text
@@ -193,14 +194,19 @@ public:
     public:
         static void prints(RishkaVM* vm);
         static void printn(RishkaVM* vm);
+        static void printu(RishkaVM* vm);
         static void printd(RishkaVM* vm);
+
         static char readch(RishkaVM* vm);
         static size_t readLine(RishkaVM* vm);
         static int read(RishkaVM* vm);
+
         static int available(RishkaVM* vm);
         static int peek(RishkaVM* vm);
+
         static bool find(RishkaVM* vm);
         static bool findUntil(RishkaVM* vm);
+
         static void setTimeout(RishkaVM* vm);
         static uint64_t getTimeout(RishkaVM* vm);
     };
