@@ -47,7 +47,7 @@ private:
 
     int64_t pc;                             ///< Program counter
     fabgl::Terminal* terminal;              ///< Terminal for input/output operations
-    String workingDirectory;                 ///< Current directory of the virtual machine
+    fabgl::BaseDisplayController* display;  ///< Base display controller of the VM
 
     bool running;                           ///< Flag indicating whether the VM is running
     int64_t exitCode;                       ///< Exit code of the VM after execution
@@ -55,6 +55,7 @@ private:
     char** argv;                            ///< Command-line arguments
     uint8_t argc;                           ///< Number of command-line arguments
 
+    String workingDirectory;                ///< Current directory of the virtual machine
     String outputStream;                    ///< Output stream from the VM system calls
 
     /**
@@ -171,6 +172,13 @@ public:
     fabgl::Terminal* getTerminal() const;
 
     /**
+     * @brief Gets the base display controller used by the virtual machine.
+     * 
+     * @return A pointer to the base display controller.
+    */
+    fabgl::BaseDisplayController* getDisplay() const;
+
+    /**
      * @brief Gets the number of VM arguments on execution.
      * 
      * @return The number of VM arguments on execution.
@@ -194,9 +202,14 @@ public:
      * handles. Once initialized, the virtual machine is ready for execution.
      *
      * @param stream A pointer to the Terminal object for input/output operations.
+     * @param displayCtrl The base display controller of the VM
      * @param directory The path to the new working directory.
      */
-    void initialize(fabgl::Terminal* terminal, String workingDirectory = "/");
+    void initialize(
+        fabgl::Terminal* terminal,
+        fabgl::BaseDisplayController* displayCtrl,
+        String workingDirectory = "/"
+    );
 
     /**
      * @brief Resets the Rishka virtual machine instance to its initial state.

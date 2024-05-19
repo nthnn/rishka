@@ -21,13 +21,18 @@
 #include <rishka_util.h>
 #include <rishka_vm.h>
 
-void RishkaVM::initialize(fabgl::Terminal* terminal, String workingDirectory) {
+void RishkaVM::initialize(
+    fabgl::Terminal* terminal,
+    fabgl::BaseDisplayController* displayCtrl,
+    String workingDirectory
+) {
     this->running = false;
     this->argv = NULL;
     this->argc = 0;
     this->pc = 0;
     this->exitCode = 0;
     this->terminal = terminal;
+    this->display = displayCtrl;
     this->workingDirectory = workingDirectory;
     this->outputStream = "";
 }
@@ -46,6 +51,10 @@ int64_t RishkaVM::getExitCode() const {
 
 fabgl::Terminal* RishkaVM::getTerminal() const {
     return this->terminal;
+}
+
+fabgl::BaseDisplayController* RishkaVM::getDisplay() const {
+    return this->display;
 }
 
 uint8_t RishkaVM::getArgCount() const {
@@ -124,7 +133,11 @@ void RishkaVM::reset() {
     this->outputStream = "";
 
     this->fileHandles.clear();
-    this->initialize(this->terminal, this->workingDirectory);
+    this->initialize(
+        this->terminal,
+        this->display,
+        this->workingDirectory
+    );
 }
 
 void RishkaVM::execute(uint32_t inst) {
@@ -998,6 +1011,21 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_KB_RESET:
             RishkaSyscall::Keyboard::reset();
             break;
+
+        case RISHKA_SC_DISPLAY_SCREEN_HEIGHT:
+            return RishkaSyscall::Display::screen_height(this);
+
+        case RISHKA_SC_DISPLAY_SCREEN_WIDTH:
+            return RishkaSyscall::Display::screen_height(this);
+
+        case RISHKA_SC_DISPLAY_VIEWPORT_HEIGHT:
+            return RishkaSyscall::Display::viewport_height(this);
+
+        case RISHKA_SC_DISPLAY_VIEWPORT_WIDTH:
+            return RishkaSyscall::Display::viewport_height(this);
+
+        case RISHKA_SC_DISPLAY_SUPPORTED_COLORS:
+            return RishkaSyscall::Display::supported_colors(this);
 
         default:
             this->panic("Invalid system call.");
