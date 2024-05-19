@@ -8,7 +8,6 @@ var dir_6e8afc538eccbcb491711fd0cc7b9703 =
     [ "i2c.h", "d5/daf/i2c_8h.html", "d5/daf/i2c_8h" ],
     [ "int.h", "d3/d7e/int_8h.html", "d3/d7e/int_8h" ],
     [ "io.h", "dc/dac/io_8h.html", "dc/dac/io_8h" ],
-    [ "keyboard.h", "d6/da0/keyboard_8h.html", "d6/da0/keyboard_8h" ],
     [ "memory.h", "dc/d18/memory_8h.html", "dc/d18/memory_8h" ],
     [ "runtime.h", "d3/d51/runtime_8h.html", "d3/d51/runtime_8h" ],
     [ "sys.h", "d9/d87/sys_8h.html", "d9/d87/sys_8h" ],

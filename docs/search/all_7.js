@@ -16,10 +16,7 @@ var searchData=
   ['int_5frising_13',['INT_RISING',['../d3/d7e/int_8h.html#a8c5d45f0ae61660e0c81111397dbbae6a594b9c1e1f3eba9e45d1b75d12e4800d',1,'int.h']]],
   ['io_14',['IO',['../d8/d66/classIO.html',1,'']]],
   ['io_2eh_15',['io.h',['../dc/dac/io_8h.html',1,'']]],
-  ['is_5fcaps_5flock_16',['is_caps_lock',['../dc/dd2/classKeyboard.html#a66a1e57f370d94884b85dc72ebb5e35e',1,'Keyboard']]],
-  ['is_5fdir_17',['is_dir',['../db/d30/classFile.html#a037f889ba642432d5565ce09684732cb',1,'File']]],
-  ['is_5ffile_18',['is_file',['../db/d30/classFile.html#a2579cd0f5f7ad60c88a9395fc501f4cd',1,'File']]],
-  ['is_5fnum_5flock_19',['is_num_lock',['../dc/dd2/classKeyboard.html#a388679668b0a8e3d3a21ffc0267d7e76',1,'Keyboard']]],
-  ['is_5fok_20',['is_ok',['../db/d30/classFile.html#a73b2f9c560167ac996d5c7f29e84e7fe',1,'File']]],
-  ['is_5fscroll_5flock_21',['is_scroll_lock',['../dc/dd2/classKeyboard.html#a8acd099eadb92a708c6279541792b278',1,'Keyboard']]]
+  ['is_5fdir_16',['is_dir',['../db/d30/classFile.html#a037f889ba642432d5565ce09684732cb',1,'File']]],
+  ['is_5ffile_17',['is_file',['../db/d30/classFile.html#a2579cd0f5f7ad60c88a9395fc501f4cd',1,'File']]],
+  ['is_5fok_18',['is_ok',['../db/d30/classFile.html#a73b2f9c560167ac996d5c7f29e84e7fe',1,'File']]]
 ];

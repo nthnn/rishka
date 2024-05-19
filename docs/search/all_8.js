@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['keyboard_0',['Keyboard',['../dc/dd2/classKeyboard.html',1,'']]],
-  ['keyboard_2eh_1',['keyboard.h',['../d6/da0/keyboard_8h.html',1,'']]]
+  ['lastwrite_0',['lastwrite',['../db/d30/classFile.html#a75953d4d4e3993b6084323ea494a627f',1,'File']]],
+  ['librishka_2eh_1',['librishka.h',['../d6/de4/librishka_8h.html',1,'']]]
 ];
