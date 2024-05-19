@@ -128,7 +128,7 @@ void setup() {
 
     // Initialize the Rishka VM instance.
     vm = new RishkaVM();
-    vm->initialize(&Terminal);
+    vm->initialize(&Terminal, &DisplayController);
 
     // Virtual key listener to halt program
     Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {

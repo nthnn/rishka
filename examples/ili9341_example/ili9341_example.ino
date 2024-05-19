@@ -65,7 +65,7 @@ void setup() {
     // Rishka virtual machine instance
     RishkaVM* vm = new RishkaVM();
     // Initialize Rishka VM
-    vm->initialize(&Terminal);
+    vm->initialize(&Terminal, &DisplayController);
 
     if(!vm->loadFile("/sysinfo.bin"))
         vm->panic("Failed to \e[94mload\e[97m specified file.");
