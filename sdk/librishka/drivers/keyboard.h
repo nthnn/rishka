@@ -16,7 +16,7 @@
  */
 
 /**
- * @file librishka/keyboard.h
+ * @file librishka/drivers/keyboard.h
  * @author [Nathanne Isip](https://github.com/nthnn)
  * @brief This header file defines the Keyboard class, providing access to keyboard-related functionalities in the Rishka VM SDK.
  *
@@ -26,8 +26,8 @@
  * and resetting the keyboard.
  */
 
-#ifndef LIBRISHKA_KEYBOARD_H
-#define LIBRISHKA_KEYBOARD_H
+#ifndef LIBRISHKA_DRIVERS_KEYBOARD_H
+#define LIBRISHKA_DRIVERS_KEYBOARD_H
 
 #include <librishka/devices.h>
 #include <librishka/types.h>
