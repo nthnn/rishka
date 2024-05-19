@@ -45,10 +45,25 @@
 #include <librishka/i2c.h>          /**< @ingroup Rishka_SDK */
 #include <librishka/int.h>          /**< @ingroup Rishka_SDK */
 #include <librishka/io.h>           /**< @ingroup Rishka_SDK */
-#include <librishka/keyboard.h>     /**< @ingroup Rishka_SDK */
 #include <librishka/memory.h>       /**< @ingroup Rishka_SDK */
 #include <librishka/runtime.h>      /**< @ingroup Rishka_SDK */
 #include <librishka/sys.h>          /**< @ingroup Rishka_SDK */
 #include <librishka/types.h>        /**< @ingroup Rishka_SDK */
 
-#endif /* LIBRISHKA_H */
+/**
+ * @defgroup Rishka_Drivers_SDK Rishka Drivers SDK
+ * @brief Group of headers for Rishka SDK drivers.
+ *
+ * This module contains the headers for the drivers
+ * provided by the Rishka SDK. These drivers include
+ * functionalities to manage and interact with various
+ * hardware components like displays and keyboards.
+ * The drivers abstract the low-level details of
+ * hardware communication, providing a simple and 
+ * consistent interface for application development.
+ */
+
+#include <librishka/drivers/display.h>  /**< @ingroup Rishka_Drivers_SDK */
+#include <librishka/drivers/keyboard.h> /**< @ingroup Rishka_Drivers_SDK */
+
+#endif
