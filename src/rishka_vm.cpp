@@ -1016,13 +1016,13 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
             return RishkaSyscall::Display::screen_height(this);
 
         case RISHKA_SC_DISPLAY_SCREEN_WIDTH:
-            return RishkaSyscall::Display::screen_height(this);
+            return RishkaSyscall::Display::screen_width(this);
 
         case RISHKA_SC_DISPLAY_VIEWPORT_HEIGHT:
             return RishkaSyscall::Display::viewport_height(this);
 
         case RISHKA_SC_DISPLAY_VIEWPORT_WIDTH:
-            return RishkaSyscall::Display::viewport_height(this);
+            return RishkaSyscall::Display::viewport_width(this);
 
         case RISHKA_SC_DISPLAY_SUPPORTED_COLORS:
             return RishkaSyscall::Display::supported_colors(this);
