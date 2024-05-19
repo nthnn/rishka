@@ -170,7 +170,11 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
     auto argv = parent_vm->getPointerParam<char**>(2);
 
     RishkaVM* child_vm = new RishkaVM();
-    child_vm->initialize(parent_vm->getTerminal(), parent_vm->getWorkingDirectory());
+    child_vm->initialize(
+        parent_vm->getTerminal(),
+        parent_vm->getDisplay(),
+        parent_vm->getWorkingDirectory()
+    );
 
     if(!child_vm->loadFile(program)) {
         child_vm->reset();
@@ -836,6 +840,31 @@ void RishkaSyscall::Keyboard::unlock() {
 void RishkaSyscall::Keyboard::reset() {
     fabgl::PS2Controller::keyboard()
         ->reset();
+}
+
+int RishkaSyscall::Display::screen_height(RishkaVM* vm) {
+    return vm->getDisplay()
+        ->getScreenHeight();
+}
+
+int RishkaSyscall::Display::screen_width(RishkaVM* vm) {
+    return vm->getDisplay()
+        ->getScreenWidth();
+}
+
+int RishkaSyscall::Display::viewport_height(RishkaVM* vm) {
+    return vm->getDisplay()
+        ->getViewPortHeight();
+}
+
+int RishkaSyscall::Display::viewport_width(RishkaVM* vm) {
+    return vm->getDisplay()
+        ->getViewPortWidth();
+}
+
+int RishkaSyscall::Display::supported_colors(RishkaVM* vm) {
+    return vm->getDisplay()
+        ->colorsCount();
 }
 
 char RishkaSyscall::Runtime::strpass() {

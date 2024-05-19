@@ -149,6 +149,7 @@ enum rishka_syscall {
     RISHKA_SC_I2C_PINS, ///< Get the I2C pins
     RISHKA_SC_I2C_BUFSIZE, ///< Get the I2C buffer size
 
+    // Keyboard Driver System Calls
     RISHKA_SC_KB_LAYOUT_NAME, ///< Get the name of the current keyboard layout
     RISHKA_SC_KB_LAYOUT_DESC, ///< Get the description of the current keyboard layout
     RISHKA_SC_KB_LED_GET_NUM, ///< Get the state of the Num Lock LED
@@ -165,6 +166,35 @@ enum rishka_syscall {
     RISHKA_SC_KB_LOCK, ///< Lock the keyboard to prevent input
     RISHKA_SC_KB_UNLOCK, ///< Unlock the keyboard to allow input
     RISHKA_SC_KB_RESET, ///< Reset the keyboard to its default state
+
+    // Display Interface Driver System Calls
+    RISHKA_SC_DISPLAY_SCREEN_HEIGHT, ///< Get display screen height
+    RISHKA_SC_DISPLAY_SCREEN_WIDTH, ///< Get display screen width
+    RISHKA_SC_DISPLAY_VIEWPORT_HEIGHT, ///< Get display vertical size of viewport
+    RISHKA_SC_DISPLAY_VIEWPORT_WIDTH, ///< Get display horizontal size of viewport
+    RISHKA_SC_DISPLAY_SUPPORTED_COLORS, ///< Get numbers of color the display can provide
+
+    // Non-Volatile Storage System Calls
+    RISHKA_SC_NVS_ERASE, ///< Erase an NVS content by key
+    RISHKA_SC_NVS_ERASE_ALL, ///< Erase all the contents of NVS
+    RISHKA_SC_NVS_SET_I8, ///< Set i8 value by key
+    RISHKA_SC_NVS_SET_I16, ///< Set i16 value by key
+    RISHKA_SC_NVS_SET_I32, ///< Set i32 value by key
+    RISHKA_SC_NVS_SET_I64, ///< Set i64 value by key
+    RISHKA_SC_NVS_SET_U8, ///< Set u8 value by key
+    RISHKA_SC_NVS_SET_U16, ///< Set u16 value by key
+    RISHKA_SC_NVS_SET_U32, ///< Set u32 value by key
+    RISHKA_SC_NVS_SET_U64, ///< Set u64 value by key
+    RISHKA_SC_NVS_SET_STRING, ///< Set string value by key
+    RISHKA_SC_NVS_GET_I8, ///< Get i8 value by key
+    RISHKA_SC_NVS_GET_I16, ///< Get i16 value by key
+    RISHKA_SC_NVS_GET_I32, ///< Get i32 value by key
+    RISHKA_SC_NVS_GET_I64, ///< Get i64 value by key
+    RISHKA_SC_NVS_GET_U8, ///< Get u8 value by key
+    RISHKA_SC_NVS_GET_U16, ///< Get u16 value by key
+    RISHKA_SC_NVS_GET_U32, ///< Get u32 value by key
+    RISHKA_SC_NVS_GET_U64, ///< Get u64 value by key
+    RISHKA_SC_NVS_GET_STRING, ///< Get string value by key
 
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
@@ -427,6 +457,70 @@ public:
         static void lock(RishkaVM* vm);
         static void unlock();
         static void reset();
+    };
+
+    /**
+     * @class Display
+     * @brief Static class for display-related system calls.
+     *
+     * The Display class provides static methods for querying
+     * and setting display properties such as screen dimensions,
+     * viewport dimensions, supported colors, and screen
+     * orientation. This class is essential for managing and
+     * interacting with the display hardware, allowing applications
+     * to adapt to different screen configurations and capabilities.
+     */
+    class Display final {
+    public:
+        static int screen_height(RishkaVM* vm);
+        static int screen_width(RishkaVM* vm);
+
+        static int viewport_height(RishkaVM* vm);
+        static int viewport_width(RishkaVM* vm);
+
+        static int supported_colors(RishkaVM* vm);
+    };
+
+    /**
+     * @class NVS
+     * @brief Static class for non-volatile
+     *        storage (NVS) related system calls.
+     *
+     * The NVS class provides static methods for
+     * managing non-volatile storage, allowing
+     * applications to store and retrieve persistent
+     * data. Non-volatile storage is essential for
+     * maintaining state across reboots or power
+     * cycles, and this class facilitates the
+     * interaction with such storage.
+     */
+    class NVS final {
+    public:
+        static bool erase_all();
+        static bool erase(RishkaVM* vm);
+
+        static bool set_i8(RishkaVM* vm);
+        static bool set_i16(RishkaVM* vm);
+        static bool set_i32(RishkaVM* vm);
+        static bool set_i64(RishkaVM* vm);
+
+        static bool set_u8(RishkaVM* vm);
+        static bool set_u16(RishkaVM* vm);
+        static bool set_u32(RishkaVM* vm);
+        static bool set_u64(RishkaVM* vm);
+
+        static bool get_i8(RishkaVM* vm);
+        static bool get_i16(RishkaVM* vm);
+        static bool get_i32(RishkaVM* vm);
+        static bool get_i64(RishkaVM* vm);
+
+        static bool get_u8(RishkaVM* vm);
+        static bool get_u16(RishkaVM* vm);
+        static bool get_u32(RishkaVM* vm);
+        static bool get_u64(RishkaVM* vm);
+
+        static bool set_string(RishkaVM* vm);
+        static bool get_string(RishkaVM* vm);
     };
 
     /**
