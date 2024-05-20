@@ -326,6 +326,18 @@ void RishkaVM::execute(uint32_t inst) {
                     break;
                 }
 
+                case RISHKA_FC3_SLLI64:
+                    val = RishkaVM::shiftLeftInt64(val, immediate & 0x3F);
+                    break;
+
+                case RISHKA_FC3_SRLI64:
+                    val = RishkaVM::shiftRightInt64(val, immediate & 0x3F);
+                    break;
+
+                case RISHKA_FC3_SRAI64:
+                    val = RishkaVM::arithmeticShiftRightInt64(val, immediate & 0x3F);
+                    break;
+
                 default:
                     this->panic("Invalid immediate instruction.");
                     break;
