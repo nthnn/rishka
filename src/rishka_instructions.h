@@ -130,12 +130,12 @@ enum rishka_ialu_fc3 {
  * architecture.
  */
 enum rishka_branch_fc3 {
-    RISHKA_FC3_BEQ,    /**< Branch if equal. */
-    RISHKA_FC3_BNE,    /**< Branch if not equal. */
-    RISHKA_FC3_BLT,    /**< Branch if less than. */
-    RISHKA_FC3_BGE,    /**< Branch if greater than or equal. */
-    RISHKA_FC3_BLTU,   /**< Branch if less than unsigned. */
-    RISHKA_FC3_BGEU    /**< Branch if greater than or equal unsigned. */
+    RISHKA_FC3_BEQ  = 0x00,  /**< Branch if equal. */
+    RISHKA_FC3_BNE  = 0x01,  /**< Branch if not equal. */
+    RISHKA_FC3_BLT  = 0x04,  /**< Branch if less than. */
+    RISHKA_FC3_BGE  = 0x05,  /**< Branch if greater than or equal. */
+    RISHKA_FC3_BLTU = 0x06,  /**< Branch if less than unsigned. */
+    RISHKA_FC3_BGEU = 0x07   /**< Branch if greater than or equal unsigned. */
 };
 
 #endif /* RISHKA_INSTRUCTIONS_H */
