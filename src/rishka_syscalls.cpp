@@ -188,7 +188,8 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
         return -1;
     }
 
-    child_vm->run(count, tokens + 1);
+    child_vm->run(count, tokens);
+    parent_vm->setWorkingDirectory(child_vm->getWorkingDirectory());
     child_vm->reset();
 
     int64_t exitCode = child_vm->getExitCode();
