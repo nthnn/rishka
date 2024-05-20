@@ -31,7 +31,7 @@
 
 #include <stdint.h>
 
-#define  RISHKA_VM_STACK_SIZE 32768U    ///< Define the stack size for the Rishka virtual machine.
+#define  RISHKA_VM_STACK_SIZE 524288U   ///< Define the stack size for the Rishka virtual machine.
 
 /**
  * @brief Represents an array of 8-bit unsigned integers in Rishka.
