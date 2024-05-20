@@ -165,9 +165,14 @@ unsigned long RishkaSyscall::Sys::millisImpl() {
 }
 
 int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
-    auto program = parent_vm->getPointerParam<char*>(0);
-    auto argc = parent_vm->getParam<int>(1);
-    auto argv = parent_vm->getPointerParam<char**>(2);
+    auto cmdline = parent_vm->getPointerParam<char*>(0);
+
+    char* tokens[10];
+    int count = 0;
+
+    for(int i = 0; i < 10; i++)
+        tokens[i] = (char*) malloc(50 * sizeof(char));
+    rishka_split_cmd(String(cmdline), tokens, 10, count);
 
     RishkaVM* child_vm = new RishkaVM();
     child_vm->initialize(
@@ -176,14 +181,14 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
         parent_vm->getWorkingDirectory()
     );
 
-    if(!child_vm->loadFile(program)) {
+    if(!child_vm->loadFile(tokens[0])) {
         child_vm->reset();
         delete child_vm;
 
         return -1;
     }
 
-    child_vm->run(argc, argv);
+    child_vm->run(count, tokens + 1);
     child_vm->reset();
 
     int64_t exitCode = child_vm->getExitCode();
