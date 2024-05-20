@@ -115,7 +115,10 @@ enum rishka_immediate_fc3 {
 enum rishka_ialu_fc3 {
     RISHKA_FC3_SLLIW,  /**< Shift left logical immediate word. */
     RISHKA_FC3_SRLIW,  /**< Shift right logical immediate word. */
-    RISHKA_FC3_SRAIW   /**< Shift right arithmetic immediate word. */
+    RISHKA_FC3_SRAIW,  /**< Shift right arithmetic immediate word. */
+    RISHKA_FC3_SLLI64, /**< Shift left logical immediate for 64-bit integers. */
+    RISHKA_FC3_SRLI64, /**< Shift right logical immediate for 64-bit integers. */
+    RISHKA_FC3_SRAI64  /**< Shift right arithmetic immediate for 64-bit integers. */
 };
 
 /**
