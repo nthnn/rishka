@@ -744,25 +744,6 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_SYS_WD:
             return RishkaSyscall::Sys::workingDirectory(this);
 
-        case RISHKA_SC_MEM_ALLOC:
-            RishkaSyscall::Memory::alloc(this);
-            break;
-
-        case RISHKA_SC_MEM_CALLOC:
-            RishkaSyscall::Memory::calloc(this);
-            break;
-
-        case RISHKA_SC_MEM_REALLOC:
-            RishkaSyscall::Memory::realloc(this);
-            break;
-
-        case RISHKA_SC_MEM_FREE:
-            RishkaSyscall::Memory::freeHeap(this);
-            break;
-
-        case RISHKA_SC_MEM_SET:
-            return (uint64_t) RishkaSyscall::Memory::set(this);
-
         case RISHKA_SC_GPIO_PIN_MODE:
             RishkaSyscall::Gpio::pinModeImpl(this);
             break;
