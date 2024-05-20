@@ -334,42 +334,6 @@ uint32_t RishkaSyscall::Sys::workingDirectory(RishkaVM* vm) {
     return strlen(data);
 }
 
-void RishkaSyscall::Memory::alloc(RishkaVM* vm) {
-    auto dest = vm->getPointerParam<void*>(0);
-    auto size = vm->getParam<size_t>(1);
-
-    dest = ps_malloc(size);
-}
-
-void RishkaSyscall::Memory::calloc(RishkaVM* vm) {
-    auto dest = vm->getPointerParam<void*>(0);
-    auto num = vm->getParam<size_t>(1);
-    auto size = vm->getParam<size_t>(2);
-
-    dest = ps_calloc(num, size);
-}
-
-void RishkaSyscall::Memory::realloc(RishkaVM* vm) {
-    auto dest = vm->getPointerParam<void*>(0);
-    auto ptr = vm->getPointerParam<void*>(1);
-    auto size = vm->getParam<size_t>(2);
-
-    dest = ps_realloc(ptr, size);
-}
-
-void RishkaSyscall::Memory::freeHeap(RishkaVM* vm) {
-    auto ptr = vm->getPointerParam<void*>(0);
-    free(ptr);
-}
-
-void* RishkaSyscall::Memory::set(RishkaVM* vm) {
-    auto dest = vm->getPointerParam<void*>(0);
-    auto val = vm->getParam<uint64_t>(1);
-    auto len = vm->getParam<uint64_t>(2);
-
-    return memset(dest, (int) val, (size_t) len);
-}
-
 void RishkaSyscall::Gpio::pinModeImpl(RishkaVM* vm) {
     auto pin = vm->getParam<uint8_t>(0);
     auto mode = vm->getParam<uint8_t>(1);

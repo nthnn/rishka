@@ -70,13 +70,6 @@ enum rishka_syscall {
     RISHKA_SC_SYS_CD, ///< Change working directory
     RISHKA_SC_SYS_WD, ///< Current working directory
 
-    // Memory Management System Calls
-    RISHKA_SC_MEM_ALLOC, ///< Allocate memory block
-    RISHKA_SC_MEM_CALLOC, ///< Allocate memory block and clear it
-    RISHKA_SC_MEM_REALLOC, ///< Reallocate memory block
-    RISHKA_SC_MEM_FREE, ///< Free allocated memory
-    RISHKA_SC_MEM_SET, ///< Set memory contents to a value
-
     // General Purpose Input/Output System Calls
     RISHKA_SC_GPIO_PIN_MODE, ///< Set pin mode (input/output)
     RISHKA_SC_GPIO_DIGITAL_READ, ///< Read digital input value
@@ -260,22 +253,6 @@ public:
         static long randomImpl();
         static bool changeDir(RishkaVM* vm);
         static uint32_t workingDirectory(RishkaVM* vm);
-    };
-
-    /**
-     * @class Memory
-     * @brief Class containing implementations of memory management system calls.
-     *
-     * The Memory class provides static member functions to implement memory management system calls,
-     * such as allocating, deallocating, and manipulating memory blocks.
-     */
-    class Memory final {
-    public:
-        static void alloc(RishkaVM* vm);
-        static void calloc(RishkaVM* vm);
-        static void realloc(RishkaVM* vm);
-        static void freeHeap(RishkaVM* vm);
-        static void* set(RishkaVM* vm);
     };
 
     /**
