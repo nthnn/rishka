@@ -134,7 +134,7 @@ public:
      * @param argv The array of arguments for the shell command.
      * @return The exit status of the shell command.
      */
-    static i64 shellexec(string program, i32 argc, string* argv);
+    static i64 shellexec(string cmdline);
 
     /**
      * @brief Terminate the application with an exit code.
