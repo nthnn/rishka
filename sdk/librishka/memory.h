@@ -38,26 +38,29 @@
  */
 class Memory final {
 public:
+    static void initialize();
+
     /**
      * @brief Allocate memory.
      *
      * This method allocates a block of memory of the specified size.
      *
-     * @param dest Pointer to the destination memory block.
      * @param size The size of the memory block to allocate in bytes.
+     * @returns Pointer to the memory block of the allocated memory.
      */
-    static void alloc(any dest, usize size);
+    static any alloc(usize size);
 
     /**
      * @brief Allocate and clear memory.
      *
-     * This method allocates a block of memory of the specified size and initializes it to zero.
+     * This method allocates a block of memory
+     * of the specified size and initializes it to zero.
      *
      * @param dest Pointer to the destination memory block.
      * @param num The number of elements in the memory block.
      * @param size The size of each element in bytes.
      */
-    static void calloc(any dest, usize num, usize size);
+    static any calloc(usize num, usize size);
 
     /**
      * @brief Reallocate memory.
@@ -68,7 +71,7 @@ public:
      * @param ptr Pointer to the previously allocated memory block.
      * @param size The new size of the memory block in bytes.
      */
-    static void realloc(any dest, any ptr, usize size);
+    static any realloc(any ptr, usize size);
 
 
     /**
