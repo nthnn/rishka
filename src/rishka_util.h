@@ -122,4 +122,35 @@ inline String rishka_sanitize_path(String currentWorkingDirectory, char* path) {
     return sanitizedPath;
 }
 
+inline void rishka_split_cmd(const String& input, char** tokens, int maxTokens, int &count) {
+    int tokenCount = 0, tokenStart = 0;
+    bool inQuotes = false;
+
+    for(int i = 0; i < input.length(); i++) {
+        if(input[i] == '"')
+            inQuotes = !inQuotes;
+        else if(input[i] == ' ' && !inQuotes) {
+            if(tokenCount < maxTokens) {
+                input.substring(tokenStart, i)
+                    .toCharArray(tokens[tokenCount], i - tokenStart + 1);
+
+                tokens[tokenCount++][i - tokenStart] = '\0';
+                tokenStart = i + 1;
+                count++;
+            }
+            else break;
+        }
+    }
+
+    if(tokenCount < maxTokens && tokenStart < input.length()) {
+        input.substring(tokenStart).toCharArray(
+            tokens[tokenCount],
+            input.length() - tokenStart + 1
+        );
+
+        tokens[tokenCount++][input.length() - tokenStart] = '\0';
+        count++;
+    }
+}
+
 #endif /* RISHKA_UTIL_H */
