@@ -21,6 +21,7 @@
  * file into the Rishka VM, executes it, and then waits for the next input.
  */
 
+#include <ArduinoNvs.h>
 #include <fabgl.h>
 #include <rishka.h>
 #include <SD.h>
@@ -43,6 +44,9 @@
 fabgl::ILI9341Controller DisplayController;
 fabgl::PS2Controller     PS2Controller;
 fabgl::Terminal          Terminal;
+
+// Non-volatile Storage class
+ArduinoNvs NvsStorage;
 
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
@@ -131,6 +135,13 @@ void setup() {
         Terminal.clear();
     }
 
+    // Initialize the NVS storage
+    if(!NvsStorage.begin()) {
+        Terminal.println("Unable to \e[94initialize\e[97m non-volatile storage.");
+        return;
+    }
+
+    // Initialize the PSRAM
     if(!psramInit()) {
         Terminal.println("\e[94mCannot\e[97m initialize PSRAM.");
         while(true);
@@ -138,7 +149,7 @@ void setup() {
 
     // Initialize the Rishka VM instance.
     vm = new RishkaVM();
-    vm->initialize(&Terminal, &DisplayController);
+    vm->initialize(&Terminal, &DisplayController, &NvsStorage);
 
     // Virtual key listener to halt program
     Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {

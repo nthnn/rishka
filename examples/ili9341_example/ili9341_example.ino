@@ -21,6 +21,7 @@
  * from the SD card, runs the loaded program, and resets the virtual machine.
  */
 
+#include <ArduinoNvs.h>
 #include <fabgl.h>
 #include <rishka.h>
 #include <SD.h>
@@ -42,6 +43,9 @@
 fabgl::ILI9341Controller DisplayController;
 fabgl::Terminal Terminal;
 
+// Non-volatile Storage class
+ArduinoNvs NvsStorage;
+
 // SPI instance for SD card
 SPIClass sdSpi(HSPI);
 
@@ -62,10 +66,16 @@ void setup() {
         return;
     }
 
+    // Initialize the NVS storage
+    if(!NvsStorage.begin()) {
+        Terminal.println("Unable to \e[94initialize\e[97m non-volatile storage.");
+        return;
+    }
+
     // Rishka virtual machine instance
     RishkaVM* vm = new RishkaVM();
     // Initialize Rishka VM
-    vm->initialize(&Terminal, &DisplayController);
+    vm->initialize(&Terminal, &DisplayController, &NvsStorage);
 
     if(!vm->loadFile("/sysinfo.bin"))
         vm->panic("Failed to \e[94mload\e[97m specified file.");
@@ -74,6 +84,9 @@ void setup() {
     vm->run(0, NULL);
     // Reset VM after program execution
     vm->reset();
+
+    // Close the NVS storage
+    NvsStorage.close();
 }
 
 void loop() {
