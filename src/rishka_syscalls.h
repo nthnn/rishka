@@ -168,6 +168,7 @@ enum rishka_syscall {
     RISHKA_SC_DISPLAY_SUPPORTED_COLORS, ///< Get numbers of color the display can provide
 
     // Non-Volatile Storage System Calls
+    RISHKA_SC_NVS_COMMIT, ///< Commit the changes to NVS
     RISHKA_SC_NVS_ERASE, ///< Erase an NVS content by key
     RISHKA_SC_NVS_ERASE_ALL, ///< Erase all the contents of NVS
     RISHKA_SC_NVS_SET_I8, ///< Set i8 value by key
@@ -477,6 +478,7 @@ public:
      */
     class NVS final {
     public:
+        static bool commit(RishkaVM* vm);
         static bool erase_all(RishkaVM* vm);
         static bool erase(RishkaVM* vm);
 

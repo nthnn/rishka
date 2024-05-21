@@ -838,6 +838,11 @@ int RishkaSyscall::Display::supported_colors(RishkaVM* vm) {
         ->colorsCount();
 }
 
+bool RishkaSyscall::NVS::commit(RishkaVM* vm) {
+    return vm->getNvsStorage()
+        ->commit();
+}
+
 bool RishkaSyscall::NVS::erase_all(RishkaVM* vm) {
     auto forceCommit = vm->getParam<bool>(0);
 
