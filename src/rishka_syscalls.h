@@ -492,15 +492,15 @@ public:
         static bool set_u32(RishkaVM* vm);
         static bool set_u64(RishkaVM* vm);
 
-        static bool get_i8(RishkaVM* vm);
-        static bool get_i16(RishkaVM* vm);
-        static bool get_i32(RishkaVM* vm);
-        static bool get_i64(RishkaVM* vm);
+        static int8_t get_i8(RishkaVM* vm);
+        static int16_t get_i16(RishkaVM* vm);
+        static int32_t get_i32(RishkaVM* vm);
+        static int64_t get_i64(RishkaVM* vm);
 
-        static bool get_u8(RishkaVM* vm);
-        static bool get_u16(RishkaVM* vm);
-        static bool get_u32(RishkaVM* vm);
-        static bool get_u64(RishkaVM* vm);
+        static uint8_t get_u8(RishkaVM* vm);
+        static uint16_t get_u16(RishkaVM* vm);
+        static uint32_t get_u32(RishkaVM* vm);
+        static uint64_t get_u64(RishkaVM* vm);
 
         static bool set_string(RishkaVM* vm);
         static uint32_t get_string(RishkaVM* vm);

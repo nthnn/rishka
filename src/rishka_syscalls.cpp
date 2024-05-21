@@ -930,7 +930,7 @@ bool RishkaSyscall::NVS::set_u64(RishkaVM* vm) {
         ->setInt(key, value, forceCommit);
 }
 
-bool RishkaSyscall::NVS::get_i8(RishkaVM* vm) {
+int8_t RishkaSyscall::NVS::get_i8(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<int8_t>(1);
 
@@ -938,7 +938,7 @@ bool RishkaSyscall::NVS::get_i8(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_i16(RishkaVM* vm) {
+int16_t RishkaSyscall::NVS::get_i16(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<int16_t>(1);
 
@@ -946,7 +946,7 @@ bool RishkaSyscall::NVS::get_i16(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_i32(RishkaVM* vm) {
+int32_t RishkaSyscall::NVS::get_i32(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<int32_t>(1);
 
@@ -954,7 +954,7 @@ bool RishkaSyscall::NVS::get_i32(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_i64(RishkaVM* vm) {
+int64_t RishkaSyscall::NVS::get_i64(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<int64_t>(1);
 
@@ -962,7 +962,7 @@ bool RishkaSyscall::NVS::get_i64(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_u8(RishkaVM* vm) {
+uint8_t RishkaSyscall::NVS::get_u8(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<uint8_t>(1);
 
@@ -970,7 +970,7 @@ bool RishkaSyscall::NVS::get_u8(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_u16(RishkaVM* vm) {
+uint16_t RishkaSyscall::NVS::get_u16(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<uint16_t>(1);
 
@@ -978,7 +978,7 @@ bool RishkaSyscall::NVS::get_u16(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_u32(RishkaVM* vm) {
+uint32_t RishkaSyscall::NVS::get_u32(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<uint32_t>(1);
 
@@ -986,7 +986,7 @@ bool RishkaSyscall::NVS::get_u32(RishkaVM* vm) {
         ->getInt(key, def);
 }
 
-bool RishkaSyscall::NVS::get_u64(RishkaVM* vm) {
+uint64_t RishkaSyscall::NVS::get_u64(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
     auto def = vm->getParam<uint64_t>(1);
 
