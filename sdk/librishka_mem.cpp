@@ -18,8 +18,7 @@
 #include "librishka.h"
 #include "librishka_impl.hpp"
 
-#define ALIGN_8BIT(x) (((((x) - 1) >> 3) << 3) + 8)
-#define MEMORY_POOL_SIZE 2048 * 2048
+#define MEMORY_POOL_SIZE 524288U
 
 typedef struct memory_pool {
     u64 size;
@@ -30,8 +29,11 @@ typedef struct memory_pool {
 static u8 memory_pool_block[MEMORY_POOL_SIZE];
 static memory_pool* free_list = (memory_pool*) nil;
 
-inline void split_block(memory_pool* block, u64 size) {
-    memory_pool* new_block = (memory_pool*)((u32*) block + sizeof(memory_pool) + size);
+#define ALIGN8(x) (((((x) - 1) >> 3) << 3) + 8)
+
+static void split_block(memory_pool* block, u64 size) {
+    memory_pool* new_block = (memory_pool*)
+        ((u32*) block + sizeof(memory_pool) + size);
 
     new_block->size = block->size - size - sizeof(memory_pool);
     new_block->free = 1;
@@ -42,7 +44,7 @@ inline void split_block(memory_pool* block, u64 size) {
     block->next = new_block;
 }
 
-inline void merge_blocks() {
+static void merge_blocks() {
     memory_pool* current = free_list;
 
     while(current != nil && current->next != nil) {
@@ -57,14 +59,13 @@ inline void merge_blocks() {
 
 void Memory::initialize() {
     free_list = (memory_pool*) memory_pool_block;
-
     free_list->size = MEMORY_POOL_SIZE - sizeof(memory_pool);
     free_list->free = 1;
     free_list->next = (memory_pool*) nil;
 }
 
 any Memory::alloc(usize size) {
-    size = ALIGN_8BIT(size);
+    size = ALIGN8(size);
 
     memory_pool* current = free_list;
     memory_pool* previous = (memory_pool*) nil;
@@ -95,39 +96,45 @@ void Memory::free(any ptr) {
     merge_blocks();
 }
 
-any Memory::set(any ptr, i32 count, usize num) {
-    u8* p = (u8*) ptr;
-
-    while(num--)
-        *p++ = (u8) count;
-    return ptr;
-}
-
 any Memory::calloc(usize num, usize size) {
     usize total_size = num * size;
     any ptr = Memory::alloc(total_size);
 
-    if(ptr)
+    if(ptr != nil)
         Memory::set(ptr, 0, total_size);
     return ptr;
 }
 
-any Memory::realloc(void* ptr, usize size) {
+any Memory::realloc(any ptr, usize size) {
     if(ptr == nil)
         return Memory::alloc(size);
+
+    if(size == 0) {
+        Memory::free(ptr);
+        return nil;
+    }
 
     memory_pool* block = (memory_pool*)((u8*) ptr - sizeof(memory_pool));
     if(block->size >= size)
         return ptr;
 
     any new_ptr = Memory::alloc(size);
-    if(new_ptr) {
-        usize copy_size = block->size < size ? block->size : size;
-        for(usize i = 0; i < copy_size; i++)
-            ((char*)new_ptr)[i] = ((char*)ptr)[i];
+    if(new_ptr == nil)
+        return nil;
 
-        Memory::free(ptr);
-    }
+    usize copy_size = (block->size < size) ? block->size : size;
+    for(usize i = 0; i < copy_size; i++)
+        ((rune*) new_ptr)[i] = ((rune*) ptr)[i];
 
+    Memory::free(ptr);
     return new_ptr;
+}
+
+__attribute__((optimize("no-tree-loop-distribute-patterns")))
+any Memory::set(any ptr, u8 value, usize num) {
+    u8* p = (u8*) ptr;
+
+    while(num--)
+        *p++ = value;
+    return ptr;
 }

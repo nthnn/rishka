@@ -73,7 +73,6 @@ public:
      */
     static any realloc(any ptr, usize size);
 
-
     /**
      * @brief Free memory.
      *
@@ -93,7 +92,7 @@ public:
      * @param n The number of bytes to set.
      * @return Pointer to the memory block.
      */
-    static any set(any dest, i32 c, usize n);
+    static any set(any dest, u8 c, usize n);
 };
 
 #endif /* LIBRISHKA_MEM_H */

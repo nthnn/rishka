@@ -232,9 +232,7 @@ static inline rune rt_strpass() {
 }
 
 static inline string get_rt_string(u32 len) {
-    string str;
-    Memory::set(str, 0, len + 1);
-
+    string str = (string) Memory::alloc(len + 1);
     for(u32 i = 0; i < len; i++)
         str[i] = rt_strpass();
 
