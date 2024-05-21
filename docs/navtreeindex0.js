@@ -2,7 +2,8 @@ var NAVTREEINDEX0 =
 {
 "annotated.html":[3,0],
 "classes.html":[3,1],
-"d1/d61/classSys.html":[3,0,9],
+"d1/d2d/structmemory__pool.html":[3,0,8],
+"d1/d61/classSys.html":[3,0,10],
 "d3/d51/runtime_8h.html":[4,0,0,0,9],
 "d3/d51/runtime_8h_source.html":[4,0,0,0,9],
 "d3/d7e/int_8h.html":[4,0,0,0,6],
@@ -25,7 +26,7 @@ var NAVTREEINDEX0 =
 "d6/d7c/gpio_8h.html#aa6beef903816a7ec928c22905e54dc08adfb256b3a3cd0cf579d4dea852bad298":[4,0,0,0,4,2,2],
 "d6/d7c/gpio_8h_source.html":[4,0,0,0,4],
 "d6/d81/classI2C.html":[3,0,4],
-"d6/dd8/classRuntime.html":[3,0,8],
+"d6/dd8/classRuntime.html":[3,0,9],
 "d6/de4/librishka_8h.html":[4,0,0,1],
 "d6/de4/librishka_8h_source.html":[4,0,0,1],
 "d6/df3/classFS.html":[3,0,2],
