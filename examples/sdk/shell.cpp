@@ -18,7 +18,7 @@
 #include <librishka.h>
 
 i32 main() {
-    i32 exitcode = Sys::shellexec(F("/hello.bin"), 0, (char**) nil);
+    i32 exitcode = Sys::shellexec(F("/hello.bin"));
 
     IO::print(F("Exit code: "));
     IO::print((i64) exitcode);

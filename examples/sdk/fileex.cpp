@@ -22,6 +22,8 @@ void read_file();
 void delete_file();
 
 i32 main() {
+    Memory::initialize();
+
     create_file();
     read_file();
     delete_file();
@@ -42,9 +44,7 @@ void create_file() {
 
 void read_file() {
     File file = File::open(F("/test.txt"), F("r"));
-
-    string contents;
-    Memory::set(contents, 0, file.size() + 1);
+    string contents = (string) Memory::alloc(file.size() + 1);
 
     IO::print(F("Reading from file: "));
     IO::print(file.name());
@@ -60,6 +60,8 @@ void read_file() {
     IO::print(F("Contents: "));
     IO::print(contents);
     IO::print(F("\r\n"));
+
+    Memory::free(contents);
 }
 
 void delete_file() {
