@@ -477,7 +477,7 @@ public:
      */
     class NVS final {
     public:
-        static bool erase_all();
+        static bool erase_all(RishkaVM* vm);
         static bool erase(RishkaVM* vm);
 
         static bool set_i8(RishkaVM* vm);
@@ -503,9 +503,9 @@ public:
         static bool set_string(RishkaVM* vm);
         static bool get_string(RishkaVM* vm);
 
-        static bool hasWiFiConfig();
-        static bool setWiFiSSID(RishkaVM* vm);
-        static bool setWiFiPasskey(RishkaVM* vm);
+        static bool has_wifi_config(RishkaVM* vm);
+        static bool set_wifi_ssid(RishkaVM* vm);
+        static bool set_wifi_passkey(RishkaVM* vm);
     };
 
     /**
