@@ -501,7 +501,7 @@ public:
         static bool get_u64(RishkaVM* vm);
 
         static bool set_string(RishkaVM* vm);
-        static bool get_string(RishkaVM* vm);
+        static uint32_t get_string(RishkaVM* vm);
 
         static bool has_wifi_config(RishkaVM* vm);
         static bool set_wifi_ssid(RishkaVM* vm);

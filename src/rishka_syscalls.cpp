@@ -838,6 +838,203 @@ int RishkaSyscall::Display::supported_colors(RishkaVM* vm) {
         ->colorsCount();
 }
 
+bool RishkaSyscall::NVS::erase_all(RishkaVM* vm) {
+    auto forceCommit = vm->getParam<bool>(0);
+
+    return vm->getNvsStorage()
+        ->eraseAll(forceCommit);
+}
+
+bool RishkaSyscall::NVS::erase(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto forceCommit = vm->getParam<bool>(1);
+
+    return vm->getNvsStorage()
+        ->erase(key, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_i8(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<int8_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_i16(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<int16_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_i32(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<int32_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_i64(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<int64_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_u8(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<uint8_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_u16(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<uint16_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_u32(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<uint32_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::set_u64(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<uint64_t>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    return vm->getNvsStorage()
+        ->setInt(key, value, forceCommit);
+}
+
+bool RishkaSyscall::NVS::get_i8(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<int8_t>(1);
+
+    return (int8_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_i16(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<int16_t>(1);
+
+    return (int16_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_i32(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<int32_t>(1);
+
+    return (int32_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_i64(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<int64_t>(1);
+
+    return vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_u8(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<uint8_t>(1);
+
+    return (uint8_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_u16(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<uint16_t>(1);
+
+    return (uint16_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_u32(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<uint32_t>(1);
+
+    return (uint32_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::get_u64(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto def = vm->getParam<uint64_t>(1);
+
+    return (uint64_t) vm->getNvsStorage()
+        ->getInt(key, def);
+}
+
+bool RishkaSyscall::NVS::set_string(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+    auto value = vm->getParam<char*>(1);
+    auto forceCommit = vm->getParam<bool>(2);
+
+    if(key == "wifi_ssid" || key == "wifi_pword")
+        return false;
+
+    return vm->getNvsStorage()
+        ->setString(key, value, forceCommit);
+}
+
+uint32_t RishkaSyscall::NVS::get_string(RishkaVM* vm) {
+    auto key = vm->getPointerParam<char*>(0);
+
+    if(key == "wifi_ssid" || key == "wifi_pword") {
+        char* empty = "";
+
+        change_rt_strpass(empty);
+        return strlen(empty);
+    }
+
+    char* data = (char*) vm->getNvsStorage()
+        ->getString(key).c_str();
+    change_rt_strpass(data);
+
+    return strlen(data);
+}
+
+bool RishkaSyscall::NVS::has_wifi_config(RishkaVM* vm) {
+    return vm->getNvsStorage()->getString("wifi_ssid") != "" &&
+        vm->getNvsStorage()->getString("wifi_pword");
+}
+
+bool RishkaSyscall::NVS::set_wifi_ssid(RishkaVM* vm) {
+    auto value = vm->getParam<char*>(1);
+    return vm->getNvsStorage()
+        ->setString("wifi_ssid", value, true);
+}
+
+bool RishkaSyscall::NVS::set_wifi_passkey(RishkaVM* vm) {
+    auto value = vm->getParam<char*>(1);
+    return vm->getNvsStorage()
+        ->setString("wifi_pword", value, true);
+}
+
 char RishkaSyscall::Runtime::strpass() {
     return strpass_data.charAt(strpass_idx++);
 }

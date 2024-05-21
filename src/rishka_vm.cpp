@@ -143,6 +143,7 @@ void RishkaVM::reset() {
     this->initialize(
         this->terminal,
         this->display,
+        this->nvsStorage,
         this->workingDirectory
     );
 }
