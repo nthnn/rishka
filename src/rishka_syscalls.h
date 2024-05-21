@@ -189,6 +189,10 @@ enum rishka_syscall {
     RISHKA_SC_NVS_GET_U64, ///< Get u64 value by key
     RISHKA_SC_NVS_GET_STRING, ///< Get string value by key
 
+    RISHKA_SC_NVS_HAS_WIFI_CONFIG, ///< Check for existing WiFi configurations
+    RISHKA_SC_NVS_SET_WIFI_SSID, ///< Set the WiFi service set identifier
+    RISHKA_SC_NVS_SET_WIFI_PWORD, ///< Set the WiFi password
+
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
     RISHKA_SC_RT_YIELD, ///< Yield execution to other tasks
