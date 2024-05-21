@@ -189,10 +189,42 @@ enum rishka_syscall {
     RISHKA_SC_NVS_GET_U32, ///< Get u32 value by key
     RISHKA_SC_NVS_GET_U64, ///< Get u64 value by key
     RISHKA_SC_NVS_GET_STRING, ///< Get string value by key
-
     RISHKA_SC_NVS_HAS_WIFI_CONFIG, ///< Check for existing WiFi configurations
     RISHKA_SC_NVS_SET_WIFI_SSID, ///< Set the WiFi service set identifier
     RISHKA_SC_NVS_SET_WIFI_PWORD, ///< Set the WiFi password
+
+    RISHKA_SC_WIFI_CONNECT, ///< Start the WiFi connection
+    RISHKA_SC_WIFI_RECONNECT, ///< Attempt to reconnect
+    RISHKA_SC_WIFI_SET_DNS, ///< Set DNS specified by 0 or 1
+    RISHKA_SC_WIFI_BANDWIDTH, ///< Specify the bandwidth (20 or 40)
+    RISHKA_SC_WIFI_DISCONNECT_ASYNC, ///< Asynchronously disconnect
+    RISHKA_SC_WIFI_DISCONNECT, ///< Disconnect the WiFi
+    RISHKA_SC_WIFI_ERASE_AP, ///< Erase current access point
+    RISHKA_SC_WIFI_IS_CONNECTED, ///< Check is has established connection(s)
+    RISHKA_SC_WIFI_SET_AUTO_RECONNECT, ///< Set auto-reconnect
+    RISHKA_SC_WIFI_GET_AUTO_RECONNECT, ///< Get auto-reconnect setting
+    RISHKA_SC_WIFI_WAIT_FOR_RESULT, ///< Wait for connection result
+    RISHKA_SC_WIFI_SET_MINSEC, ///< Set minimum security
+    RISHKA_SC_WIFI_SET_SCAN_METHOD, ///< Set the scanning method
+    RISHKA_SC_WIFI_SET_SORT_METHOD, ///< Set the sorting method
+    RISHKA_SC_WIFI_STATUS, ///< Get the connection status
+    RISHKA_SC_WIFI_SSID, ///< Get WiFi service set identifier
+    RISHKA_SC_WIFI_PSK, ///< Get WiFi pre-shared key
+    RISHKA_SC_WIFI_BSSID, ///< Get the basic service set identifier
+    RISHKA_SC_WIFI_SET_LOCAL_IP, ///< Set the local IP address
+    RISHKA_SC_WIFI_GET_LOCAL_IP, ///< Get the local IP address
+    RISHKA_SC_WIFI_SET_GATEWAY_IP, ///< Set the gateway IP
+    RISHKA_SC_WIFI_GET_GATEWAY_IP, ///< Get the gateway IP
+    RISHKA_SC_WIFI_SET_SUBNET_MASK, ///< Set the subnet mask IP
+    RISHKA_SC_WIFI_GET_SUBNET_MASK, ///< Get the subnet mask IP
+    RISHKA_SC_WIFI_SET_DNS_IP, ///< Set the DNS IP address
+    RISHKA_SC_WIFI_GET_DNS_IP, ///< Get the DNS IP address
+    RISHKA_SC_WIFI_MAC_ADDR, ///< Get the Mac address
+    RISHKA_SC_WIFI_BROADCAST_IP, ///< Get the broadcast IP address
+    RISHKA_SC_WIFI_NETWORK_ID, ///< Get network ID
+    RISHKA_SC_WIFI_ENABLE_IPV6, ///< Enable using IPv6
+    RISHKA_SC_WIFI_LINK_LOCAL_IPV6, ///< Get local IPv6
+    RISHKA_SC_WIFI_GLOBAL_IPV6, ///< Get global IPv6
 
     // Runtime System Calls
     RISHKA_SC_RT_STRPASS, ///< Pass string from runtime to syscalls
