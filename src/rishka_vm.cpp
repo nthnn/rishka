@@ -958,16 +958,6 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_I2C_BUFSIZE:
             return RishkaSyscall::I2C::bufsize(this);
 
-        case RISHKA_SC_RT_STRPASS:
-            return RishkaSyscall::Runtime::strpass();
-
-        case RISHKA_SC_RT_YIELD:
-            RishkaSyscall::Runtime::yield();
-            break;
-
-        case RISHKA_SC_RT_FORK_STREAM:
-            return RishkaSyscall::Runtime::getForkString(this);
-
         case RISHKA_SC_KB_LAYOUT_NAME:
             return RishkaSyscall::Keyboard::layout_name();
 
@@ -1027,6 +1017,88 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
 
         case RISHKA_SC_DISPLAY_SUPPORTED_COLORS:
             return RishkaSyscall::Display::supported_colors(this);
+
+        case RISHKA_SC_NVS_COMMIT:
+            return RishkaSyscall::NVS::commit(this);
+
+        case RISHKA_SC_NVS_ERASE_ALL:
+            return RishkaSyscall::NVS::erase_all(this);
+
+        case RISHKA_SC_NVS_ERASE:
+            return RishkaSyscall::NVS::erase(this);
+
+        case RISHKA_SC_NVS_SET_I8:
+            return RishkaSyscall::NVS::set_i8(this);
+
+        case RISHKA_SC_NVS_SET_I16:
+            return RishkaSyscall::NVS::set_i16(this);
+
+        case RISHKA_SC_NVS_SET_I32:
+            return RishkaSyscall::NVS::set_i32(this);
+
+        case RISHKA_SC_NVS_SET_I64:
+            return RishkaSyscall::NVS::set_i64(this);
+
+        case RISHKA_SC_NVS_SET_U8:
+            return RishkaSyscall::NVS::set_u8(this);
+
+        case RISHKA_SC_NVS_SET_U16:
+            return RishkaSyscall::NVS::set_u16(this);
+
+        case RISHKA_SC_NVS_SET_U32:
+            return RishkaSyscall::NVS::set_u32(this);
+
+        case RISHKA_SC_NVS_SET_U64:
+            return RishkaSyscall::NVS::set_u64(this);
+
+        case RISHKA_SC_NVS_GET_I8:
+            return RishkaSyscall::NVS::get_i8(this);
+
+        case RISHKA_SC_NVS_GET_I16:
+            return RishkaSyscall::NVS::get_i16(this);
+
+        case RISHKA_SC_NVS_GET_I32:
+            return RishkaSyscall::NVS::get_i32(this);
+
+        case RISHKA_SC_NVS_GET_I64:
+            return RishkaSyscall::NVS::get_i64(this);
+
+        case RISHKA_SC_NVS_GET_U8:
+            return RishkaSyscall::NVS::get_u8(this);
+
+        case RISHKA_SC_NVS_GET_U16:
+            return RishkaSyscall::NVS::get_u16(this);
+
+        case RISHKA_SC_NVS_GET_U32:
+            return RishkaSyscall::NVS::get_u32(this);
+
+        case RISHKA_SC_NVS_GET_U64:
+            return RishkaSyscall::NVS::get_u64(this);
+
+        case RISHKA_SC_NVS_SET_STRING:
+            return RishkaSyscall::NVS::set_string(this);
+
+        case RISHKA_SC_NVS_GET_STRING:
+            return RishkaSyscall::NVS::get_string(this);
+
+        case RISHKA_SC_NVS_HAS_WIFI_CONFIG:
+            return RishkaSyscall::NVS::has_wifi_config(this);
+
+        case RISHKA_SC_NVS_SET_WIFI_SSID:
+            return RishkaSyscall::NVS::set_wifi_ssid(this);
+
+        case RISHKA_SC_NVS_SET_WIFI_PWORD:
+            return RishkaSyscall::NVS::set_wifi_passkey(this);
+
+        case RISHKA_SC_RT_STRPASS:
+            return RishkaSyscall::Runtime::strpass();
+
+        case RISHKA_SC_RT_YIELD:
+            RishkaSyscall::Runtime::yield();
+            break;
+
+        case RISHKA_SC_RT_FORK_STREAM:
+            return RishkaSyscall::Runtime::getForkString(this);
 
         default:
             this->panic("Invalid system call.");
