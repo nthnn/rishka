@@ -20,6 +20,7 @@
 
 #define MEMORY_POOL_SIZE 524288U
 
+/** @internal */
 typedef struct memory_pool {
     u64 size;
     i32 free;
