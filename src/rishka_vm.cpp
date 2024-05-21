@@ -24,6 +24,7 @@
 void RishkaVM::initialize(
     fabgl::Terminal* terminal,
     fabgl::BaseDisplayController* displayCtrl,
+    ArduinoNvs* nvsStorage,
     String workingDirectory
 ) {
     this->running = false;
@@ -31,10 +32,12 @@ void RishkaVM::initialize(
     this->argc = 0;
     this->pc = 0;
     this->exitCode = 0;
-    this->terminal = terminal;
-    this->display = displayCtrl;
     this->workingDirectory = workingDirectory;
     this->outputStream = "";
+
+    this->terminal = terminal;
+    this->display = displayCtrl;
+    this->nvsStorage = nvsStorage;
 }
 
 void RishkaVM::stopVM() {
