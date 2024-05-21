@@ -951,6 +951,7 @@ WARN_LOGFILE           =
 
 INPUT                  += sdk
 INPUT                  += sdk/librishka
+INPUT                  += sdk/librishka/drivers
 INPUT                  += misc/footer.html
 INPUT                  += misc/main_page.md
 INPUT                  += misc/pages/

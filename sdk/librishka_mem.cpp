@@ -20,12 +20,13 @@
 
 #define MEMORY_POOL_SIZE 524288U
 
-/** @internal */
+/** @cond HIDE_STRUCT */
 typedef struct memory_pool {
     u64 size;
     i32 free;
     struct memory_pool* next;
 } memory_pool;
+/** @endcond */
 
 static u8 memory_pool_block[MEMORY_POOL_SIZE];
 static memory_pool* free_list = (memory_pool*) nil;
