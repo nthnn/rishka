@@ -65,5 +65,6 @@
 
 #include <librishka/drivers/display.h>  /**< @ingroup Rishka_Drivers_SDK */
 #include <librishka/drivers/keyboard.h> /**< @ingroup Rishka_Drivers_SDK */
+#include <librishka/drivers/nvs.h>  /**< @ingroup Rishka_Drivers_SDK */
 
 #endif
