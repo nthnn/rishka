@@ -502,6 +502,10 @@ public:
 
         static bool set_string(RishkaVM* vm);
         static bool get_string(RishkaVM* vm);
+
+        static bool hasWiFiConfig();
+        static bool setWiFiSSID(RishkaVM* vm);
+        static bool setWiFiPasskey(RishkaVM* vm);
     };
 
     /**
