@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['seek_0',['seek',['../db/d30/classFile.html#abaa31b65c2c9f41d53f9909582b83f86',1,'File']]],
-  ['seek_5fdir_1',['seek_dir',['../db/d30/classFile.html#a726ebe1b8042e45f9dfd64ea9aad43e9',1,'File']]],
-  ['set_2',['set',['../da/dc6/classMemory.html#ab35d36a6f31aaea29700ccaa035f2a86',1,'Memory']]],
-  ['set_5fbuffersize_3',['set_buffersize',['../d6/d81/classI2C.html#a22d588d4381ff381e93f395d2b3d2f9f',1,'I2C']]],
-  ['set_5fclock_4',['set_clock',['../d6/d81/classI2C.html#a67e0e3ea2b1fa1715685f91f652c5b01',1,'I2C']]],
-  ['set_5ftimeout_5',['set_timeout',['../d6/d81/classI2C.html#adddc140b7dfff94a968b30d9496343f2',1,'I2C::set_timeout()'],['../d8/d66/classIO.html#ac77c1571a9789636cc913425bb235bd4',1,'IO::set_timeout()']]],
-  ['shellexec_6',['shellexec',['../d1/d61/classSys.html#a2b2636a686ef1bd8c5a7809bb84cc853',1,'Sys']]],
-  ['shift_5fin_7',['shift_in',['../d4/d79/classGpio.html#a277cdf4dac5cc5304ccc776d76cc7229',1,'Gpio']]],
-  ['shift_5fout_8',['shift_out',['../d4/d79/classGpio.html#a46c2e1f0fc7e212f8e7415df769258b0',1,'Gpio']]],
-  ['size_9',['size',['../db/d30/classFile.html#a2527cd9f72a210a84d2c287439bb494a',1,'File']]],
-  ['slave_5fwrite_10',['slave_write',['../d6/d81/classI2C.html#ab152c51b023ff2c4e7b5f1512d8aee48',1,'I2C']]]
+  ['random_0',['random',['../d1/d61/classSys.html#a3cc8c3d6432a431ea7655ddc272d2531',1,'Sys']]],
+  ['read_1',['read',['../db/d30/classFile.html#a71de4839522ca512a4ffa01ba208c862',1,'File::read()'],['../d6/d81/classI2C.html#a7df78c7394b3f304235ca4e0b74dee1e',1,'I2C::read()']]],
+  ['readch_2',['readch',['../d8/d66/classIO.html#abd2fd0dfb704cad591e256cb8074f5b2',1,'IO']]],
+  ['readline_3',['readline',['../d8/d66/classIO.html#a9d4ca0746e40c8b8f37c1c06c3c5d411',1,'IO']]],
+  ['realloc_4',['realloc',['../da/dc6/classMemory.html#a3e9d2d0b88206c957064db0357403a13',1,'Memory']]],
+  ['remove_5',['remove',['../d6/df3/classFS.html#a56dffad802b44bcfee0fa5a571268ded',1,'FS']]],
+  ['request_6',['request',['../d6/d81/classI2C.html#adc8abfb1f98c8c43ef5cd8f1f944fcb2',1,'I2C']]],
+  ['reset_7',['reset',['../dc/dd2/classKeyboard.html#a765a73cd072fcad73db2d1d9824e7595',1,'Keyboard']]],
+  ['rewind_8',['rewind',['../db/d30/classFile.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
+  ['rmdir_9',['rmdir',['../d6/df3/classFS.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]]
 ];
