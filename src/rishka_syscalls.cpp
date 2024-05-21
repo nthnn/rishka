@@ -178,6 +178,7 @@ int64_t RishkaSyscall::Sys::shellExec(RishkaVM* parent_vm) {
     child_vm->initialize(
         parent_vm->getTerminal(),
         parent_vm->getDisplay(),
+        parent_vm->getNvsStorage(),
         parent_vm->getWorkingDirectory()
     );
 
