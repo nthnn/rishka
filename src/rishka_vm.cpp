@@ -57,6 +57,10 @@ fabgl::BaseDisplayController* RishkaVM::getDisplay() const {
     return this->display;
 }
 
+ArduinoNvs* RishkaVM::getNvsStorage() const {
+    return this->nvsStorage;
+}
+
 uint8_t RishkaVM::getArgCount() const {
     return this->argc;
 }

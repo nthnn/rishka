@@ -28,6 +28,7 @@
 #ifndef RISHKA_VM_H
 #define RISHKA_VM_H
 
+#include <ArduinoNvs.h>
 #include <fabgl.h>
 #include <List.hpp>
 #include <rishka_types.h>
@@ -48,6 +49,7 @@ private:
     int64_t pc;                             ///< Program counter
     fabgl::Terminal* terminal;              ///< Terminal for input/output operations
     fabgl::BaseDisplayController* display;  ///< Base display controller of the VM
+    ArduinoNvs* nvsStorage;                 ///< Non-volatile Storage class pointer
 
     bool running;                           ///< Flag indicating whether the VM is running
     int64_t exitCode;                       ///< Exit code of the VM after execution
@@ -203,11 +205,13 @@ public:
      *
      * @param stream A pointer to the Terminal object for input/output operations.
      * @param displayCtrl The base display controller of the VM
+     * @param nvsStorage Non-volatile Storage class pointer for the VM
      * @param directory The path to the new working directory.
      */
     void initialize(
         fabgl::Terminal* terminal,
         fabgl::BaseDisplayController* displayCtrl,
+        ArduinoNvs* nvsStorage,
         String workingDirectory = "/"
     );
 
@@ -289,6 +293,21 @@ public:
      * @return A pointer to the current working directory string.
      */
     String getWorkingDirectory() const;
+
+    /**
+     * @brief Retrieves the NVS (Non-Volatile Storage)
+     *        instance associated with the RishkaVM.
+     *
+     * This method returns a pointer to the ArduinoNvs instance
+     * that is used by the RishkaVM for non-volatile storage.
+     * Non-volatile storage allows for data persistence across
+     * reboots and power cycles, making it useful for storing 
+     * configuration settings, user preferences, and other
+     * data that needs to be retained between sessions.
+     *
+     * @return A pointer to the ArduinoNvs instance used by the RishkaVM.
+     */
+    ArduinoNvs* getNvsStorage() const;
 
     /**
      * @brief Retrieves the current output stream of the virtual machine.
