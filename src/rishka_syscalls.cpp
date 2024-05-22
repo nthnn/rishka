@@ -18,7 +18,9 @@
 #include <bootloader_random.h>
 #include <Esp.h>
 #include <fabgl.h>
+#include <IPAddress.h>
 #include <SD.h>
+#include <WiFi.h>
 #include <Wire.h>
 
 #include <rishka_syscalls.h>
@@ -996,7 +998,7 @@ uint64_t RishkaSyscall::NVS::get_u64(RishkaVM* vm) {
 
 bool RishkaSyscall::NVS::set_string(RishkaVM* vm) {
     auto key = vm->getPointerParam<char*>(0);
-    auto value = vm->getParam<char*>(1);
+    auto value = vm->getPointerParam<char*>(1);
     auto forceCommit = vm->getParam<bool>(2);
 
     if(key == "wifi_ssid" || key == "wifi_pword")
@@ -1029,15 +1031,113 @@ bool RishkaSyscall::NVS::has_wifi_config(RishkaVM* vm) {
 }
 
 bool RishkaSyscall::NVS::set_wifi_ssid(RishkaVM* vm) {
-    auto value = vm->getParam<char*>(1);
+    auto value = vm->getParam<char*>(0);
     return vm->getNvsStorage()
         ->setString("wifi_ssid", value, true);
 }
 
 bool RishkaSyscall::NVS::set_wifi_passkey(RishkaVM* vm) {
-    auto value = vm->getParam<char*>(1);
+    auto value = vm->getParam<char*>(0);
     return vm->getNvsStorage()
         ->setString("wifi_pword", value, true);
+}
+
+bool RishkaSyscall::WiFiDev::connect(RishkaVM* vm) {
+    auto ssid = vm->getPointerParam<char*>(0);
+    auto passkey = vm->getPointerParam<char*>(1);
+    auto channel = vm->getParam<int32_t>(2);
+    auto bssid = vm->getPointerParam<uint8_t*>(3);
+    auto connect = vm->getParam<bool>(4);
+
+    return WiFi.begin(
+        (const char*) ssid,
+        (const char*) passkey,
+        channel,
+        (uint8_t*) bssid,
+        connect
+    );
+}
+
+bool RishkaSyscall::WiFiDev::reconnect() {
+    return WiFi.reconnect();
+}
+
+bool RishkaSyscall::WiFiDev::disconnect(RishkaVM* vm) {
+    auto wifiOff = vm->getParam<bool>(0);
+    auto eraseAp = vm->getParam<bool>(1);
+
+    return WiFi.disconnect(wifiOff, eraseAp);
+}
+
+bool RishkaSyscall::WiFiDev::erase_ap() {
+    return WiFi.eraseAP();
+}
+
+bool RishkaSyscall::WiFiDev::is_connected() {
+    return WiFi.isConnected();
+}
+
+bool RishkaSyscall::WiFiDev::set_autoreconnect(RishkaVM* vm) {
+    auto autoRecon = vm->getParam<bool>(0);
+
+    return WiFi.setAutoReconnect(autoRecon);
+}
+
+bool RishkaSyscall::WiFiDev::is_autoreconnect() {
+    return WiFi.getAutoReconnect();
+}
+
+uint8_t RishkaSyscall::WiFiDev::wait_for_result(RishkaVM* vm) {
+    auto timeout = vm->getParam<uint64_t>(0);
+
+    return WiFi.waitForConnectResult(timeout);
+}
+
+void RishkaSyscall::WiFiDev::set_min_security(RishkaVM* vm) {
+    auto authMode = vm->getParam<uint8_t>(0);
+
+    return WiFi.setMinSecurity((wifi_auth_mode_t) authMode);
+}
+
+void RishkaSyscall::WiFiDev::set_scan_method(RishkaVM* vm) {
+    auto scanMethod = vm->getParam<uint8_t>(0);
+
+    return WiFi.setScanMethod((wifi_scan_method_t) scanMethod);
+}
+
+void RishkaSyscall::WiFiDev::set_sort_method(RishkaVM* vm) {
+    auto sortMethod = vm->getParam<uint8_t>(0);
+
+    return WiFi.setSortMethod((wifi_sort_method_t) sortMethod);
+}
+
+uint8_t RishkaSyscall::WiFiDev::status() {
+    return (uint8_t) WiFi.status();
+}
+
+uint32_t RishkaSyscall::WiFiDev::ssid() {
+    char* ssid = (char*) WiFi.SSID().c_str();
+
+    change_rt_strpass(ssid);
+    return strlen(ssid);
+}
+
+uint32_t RishkaSyscall::WiFiDev::psk() {
+    char* psk = (char*) WiFi.psk().c_str();
+
+    change_rt_strpass(psk);
+    return strlen(psk);
+}
+
+uint32_t RishkaSyscall::WiFiDev::bssid() {
+    char* bssid = (char*) WiFi.BSSIDstr().c_str();
+
+    change_rt_strpass(bssid);
+    return strlen(bssid);
+}
+
+int8_t RishkaSyscall::WiFiDev::rssi() {
+    return WiFi.RSSI();
 }
 
 char RishkaSyscall::Runtime::strpass() {
