@@ -1090,6 +1090,57 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_NVS_SET_WIFI_PWORD:
             return RishkaSyscall::NVS::set_wifi_passkey(this);
 
+        case RISHKA_SC_WIFI_CONNECT:
+            return RishkaSyscall::WiFiDev::connect(this);
+
+        case RISHKA_SC_WIFI_RECONNECT:
+            return RishkaSyscall::WiFiDev::reconnect();
+
+        case RISHKA_SC_WIFI_DISCONNECT:
+            return RishkaSyscall::WiFiDev::disconnect(this);
+
+        case RISHKA_SC_WIFI_ERASE_AP:
+            return RishkaSyscall::WiFiDev::erase_ap();
+
+        case RISHKA_SC_WIFI_IS_CONNECTED:
+            return RishkaSyscall::WiFiDev::is_connected();
+
+        case RISHKA_SC_WIFI_SET_AUTO_RECONNECT:
+            return RishkaSyscall::WiFiDev::set_autoreconnect(this);
+
+        case RISHKA_SC_WIFI_GET_AUTO_RECONNECT:
+            return RishkaSyscall::WiFiDev::is_autoreconnect();
+
+        case RISHKA_SC_WIFI_WAIT_FOR_RESULT:
+            return RishkaSyscall::WiFiDev::wait_for_result(this);
+
+        case RISHKA_SC_WIFI_SET_MINSEC:
+            RishkaSyscall::WiFiDev::set_min_security(this);
+            break;
+
+        case RISHKA_SC_WIFI_SET_SCAN_METHOD:
+            RishkaSyscall::WiFiDev::set_scan_method(this);
+            break;
+
+        case RISHKA_SC_WIFI_SET_SORT_METHOD:
+            RishkaSyscall::WiFiDev::set_sort_method(this);
+            break;
+
+        case RISHKA_SC_WIFI_STATUS:
+            return RishkaSyscall::WiFiDev::status();
+
+        case RISHKA_SC_WIFI_SSID:
+            return RishkaSyscall::WiFiDev::ssid();
+
+        case RISHKA_SC_WIFI_PSK:
+            return RishkaSyscall::WiFiDev::psk();
+        
+        case RISHKA_SC_WIFI_BSSID:
+            return RishkaSyscall::WiFiDev::bssid();
+
+        case RISHKA_SC_WIFI_RSSI:
+            return RishkaSyscall::WiFiDev::rssi();
+
         case RISHKA_SC_RT_STRPASS:
             return RishkaSyscall::Runtime::strpass();
 
