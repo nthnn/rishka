@@ -1141,6 +1141,12 @@ uint64_t RishkaVM::handleSyscall(uint64_t code) {
         case RISHKA_SC_WIFI_RSSI:
             return RishkaSyscall::WiFiDev::rssi();
 
+        case RISHKA_SC_WIFI_SET_LOCAL_IP:
+            return RishkaSyscall::WiFiDev::set_local_ip(this);
+
+        case RISHKA_SC_WIFI_SET_GATEWAY_IP:
+            return RishkaSyscall::WiFiDev::set_gateway_ip(this);
+
         case RISHKA_SC_RT_STRPASS:
             return RishkaSyscall::Runtime::strpass();
 
