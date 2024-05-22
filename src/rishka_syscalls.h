@@ -195,9 +195,6 @@ enum rishka_syscall {
 
     RISHKA_SC_WIFI_CONNECT, ///< Start the WiFi connection
     RISHKA_SC_WIFI_RECONNECT, ///< Attempt to reconnect
-    RISHKA_SC_WIFI_SET_DNS, ///< Set DNS specified by 0 or 1
-    RISHKA_SC_WIFI_BANDWIDTH, ///< Specify the bandwidth (20 or 40)
-    RISHKA_SC_WIFI_DISCONNECT_ASYNC, ///< Asynchronously disconnect
     RISHKA_SC_WIFI_DISCONNECT, ///< Disconnect the WiFi
     RISHKA_SC_WIFI_ERASE_AP, ///< Erase current access point
     RISHKA_SC_WIFI_IS_CONNECTED, ///< Check is has established connection(s)
@@ -211,6 +208,7 @@ enum rishka_syscall {
     RISHKA_SC_WIFI_SSID, ///< Get WiFi service set identifier
     RISHKA_SC_WIFI_PSK, ///< Get WiFi pre-shared key
     RISHKA_SC_WIFI_BSSID, ///< Get the basic service set identifier
+    RISHKA_SC_WIFI_RSSI, ///< WiFi received signal strength indicator
     RISHKA_SC_WIFI_SET_LOCAL_IP, ///< Set the local IP address
     RISHKA_SC_WIFI_GET_LOCAL_IP, ///< Get the local IP address
     RISHKA_SC_WIFI_SET_GATEWAY_IP, ///< Set the gateway IP
@@ -540,6 +538,30 @@ public:
         static bool has_wifi_config(RishkaVM* vm);
         static bool set_wifi_ssid(RishkaVM* vm);
         static bool set_wifi_passkey(RishkaVM* vm);
+    };
+
+    class WiFiDev final {
+    public:
+        static bool connect(RishkaVM* vm);
+        static bool reconnect();
+        static bool disconnect(RishkaVM* vm);
+
+        static bool erase_ap();
+        static bool is_connected();
+        static bool set_autoreconnect(RishkaVM* vm);
+        static bool is_autoreconnect();
+
+        static uint8_t wait_for_result(RishkaVM* vm);
+
+        static void set_min_security(RishkaVM* vm);
+        static void set_scan_method(RishkaVM* vm);
+        static void set_sort_method(RishkaVM* vm);
+
+        static uint8_t status();
+        static uint32_t ssid();
+        static uint32_t psk();
+        static uint32_t bssid();
+        static int8_t rssi();
     };
 
     /**
