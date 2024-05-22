@@ -562,6 +562,16 @@ public:
         static uint32_t psk();
         static uint32_t bssid();
         static int8_t rssi();
+
+        static bool set_local_ip(RishkaVM* vm);
+        static bool set_gateway_ip(RishkaVM* vm);
+        static bool set_subnet_mask(RishkaVM* vm);
+        static bool set_dns_ip(RishkaVM* vm);
+
+        static uint32_t get_local_ip(RishkaVM* vm);
+        static uint32_t get_gateway_ip(RishkaVM* vm);
+        static uint32_t get_subnet_mask(RishkaVM* vm);
+        static uint32_t get_dns_ip(RishkaVM* vm);
     };
 
     /**

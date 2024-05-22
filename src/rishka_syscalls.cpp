@@ -1140,6 +1140,46 @@ int8_t RishkaSyscall::WiFiDev::rssi() {
     return WiFi.RSSI();
 }
 
+bool RishkaSyscall::WiFiDev::set_local_ip(RishkaVM* vm) {
+    auto localIP = vm->getPointerParam<char*>(0);
+
+    IPAddress addr;
+    addr.fromString(localIP);
+
+    IPAddress gateway = WiFi.gatewayIP(),
+        subnet = WiFi.subnetMask(),
+        dns1 = WiFi.dnsIP(0),
+        dns2 = WiFi.dnsIP(1);
+
+    return WiFi.config(
+        addr,
+        gateway,
+        subnet,
+        dns1,
+        dns2
+    );
+}
+
+bool RishkaSyscall::WiFiDev::set_gateway_ip(RishkaVM* vm) {
+    auto gatewayIP = vm->getPointerParam<char*>(0);
+
+    IPAddress addr;
+    addr.fromString(gatewayIP);
+
+    IPAddress localIP = WiFi.localIP(),
+        subnet = WiFi.subnetMask(),
+        dns1 = WiFi.dnsIP(0),
+        dns2 = WiFi.dnsIP(1);
+
+    return WiFi.config(
+        localIP,
+        addr,
+        subnet,
+        dns1,
+        dns2
+    );
+}
+
 char RishkaSyscall::Runtime::strpass() {
     return strpass_data.charAt(strpass_idx++);
 }
