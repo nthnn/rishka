@@ -39,6 +39,7 @@ var searchData=
   ['term_5fstyle_5fnormal_36',['TERM_STYLE_NORMAL',['../dc/dac/io_8h.html#a41b83c18bcf97d8a6f1435338edc48ae',1,'io.h']]],
   ['term_5fstyle_5funderlined_37',['TERM_STYLE_UNDERLINED',['../dc/dac/io_8h.html#aed34f25a777e0abd633ac6852396ac61',1,'io.h']]],
   ['tone_38',['tone',['../d4/d79/classGpio.html#a8a0d3d33137cc027d570b4e22197abe6',1,'Gpio']]],
-  ['true_39',['true',['../d9/d49/types_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7',1,'types.h']]],
-  ['types_2eh_40',['types.h',['../d9/d49/types_8h.html',1,'']]]
+  ['tool_39',['Using rishka-cc tool',['../index.html#autotoc_md4',1,'']]],
+  ['true_40',['true',['../d9/d49/types_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7',1,'types.h']]],
+  ['types_2eh_41',['types.h',['../d9/d49/types_8h.html',1,'']]]
 ];

@@ -8,8 +8,8 @@ var indexSectionsWithContent =
   5: "gips",
   6: "gips",
   7: "fnt",
-  8: "r",
-  9: "r"
+  8: "drs",
+  9: "crs"
 };
 
 var indexSectionNames =

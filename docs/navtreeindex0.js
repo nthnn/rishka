@@ -2,6 +2,7 @@ var NAVTREEINDEX0 =
 {
 "annotated.html":[3,0],
 "classes.html":[3,1],
+"d0/d13/wifi_8h_source.html":[4,0,0,0,0,3],
 "d1/d61/classSys.html":[3,0,12],
 "d3/d51/runtime_8h.html":[4,0,0,0,10],
 "d3/d51/runtime_8h_source.html":[4,0,0,0,10],
@@ -29,6 +30,7 @@ var NAVTREEINDEX0 =
 "d6/d81/classI2C.html":[3,0,5],
 "d6/da0/keyboard_8h.html":[4,0,0,0,0,1],
 "d6/da0/keyboard_8h_source.html":[4,0,0,0,0,1],
+"d6/db5/rt_syscalls.html":[1],
 "d6/dd6/classDisplay.html":[3,0,1],
 "d6/dd8/classRuntime.html":[3,0,11],
 "d6/de4/librishka_8h.html":[4,0,0,1],
@@ -44,7 +46,6 @@ var NAVTREEINDEX0 =
 "d7/dde/devices_8h.html#aa32bfd3732098892fc798e735dca1ed5afd335beb866fcfc8baf710cc327c5e46":[4,0,0,0,2,0,1],
 "d7/dde/devices_8h.html#aa32bfd3732098892fc798e735dca1ed5afe3288db6d8a16b0ac23c2adc0ae19a4":[4,0,0,0,2,0,6],
 "d7/dde/devices_8h_source.html":[4,0,0,0,2],
-"d7/df1/md_misc_pages_system_calls.html":[1],
 "d8/d2f/classInt.html":[3,0,6],
 "d8/d66/classIO.html":[3,0,7],
 "d9/d49/types_8h.html":[4,0,0,0,12],
@@ -193,8 +194,8 @@ var NAVTREEINDEX0 =
 "globals_enum.html":[4,1,2],
 "globals_eval.html":[4,1,3],
 "globals_type.html":[4,1,1],
-"index.html":[0],
 "index.html":[],
-"modules.html":[2],
-"pages.html":[]
+"index.html":[0],
+"pages.html":[],
+"topics.html":[2]
 };
