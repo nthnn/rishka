@@ -25,7 +25,7 @@ jobs:
         run: python3 -m pip install pyserial
 
       - name: Arduino ESP32 Platform Installation
-        run: arduino-cli core install esp32:esp32
+        run: arduino-cli core install esp32:esp32@2.0.15
 
       - name: Download Arduino Dependencies
         run: |
