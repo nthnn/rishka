@@ -1047,14 +1047,13 @@ bool RishkaSyscall::WiFiDev::connect(RishkaVM* vm) {
     auto passkey = vm->getPointerParam<char*>(1);
     auto channel = vm->getParam<int32_t>(2);
     auto bssid = vm->getPointerParam<uint8_t*>(3);
-    auto connect = vm->getParam<bool>(4);
 
     return WiFi.begin(
         (const char*) ssid,
         (const char*) passkey,
         channel,
         (uint8_t*) bssid,
-        connect
+        true
     );
 }
 
