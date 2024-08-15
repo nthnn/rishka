@@ -5,8 +5,7 @@ var searchData=
   ['end_5ftransmission_2',['end_transmission',['../d6/d81/classI2C.html#ab97f800da8984950786e25bb3438b2c3',1,'I2C']]],
   ['erase_3',['erase',['../df/dbb/classNVS.html#a000b212a76550c21608c79d4fe5e9078',1,'NVS']]],
   ['erase_5fall_4',['erase_all',['../df/dbb/classNVS.html#a57732833588d99b6c94684ebb6398810',1,'NVS']]],
-  ['example_5',['Example',['../index.html#autotoc_md7',1,'']]],
-  ['examples_6',['Compiling Examples',['../index.html#autotoc_md3',1,'']]],
-  ['exists_7',['exists',['../d6/df3/classFS.html#a50e58cb0b40d25d72664e7da9a3c2f02',1,'FS']]],
-  ['exit_8',['exit',['../d1/d61/classSys.html#a37cb3000f2181139f80d856a5ee4577e',1,'Sys']]]
+  ['erase_5fap_5',['erase_ap',['../d2/dd1/classWiFi.html#adc65db4a9e54fedf13b5277d3c444b73',1,'WiFi']]],
+  ['exists_6',['exists',['../d6/df3/classFS.html#a50e58cb0b40d25d72664e7da9a3c2f02',1,'FS']]],
+  ['exit_7',['exit',['../d1/d61/classSys.html#a37cb3000f2181139f80d856a5ee4577e',1,'Sys']]]
 ];

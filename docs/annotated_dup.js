@@ -12,5 +12,6 @@ var annotated_dup =
     [ "Memory", "da/dc6/classMemory.html", null ],
     [ "NVS", "df/dbb/classNVS.html", null ],
     [ "Runtime", "d6/dd8/classRuntime.html", null ],
-    [ "Sys", "d1/d61/classSys.html", null ]
+    [ "Sys", "d1/d61/classSys.html", null ],
+    [ "WiFi", "d2/dd1/classWiFi.html", null ]
 ];

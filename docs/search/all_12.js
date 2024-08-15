@@ -5,6 +5,5 @@ var searchData=
   ['u64_2',['u64',['../d9/d49/types_8h.html#ad9a16e74d880983f276dce5b0344b8bd',1,'types.h']]],
   ['u8_3',['u8',['../d9/d49/types_8h.html#ab9f930ae0484417a1883fd3f7cdb490e',1,'types.h']]],
   ['unlock_4',['unlock',['../dc/dd2/classKeyboard.html#a24e0fbdec030cee4e800ed749541316c',1,'Keyboard']]],
-  ['using_20rishka_20cc_20tool_5',['Using rishka-cc tool',['../index.html#autotoc_md4',1,'']]],
-  ['usize_6',['usize',['../d9/d49/types_8h.html#adcb5ace4cccb93f392414ee472be10bc',1,'types.h']]]
+  ['usize_5',['usize',['../d9/d49/types_8h.html#adcb5ace4cccb93f392414ee472be10bc',1,'types.h']]]
 ];

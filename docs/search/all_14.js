@@ -1,6 +1,28 @@
 var searchData=
 [
-  ['work_0',['How Does It Work?',['../index.html#autotoc_md0',1,'']]],
-  ['working_5fdir_1',['working_dir',['../d1/d61/classSys.html#a6d0cf6e60dc396daf2abeb16fcde354f',1,'Sys']]],
-  ['write_2',['write',['../db/d30/classFile.html#ac065242f8bd9d850b7f716a73b12e612',1,'File::write(u8 data)'],['../db/d30/classFile.html#a84030c5504e3c43019b9cbf1921c5017',1,'File::write(string data)'],['../d6/d81/classI2C.html#aaafc8ae639dbffba5582b3e866428cca',1,'I2C::write()']]]
+  ['wait_5ffor_5fresult_0',['wait_for_result',['../d2/dd1/classWiFi.html#ad07bcfed00707dfdb5fb65fb653b7f00',1,'WiFi']]],
+  ['wifi_1',['WiFi',['../d2/dd1/classWiFi.html',1,'']]],
+  ['wifi_2eh_2',['wifi.h',['../d0/d13/wifi_8h.html',1,'']]],
+  ['wifi_5fall_5fchannel_5fscan_3',['WIFI_ALL_CHANNEL_SCAN',['../d0/d13/wifi_8h.html#a90af02961804b2393b93e1ab36af6a88aca5d405c5a1162a81bcc91626e226c7c',1,'wifi.h']]],
+  ['wifi_5fauth_5fenterprise_4',['WIFI_AUTH_ENTERPRISE',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147a22a1921ddfe69fff9bf4f2e69f4d5931',1,'wifi.h']]],
+  ['wifi_5fauth_5fmax_5',['WIFI_AUTH_MAX',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147a44c573528e9b9bbd04bd0057c9639d04',1,'wifi.h']]],
+  ['wifi_5fauth_5fopen_6',['WIFI_AUTH_OPEN',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147aec99578e47621f4bcafebeab1682b451',1,'wifi.h']]],
+  ['wifi_5fauth_5fwapi_5fpsk_7',['WIFI_AUTH_WAPI_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147accafe8378b61f06131ca7af3626193d4',1,'wifi.h']]],
+  ['wifi_5fauth_5fwep_8',['WIFI_AUTH_WEP',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147abb9264f7eafe40e9c304dfaf3d431ae3',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa2_5fenterprise_9',['WIFI_AUTH_WPA2_ENTERPRISE',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147acfd0aa8f654079e9411e94bf1972a1af',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa2_5fpsk_10',['WIFI_AUTH_WPA2_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147a6c34d5d67f8144715aac350a3d332b93',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa2_5fwpa3_5fpsk_11',['WIFI_AUTH_WPA2_WPA3_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147ab4d3d50badba1299682125a1a142c4b1',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa3_5fent_5f192_12',['WIFI_AUTH_WPA3_ENT_192',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147a97a9d1ac8b4be432aaa3b3c045b8e24b',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa3_5fpsk_13',['WIFI_AUTH_WPA3_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147a31861ed3dfabddf0b519925ad9e3f275',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa_5fpsk_14',['WIFI_AUTH_WPA_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147adc0fa6f688742d65b06606fec7f46a6a',1,'wifi.h']]],
+  ['wifi_5fauth_5fwpa_5fwpa2_5fpsk_15',['WIFI_AUTH_WPA_WPA2_PSK',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147aa45844e4cdab1e3fb8f4e68bbeae60be',1,'wifi.h']]],
+  ['wifi_5fconnect_5fap_5fby_5fsecurity_16',['WIFI_CONNECT_AP_BY_SECURITY',['../d0/d13/wifi_8h.html#a60d8adf06f0be6e1e3ced8b7512bbf57a0809a6c19fb35a558fad534064be8b8b',1,'wifi.h']]],
+  ['wifi_5fconnect_5fap_5fby_5fsignal_17',['WIFI_CONNECT_AP_BY_SIGNAL',['../d0/d13/wifi_8h.html#a60d8adf06f0be6e1e3ced8b7512bbf57a96bc66950431dfdff84037ff99ca3779',1,'wifi.h']]],
+  ['wifi_5ffast_5fscan_18',['WIFI_FAST_SCAN',['../d0/d13/wifi_8h.html#a90af02961804b2393b93e1ab36af6a88af9a45cc42fd648ede01122dd4e386194',1,'wifi.h']]],
+  ['wifiauthmode_19',['WiFiAuthMode',['../d0/d13/wifi_8h.html#a591b8b3bdb1189c174e8690b82ec2147',1,'wifi.h']]],
+  ['wifiscanmethod_20',['WiFiScanMethod',['../d0/d13/wifi_8h.html#a90af02961804b2393b93e1ab36af6a88',1,'wifi.h']]],
+  ['wifisortmethod_21',['WiFiSortMethod',['../d0/d13/wifi_8h.html#a60d8adf06f0be6e1e3ced8b7512bbf57',1,'wifi.h']]],
+  ['wifistatus_22',['WiFiStatus',['../d0/d13/wifi_8h.html#ad190cd13ffa314c9832effb29419e276',1,'wifi.h']]],
+  ['working_5fdir_23',['working_dir',['../d1/d61/classSys.html#a6d0cf6e60dc396daf2abeb16fcde354f',1,'Sys']]],
+  ['write_24',['write',['../db/d30/classFile.html#ac065242f8bd9d850b7f716a73b12e612',1,'File::write(u8 data)'],['../db/d30/classFile.html#a84030c5504e3c43019b9cbf1921c5017',1,'File::write(string data)'],['../d6/d81/classI2C.html#aaafc8ae639dbffba5582b3e866428cca',1,'I2C::write()']]]
 ];

@@ -5,9 +5,11 @@ var searchData=
   ['readch_2',['readch',['../d8/d66/classIO.html#abd2fd0dfb704cad591e256cb8074f5b2',1,'IO']]],
   ['readline_3',['readline',['../d8/d66/classIO.html#a9d4ca0746e40c8b8f37c1c06c3c5d411',1,'IO']]],
   ['realloc_4',['realloc',['../da/dc6/classMemory.html#a3e9d2d0b88206c957064db0357403a13',1,'Memory']]],
-  ['remove_5',['remove',['../d6/df3/classFS.html#a56dffad802b44bcfee0fa5a571268ded',1,'FS']]],
-  ['request_6',['request',['../d6/d81/classI2C.html#adc8abfb1f98c8c43ef5cd8f1f944fcb2',1,'I2C']]],
-  ['reset_7',['reset',['../dc/dd2/classKeyboard.html#a765a73cd072fcad73db2d1d9824e7595',1,'Keyboard']]],
-  ['rewind_8',['rewind',['../db/d30/classFile.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
-  ['rmdir_9',['rmdir',['../d6/df3/classFS.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]]
+  ['reconnect_5',['reconnect',['../d2/dd1/classWiFi.html#a64f5d2b92af59b1244341c034bfff6a3',1,'WiFi']]],
+  ['remove_6',['remove',['../d6/df3/classFS.html#a56dffad802b44bcfee0fa5a571268ded',1,'FS']]],
+  ['request_7',['request',['../d6/d81/classI2C.html#adc8abfb1f98c8c43ef5cd8f1f944fcb2',1,'I2C']]],
+  ['reset_8',['reset',['../dc/dd2/classKeyboard.html#a765a73cd072fcad73db2d1d9824e7595',1,'Keyboard']]],
+  ['rewind_9',['rewind',['../db/d30/classFile.html#a80c6611e0e9e89f45307f7606e643cfa',1,'File']]],
+  ['rmdir_10',['rmdir',['../d6/df3/classFS.html#a24f4d7fe44e698f6467ce673be778de5',1,'FS']]],
+  ['rssi_11',['rssi',['../d2/dd1/classWiFi.html#a83af3bc62cd31e33a20b1df363c23cc2',1,'WiFi']]]
 ];

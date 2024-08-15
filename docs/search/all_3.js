@@ -7,9 +7,7 @@ var searchData=
   ['digital_5fread_4',['digital_read',['../d4/d79/classGpio.html#a6cbd8fc2e5dabfd76389f78155643a39',1,'Gpio']]],
   ['digital_5fwrite_5',['digital_write',['../d4/d79/classGpio.html#a823fe9134bbf4a359247e8018d01ff23',1,'Gpio']]],
   ['disable_6',['disable',['../d8/d2f/classInt.html#a68ab519107cb53ab894235d0dd417f2d',1,'Int']]],
-  ['display_7',['Display',['../d6/dd6/classDisplay.html',1,'']]],
-  ['display_2eh_8',['display.h',['../d4/d68/display_8h.html',1,'']]],
-  ['does_20it_20work_9',['How Does It Work?',['../index.html#autotoc_md0',1,'']]],
-  ['drivers_20sdk_10',['Rishka Drivers SDK',['../de/daf/group__Rishka__Drivers__SDK.html',1,'']]],
-  ['dumping_20raw_20binaries_11',['Dumping Raw Binaries',['../index.html#autotoc_md6',1,'']]]
+  ['disconnect_7',['disconnect',['../d2/dd1/classWiFi.html#ad3fa9ff38f130dd8f86adb2fbb54802f',1,'WiFi']]],
+  ['display_8',['Display',['../d6/dd6/classDisplay.html',1,'']]],
+  ['display_2eh_9',['display.h',['../d4/d68/display_8h.html',1,'']]]
 ];
